@@ -33,3 +33,6 @@ function App() {
 }
 
 export default App
+
+// url: http://api.relay.cleverse.academy/test
+// body: {"status": "ok"}

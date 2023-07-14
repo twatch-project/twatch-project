@@ -9,3 +9,72 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  CUSTOMER
+  COMPANY
+}
+
+enum Tag {
+  minimalModern
+  contemporaryModern
+  modernStyle
+  midCenturyModern
+  modernLuxury
+  vintageStyle
+  loftIndustralStyle
+  scandinavianStyle
+  artDeco
+  mixAndMatch
+}
+
+enum Gender {
+  male
+  female
+  unSpecified
+}
+
+model User {
+  userId        String @id @default(uuid())
+  username      String @unique
+  password      String
+  role          Role
+  email         String
+  registeredAt  DateTime
+
+  company       Company[]
+  customer      Customer[]
+}
+
+model Company {
+  companyId       Int @id @default(autoincrement())
+  companyname     String
+  companypersonId Int
+  address         String
+  sub_district    String
+  district        String
+  province        String
+  contact         String
+  rateprice       Int
+  tag             Tag
+
+  userCompany     User @relation(fields: [userId], references: [userId])
+  userId          String
+} 
+
+model Customer {
+  customerId      Int @id @default(autoincrement())
+  firstname       String
+  lastname        String
+  gender          Gender
+  dateOfBirth     DateTime
+  citizenId       Int
+  province        String 
+  district        String
+  sub_district    String
+  address         String
+  contact         String
+
+  userCustomer    User @relation(fields: [userId],references: [userId])
+  userId          String
+}
