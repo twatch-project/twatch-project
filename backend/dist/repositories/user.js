@@ -10,9 +10,13 @@ class RepositoryUser {
         this.db = db;
     }
     async createUser(user) {
-        return await this.db.user.create({
-            data: user,
-        });
+        return await this.db.user.create({ data: user });
+    }
+    async getUserByUsername(username) {
+        return await this.db.user.findUnique({ where: { username } });
+    }
+    async getId(userId) {
+        return await this.db.user.findUnique({ where: { userId } });
     }
 }
 //# sourceMappingURL=user.js.map

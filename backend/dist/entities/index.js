@@ -1,14 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mapRole = void 0;
+exports.mapGender = exports.mapRole = void 0;
 var Role;
 (function (Role) {
     Role["CUSTOMER"] = "CUSTOMER";
     Role["COMPANY"] = "COMPANY";
 })(Role || (Role = {}));
-console.log(typeof Role);
 function mapRole(role) {
     return role;
 }
 exports.mapRole = mapRole;
+//Enum gender
+var Gender;
+(function (Gender) {
+    Gender["MALE"] = "MALE";
+    Gender["FEMALE"] = "FEMALE";
+    Gender["UNSPECIFUED"] = "UNSPECIFUED";
+})(Gender || (Gender = {}));
+function mapGender(gender) {
+    return gender;
+}
+exports.mapGender = mapGender;
 //# sourceMappingURL=index.js.map
