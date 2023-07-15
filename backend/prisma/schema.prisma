@@ -67,7 +67,7 @@ model Customer {
   firstname       String
   lastname        String
   gender          Gender
-  dateOfBirth     String
+  dateOfBirth     DateTime @db.Date
   citizenId       String @unique
   province        String 
   district        String
