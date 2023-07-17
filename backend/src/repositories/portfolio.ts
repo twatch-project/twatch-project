@@ -63,7 +63,7 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
         district: arg.district,
         province: arg.province,
         postCode: arg.postCode,
-        // updateAt: arg.updateAt,
+        updateAt: arg.updateAt,
       },
     });
   }

@@ -106,6 +106,7 @@ class HandlerUser implements IHandlerUser {
           username: user.username,
           role: user.role,
         };
+        console.log("user role", user.role);
         const token = newJwt(payload);
 
         return res.status(200).json({

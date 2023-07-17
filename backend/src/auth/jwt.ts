@@ -66,8 +66,6 @@ class HandlerMiddleware implements IHandlerMiddleware {
         role: role,
       };
 
-      console.log("from jwt", req.payload.id);
-
       return next();
     } catch (err) {
       console.error(`Auth failed for token ${token}: ${err}`);
