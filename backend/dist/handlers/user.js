@@ -70,7 +70,11 @@ class HandlerUser {
             if (!(0, bcrypts_1.compareHash)(password, user.password)) {
                 return res.status(401).json({ error: `invalid credentail` });
             }
-            const payload = { id: user.userId, username: user.username };
+            const payload = {
+                id: user.userId,
+                username: user.username,
+                role: user.role,
+            };
             const token = (0, jwt_1.newJwt)(payload);
             return res.status(200).json({
                 status: "logined",

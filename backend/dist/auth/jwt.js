@@ -37,10 +37,12 @@ class HandlerMiddlerware {
             const decoded = jsonwebtoken_1.default.verify(token, secret);
             const id = decoded["id"];
             const username = decoded["username"];
+            const role = decoded["role"];
             req.token = token;
             req.payload = {
                 id: id,
                 username: username,
+                role: role,
             };
             return next();
         }

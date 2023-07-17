@@ -21,6 +21,7 @@ class HandlerCustomer {
         }
         const covertDateOfBirth = new Date(dateOfBirth[0], dateOfBirth[1], dateOfBirth[2]); // (year , mouth 0-11 , day 0-30)
         const userId = req.payload.id;
+        console.log("user id ", userId);
         const customerInfo = {
             firstname,
             lastname,
@@ -40,9 +41,7 @@ class HandlerCustomer {
         }
         catch (err) {
             console.error(err);
-            return res
-                .status(500)
-                .json({ err: `Can't Create customer ${err}` });
+            return res.status(500).json({ err: `Can't Create customer ${err}` });
         }
     }
     async getCustomerId(req, res) {
@@ -68,6 +67,19 @@ class HandlerCustomer {
             return res
                 .status(500)
                 .json({ err: ` Can get Customer By id Err : ${err}` })
+                .end();
+        }
+    }
+    async getCustomers(_, res) {
+        try {
+            const getAllCustomer = await this.repo.getDetailCustomers();
+            return res.status(200).json(getAllCustomer).end();
+        }
+        catch (err) {
+            console.error(err);
+            return res
+                .status(500)
+                .json({ msg: `Can't get all Customer err : ${err}` })
                 .end();
         }
     }

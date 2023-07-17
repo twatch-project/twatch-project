@@ -11,49 +11,47 @@ export type HandlerFunc<Req> = (req: Req, res: Response) => Promise<Response>;
 
 // User
 export interface WithUser {
-    username: string;
-    password: string;
-    role: UserRole;
-    email: string;
-    registeredAt: Date;
+  username: string;
+  password: string;
+  role: UserRole;
+  email: string;
+  registeredAt: Date;
 }
 
 export interface WithIdCustomer {
-    id: number;
+  id: number;
 }
 
 export interface IHandlerUser {
-    logout(req: JwtAuthRequest<Empty, Empty>, res: Response): Promise<Response>;
-    login(req: AppRequest<Empty, WithUser>, res: Response): Promise<Response>;
-    register(
-        req: AppRequest<Empty, WithUser>,
-        res: Response,
-    ): Promise<Response>;
-    getId(req: JwtAuthRequest<Empty, Empty>, res: Response): Promise<Response>;
+  logout(req: JwtAuthRequest<Empty, Empty>, res: Response): Promise<Response>;
+  login(req: AppRequest<Empty, WithUser>, res: Response): Promise<Response>;
+  register(req: AppRequest<Empty, WithUser>, res: Response): Promise<Response>;
+  getId(req: JwtAuthRequest<Empty, Empty>, res: Response): Promise<Response>;
 }
 
 //HandlerCustomer
 export interface WithCustomer {
-    firstname: string;
-    lastname: string;
-    gender: Gender;
-    dateOfBirth: Date;
-    citizenId: string;
-    province: string;
-    district: string;
-    sub_district: string;
-    address: string;
-    contact: string;
-    userId: string;
+  firstname: string;
+  lastname: string;
+  gender: Gender;
+  dateOfBirth: Date;
+  citizenId: string;
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+  contact: string;
+  userId: string;
 }
 
 export interface IHandlerCustomer {
-    createCustomer(
-        req: JwtAuthRequest<Empty, WithCustomer>,
-        res: Response,
-    ): Promise<Response>;
-    getCustomerId(
-        req: JwtAuthRequest<WithIdCustomer, Empty>,
-        res: Response,
-    ): Promise<Response>;
+  createCustomer(
+    req: JwtAuthRequest<Empty, WithCustomer>,
+    res: Response,
+  ): Promise<Response>;
+  getCustomerId(
+    req: JwtAuthRequest<WithIdCustomer, Empty>,
+    res: Response,
+  ): Promise<Response>;
+  getCustomers(_: Request, res: Response): Promise<Response>;
 }

@@ -30,5 +30,8 @@ class RepositoryCustomer {
             },
         });
     }
+    async getDetailCustomers() {
+        return await this.db.customer.findMany({});
+    }
 }
 //# sourceMappingURL=customer.js.map
