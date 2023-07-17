@@ -79,4 +79,26 @@ export interface WithPortAndCompanyId extends WithCompanyId {
   portId: number;
 }
 
-export interface IHandlerPorfolio {}
+export interface IHandlerPorfolio {
+  createPortfolio(
+    req: JwtAuthRequest<Request, WithPort>,
+    res: Response
+  ): Promise<Response>;
+  getPorts(_, res: Response): Promise<Response>;
+  getPortById(
+    req: JwtAuthRequest<WithPortId, WithPort>,
+    res: Response
+  ): Promise<Response>;
+  getCompanyPorts(
+    req: JwtAuthRequest<Empty, Empty>,
+    res: Response
+  ): Promise<Response>;
+  updatePort(
+    req: JwtAuthRequest<WithPortId, WithPort>,
+    res: Response
+  ): Promise<Response>;
+  deletePortById(
+    req: JwtAuthRequest<WithPortId, WithPort>,
+    res: Response
+  ): Promise<Response>;
+}
