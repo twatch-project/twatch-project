@@ -16,22 +16,22 @@ enum Role {
 }
 
 enum Tag {
-  minimalModern
-  contemporaryModern
-  modernStyle
-  midCenturyModern
-  modernLuxury
-  vintageStyle
-  loftIndustralStyle
-  scandinavianStyle
-  artDeco
-  mixAndMatch
+  MINIMALMODERN
+  CONTEMPORARYMODERN
+  MODERNLUXURY
+  MODERNSTYLE
+  MIDCENTURYMODERN
+  VINTAGESTYLE
+  LOFTINDUSTRALSTYLE
+  SCANDINAVIANSTYLE
+  ARTDECO
+  MIXANDMATCH
 }
 
 enum Gender {
-  male
-  female
-  unSpecified
+  MALE
+  FEMALE
+  UNSPECIFIED
 }
 
 model User {
@@ -40,41 +40,73 @@ model User {
   password      String
   role          Role
   email         String
-  registeredAt  DateTime
+  registeredAt  DateTime @default(now())
 
   company       Company[]
   customer      Customer[]
 }
 
 model Company {
-  companyId       Int @id @default(autoincrement())
-  companyname     String
-  companypersonId Int
-  address         String
-  sub_district    String
-  district        String
-  province        String
-  contact         String
-  rateprice       Int
-  tag             Tag
+  companyId           Int @id @default(autoincrement())
+  companyName         String
+  companyRegistration String
+  address             String
+  sub_district        String
+  district            String
+  province            String
+  postCode            Int
+  contact             String
+  // rateprice           Int
+  tag                 Tag
 
   userCompany     User @relation(fields: [userId], references: [userId])
-  userId          String
+  userId          String @unique
+
+  // engineer        Engineer[]
+  // portfolio       Portfolio[]
 } 
+
+// model Engineer {
+//   engineerId  Int @id @default(autoincrement())
+//   role        String
+//   firstname   String
+//   lastname    String
+//   licenseNo   String @unique
+
+//   company     Company @relation(fields: [companyId],references: [companyId])
+//   companyId   Int
+// }
+
+// model Portfolio {
+//   portId        Int @id @default(autoincrement())
+//   title         String
+//   body          String
+//   tag           Tag
+//   province      String 
+//   district      String
+//   sub_district  String
+//   address       String
+//   postCode      Int
+//   createAt      DateTime
+//   updateAt      DateTime
+
+//   postedBy      Company @relation(fields: [companyId],references: [companyId])
+//   companyId     Int
+// }
 
 model Customer {
   customerId      Int @id @default(autoincrement())
   firstname       String
   lastname        String
   gender          Gender
-  dateOfBirth     DateTime
-  citizenId       Int
+  dateOfBirth     DateTime @db.Date
+  citizenId       String @unique
   province        String 
   district        String
-  sub_district    String
+  sub_district    String  
   address         String
   contact         String
 
   userCustomer    User @relation(fields: [userId],references: [userId])
-  userId          String
+  userId          String @unique
 }
