@@ -1,7 +1,13 @@
 import { Response } from "express";
 import { IRepositoryCustomer } from "../repositories";
 import { JwtAuthRequest } from "../auth";
-import { Empty, IHandlerCustomer, WithCustomer, WithIdCustomer } from ".";
+import {
+  Empty,
+  IHandlerCustomer,
+  WithCustomer,
+  WithIdCustomer,
+  WithUpdateCustomer,
+} from ".";
 
 export function newHandlerCustomer(
   repo: IRepositoryCustomer,
@@ -108,6 +114,50 @@ class HandlerCustomer implements IHandlerCustomer {
       return res
         .status(500)
         .json({ msg: `Can't get all Customer err : ${err}` })
+        .end();
+    }
+  }
+
+  async updateCustomer(
+    req: JwtAuthRequest<WithIdCustomer, WithUpdateCustomer>,
+    res: Response,
+  ): Promise<Response> {
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res
+        .status(500)
+        .json({ err: `Not Found Customer id is ${id}` })
+        .end();
+    }
+    const {
+      firstname,
+      lastname,
+      gender,
+      province,
+      district,
+      sub_district,
+      address,
+      contact,
+    } = req.body;
+    try {
+      const isUpdate = await this.repo.updateCustomerById({
+        firstname,
+        lastname,
+        gender,
+        province,
+        district,
+        sub_district,
+        address,
+        contact,
+        id: id,
+        userId: req.payload.id,
+      });
+      return res.status(200).json(isUpdate).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ err: `Can't Update ${err}` })
         .end();
     }
   }

@@ -1,4 +1,10 @@
-import { ICreateUser, ICreateCustomer, ICustomer, IUser } from "../entities";
+import {
+  ICreateUser,
+  ICreateCustomer,
+  ICustomer,
+  IUser,
+  IUpdateCustomer,
+} from "../entities";
 
 export interface IRepositoryBlacklist {
   addToBlackList(token: string): Promise<void>;
@@ -16,4 +22,5 @@ export interface IRepositoryCustomer {
   createCustomer(arg: ICreateCustomer): Promise<ICustomer>;
   getCustomerById(id: number): Promise<ICustomer | null>;
   getDetailCustomers(): Promise<ICustomer[]>;
+  updateCustomerById(msg: IUpdateCustomer): Promise<ICustomer>;
 }

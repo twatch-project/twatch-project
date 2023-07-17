@@ -53,6 +53,7 @@ async function main() {
     userRouter.post("/customer", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerCustomer.createCustomer.bind(handlerCustomer));
     userRouter.get("/customer/:id", handlerCustomer.getCustomerId.bind(handlerCustomer));
     userRouter.get("/customer", handlerCustomer.getCustomers.bind(handlerCustomer));
+    userRouter.patch("/customer/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerCustomer.updateCustomer.bind(handlerCustomer));
     // server
     server.listen(port, () => console.log(`server listening on ${port}`));
 }

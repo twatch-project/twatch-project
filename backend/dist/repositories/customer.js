@@ -33,5 +33,32 @@ class RepositoryCustomer {
     async getDetailCustomers() {
         return await this.db.customer.findMany({});
     }
+    async updateCustomerById(msg) {
+        const customerId = await this.db.customer.findUnique({
+            where: {
+                customerId: msg.id,
+            },
+        });
+        if (!customerId) {
+            return Promise.reject(`Not found customer Id number ${customerId}`);
+        }
+        if (msg.userId !== customerId.userId) {
+            return Promise.reject(`Can't Not Update Id not match`);
+        }
+        return await this.db.customer.update({
+            where: {
+                customerId: customerId.customerId,
+            },
+            data: {
+                firstname: msg.firstname,
+                lastname: msg.lastname,
+                gender: msg.gender,
+                province: msg.province,
+                sub_district: msg.sub_district,
+                address: msg.address,
+                contact: msg.contact,
+            },
+        });
+    }
 }
 //# sourceMappingURL=customer.js.map

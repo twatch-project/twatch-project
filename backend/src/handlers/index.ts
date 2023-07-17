@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { JwtAuthRequest } from "../auth";
-import { UserRole } from "../entities";
+import { GenderType, UserRole } from "../entities";
 import { Gender } from "@prisma/client";
 
 export interface AppRequest<Params, Body> extends Request<Params, any, Body> {}
@@ -20,6 +20,17 @@ export interface WithUser {
 
 export interface WithIdCustomer {
   id: number;
+}
+
+export interface WithUpdateCustomer {
+  firstname: string;
+  lastname: string;
+  gender: GenderType;
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+  contact: string;
 }
 
 export interface IHandlerUser {
@@ -54,4 +65,8 @@ export interface IHandlerCustomer {
     res: Response,
   ): Promise<Response>;
   getCustomers(_: Request, res: Response): Promise<Response>;
+  updateCustomer(
+    req: JwtAuthRequest<WithIdCustomer, WithUpdateCustomer>,
+    res: Response,
+  ): Promise<Response>;
 }
