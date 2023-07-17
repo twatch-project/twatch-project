@@ -26,7 +26,7 @@ export function mapRole(role: Role): UserRole {
 enum Gender {
     MALE = "MALE",
     FEMALE = "FEMALE",
-    UNSPECIFUED = "UNSPECIFUED",
+    UNSPECIFIED = "UNSPECIFIED",
 }
 
 export type GenderType = keyof typeof Gender;
@@ -35,12 +35,13 @@ export function mapGender(gender: Gender): GenderType {
     return gender;
 }
 //interface for Repocustomer
-export interface ICreatecustomer {
+export interface ICreateCustomer {
+    userId: string;
     firstname: string;
     lastname: string;
-    gender: Gender;
-    dateOfBirth: string;
-    citizenId: number;
+    gender: GenderType;
+    dateOfBirth: Date;
+    citizenId: string;
     province: string;
     district: string;
     sub_district: string;
@@ -48,6 +49,6 @@ export interface ICreatecustomer {
     contact: string;
 }
 
-export interface ICustomer extends ICreatecustomer {
+export interface ICustomer extends ICreateCustomer {
     customerId: number;
 }

@@ -1,6 +1,12 @@
 import { PrismaClient } from "@prisma/client";
-import { ICreatecustomer, ICustomer } from "../entities";
+import { ICreateCustomer, ICustomer } from "../entities";
+import { IRepositoryCustomer } from ".";
 
+export function newRepositoryCustomer(
+    prisma: PrismaClient,
+): IRepositoryCustomer {
+    return new RepositoryCustomer(prisma);
+}
 class RepositoryCustomer {
     private db: PrismaClient;
 
@@ -9,10 +15,16 @@ class RepositoryCustomer {
     }
 
     //Send Request arg for create customer detail to database
-    async createCustomer(arg: ICreatecustomer): Promise<ICustomer> {
+    async createCustomer(arg: ICreateCustomer): Promise<ICustomer> {
         return await this.db.customer.create({
             data: {
                 ...arg,
+                userId: undefined,
+                userCustomer: {
+                    connect: {
+                        userId: arg.userId,
+                    },
+                },
             },
         });
     }

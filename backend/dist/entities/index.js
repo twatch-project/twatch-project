@@ -15,7 +15,7 @@ var Gender;
 (function (Gender) {
     Gender["MALE"] = "MALE";
     Gender["FEMALE"] = "FEMALE";
-    Gender["UNSPECIFUED"] = "UNSPECIFUED";
+    Gender["UNSPECIFIED"] = "UNSPECIFIED";
 })(Gender || (Gender = {}));
 function mapGender(gender) {
     return gender;

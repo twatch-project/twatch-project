@@ -74,7 +74,8 @@ model Customer {
   sub_district    String
   address         String
   contact         String
+  postCode        number
 
   userCustomer    User @relation(fields: [userId],references: [userId])
-  userId          String
+  userId          String @unique
 }
