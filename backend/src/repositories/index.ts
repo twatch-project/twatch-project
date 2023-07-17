@@ -35,7 +35,7 @@ export interface IRepositoryCompany {
     tag?: Tag;
     userId: string;
   }): Promise<ICompany>;
-  getCompanyId(companyId: number): Promise<ICompany | null>;
+  getCompanyId(userId: string): Promise<ICompany | null>;
 }
 
 export interface IRepositoryPortfolio {
@@ -45,16 +45,16 @@ export interface IRepositoryPortfolio {
   getCompanyPorts(companyId: number): Promise<IPort[]>;
   updatePort(arg: {
     portId: number;
-    title: string;
-    body: string;
-    tag: HomeTag;
-    address: string;
-    sub_district: string;
-    district: string;
-    province: string;
-    postCode: number;
+    title?: string;
+    body?: string;
+    tag?: HomeTag;
+    address?: string;
+    sub_district?: string;
+    district?: string;
+    province?: string;
+    postCode?: number;
     updateAt: Date;
-    createAt: Date;
+    companyId: number;
   }): Promise<IPort>;
   deletePortById(arg: { portId: number; companyId: number }): Promise<IPort>;
 }
