@@ -18,6 +18,11 @@ class HandlerCompany implements IHandlerCompany {
     req: JwtAuthRequest<Request, WithCompany>,
     res: Response
   ): Promise<Response> {
+    const companyRole = req.payload.role;
+    if (companyRole !== "COMPANY") {
+      return res.status(400).json({ error: "not company role" }).end();
+    }
+
     const {
       companyName,
       companyRegistration,
@@ -43,8 +48,6 @@ class HandlerCompany implements IHandlerCompany {
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
-
-    console.log("Hello", req.payload.id);
 
     return this.repo
       .createCompany({
@@ -114,6 +117,11 @@ class HandlerCompany implements IHandlerCompany {
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
     res: Response
   ): Promise<Response> {
+    const companyRole = req.payload.role;
+    if (companyRole !== "COMPANY") {
+      return res.status(400).json({ error: "not company role" }).end();
+    }
+
     const companyId = Number(req.params.companyId);
     // isNaN checks if its arg is NaN
     if (isNaN(companyId)) {

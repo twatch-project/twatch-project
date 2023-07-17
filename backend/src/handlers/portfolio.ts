@@ -29,6 +29,11 @@ class HandlerPortfolio implements IHandlerPorfolio {
     req: JwtAuthRequest<Request, WithPort>,
     res: Response
   ): Promise<Response> {
+    const companyRole = req.payload.role;
+    if (companyRole !== "COMPANY") {
+      return res.status(400).json({ error: "not company role" }).end();
+    }
+
     const {
       title,
       body,
@@ -146,6 +151,11 @@ class HandlerPortfolio implements IHandlerPorfolio {
     req: JwtAuthRequest<WithPortId, WithPort>,
     res: Response
   ): Promise<Response> {
+    const companyRole = req.payload.role;
+    if (companyRole !== "COMPANY") {
+      return res.status(400).json({ error: "not company role" }).end();
+    }
+
     const portId = Number(req.params.portId);
     // isNaN checks if its arg is NaN
     if (isNaN(portId)) {
@@ -196,6 +206,11 @@ class HandlerPortfolio implements IHandlerPorfolio {
     req: JwtAuthRequest<WithPortId, WithPort>,
     res: Response
   ): Promise<Response> {
+    const companyRole = req.payload.role;
+    if (companyRole !== "COMPANY") {
+      return res.status(400).json({ error: "not company role" }).end();
+    }
+
     const portId = Number(req.params.portId);
     // isNaN checks if its arg is NaN
     if (isNaN(portId)) {
