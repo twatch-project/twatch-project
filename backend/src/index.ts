@@ -7,6 +7,8 @@ import { newRepositoryUser } from "./repositories/user";
 import { newRepositoryBlacklist } from "./repositories/blacklists";
 import { newHandlerUser } from "./handlers/user";
 import { newHandlerMiddleware } from "./auth/jwt";
+import { newRepositoryCompany } from "./repositories/company";
+import { newHandlerCompany } from "./handlers/company";
 
 async function main() {
   const db = new PrismaClient();
@@ -24,11 +26,14 @@ async function main() {
   const repoBlacklist = newRepositoryBlacklist(redis);
   const handlerUser = newHandlerUser(repoUser, repoBlacklist);
   const handlerMiddleware = newHandlerMiddleware(repoBlacklist);
+  const repoCompany = newRepositoryCompany(db);
+  const handlerCompany = newHandlerCompany(repoCompany);
 
   const port = process.env.PORT || 8000;
   const server = express();
   const userRouter = express.Router();
   const authRouter = express.Router();
+  const companyRouter = express.Router();
 
   server.use(cors());
   server.use(express.json());
@@ -36,6 +41,7 @@ async function main() {
 
   server.use("/user", userRouter);
   server.use("/auth", authRouter);
+  server.use("/company", companyRouter);
 
   // Check server status
   server.get("/", (_, res) => {
@@ -54,6 +60,23 @@ async function main() {
     "/logout",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerUser.logout.bind(handlerUser)
+  );
+
+  // Company API
+  companyRouter.post(
+    "/",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerCompany.createCompany.bind(handlerCompany)
+  );
+  companyRouter.get("/", handlerCompany.getCompanys.bind(handlerCompany));
+  companyRouter.get(
+    "/:companyId",
+    handlerCompany.getCompanyById.bind(handlerCompany)
+  );
+  companyRouter.patch(
+    "/:companyId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerCompany.updateCompanyInfo.bind(handlerCompany)
   );
 
   // server
