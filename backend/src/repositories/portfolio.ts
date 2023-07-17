@@ -15,6 +15,7 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
 
   async createPort(port: ICreatePort): Promise<IPort> {
     return await this.db.portfolio.create({
+      include: { postedBy: { select: { companyName: true } } },
       data: {
         ...port,
         companyId: undefined,
@@ -28,15 +29,23 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
   }
 
   async getPorts(): Promise<IPort[]> {
-    return await this.db.portfolio.findMany();
+    return await this.db.portfolio.findMany({
+      include: { postedBy: { select: { companyName: true } } },
+    });
   }
 
   async getPortById(portId: number): Promise<IPort | null> {
-    return await this.db.portfolio.findUnique({ where: { portId } });
+    return await this.db.portfolio.findUnique({
+      include: { postedBy: { select: { companyName: true } } },
+      where: { portId },
+    });
   }
 
   async getCompanyPorts(companyId: number): Promise<IPort[]> {
-    return await this.db.portfolio.findMany({ where: { companyId } });
+    return await this.db.portfolio.findMany({
+      include: { postedBy: { select: { companyName: true } } },
+      where: { companyId },
+    });
   }
 
   async updatePort(arg: {
@@ -53,6 +62,7 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
     companyId: number;
   }): Promise<IPort> {
     return await this.db.portfolio.update({
+      include: { postedBy: { select: { companyName: true } } },
       where: { portId: arg.portId },
       data: {
         title: arg.title,

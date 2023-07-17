@@ -15,6 +15,17 @@ class RepositoryCompany implements IRepositoryCompany {
 
   async createCompany(company: ICreateCompany): Promise<ICompany> {
     return await this.db.company.create({
+      include: {
+        userCompany: {
+          select: {
+            username: true,
+            role: true,
+            email: true,
+            registeredAt: true,
+            password: false,
+          },
+        },
+      },
       data: {
         ...company,
         userId: undefined,
@@ -28,11 +39,36 @@ class RepositoryCompany implements IRepositoryCompany {
   }
 
   async getCompanys(): Promise<ICompany[]> {
-    return await this.db.company.findMany();
+    return await this.db.company.findMany({
+      include: {
+        userCompany: {
+          select: {
+            username: true,
+            role: true,
+            email: true,
+            registeredAt: true,
+            password: false,
+          },
+        },
+      },
+    });
   }
 
   async getCompanyById(companyId: number): Promise<ICompany | null> {
-    return await this.db.company.findUnique({ where: { companyId } });
+    return await this.db.company.findUnique({
+      include: {
+        userCompany: {
+          select: {
+            username: true,
+            role: true,
+            email: true,
+            registeredAt: true,
+            password: false,
+          },
+        },
+      },
+      where: { companyId },
+    });
   }
 
   async updateCompanyInfo(arg: {
@@ -47,12 +83,36 @@ class RepositoryCompany implements IRepositoryCompany {
     userId: string;
   }): Promise<ICompany> {
     return await this.db.company.update({
+      include: {
+        userCompany: {
+          select: {
+            username: true,
+            role: true,
+            email: true,
+            registeredAt: true,
+            password: false,
+          },
+        },
+      },
       where: { companyId: arg.companyId },
       data: { ...arg, companyId: undefined },
     });
   }
 
   async getCompanyId(userId: string): Promise<ICompany | null> {
-    return await this.db.company.findUnique({ where: { userId } });
+    return await this.db.company.findUnique({
+      include: {
+        userCompany: {
+          select: {
+            username: true,
+            role: true,
+            email: true,
+            registeredAt: true,
+            password: false,
+          },
+        },
+      },
+      where: { userId },
+    });
   }
 }
