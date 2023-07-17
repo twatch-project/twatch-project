@@ -52,7 +52,7 @@ class RepositoryCompany implements IRepositoryCompany {
     });
   }
 
-  async getCompanyId(companyId: number): Promise<ICompany | null> {
-    return await this.db.company.findUnique({ where: { companyId } });
+  async getCompanyId(userId: string): Promise<ICompany | null> {
+    return await this.db.company.findUnique({ where: { userId } });
   }
 }
