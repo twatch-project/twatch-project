@@ -62,37 +62,37 @@ model Company {
   userCompany     User @relation(fields: [userId], references: [userId])
   userId          String @unique
 
-  // engineer        Engineer[]
-  // portfolio       Portfolio[]
+  engineer        Engineer[]
+  portfolio       Portfolio[]
 } 
 
-// model Engineer {
-//   engineerId  Int @id @default(autoincrement())
-//   role        String
-//   firstname   String
-//   lastname    String
-//   licenseNo   String @unique
+model Engineer {
+  engineerId  Int @id @default(autoincrement())
+  role        String
+  firstname   String
+  lastname    String
+  licenseNo   String @unique
 
-//   company     Company @relation(fields: [companyId],references: [companyId])
-//   companyId   Int
-// }
+  company     Company @relation(fields: [companyId],references: [companyId])
+  companyId   Int
+}
 
-// model Portfolio {
-//   portId        Int @id @default(autoincrement())
-//   title         String
-//   body          String
-//   tag           Tag
-//   province      String 
-//   district      String
-//   sub_district  String
-//   address       String
-//   postCode      Int
-//   createAt      DateTime
-//   updateAt      DateTime
+model Portfolio {
+  portId        Int @id @default(autoincrement())
+  title         String
+  body          String
+  tag           Tag
+  province      String 
+  district      String
+  sub_district  String
+  address       String
+  postCode      Int
+  createAt      DateTime
+  updateAt      DateTime
 
-//   postedBy      Company @relation(fields: [companyId],references: [companyId])
-//   companyId     Int
-// }
+  postedBy      Company @relation(fields: [companyId],references: [companyId])
+  companyId     Int
+}
 
 model Customer {
   customerId      Int @id @default(autoincrement())
