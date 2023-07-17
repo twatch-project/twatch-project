@@ -76,17 +76,3 @@ export interface ICreatePort {
 export interface IPort extends ICreatePort {
   portId: number;
 }
-
-// portId        Int @id @default(autoincrement())
-// title         String
-// body          String
-// tag           Tag
-// province      String
-// district      String
-// sub_district  String
-// address       String
-// createAt      DateTime
-// updateAt      DateTime
-
-// company     Company @relation(fields: [companyId],references: [companyId])
-// companyId   Int
