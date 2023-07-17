@@ -7,14 +7,22 @@ enum Role {
 export type UserRole = keyof typeof Role
 
 export interface IAuthContext {
-  id: string | null
+  userId: string | null
   token: string | null
   isLoggedIn: boolean
-  login: (username: string, password: string) => Promise<unknown>
+  login: (username: string, password: string) => Promise<IUser | void>
   logout: () => void
-  register: (username: string, password: string, role: UserRole, email: string) => Promise<unknown>
+  register: (username: string, password: string, role: UserRole, email: string) => Promise<IUser | void>
 }
 
 export interface ChildProps {
   children: ReactNode
+}
+
+export interface IUser {
+  userId: string
+  username: string
+  password: string
+  role: UserRole
+  email: string
 }
