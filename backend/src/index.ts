@@ -9,6 +9,8 @@ import { newHandlerUser } from "./handlers/user";
 import { newHandlerMiddleware } from "./auth/jwt";
 import { newRepositoryCompany } from "./repositories/company";
 import { newHandlerCompany } from "./handlers/company";
+import { newRepositoryPortfolio } from "./repositories/portfolio";
+import { newHandlerPortfolio } from "./handlers/portfolio";
 
 async function main() {
   const db = new PrismaClient();
@@ -28,12 +30,15 @@ async function main() {
   const handlerMiddleware = newHandlerMiddleware(repoBlacklist);
   const repoCompany = newRepositoryCompany(db);
   const handlerCompany = newHandlerCompany(repoCompany);
+  const repoPort = newRepositoryPortfolio(db);
+  const handlerPortfolio = newHandlerPortfolio(repoPort, repoCompany);
 
   const port = process.env.PORT || 8000;
   const server = express();
   const userRouter = express.Router();
   const authRouter = express.Router();
   const companyRouter = express.Router();
+  const portfolioRouter = express.Router();
 
   server.use(cors());
   server.use(express.json());
@@ -42,6 +47,7 @@ async function main() {
   server.use("/user", userRouter);
   server.use("/auth", authRouter);
   server.use("/company", companyRouter);
+  server.use("/portfolio", portfolioRouter);
 
   // Check server status
   server.get("/", (_, res) => {
@@ -77,6 +83,32 @@ async function main() {
     "/:companyId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerCompany.updateCompanyInfo.bind(handlerCompany)
+  );
+
+  // Portfolio API
+  portfolioRouter.post(
+    "/",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerPortfolio.createPortfolio.bind(handlerPortfolio)
+  );
+  portfolioRouter.get("/", handlerPortfolio.getPorts.bind(handlerPortfolio));
+  portfolioRouter.get(
+    "/:portId",
+    handlerPortfolio.getPortById.bind(handlerPortfolio)
+  );
+  portfolioRouter.get(
+    "/company/:companyId",
+    handlerPortfolio.getCompanyPorts.bind(handlerPortfolio)
+  );
+  portfolioRouter.patch(
+    "/:portId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerPortfolio.updatePort.bind(handlerPortfolio)
+  );
+  portfolioRouter.delete(
+    "/:portId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerPortfolio.deletePortById.bind(handlerPortfolio)
   );
 
   // server
