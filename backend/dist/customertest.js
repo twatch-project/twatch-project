@@ -27,6 +27,7 @@ async function main() {
     //         userId: "4179314d-d861-48e1-8828-b14cbef57c43",
     //     },
     // });
+    await prisma.user.deleteMany({});
     const findAll = await prisma.customer.findMany({});
     // console.log(createise);
     // console.log(dateOfBirth);

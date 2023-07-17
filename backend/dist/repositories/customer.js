@@ -43,7 +43,7 @@ class RepositoryCustomer {
             return Promise.reject(`Not found customer Id number ${customerId}`);
         }
         if (msg.userId !== customerId.userId) {
-            return Promise.reject(`Can't Not Update Id not match`);
+            return Promise.reject(`Id is not match`);
         }
         return await this.db.customer.update({
             where: {
