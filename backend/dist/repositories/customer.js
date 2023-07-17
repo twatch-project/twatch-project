@@ -23,5 +23,12 @@ class RepositoryCustomer {
             },
         });
     }
+    async getCustomerById(id) {
+        return await this.db.customer.findUnique({
+            where: {
+                customerId: id,
+            },
+        });
+    }
 }
 //# sourceMappingURL=customer.js.map

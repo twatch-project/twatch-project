@@ -28,4 +28,12 @@ class RepositoryCustomer {
             },
         });
     }
+
+    async getCustomerById(id: number): Promise<ICustomer | null> {
+        return await this.db.customer.findUnique({
+            where: {
+                customerId: id,
+            },
+        });
+    }
 }

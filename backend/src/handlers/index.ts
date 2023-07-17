@@ -18,6 +18,10 @@ export interface WithUser {
     registeredAt: Date;
 }
 
+export interface WithIdCustomer {
+    id: number;
+}
+
 export interface IHandlerUser {
     logout(req: JwtAuthRequest<Empty, Empty>, res: Response): Promise<Response>;
     login(req: AppRequest<Empty, WithUser>, res: Response): Promise<Response>;
@@ -46,6 +50,10 @@ export interface WithCustomer {
 export interface IHandlerCustomer {
     createCustomer(
         req: JwtAuthRequest<Empty, WithCustomer>,
+        res: Response,
+    ): Promise<Response>;
+    getCustomerId(
+        req: JwtAuthRequest<WithIdCustomer, Empty>,
         res: Response,
     ): Promise<Response>;
 }

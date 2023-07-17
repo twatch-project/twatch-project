@@ -14,4 +14,5 @@ export interface IRepositoryUser {
 //implements RepositoryCustomer
 export interface IRepositoryCustomer {
     createCustomer(arg: ICreateCustomer): Promise<ICustomer>;
+    getCustomerById(id: number): Promise<ICustomer | null>;
 }

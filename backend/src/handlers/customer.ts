@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { IRepositoryCustomer } from "../repositories";
 import { JwtAuthRequest } from "../auth";
-import { Empty, IHandlerCustomer, WithCustomer } from ".";
+import { Empty, IHandlerCustomer, WithCustomer, WithIdCustomer } from ".";
 
 export function newHandlerCustomer(
     repo: IRepositoryCustomer,
@@ -70,6 +70,35 @@ class HandlerCustomer implements IHandlerCustomer {
             return res
                 .status(500)
                 .json({ err: `Can't Create customer ${err}` });
+        }
+    }
+
+    async getCustomerId(
+        req: JwtAuthRequest<WithIdCustomer, Empty>,
+        res: Response,
+    ): Promise<Response> {
+        const id = Number(req.params.id);
+        if (!id) {
+            return res
+                .status(500)
+                .json({ err: `Not found customer ID ${id}` })
+                .end();
+        }
+        if (isNaN(id)) {
+            return res
+                .status(500)
+                .json({ err: `ID ${id} is not a number !!!` })
+                .end();
+        }
+        try {
+            const getCustomerId = await this.repo.getCustomerById(id);
+            return res.status(200).json(getCustomerId).end();
+        } catch (err) {
+            console.error(err);
+            return res
+                .status(500)
+                .json({ err: ` Can get Customer By id Err : ${err}` })
+                .end();
         }
     }
 }
