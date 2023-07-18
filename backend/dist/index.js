@@ -13,6 +13,8 @@ const user_2 = require("./handlers/user");
 const jwt_1 = require("./auth/jwt");
 const customer_1 = require("./handlers/customer");
 const customer_2 = require("./repositories/customer");
+const blog_1 = require("./handlers/blog");
+const blog_2 = require("./repositories/blog");
 async function main() {
     const db = new client_1.PrismaClient();
     const redis = (0, redis_1.createClient)();
@@ -27,9 +29,11 @@ async function main() {
     const repoUser = (0, user_1.newRepositoryUser)(db);
     const repoCustomer = (0, customer_2.newRepositoryCustomer)(db);
     const repoBlacklist = (0, blacklists_1.newRepositoryBlacklist)(redis);
+    const repoBlog = (0, blog_2.newRepositoryBlog)(db);
     const handlerUser = (0, user_2.newHandlerUser)(repoUser, repoBlacklist);
     const handlerMiddleware = (0, jwt_1.newHandlerMiddleware)(repoBlacklist);
     const handlerCustomer = (0, customer_1.newHandlerCustomer)(repoCustomer);
+    const handlerBlog = (0, blog_1.newHandlerBlog)(repoBlog, repoCustomer);
     const port = process.env.PORT || 8000;
     const server = (0, express_1.default)();
     const userRouter = express_1.default.Router();
@@ -54,6 +58,8 @@ async function main() {
     userRouter.get("/customer/:id", handlerCustomer.getCustomerId.bind(handlerCustomer));
     userRouter.get("/customer", handlerCustomer.getCustomers.bind(handlerCustomer));
     userRouter.patch("/customer/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerCustomer.updateCustomer.bind(handlerCustomer));
+    //Create blog
+    userRouter.post("/customer/blog", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.createCustomerBlog.bind(handlerBlog));
     // server
     server.listen(port, () => console.log(`server listening on ${port}`));
 }

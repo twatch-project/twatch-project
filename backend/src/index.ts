@@ -9,6 +9,8 @@ import { newHandlerUser } from "./handlers/user";
 import { newHandlerMiddleware } from "./auth/jwt";
 import { newHandlerCustomer } from "./handlers/customer";
 import { newRepositoryCustomer } from "./repositories/customer";
+import { newHandlerBlog } from "./handlers/blog";
+import { newRepositoryBlog } from "./repositories/blog";
 
 async function main() {
   const db = new PrismaClient();
@@ -25,9 +27,11 @@ async function main() {
   const repoUser = newRepositoryUser(db);
   const repoCustomer = newRepositoryCustomer(db);
   const repoBlacklist = newRepositoryBlacklist(redis);
+  const repoBlog = newRepositoryBlog(db);
   const handlerUser = newHandlerUser(repoUser, repoBlacklist);
   const handlerMiddleware = newHandlerMiddleware(repoBlacklist);
   const handlerCustomer = newHandlerCustomer(repoCustomer);
+  const handlerBlog = newHandlerBlog(repoBlog, repoCustomer);
 
   const port = process.env.PORT || 8000;
   const server = express();
@@ -79,6 +83,13 @@ async function main() {
     "/customer/:id",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerCustomer.updateCustomer.bind(handlerCustomer),
+  );
+
+  //Create blog
+  userRouter.post(
+    "/customer/blog",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerBlog.createCustomerBlog.bind(handlerBlog),
   );
 
   // server

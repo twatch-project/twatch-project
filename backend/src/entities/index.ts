@@ -34,6 +34,25 @@ export type GenderType = keyof typeof Gender;
 export function mapGender(gender: Gender): GenderType {
   return gender;
 }
+
+enum Tag {
+  MINIMALMODERN = "MINIMALMODERN",
+  CONTEMPORARYMODERN = "CONTEMPORARYMODERN",
+  MODERNLUXURY = "MODERNLUXURY",
+  MODERNSTYLE = "MODERNSTYLE",
+  MIDCENTURYMODERN = "MIDCENTURYMODERN",
+  VINTAGESTYLE = "VINTAGESTYLE",
+  LOFTINDUSTRALSTYLE = "LOFTINDUSTRALSTYLE",
+  SCANDINAVIANSTYLE = "ARTDECO",
+  ARTDECO = "ARTDECO",
+  MIXANDMATCH = "MIXANDMATCH",
+}
+
+export type TagType = keyof typeof Tag;
+
+export function mapTag(tag: Tag): TagType {
+  return tag;
+}
 //interface for Repocustomer
 export interface ICreateCustomer {
   userId: string;
@@ -47,6 +66,7 @@ export interface ICreateCustomer {
   sub_district: string;
   address: string;
   contact: string;
+  postCode: number;
 }
 
 export interface ICustomer extends ICreateCustomer {
@@ -64,4 +84,20 @@ export interface IUpdateCustomer {
   address: string;
   contact: string;
   userId: string;
+  postCode: number;
+}
+
+export interface ICreateBlog {
+  customerId: number;
+  title: string;
+  body: string;
+  tag: TagType;
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+}
+
+export interface IBlog extends ICreateBlog {
+  blogId: number;
 }

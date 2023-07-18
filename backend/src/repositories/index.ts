@@ -4,6 +4,8 @@ import {
   ICustomer,
   IUser,
   IUpdateCustomer,
+  ICreateBlog,
+  IBlog,
 } from "../entities";
 
 export interface IRepositoryBlacklist {
@@ -23,4 +25,9 @@ export interface IRepositoryCustomer {
   getCustomerById(id: number): Promise<ICustomer | null>;
   getDetailCustomers(): Promise<ICustomer[]>;
   updateCustomerById(msg: IUpdateCustomer): Promise<ICustomer>;
+  getCustomerToblog(id: string): Promise<ICustomer | null>;
+}
+
+export interface IRepositoryBlog {
+  createBlog(arg: ICreateBlog): Promise<IBlog>;
 }

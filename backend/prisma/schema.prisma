@@ -39,7 +39,7 @@ model User {
   username      String @unique
   password      String
   role          Role
-  email         String
+  email         String @unique
   registeredAt  DateTime @default(now())
 
   company       Company[]
@@ -76,7 +76,7 @@ model Customer {
   contact         String
   postCode        Int
 
-  userCustomer    User @relation(fields: [userId],references: [userId])
+  userCustomer    User @relation(fields: [userId],references: [userId], onDelete: Cascade)
   userId          String @unique
 
   blog            Blog[]
@@ -87,13 +87,13 @@ model Blog {
   title           String 
   body            String  
   tag             Tag
-  provider        String
+  province        String
   district        String
   sub_district    String
   address         String
   createAt        DateTime @default(now())
   updateAt        DateTime @default(now())
 
-  customer        Customer @relation(fields: [customerId],references: [customerId])
+  customer        Customer @relation(fields: [customerId],references: [customerId], onDelete: Cascade)
   customerId      Int
 }

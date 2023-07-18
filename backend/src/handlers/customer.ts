@@ -35,6 +35,7 @@ class HandlerCustomer implements IHandlerCustomer {
       sub_district,
       address,
       contact,
+      postCode,
     } = req.body;
 
     if (
@@ -66,6 +67,7 @@ class HandlerCustomer implements IHandlerCustomer {
       address,
       contact,
       userId,
+      postCode,
     };
     try {
       const getCreateCustomer = await this.repo.createCustomer(customerInfo);
@@ -138,6 +140,7 @@ class HandlerCustomer implements IHandlerCustomer {
       sub_district,
       address,
       contact,
+      postCode,
     } = req.body;
     try {
       const isUpdate = await this.repo.updateCustomerById({
@@ -149,6 +152,7 @@ class HandlerCustomer implements IHandlerCustomer {
         sub_district,
         address,
         contact,
+        postCode,
         id: id,
         userId: req.payload.id,
       });

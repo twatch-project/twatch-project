@@ -10,7 +10,7 @@ class HandlerCustomer {
         this.repo = repo;
     }
     async createCustomer(req, res) {
-        const { firstname, lastname, gender, dateOfBirth, citizenId, province, district, sub_district, address, contact, } = req.body;
+        const { firstname, lastname, gender, dateOfBirth, citizenId, province, district, sub_district, address, contact, postCode, } = req.body;
         if (!firstname ||
             !lastname ||
             !citizenId ||
@@ -34,6 +34,7 @@ class HandlerCustomer {
             address,
             contact,
             userId,
+            postCode,
         };
         try {
             const getCreateCustomer = await this.repo.createCustomer(customerInfo);
@@ -91,7 +92,7 @@ class HandlerCustomer {
                 .json({ err: `Not Found Customer id is ${id}` })
                 .end();
         }
-        const { firstname, lastname, gender, province, district, sub_district, address, contact, } = req.body;
+        const { firstname, lastname, gender, province, district, sub_district, address, contact, postCode, } = req.body;
         try {
             const isUpdate = await this.repo.updateCustomerById({
                 firstname,
@@ -102,6 +103,7 @@ class HandlerCustomer {
                 sub_district,
                 address,
                 contact,
+                postCode,
                 id: id,
                 userId: req.payload.id,
             });

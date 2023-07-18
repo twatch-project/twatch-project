@@ -30,6 +30,13 @@ class RepositoryCustomer {
             },
         });
     }
+    async getCustomerToblog(id) {
+        return await this.db.customer.findUnique({
+            where: {
+                userId: id,
+            },
+        });
+    }
     async getDetailCustomers() {
         return await this.db.customer.findMany({});
     }

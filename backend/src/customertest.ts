@@ -27,6 +27,8 @@ async function main() {
   //     },
   // });
   await prisma.user.deleteMany({});
+  // await prisma.customer.deleteMany({});
+  // await prisma.blog.deleteMany({});
 
   const findAll = await prisma.customer.findMany({});
   // console.log(createise);

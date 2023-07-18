@@ -37,6 +37,14 @@ class RepositoryCustomer {
     });
   }
 
+  async getCustomerToblog(id: string): Promise<ICustomer | null> {
+    return await this.db.customer.findUnique({
+      where: {
+        userId: id,
+      },
+    });
+  }
+
   async getDetailCustomers(): Promise<ICustomer[]> {
     return await this.db.customer.findMany({});
   }
