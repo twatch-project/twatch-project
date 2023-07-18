@@ -1,9 +1,10 @@
 import { ReactNode } from 'react'
 
-enum Role {
+export enum Role {
   CUSTOMER = 'CUSTOMER',
   COMPANY = 'COMPANY',
 }
+
 export type UserRole = keyof typeof Role
 
 export interface IAuthContext {
@@ -12,7 +13,7 @@ export interface IAuthContext {
   isLoggedIn: boolean
   login: (username: string, password: string) => Promise<IUser | void>
   logout: () => void
-  register: (username: string, password: string, role: UserRole, email: string) => Promise<IUser | void>
+  register: (username: string, password: string, role: Role, email: string) => Promise<IUser | void>
 }
 
 export interface ChildProps {
