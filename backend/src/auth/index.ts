@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { UserRole } from "../entities";
 
 export interface JwtAuthRequest<Params, Body>
   extends Request<Params, any, Body> {
@@ -9,4 +10,5 @@ export interface JwtAuthRequest<Params, Body>
 export interface Payload {
   id: string;
   username: string;
+  role: UserRole;
 }

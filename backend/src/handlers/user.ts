@@ -6,10 +6,10 @@ import { JwtAuthRequest, Payload } from "../auth";
 import { newJwt } from "../auth/jwt";
 
 export function newHandlerUser(
-  repo: IRepositoryUser,
+  repoUser: IRepositoryUser,
   repoBlacklist: IRepositoryBlacklist
 ): IHandlerUser {
-  return new HandlerUser(repo, repoBlacklist);
+  return new HandlerUser(repoUser, repoBlacklist);
 }
 
 class HandlerUser implements IHandlerUser {
@@ -101,7 +101,12 @@ class HandlerUser implements IHandlerUser {
           return res.status(401).json({ error: `invalid credentail` });
         }
 
-        const payload: Payload = { id: user.userId, username: user.username };
+        const payload: Payload = {
+          id: user.userId,
+          username: user.username,
+          role: user.role,
+        };
+        console.log("user role", user.role);
         const token = newJwt(payload);
 
         return res.status(200).json({
