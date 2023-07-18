@@ -83,10 +83,11 @@ const AuthProvider = (props: AuthProviderProps) => {
 
   const register: RegisterFunc = async (username: string, password: string, role: UserRole, email: string) => {
     const registerInfo = { username, password, role, email }
+    console.log(registerInfo)
 
     try {
-      const res = await fetch(`${host}`, {
-        method: 'Post',
+      const res = await fetch(`${host}/user`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
