@@ -34,6 +34,25 @@ class RepositoryBlog {
             },
         });
     }
+    async getBlogbyId(id) {
+        return await this.db.blog.findUnique({
+            where: {
+                blogId: id,
+            },
+        });
+    }
+    async getBlogs() {
+        return await this.db.blog.findMany({
+            include: {
+                customer: {
+                    select: {
+                        firstname: true,
+                        address: true,
+                    },
+                },
+            },
+        });
+    }
     async updateBlogbyId(msg) {
         const customerId = await this.db.blog.findUnique({
             where: {

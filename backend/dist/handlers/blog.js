@@ -42,6 +42,39 @@ class HandlerBlog {
                 .json({ err: `Can't create blog with error code ${err}` });
         }
     }
+    async getBlogById(req, res) {
+        const id = Number(req.params.id);
+        if (isNaN(id)) {
+            return res
+                .status(500)
+                .json({ err: `Not found blog ${id}` })
+                .end();
+        }
+        try {
+            const getBlogId = await this.repo.getBlogbyId(id);
+            return res.status(200).json(getBlogId).end();
+        }
+        catch (err) {
+            console.error(err);
+            return res
+                .status(500)
+                .json({ err: `Can't get blog ${err}` })
+                .end();
+        }
+    }
+    async getBlogsCustomer(_, res) {
+        try {
+            const getBlogs = await this.repo.getBlogs();
+            return res.status(200).json(getBlogs).end();
+        }
+        catch (err) {
+            console.error(err);
+            return res
+                .status(500)
+                .json({ err: ` can't get all blogs with err ${err}` })
+                .end();
+        }
+    }
     async updateCustomerBlog(req, res) {
         const id = Number(req.params.id);
         if (isNaN(id)) {

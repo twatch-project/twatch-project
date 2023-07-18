@@ -38,11 +38,13 @@ async function main() {
     const server = (0, express_1.default)();
     const userRouter = express_1.default.Router();
     const authRouter = express_1.default.Router();
+    const userBlog = express_1.default.Router();
     server.use((0, cors_1.default)());
     server.use(express_1.default.json());
     server.use(express_1.default.urlencoded({ extended: false }));
     server.use("/user", userRouter);
     server.use("/auth", authRouter);
+    server.use("/blog", userBlog);
     // Check server status
     server.get("/", (_, res) => {
         return res.status(200).json({ status: "ok" }).end();
@@ -61,6 +63,8 @@ async function main() {
     //Create blog
     userRouter.post("/customer/blog", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.createCustomerBlog.bind(handlerBlog));
     userRouter.patch("/customer/blog/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.updateCustomerBlog.bind(handlerBlog));
+    userBlog.get("/", handlerBlog.getBlogsCustomer.bind(handlerBlog));
+    userRouter.get("/customer/blog/:id", handlerBlog.getBlogById.bind(handlerBlog));
     // server
     server.listen(port, () => console.log(`server listening on ${port}`));
 }

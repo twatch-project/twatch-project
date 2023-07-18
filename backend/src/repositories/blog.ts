@@ -47,6 +47,19 @@ class RepositoryBlog implements IRepositoryBlog {
     });
   }
 
+  async getBlogs(): Promise<IBlog[]> {
+    return await this.db.blog.findMany({
+      include: {
+        customer: {
+          select: {
+            firstname: true,
+            address: true,
+          },
+        },
+      },
+    });
+  }
+
   async updateBlogbyId(msg: IUpdateBlog): Promise<IBlog> {
     const customerId = await this.db.blog.findUnique({
       where: {

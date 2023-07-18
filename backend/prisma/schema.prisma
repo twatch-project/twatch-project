@@ -28,6 +28,8 @@ enum Tag {
   MIXANDMATCH
 }
 
+["MINIMALMODERN", "MINIMALMODERN"]
+
 enum Gender {
   MALE
   FEMALE

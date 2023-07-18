@@ -78,6 +78,19 @@ class HandlerBlog implements IHandlerBlog {
     }
   }
 
+  async getBlogsCustomer(_, res: Response): Promise<Response> {
+    try {
+      const getBlogs = await this.repo.getBlogs();
+      return res.status(200).json(getBlogs).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ err: ` can't get all blogs with err ${err}` })
+        .end();
+    }
+  }
+
   async updateCustomerBlog(
     req: JwtAuthRequest<WithBlogId, WithBlogUpdate>,
     res: Response,

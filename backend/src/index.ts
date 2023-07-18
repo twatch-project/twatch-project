@@ -37,6 +37,7 @@ async function main() {
   const server = express();
   const userRouter = express.Router();
   const authRouter = express.Router();
+  const userBlog = express.Router();
 
   server.use(cors());
   server.use(express.json());
@@ -44,6 +45,7 @@ async function main() {
 
   server.use("/user", userRouter);
   server.use("/auth", authRouter);
+  server.use("/blog", userBlog);
 
   // Check server status
   server.get("/", (_, res) => {
@@ -96,6 +98,7 @@ async function main() {
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerBlog.updateCustomerBlog.bind(handlerBlog),
   );
+  userBlog.get("/", handlerBlog.getBlogsCustomer.bind(handlerBlog));
   userRouter.get(
     "/customer/blog/:id",
     handlerBlog.getBlogById.bind(handlerBlog),
