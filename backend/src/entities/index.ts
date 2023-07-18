@@ -101,3 +101,16 @@ export interface ICreateBlog {
 export interface IBlog extends ICreateBlog {
   blogId: number;
 }
+
+export interface IUpdateBlog {
+  id: number;
+  userId: string;
+  customerId: number;
+  title: string;
+  body: string;
+  tag: TagType;
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+}

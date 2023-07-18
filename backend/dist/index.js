@@ -60,6 +60,7 @@ async function main() {
     userRouter.patch("/customer/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerCustomer.updateCustomer.bind(handlerCustomer));
     //Create blog
     userRouter.post("/customer/blog", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.createCustomerBlog.bind(handlerBlog));
+    userRouter.patch("/customer/blog/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.updateCustomerBlog.bind(handlerBlog));
     // server
     server.listen(port, () => console.log(`server listening on ${port}`));
 }

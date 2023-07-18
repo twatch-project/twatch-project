@@ -42,5 +42,41 @@ class HandlerBlog {
                 .json({ err: `Can't create blog with error code ${err}` });
         }
     }
+    async updateCustomerBlog(req, res) {
+        const id = Number(req.params.id);
+        if (isNaN(id)) {
+            return res
+                .status(500)
+                .json({ err: `Not Found Blog id is ${id}` })
+                .end();
+        }
+        const { title, body, tag, province, district, sub_district, address } = req.body;
+        const getCustomerId = await this.repoCus.getCustomerToblog(req.payload.id);
+        if (!getCustomerId) {
+            return res.status(500).json({ err: `Not found ${getCustomerId}` });
+        }
+        try {
+            const isUpdateBlog = await this.repo.updateBlogbyId({
+                title,
+                body,
+                tag,
+                province,
+                district,
+                sub_district,
+                address,
+                id: id,
+                customerId: getCustomerId?.customerId,
+                userId: req.payload.id,
+            });
+            return res.status(200).json(isUpdateBlog).end();
+        }
+        catch (err) {
+            console.error(err);
+            return res
+                .status(500)
+                .json({ err: `Found Blog err ${err}` })
+                .end();
+        }
+    }
 }
 //# sourceMappingURL=blog.js.map

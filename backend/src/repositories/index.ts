@@ -6,6 +6,7 @@ import {
   IUpdateCustomer,
   ICreateBlog,
   IBlog,
+  IUpdateBlog,
 } from "../entities";
 
 export interface IRepositoryBlacklist {
@@ -30,4 +31,5 @@ export interface IRepositoryCustomer {
 
 export interface IRepositoryBlog {
   createBlog(arg: ICreateBlog): Promise<IBlog>;
+  updateBlogbyId(msg: IUpdateBlog): Promise<IBlog>;
 }

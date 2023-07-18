@@ -2,12 +2,10 @@ import { PrismaClient } from "@prisma/client";
 import { ICreateCustomer, ICustomer, IUpdateCustomer } from "../entities";
 import { IRepositoryCustomer } from ".";
 
-export function newRepositoryCustomer(
-  prisma: PrismaClient,
-): IRepositoryCustomer {
+export function newRepositoryCustomer(prisma: PrismaClient) {
   return new RepositoryCustomer(prisma);
 }
-class RepositoryCustomer {
+class RepositoryCustomer implements IRepositoryCustomer {
   private db: PrismaClient;
 
   constructor(db: PrismaClient) {

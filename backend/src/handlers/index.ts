@@ -60,12 +60,27 @@ export interface WithCustomer {
 export interface WithBlog {
   userId: number;
   title: string;
-  body?: string;
+  body: string;
   tag: TagType;
   province: string;
   district: string;
   sub_district: string;
   address: string;
+}
+
+export interface WithBlogId {
+  id: number;
+}
+
+export interface WithBlogUpdate {
+  title: string;
+  body: string;
+  tag: TagType;
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+  customerId: number;
 }
 
 export interface IHandlerCustomer {
@@ -80,6 +95,17 @@ export interface IHandlerCustomer {
   getCustomers(_: Request, res: Response): Promise<Response>;
   updateCustomer(
     req: JwtAuthRequest<WithIdCustomer, WithUpdateCustomer>,
+    res: Response,
+  ): Promise<Response>;
+}
+
+export interface IHandlerBlog {
+  createCustomerBlog(
+    req: JwtAuthRequest<Empty, WithBlog>,
+    res: Response,
+  ): Promise<Response>;
+  updateCustomerBlog(
+    req: JwtAuthRequest<WithBlogId, WithBlogUpdate>,
     res: Response,
   ): Promise<Response>;
 }

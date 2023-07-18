@@ -11,6 +11,13 @@ class RepositoryBlog {
     }
     async createBlog(arg) {
         return await this.db.blog.create({
+            include: {
+                customer: {
+                    select: {
+                        userId: true,
+                    },
+                },
+            },
             data: {
                 title: arg.title,
                 body: arg.body,
@@ -24,6 +31,33 @@ class RepositoryBlog {
                         customerId: arg.customerId,
                     },
                 },
+            },
+        });
+    }
+    async updateBlogbyId(msg) {
+        const customerId = await this.db.blog.findUnique({
+            where: {
+                blogId: msg.id,
+            },
+        });
+        if (!customerId) {
+            return Promise.reject(`Not found Blog number ${customerId}`);
+        }
+        if (msg.customerId !== customerId.customerId) {
+            return Promise.reject(`Id customer Not match`);
+        }
+        return await this.db.blog.update({
+            where: {
+                blogId: customerId.blogId,
+            },
+            data: {
+                title: msg.title,
+                body: msg.body,
+                tag: msg.tag,
+                province: msg.province,
+                district: msg.district,
+                sub_district: msg.sub_district,
+                address: msg.address,
             },
         });
     }
