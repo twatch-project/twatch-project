@@ -96,6 +96,10 @@ async function main() {
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerBlog.updateCustomerBlog.bind(handlerBlog),
   );
+  userRouter.get(
+    "/customer/blog/:id",
+    handlerBlog.getBlogById.bind(handlerBlog),
+  );
 
   // server
   server.listen(port, () => console.log(`server listening on ${port}`));

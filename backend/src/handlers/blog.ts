@@ -55,6 +55,29 @@ class HandlerBlog implements IHandlerBlog {
     }
   }
 
+  async getBlogById(
+    req: JwtAuthRequest<WithBlogId, Empty>,
+    res: Response,
+  ): Promise<Response> {
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res
+        .status(500)
+        .json({ err: `Not found blog ${id}` })
+        .end();
+    }
+    try {
+      const getBlogId = await this.repo.getBlogbyId(id);
+      return res.status(200).json(getBlogId).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ err: `Can't get blog ${err}` })
+        .end();
+    }
+  }
+
   async updateCustomerBlog(
     req: JwtAuthRequest<WithBlogId, WithBlogUpdate>,
     res: Response,

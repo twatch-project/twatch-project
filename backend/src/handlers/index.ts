@@ -108,4 +108,8 @@ export interface IHandlerBlog {
     req: JwtAuthRequest<WithBlogId, WithBlogUpdate>,
     res: Response,
   ): Promise<Response>;
+  getBlogById(
+    req: JwtAuthRequest<WithBlogId, Empty>,
+    res: Response,
+  ): Promise<Response>;
 }

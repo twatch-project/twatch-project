@@ -32,4 +32,5 @@ export interface IRepositoryCustomer {
 export interface IRepositoryBlog {
   createBlog(arg: ICreateBlog): Promise<IBlog>;
   updateBlogbyId(msg: IUpdateBlog): Promise<IBlog>;
+  getBlogbyId(id: number): Promise<IBlog | null>;
 }
