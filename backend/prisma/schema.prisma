@@ -35,19 +35,19 @@ enum Gender {
 }
 
 model User {
-  userId        String @id @default(uuid())
-  username      String @unique
-  password      String
-  role          Role
-  email         String
-  registeredAt  DateTime @default(now())
+  userId       String   @id @default(uuid())
+  username     String   @unique
+  password     String
+  role         Role
+  email        String   @unique
+  registeredAt DateTime @default(now())
 
-  company       Company[]
-  customer      Customer[]
+  company  Company[]
+  customer Customer[]
 }
 
 model Company {
-  companyId           Int @id @default(autoincrement())
+  companyId           Int    @id @default(autoincrement())
   companyName         String
   companyRegistration String
   address             String
@@ -59,12 +59,12 @@ model Company {
   // rateprice           Int
   tag                 Tag
 
-  userCompany     User @relation(fields: [userId], references: [userId])
-  userId          String @unique
+  userCompany User   @relation(fields: [userId], references: [userId])
+  userId      String @unique
 
   // engineer        Engineer[]
   // portfolio       Portfolio[]
-} 
+}
 
 // model Engineer {
 //   engineerId  Int @id @default(autoincrement())
@@ -95,18 +95,18 @@ model Company {
 // }
 
 model Customer {
-  customerId      Int @id @default(autoincrement())
-  firstname       String
-  lastname        String
-  gender          Gender
-  dateOfBirth     DateTime @db.Date
-  citizenId       String @unique
-  province        String 
-  district        String
-  sub_district    String  
-  address         String
-  contact         String
+  customerId   Int      @id @default(autoincrement())
+  firstname    String
+  lastname     String
+  gender       Gender
+  dateOfBirth  DateTime @db.Date
+  citizenId    String   @unique
+  province     String
+  district     String
+  sub_district String
+  address      String
+  contact      String
 
-  userCustomer    User @relation(fields: [userId],references: [userId])
-  userId          String @unique
+  userCustomer User   @relation(fields: [userId], references: [userId])
+  userId       String @unique
 }
