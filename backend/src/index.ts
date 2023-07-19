@@ -11,6 +11,10 @@ import { newHandlerCustomer } from "./handlers/customer";
 import { newRepositoryCustomer } from "./repositories/customer";
 import { newHandlerBlog } from "./handlers/blog";
 import { newRepositoryBlog } from "./repositories/blog";
+import { newRepositoryCompany } from "./repositories/company";
+import { newHandlerCompany } from "./handlers/company";
+import { newRepositoryPortfolio } from "./repositories/portfolio";
+import { newHandlerPortfolio } from "./handlers/portfolio";
 
 async function main() {
   const db = new PrismaClient();
@@ -32,6 +36,10 @@ async function main() {
   const handlerMiddleware = newHandlerMiddleware(repoBlacklist);
   const handlerCustomer = newHandlerCustomer(repoCustomer);
   const handlerBlog = newHandlerBlog(repoBlog, repoCustomer);
+  const repoCompany = newRepositoryCompany(db);
+  const handlerCompany = newHandlerCompany(repoCompany);
+  const repoPort = newRepositoryPortfolio(db);
+  const handlerPortfolio = newHandlerPortfolio(repoPort, repoCompany);
 
   const port = process.env.PORT || 8000;
   const server = express();
@@ -39,6 +47,8 @@ async function main() {
   const authRouter = express.Router();
   const userBlog = express.Router();
   const customerRouter = express.Router();
+  const companyRouter = express.Router();
+  const portfolioRouter = express.Router();
 
   server.use(cors());
   server.use(express.json());
@@ -48,6 +58,8 @@ async function main() {
   server.use("/auth", authRouter);
   server.use("/blog", userBlog);
   server.use("/customer", customerRouter);
+  server.use("/company", companyRouter);
+  server.use("/portfolio", portfolioRouter);
 
   // Check server status
   server.get("/", (_, res) => {
@@ -99,6 +111,50 @@ async function main() {
   );
   userBlog.get("/", handlerBlog.getBlogsCustomer.bind(handlerBlog));
   customerRouter.get("/blog/:id", handlerBlog.getBlogById.bind(handlerBlog));
+  handlerUser.logout.bind(handlerUser);
+
+  // Company API
+  companyRouter.post(
+    "/",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerCompany.createCompany.bind(handlerCompany),
+  );
+  companyRouter.get("/", handlerCompany.getCompanys.bind(handlerCompany));
+  companyRouter.get(
+    "/:companyId",
+    handlerCompany.getCompanyById.bind(handlerCompany),
+  );
+  companyRouter.patch(
+    "/:companyId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerCompany.updateCompanyInfo.bind(handlerCompany),
+  );
+
+  // Portfolio API
+  portfolioRouter.post(
+    "/",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerPortfolio.createPortfolio.bind(handlerPortfolio),
+  );
+  portfolioRouter.get("/", handlerPortfolio.getPorts.bind(handlerPortfolio));
+  portfolioRouter.get(
+    "/:portId",
+    handlerPortfolio.getPortById.bind(handlerPortfolio),
+  );
+  portfolioRouter.get(
+    "/company/:companyId",
+    handlerPortfolio.getCompanyPorts.bind(handlerPortfolio),
+  );
+  portfolioRouter.patch(
+    "/:portId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerPortfolio.updatePort.bind(handlerPortfolio),
+  );
+  portfolioRouter.delete(
+    "/:portId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerPortfolio.deletePortById.bind(handlerPortfolio),
+  );
 
   // server
   server.listen(port, () => console.log(`server listening on ${port}`));

@@ -1,3 +1,16 @@
+// User
+
+enum Role {
+  CUSTOMER = "CUSTOMER",
+  COMPANY = "COMPANY",
+}
+
+export type UserRole = keyof typeof Role;
+
+export function mapRole(role: Role): UserRole {
+  return role;
+}
+
 export interface ICreateUser {
   username: string;
   password: string;
@@ -10,15 +23,41 @@ export interface IUser extends ICreateUser {
   userId: string;
 }
 
-enum Role {
-  CUSTOMER = "CUSTOMER",
-  COMPANY = "COMPANY",
+export interface ICreateCompany {
+  companyName: string;
+  companyRegistration: string;
+  address: string;
+  sub_district: string;
+  district: string;
+  province: string;
+  postCode: number;
+  contact: string;
+  tag: string[];
+
+  userId: string;
 }
 
-export type UserRole = keyof typeof Role;
+export interface ICompany extends ICreateCompany {
+  companyId: number;
+}
 
-export function mapRole(role: Role): UserRole {
-  return role;
+export interface ICreatePort {
+  title: string;
+  body: string;
+  tag: string[];
+  address: string;
+  sub_district: string;
+  district: string;
+  province: string;
+  postCode: number;
+  createAt: Date;
+  updateAt: Date;
+
+  companyId: number;
+}
+
+export interface IPort extends ICreatePort {
+  portId: number;
 }
 
 //Enum gender

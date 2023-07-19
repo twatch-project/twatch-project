@@ -6,10 +6,10 @@ import { JwtAuthRequest, Payload } from "../auth";
 import { newJwt } from "../auth/jwt";
 
 export function newHandlerUser(
-  repo: IRepositoryUser,
+  repoUser: IRepositoryUser,
   repoBlacklist: IRepositoryBlacklist,
 ): IHandlerUser {
-  return new HandlerUser(repo, repoBlacklist);
+  return new HandlerUser(repoUser, repoBlacklist);
 }
 
 class HandlerUser implements IHandlerUser {

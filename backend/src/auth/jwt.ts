@@ -18,7 +18,7 @@ export function newJwt(data: Payload): string {
 export function newHandlerMiddleware(
   repoBlacklist: IRepositoryBlacklist,
 ): IHandlerMiddleware {
-  return new HandlerMiddlerware(repoBlacklist);
+  return new HandlerMiddleware(repoBlacklist);
 }
 
 interface IHandlerMiddleware {
@@ -29,7 +29,7 @@ interface IHandlerMiddleware {
   );
 }
 
-class HandlerMiddlerware implements IHandlerMiddleware {
+class HandlerMiddleware implements IHandlerMiddleware {
   private repoBlacklist: IRepositoryBlacklist;
 
   constructor(repoBlacklist: IRepositoryBlacklist) {

@@ -7,6 +7,10 @@ import {
   ICreateBlog,
   IBlog,
   IUpdateBlog,
+  ICompany,
+  ICreateCompany,
+  ICreatePort,
+  IPort,
 } from "../entities";
 
 export interface IRepositoryBlacklist {
@@ -34,4 +38,42 @@ export interface IRepositoryBlog {
   updateBlogbyId(msg: IUpdateBlog): Promise<IBlog>;
   getBlogbyId(id: number): Promise<IBlog | null>;
   getBlogs(): Promise<IBlog[]>;
+}
+export interface IRepositoryCompany {
+  createCompany(company: ICreateCompany): Promise<ICompany>;
+  getCompanys(): Promise<ICompany[]>;
+  getCompanyById(companyId: number): Promise<ICompany | null>;
+  updateCompanyInfo(arg: {
+    companyId: number;
+    address?: string;
+    sub_district?: string;
+    district?: string;
+    province?: string;
+    postCode?: number;
+    contact?: string;
+    tag?: string[];
+    userId: string;
+  }): Promise<ICompany>;
+  getCompanyId(userId: string): Promise<ICompany | null>;
+}
+
+export interface IRepositoryPortfolio {
+  createPort(port: ICreatePort): Promise<IPort>;
+  getPorts(): Promise<IPort[]>;
+  getPortById(portId: number): Promise<IPort | null>;
+  getCompanyPorts(companyId: number): Promise<IPort[]>;
+  updatePort(arg: {
+    portId: number;
+    title?: string;
+    body?: string;
+    tag?: string[];
+    address?: string;
+    sub_district?: string;
+    district?: string;
+    province?: string;
+    postCode?: number;
+    updateAt: Date;
+    companyId: number;
+  }): Promise<IPort>;
+  deletePortById(arg: { portId: number; companyId: number }): Promise<IPort>;
 }
