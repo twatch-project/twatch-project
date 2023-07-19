@@ -13,8 +13,8 @@ export interface CompanyDto {
   companyName: string
   companyRegistration: string
   body: string
-  imageProfile: string
-  imageContent: string[]
+  imageProfile: string //@TODO Add in backend
+  imageContent: string[] //@TODO Add in backend
   address: string
   sub_district: string
   district: string
@@ -22,6 +22,7 @@ export interface CompanyDto {
   postCode: string
   contract: string
   tag: string[]
+  rating: number //@TODO Add in backend
 
   userId: string
 }
@@ -30,6 +31,7 @@ export interface PortfolioDto {
   portId: number
   title: string
   body: string
+  imageContent: string //@TODO Add in backend
   tag: string[]
   address: string
   sub_district: string
@@ -38,6 +40,7 @@ export interface PortfolioDto {
   postCode: number
   createAt: Date
   updateAt: Date
+  rating: number //@TODO Add in backend
 
   companyId: number
 }
