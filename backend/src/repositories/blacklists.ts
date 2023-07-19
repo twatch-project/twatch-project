@@ -6,7 +6,7 @@ export const keyBlacklist = "todo-jwt-blacklist"; // set
 export const keyJwtExpire = "todo-jwt-expirations"; // hash
 
 export function newRepositoryBlacklist(
-  db: RedisClientType<any, any, any>
+  db: RedisClientType<any, any, any>,
 ): IRepositoryBlacklist {
   return new RepositoryBlacklist(db);
 }

@@ -15,21 +15,6 @@ enum Role {
   COMPANY
 }
 
-enum Tag {
-  MINIMALMODERN
-  CONTEMPORARYMODERN
-  MODERNLUXURY
-  MODERNSTYLE
-  MIDCENTURYMODERN
-  VINTAGESTYLE
-  LOFTINDUSTRALSTYLE
-  SCANDINAVIANSTYLE
-  ARTDECO
-  MIXANDMATCH
-}
-
-["MINIMALMODERN", "MINIMALMODERN"]
-
 enum Gender {
   MALE
   FEMALE
@@ -58,7 +43,7 @@ model Company {
   province        String
   contact         String
   rateprice       Int
-  tag             Tag
+  tag             String[]
 
   userCompany     User @relation(fields: [userId], references: [userId])
   userId          String
@@ -88,7 +73,7 @@ model Blog {
   blogId          Int @id @default(autoincrement())
   title           String 
   body            String  
-  tag             Tag
+  tag             String[]
   province        String
   district        String
   sub_district    String
@@ -99,3 +84,10 @@ model Blog {
   customer        Customer @relation(fields: [customerId],references: [customerId], onDelete: Cascade)
   customerId      Int
 }
+
+model feed {
+  id  Int    @id @default(autoincrement())
+  name String
+  mets String[]
+}
+

@@ -3,13 +3,45 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 async function main() {
-    // const createise = await prisma.user.create({
-    //     data: {
-    //         username: "abv88",
-    //         password: "111",
-    //         role: "CUSTOMER",
-    //         email: "EE@Hotmail.com",
+    // await prisma.user.create({
+    //   data: {
+    //     username: "abv88",
+    //     password: "111",
+    //     role: "CUSTOMER",
+    //     email: "EE@Hotmail.com",
+    //   },
+    // });
+    await prisma.feed.create({
+        data: {
+            name: "isado",
+            mets: ["MINIMALMODERN", "CONTEMPORARYMODERN"],
+        },
+    });
+    const asw = await prisma.feed.findMany({
+        where: {
+            id: 1,
+        },
+    });
+    console.log(asw);
+    // await prisma.feed.create({
+    //   data: {
+    //     title: "Some thing",
+    //     mags: {
+    //       create: [
+    //         {
+    //           mag: { create: { name: "MINIMALMODERN" } },
+    //         },
+    //       ],
     //     },
+    //   },
+    // });
+    // await prisma.ueed.create({
+    //   data: {
+    //     title: "Types of relations",
+    //     mags: {
+    //       create: [{ name: "MINIMALMODERN" }, { name: "CONTEMPORARYMODERN" }],
+    //     },
+    //   },
     // });
     // const dateOfBirth = new Date(1982, 0, 2);
     // const createCus = await prisma.customer.create({
@@ -27,7 +59,7 @@ async function main() {
     //         userId: "4179314d-d861-48e1-8828-b14cbef57c43",
     //     },
     // });
-    await prisma.user.deleteMany({});
+    // await prisma.user.deleteMany({});
     // await prisma.customer.deleteMany({});
     // await prisma.blog.deleteMany({});
     const findAll = await prisma.customer.findMany({});

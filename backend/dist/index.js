@@ -39,12 +39,14 @@ async function main() {
     const userRouter = express_1.default.Router();
     const authRouter = express_1.default.Router();
     const userBlog = express_1.default.Router();
+    const customerRouter = express_1.default.Router();
     server.use((0, cors_1.default)());
     server.use(express_1.default.json());
     server.use(express_1.default.urlencoded({ extended: false }));
     server.use("/user", userRouter);
     server.use("/auth", authRouter);
     server.use("/blog", userBlog);
+    server.use("/customer", customerRouter);
     // Check server status
     server.get("/", (_, res) => {
         return res.status(200).json({ status: "ok" }).end();
@@ -56,15 +58,15 @@ async function main() {
     authRouter.get("/logout", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerUser.logout.bind(handlerUser));
     //customer API
     //createcustomer
-    userRouter.post("/customer", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerCustomer.createCustomer.bind(handlerCustomer));
-    userRouter.get("/customer/:id", handlerCustomer.getCustomerId.bind(handlerCustomer));
-    userRouter.get("/customer", handlerCustomer.getCustomers.bind(handlerCustomer));
-    userRouter.patch("/customer/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerCustomer.updateCustomer.bind(handlerCustomer));
+    customerRouter.post("/", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerCustomer.createCustomer.bind(handlerCustomer));
+    customerRouter.get("/:id", handlerCustomer.getCustomerId.bind(handlerCustomer));
+    customerRouter.get("/", handlerCustomer.getCustomers.bind(handlerCustomer));
+    customerRouter.patch("/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerCustomer.updateCustomer.bind(handlerCustomer));
     //Create blog
-    userRouter.post("/customer/blog", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.createCustomerBlog.bind(handlerBlog));
-    userRouter.patch("/customer/blog/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.updateCustomerBlog.bind(handlerBlog));
+    customerRouter.post("/blog", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.createCustomerBlog.bind(handlerBlog));
+    customerRouter.patch("/blog/:id", handlerMiddleware.jwtMiddleware.bind(handlerMiddleware), handlerBlog.updateCustomerBlog.bind(handlerBlog));
     userBlog.get("/", handlerBlog.getBlogsCustomer.bind(handlerBlog));
-    userRouter.get("/customer/blog/:id", handlerBlog.getBlogById.bind(handlerBlog));
+    customerRouter.get("/blog/:id", handlerBlog.getBlogById.bind(handlerBlog));
     // server
     server.listen(port, () => console.log(`server listening on ${port}`));
 }

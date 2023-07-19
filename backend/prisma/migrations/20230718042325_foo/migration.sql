@@ -12,7 +12,7 @@ ALTER TABLE "Blog" DROP CONSTRAINT "Blog_customerId_fkey";
 ALTER TABLE "Customer" DROP CONSTRAINT "Customer_userId_fkey";
 
 -- AlterTable
-ALTER TABLE "Blog" ALTER COLUMN "tag" SET DATA TYPE "Tag"[];
+ALTER TABLE "Blog" ALTER COLUMN "tag" SET DATA TYPE "Tag";
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

@@ -14,7 +14,6 @@ enum Role {
   CUSTOMER = "CUSTOMER",
   COMPANY = "COMPANY",
 }
-// console.log(typeof Role);
 
 export type UserRole = keyof typeof Role;
 
@@ -35,25 +34,6 @@ export function mapGender(gender: Gender): GenderType {
   return gender;
 }
 
-enum Tag {
-  MINIMALMODERN = "MINIMALMODERN",
-  CONTEMPORARYMODERN = "CONTEMPORARYMODERN",
-  MODERNLUXURY = "MODERNLUXURY",
-  MODERNSTYLE = "MODERNSTYLE",
-  MIDCENTURYMODERN = "MIDCENTURYMODERN",
-  VINTAGESTYLE = "VINTAGESTYLE",
-  LOFTINDUSTRALSTYLE = "LOFTINDUSTRALSTYLE",
-  SCANDINAVIANSTYLE = "ARTDECO",
-  ARTDECO = "ARTDECO",
-  MIXANDMATCH = "MIXANDMATCH",
-}
-
-export type TagType = keyof typeof Tag;
-
-export function mapTag(tag: Tag): TagType {
-  return tag;
-}
-//interface for Repocustomer
 export interface ICreateCustomer {
   userId: string;
   firstname: string;
@@ -91,7 +71,7 @@ export interface ICreateBlog {
   customerId: number;
   title: string;
   body: string;
-  tag: TagType;
+  tag: string[];
   province: string;
   district: string;
   sub_district: string;
@@ -108,7 +88,7 @@ export interface IUpdateBlog {
   customerId: number;
   title: string;
   body: string;
-  tag: TagType;
+  tag: string[];
   province: string;
   district: string;
   sub_district: string;

@@ -38,6 +38,7 @@ async function main() {
   const userRouter = express.Router();
   const authRouter = express.Router();
   const userBlog = express.Router();
+  const customerRouter = express.Router();
 
   server.use(cors());
   server.use(express.json());
@@ -46,6 +47,7 @@ async function main() {
   server.use("/user", userRouter);
   server.use("/auth", authRouter);
   server.use("/blog", userBlog);
+  server.use("/customer", customerRouter);
 
   // Check server status
   server.get("/", (_, res) => {
@@ -68,41 +70,35 @@ async function main() {
 
   //customer API
   //createcustomer
-  userRouter.post(
-    "/customer",
+  customerRouter.post(
+    "/",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerCustomer.createCustomer.bind(handlerCustomer),
   );
-  userRouter.get(
-    "/customer/:id",
+  customerRouter.get(
+    "/:id",
     handlerCustomer.getCustomerId.bind(handlerCustomer),
   );
-  userRouter.get(
-    "/customer",
-    handlerCustomer.getCustomers.bind(handlerCustomer),
-  );
-  userRouter.patch(
-    "/customer/:id",
+  customerRouter.get("/", handlerCustomer.getCustomers.bind(handlerCustomer));
+  customerRouter.patch(
+    "/:id",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerCustomer.updateCustomer.bind(handlerCustomer),
   );
 
   //Create blog
-  userRouter.post(
-    "/customer/blog",
+  customerRouter.post(
+    "/blog",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerBlog.createCustomerBlog.bind(handlerBlog),
   );
-  userRouter.patch(
-    "/customer/blog/:id",
+  customerRouter.patch(
+    "/blog/:id",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerBlog.updateCustomerBlog.bind(handlerBlog),
   );
   userBlog.get("/", handlerBlog.getBlogsCustomer.bind(handlerBlog));
-  userRouter.get(
-    "/customer/blog/:id",
-    handlerBlog.getBlogById.bind(handlerBlog),
-  );
+  customerRouter.get("/blog/:id", handlerBlog.getBlogById.bind(handlerBlog));
 
   // server
   server.listen(port, () => console.log(`server listening on ${port}`));
