@@ -10,3 +10,5 @@ function withGuard(Component: ComponentType): ComponentType {
     return <Component {...props} />
   }
 }
+
+export default withGuard
