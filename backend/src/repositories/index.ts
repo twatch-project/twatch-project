@@ -1,12 +1,16 @@
-import { Tag } from "@prisma/client";
 import {
-  HomeTag,
+  ICreateUser,
+  ICreateCustomer,
+  ICustomer,
+  IUser,
+  IUpdateCustomer,
+  ICreateBlog,
+  IBlog,
+  IUpdateBlog,
   ICompany,
   ICreateCompany,
   ICreatePort,
-  ICreateUser,
   IPort,
-  IUser,
 } from "../entities";
 
 export interface IRepositoryBlacklist {
@@ -20,6 +24,21 @@ export interface IRepositoryUser {
   getId(id: string): Promise<IUser | null>;
 }
 
+//implements RepositoryCustomer
+export interface IRepositoryCustomer {
+  createCustomer(arg: ICreateCustomer): Promise<ICustomer>;
+  getCustomerById(id: number): Promise<ICustomer | null>;
+  getDetailCustomers(): Promise<ICustomer[]>;
+  updateCustomerById(msg: IUpdateCustomer): Promise<ICustomer>;
+  getCustomerToblog(id: string): Promise<ICustomer | null>;
+}
+
+export interface IRepositoryBlog {
+  createBlog(arg: ICreateBlog): Promise<IBlog>;
+  updateBlogbyId(msg: IUpdateBlog): Promise<IBlog>;
+  getBlogbyId(id: number): Promise<IBlog | null>;
+  getBlogs(): Promise<IBlog[]>;
+}
 export interface IRepositoryCompany {
   createCompany(company: ICreateCompany): Promise<ICompany>;
   getCompanys(): Promise<ICompany[]>;
@@ -32,7 +51,7 @@ export interface IRepositoryCompany {
     province?: string;
     postCode?: number;
     contact?: string;
-    tag?: Tag;
+    tag?: string[];
     userId: string;
   }): Promise<ICompany>;
   getCompanyId(userId: string): Promise<ICompany | null>;
@@ -47,7 +66,7 @@ export interface IRepositoryPortfolio {
     portId: number;
     title?: string;
     body?: string;
-    tag?: HomeTag;
+    tag?: string[];
     address?: string;
     sub_district?: string;
     district?: string;

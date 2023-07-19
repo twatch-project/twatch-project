@@ -23,23 +23,6 @@ export interface IUser extends ICreateUser {
   userId: string;
 }
 
-// Company
-
-enum Tag {
-  MINIMALMODERN = "MINIMALMODERN",
-  CONTEMPORARYMODERN = "CONTEMPORARYMODERN",
-  MODERNLUXURY = "MODERNLUXURY",
-  MODERNSTYLE = "MODERNSTYLE",
-  MIDCENTURYMODERN = "MIDCENTURYMODERN",
-  VINTAGESTYLE = "VINTAGESTYLE",
-  LOFTINDUSTRALSTYLE = "LOFTINDUSTRALSTYLE",
-  SCANDINAVIANSTYLE = "SCANDINAVIANSTYLE",
-  ARTDECO = "ARTDECO",
-  MIXANDMATCH = "MIXANDMATCH",
-}
-
-export type HomeTag = keyof typeof Tag;
-
 export interface ICreateCompany {
   companyName: string;
   companyRegistration: string;
@@ -49,7 +32,7 @@ export interface ICreateCompany {
   province: string;
   postCode: number;
   contact: string;
-  tag: HomeTag;
+  tag: string[];
 
   userId: string;
 }
@@ -61,7 +44,7 @@ export interface ICompany extends ICreateCompany {
 export interface ICreatePort {
   title: string;
   body: string;
-  tag: HomeTag;
+  tag: string[];
   address: string;
   sub_district: string;
   district: string;
@@ -75,4 +58,78 @@ export interface ICreatePort {
 
 export interface IPort extends ICreatePort {
   portId: number;
+}
+
+//Enum gender
+enum Gender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+  UNSPECIFIED = "UNSPECIFIED",
+}
+
+export type GenderType = keyof typeof Gender;
+
+export function mapGender(gender: Gender): GenderType {
+  return gender;
+}
+
+export interface ICreateCustomer {
+  userId: string;
+  firstname: string;
+  lastname: string;
+  gender: GenderType;
+  dateOfBirth: Date;
+  citizenId: string;
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+  contact: string;
+  postCode: number;
+}
+
+export interface ICustomer extends ICreateCustomer {
+  customerId: number;
+}
+
+export interface IUpdateCustomer {
+  id: number;
+  firstname: string;
+  lastname: string;
+  gender: GenderType;
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+  contact: string;
+  userId: string;
+  postCode: number;
+}
+
+export interface ICreateBlog {
+  customerId: number;
+  title: string;
+  body: string;
+  tag: string[];
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+}
+
+export interface IBlog extends ICreateBlog {
+  blogId: number;
+}
+
+export interface IUpdateBlog {
+  id: number;
+  userId: string;
+  customerId: number;
+  title: string;
+  body: string;
+  tag: string[];
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
 }

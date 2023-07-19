@@ -16,7 +16,7 @@ export function newJwt(data: Payload): string {
 }
 
 export function newHandlerMiddleware(
-  repoBlacklist: IRepositoryBlacklist
+  repoBlacklist: IRepositoryBlacklist,
 ): IHandlerMiddleware {
   return new HandlerMiddleware(repoBlacklist);
 }
@@ -25,7 +25,7 @@ interface IHandlerMiddleware {
   jwtMiddleware(
     req: JwtAuthRequest<any, any>,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   );
 }
 
@@ -39,7 +39,7 @@ class HandlerMiddleware implements IHandlerMiddleware {
   async jwtMiddleware(
     req: JwtAuthRequest<any, any>,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     const token = req.header("Authorization")?.replace("Bearer ", "");
 

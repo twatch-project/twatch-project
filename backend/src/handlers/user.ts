@@ -7,7 +7,7 @@ import { newJwt } from "../auth/jwt";
 
 export function newHandlerUser(
   repoUser: IRepositoryUser,
-  repoBlacklist: IRepositoryBlacklist
+  repoBlacklist: IRepositoryBlacklist,
 ): IHandlerUser {
   return new HandlerUser(repoUser, repoBlacklist);
 }
@@ -23,7 +23,7 @@ class HandlerUser implements IHandlerUser {
 
   async register(
     req: AppRequest<Empty, WithUser>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const { username, password, role, email } = req.body;
     const registeredAt = new Date();
@@ -46,7 +46,7 @@ class HandlerUser implements IHandlerUser {
         res
           .status(201)
           .json({ ...newUser, password: undefined })
-          .end()
+          .end(),
       )
       .catch((err) => {
         const errMsg = `failed to create user ${username}`;
@@ -58,7 +58,7 @@ class HandlerUser implements IHandlerUser {
 
   async getId(
     req: JwtAuthRequest<Empty, Empty>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     if (!req.payload.id) {
       return res.status(400).json({ error: "wrong username or password" });
@@ -79,7 +79,7 @@ class HandlerUser implements IHandlerUser {
 
   async login(
     req: AppRequest<Empty, WithUser>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -106,7 +106,6 @@ class HandlerUser implements IHandlerUser {
           username: user.username,
           role: user.role,
         };
-        console.log("user role", user.role);
         const token = newJwt(payload);
 
         return res.status(200).json({
@@ -130,12 +129,12 @@ class HandlerUser implements IHandlerUser {
 
   async logout(
     req: JwtAuthRequest<Empty, Empty>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     return this.repoBlacklist
       .addToBlackList(req.token)
       .then(() =>
-        res.status(200).json({ status: `logged out successfully` }).end()
+        res.status(200).json({ status: `logged out successfully` }).end(),
       )
       .catch((err) => {
         const errMsg = `failed to logout`;

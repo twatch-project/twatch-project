@@ -1,4 +1,4 @@
-import { PrismaClient, Tag } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { IRepositoryCompany } from ".";
 import { ICompany, ICreateCompany } from "../entities";
 
@@ -79,7 +79,7 @@ class RepositoryCompany implements IRepositoryCompany {
     province?: string;
     postCode?: number;
     contact?: string;
-    tag?: Tag;
+    tag?: string[];
     userId: string;
   }): Promise<ICompany> {
     return await this.db.company.update({
