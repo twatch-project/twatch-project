@@ -31,6 +31,7 @@ export interface PortfolioDto {
   portId: number
   title: string
   body: string
+  imageContent: string //@TODO Add in backend
   tag: string[]
   address: string
   sub_district: string
@@ -39,6 +40,7 @@ export interface PortfolioDto {
   postCode: number
   createAt: Date
   updateAt: Date
+  rating: number //@TODO Add in backend
 
   companyId: number
 }
