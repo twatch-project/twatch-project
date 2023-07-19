@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
-import { CompanyListHook } from '../types/companyList.hook'
 import { host } from '../constant'
-import { CompanyDto } from '../types/dto'
 
-export const useCompanyList = (): CompanyListHook => {
-  const [data, setData] = useState<CompanyDto[] | null>(null)
+import { useState, useEffect } from 'react'
+import { PortfolioHook } from '../types/portfolio.hook'
+import { PortfolioDto } from '../types/dto'
+
+const usePortfolio = (postId: string): PortfolioHook => {
+  const [data, setData] = useState<PortfolioDto | null>(null)
   const [error, setError] = useState<null | unknown>(null)
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -12,10 +13,10 @@ export const useCompanyList = (): CompanyListHook => {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`${host}/company`)
+        const res = await fetch(`${host}/content/${postId}`)
         const data = await res.json()
 
-        setData(data.data)
+        setData(data)
       } catch (err: any) {
         setError(err.message)
       } finally {
@@ -34,3 +35,5 @@ export const useCompanyList = (): CompanyListHook => {
     },
   }
 }
+
+export default usePortfolio

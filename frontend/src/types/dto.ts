@@ -26,6 +26,22 @@ export interface CompanyDto {
   userId: string
 }
 
+export interface PortfolioDto {
+  portId: number
+  title: string
+  body: string
+  tag: string[]
+  address: string
+  sub_district: string
+  district: string
+  province: string
+  postCode: number
+  createAt: Date
+  updateAt: Date
+
+  companyId: number
+}
+
 export interface CreadentialDto {
   accessToken: string
 }
