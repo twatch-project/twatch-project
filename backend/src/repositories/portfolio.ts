@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { IRepositoryPortfolio } from ".";
-import { HomeTag, ICreatePort, IPort } from "../entities";
+import {  ICreatePort, IPort } from "../entities";
 
 export function newRepositoryPortfolio(db: PrismaClient) {
   return new RepositoryPortfolio(db);
@@ -52,7 +52,7 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
     portId: number;
     title?: string;
     body?: string;
-    tag?: HomeTag;
+    tag?: string[];
     address?: string;
     sub_district?: string;
     district?: string;

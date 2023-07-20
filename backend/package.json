@@ -15,11 +15,13 @@
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.4.1",
+    "multer": "1.4.5-lts.1",
     "prisma": "^4.16.2",
     "typescript": "^5.1.6"
   },
   "dependencies": {
     "@prisma/client": "^4.16.2",
+    "aws-sdk": "^2.1418.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -27,6 +29,7 @@
     "init": "^0.1.2",
     "jsonwebtoken": "^9.0.1",
     "redis": "^4.6.7",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "@aws-sdk/client-s3": "^3.32.0"
   }
 }

@@ -22,19 +22,19 @@ enum Gender {
 }
 
 model User {
-  userId        String @id @default(uuid())
-  username      String @unique
-  password      String
-  role          Role
-  email         String @unique
-  registeredAt  DateTime @default(now())
+  userId       String   @id @default(uuid())
+  username     String   @unique
+  password     String
+  role         Role
+  email        String   @unique
+  registeredAt DateTime @default(now())
 
   company  Company[]
   customer Customer[]
 }
 
 model Company {
-  companyId           Int    @id @default(autoincrement())
+  companyId           Int      @id @default(autoincrement())
   companyName         String
   companyRegistration String
   address             String
@@ -82,44 +82,43 @@ model Portfolio {
 }
 
 model Customer {
-  customerId      Int @id @default(autoincrement())
-  firstname       String
-  lastname        String
-  gender          Gender
-  dateOfBirth     DateTime @db.Date
-  citizenId       String @unique
-  province        String 
-  district        String
-  sub_district    String
-  address         String
-  contact         String
-  postCode        Int
+  customerId   Int      @id @default(autoincrement())
+  firstname    String
+  lastname     String
+  gender       Gender
+  dateOfBirth  DateTime @db.Date
+  citizenId    String   @unique
+  province     String
+  district     String
+  sub_district String
+  address      String
+  contact      String
+  postCode     Int
 
-  userCustomer    User @relation(fields: [userId],references: [userId], onDelete: Cascade)
-  userId          String @unique
+  userCustomer User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  userId       String @unique
 
-  blog            Blog[]
+  blog Blog[]
 }
 
 model Blog {
-  blogId          Int @id @default(autoincrement())
-  title           String 
-  body            String  
-  tag             String[]
-  province        String
-  district        String
-  sub_district    String
-  address         String
-  createAt        DateTime @default(now())
-  updateAt        DateTime @default(now())
+  blogId       Int      @id @default(autoincrement())
+  title        String
+  body         String
+  tag          String[]
+  province     String
+  district     String
+  sub_district String
+  address      String
+  createAt     DateTime @default(now())
+  updateAt     DateTime @default(now())
 
-  customer        Customer @relation(fields: [customerId],references: [customerId], onDelete: Cascade)
-  customerId      Int
+  customer   Customer @relation(fields: [customerId], references: [customerId], onDelete: Cascade)
+  customerId Int
 }
 
 model feed {
-  id  Int    @id @default(autoincrement())
+  id   Int      @id @default(autoincrement())
   name String
   mets String[]
 }
-
