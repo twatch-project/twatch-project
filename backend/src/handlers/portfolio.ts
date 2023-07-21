@@ -231,14 +231,18 @@ class HandlerPortfolio implements IHandlerPorfolio {
     const company = await this.repoCompany.getCompanyId(userId);
     if (!company) throw new Error("company id not found");
 
-    return this.repoPort
-      .deletePortById({ portId: portId, companyId: company.companyId })
-      .then((deleted) => res.status(200).json(deleted).end())
-      .catch((err) => {
-        console.error(`failed to delete port ${portId}: ${err}`);
-        return res
-          .status(500)
-          .json({ error: `failed to delete port ${portId}` });
+    try {
+      const deleted = this.repoPort.deletePortById({
+        portId: portId,
+        companyId: company.companyId,
       });
+      return res.status(200).json({ deleted, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't delet This port with error code : ${err}`)
+        .end();
+    }
   }
 }
