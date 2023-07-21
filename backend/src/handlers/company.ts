@@ -72,13 +72,16 @@ class HandlerCompany implements IHandlerCompany {
   }
 
   async getCompanys(_, res: Response): Promise<Response> {
-    return this.repo
-      .getCompanys()
-      .then((companys) => res.status(200).json({ data: companys }).end())
-      .catch((err) => {
-        console.error(`failed to get companys: ${err}`);
-        return res.status(500).json({ error: `failed to get companys` }).end();
-      });
+    try {
+      const companys = await this.repo.getCompanys();
+      return res.status(200).json({ companys, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ err: `failed to get companys with error : ${err}` })
+        .end();
+    }
   }
 
   async getCompanyById(
