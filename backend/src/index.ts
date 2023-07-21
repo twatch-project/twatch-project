@@ -15,6 +15,8 @@ import { newRepositoryCompany } from "./repositories/company";
 import { newHandlerCompany } from "./handlers/company";
 import { newRepositoryPortfolio } from "./repositories/portfolio";
 import { newHandlerPortfolio } from "./handlers/portfolio";
+import { newRepositoryCommentPort } from "./repositories/commentport";
+import { newHandlerCommentPort } from "./handlers/commentport";
 
 async function main() {
   const db = new PrismaClient();
@@ -40,6 +42,8 @@ async function main() {
   const handlerCompany = newHandlerCompany(repoCompany);
   const repoPort = newRepositoryPortfolio(db);
   const handlerPortfolio = newHandlerPortfolio(repoPort, repoCompany);
+  const repoCommentPort = newRepositoryCommentPort(db);
+  const handlerCommentPort = newHandlerCommentPort(repoCommentPort);
 
   const port = process.env.PORT || 8000;
   const server = express();
@@ -49,6 +53,7 @@ async function main() {
   const customerRouter = express.Router();
   const companyRouter = express.Router();
   const portfolioRouter = express.Router();
+  const commentRouter = express.Router();
 
   server.use(cors());
   server.use(express.json());
@@ -60,6 +65,7 @@ async function main() {
   server.use("/customer", customerRouter);
   server.use("/company", companyRouter);
   server.use("/portfolio", portfolioRouter);
+  server.use("/comment", commentRouter);
 
   // Check server status
   server.get("/", (_, res) => {
@@ -154,6 +160,23 @@ async function main() {
     "/:portId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerPortfolio.deletePortById.bind(handlerPortfolio),
+  );
+
+  //Comment API
+  commentRouter.post(
+    "/:commentId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerCommentPort.createCommentPort.bind(handlerCommentPort),
+  );
+  commentRouter.patch(
+    "/:commentId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerCommentPort.updateCommentPortfolio.bind(handlerCommentPort),
+  );
+  commentRouter.delete(
+    "/:commentId",
+    handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    handlerCommentPort.deleteCommentPortfolio.bind(handlerCommentPort),
   );
 
   // server

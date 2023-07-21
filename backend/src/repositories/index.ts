@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import {
   ICreateUser,
   ICreateCustomer,
@@ -11,7 +12,12 @@ import {
   ICreateCompany,
   ICreatePort,
   IPort,
+  ICommentPort,
+  ICreateCommentPort,
+  IUpdateComment,
 } from "../entities";
+
+export type prisma = PrismaClient;
 
 export interface IRepositoryBlacklist {
   addToBlackList(token: string): Promise<void>;
@@ -76,4 +82,16 @@ export interface IRepositoryPortfolio {
     companyId: number;
   }): Promise<IPort>;
   deletePortById(arg: { portId: number; companyId: number }): Promise<IPort>;
+}
+
+export interface IRepositoryCommentPort {
+  createComment(msg: ICreateCommentPort): Promise<ICommentPort>;
+  getCommentPortfolioById(commentId: number): Promise<ICommentPort | null>;
+  getCommentPortfolio(): Promise<ICommentPort[]>;
+  updateCommentPortfolio(msg: IUpdateComment): Promise<ICommentPort>;
+  dateleCommentPortfolioById(arg: {
+    commentId: number;
+    userId: string;
+  }): Promise<ICommentPort>;
+  getCommentPortByUserId(userId: string): Promise<ICommentPort[]>;
 }
