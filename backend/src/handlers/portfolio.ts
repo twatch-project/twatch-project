@@ -138,14 +138,19 @@ class HandlerPortfolio implements IHandlerPorfolio {
         .status(400)
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
-
-    return this.repoPort
-      .getCompanyPorts(companyId)
-      .then((ports) => res.status(200).json(ports).end())
-      .catch((err) => {
-        console.error(`failed to get ports: ${err}`);
-        return res.status(500).json({ error: `failed to get ports` }).end();
-      });
+    try {
+      const ports = await this.repoPort.getCompanyPorts(companyId);
+      if (!ports) {
+        return res.status(401).json("No such a company port").end();
+      }
+      return res.status(200).json({ ports, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't get company port with error code : ${err}`)
+        .end();
+    }
   }
 
   async updatePort(
