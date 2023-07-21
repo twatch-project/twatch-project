@@ -115,16 +115,15 @@ class HandlerUser implements IHandlerUser {
     req: JwtAuthRequest<Empty, Empty>,
     res: Response,
   ): Promise<Response> {
-    return this.repoBlacklist
-      .addToBlackList(req.token)
-      .then(() =>
-        res.status(200).json({ status: `logged out successfully` }).end(),
-      )
-      .catch((err) => {
-        const errMsg = `failed to logout`;
-        console.error(`${errMsg}: ${err}`);
-
-        return res.status(500).json({ error: `failed to logout` });
-      });
+    try {
+      await this.repoBlacklist.addToBlackList(req.token);
+      return res.status(200).json({ status: `logged out successfully` }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ error: `failed to logout ${err}` })
+        .end();
+    }
   }
 }
