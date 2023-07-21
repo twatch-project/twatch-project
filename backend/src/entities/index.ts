@@ -133,3 +133,20 @@ export interface IUpdateBlog {
   sub_district: string;
   address: string;
 }
+
+export interface ICreateCommentPort {
+  userId: string;
+  massage: string;
+  rating: number;
+  portId: number;
+}
+
+export interface ICommentPort extends ICreateCommentPort {
+  commentId: number;
+}
+
+export interface IUpdateComment {
+  commentId: number;
+  massage: string;
+  rating: number;
+}

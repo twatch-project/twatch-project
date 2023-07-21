@@ -11,7 +11,7 @@ import { JwtAuthRequest } from "../auth";
 
 export function newHandlerPortfolio(
   repoPort: IRepositoryPortfolio,
-  repoCompany: IRepositoryCompany
+  repoCompany: IRepositoryCompany,
 ) {
   return new HandlerPortfolio(repoPort, repoCompany);
 }
@@ -27,7 +27,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async createPortfolio(
     req: JwtAuthRequest<Request, WithPort>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -97,7 +97,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async getPortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const portId = Number(req.params.portId);
 
@@ -128,7 +128,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async getCompanyPorts(
     req: JwtAuthRequest<WithCompanyId, Empty>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyId = Number(req.params.companyId);
 
@@ -149,7 +149,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async updatePort(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -204,7 +204,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async deletePortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -233,4 +233,44 @@ class HandlerPortfolio implements IHandlerPorfolio {
           .json({ error: `failed to delete port ${portId}` });
       });
   }
+
+  //Create Comment
+  // async createCommentPort(
+  //   req: JwtAuthRequest<WithCommentId, WithCommentPort>,
+  //   res: Response,
+  // ): Promise<Response> {
+  //   const commentId = Number(req.params);
+  //   if (isNaN(commentId)) {
+  //     return res
+  //       .status(500)
+  //       .json({ err: `Not Found comment ID is : ${commentId}` })
+  //       .end();
+  //   }
+  //   const { massage, rating } = req.body;
+  //   if (!massage) {
+  //     return res.status(500).json({ err: `fill some massage` }).end();
+  //   }
+  //   if (rating > 5 && rating < 0) {
+  //     return res.status(500).json({ err: `rating can store 0-5` }).end();
+  //   }
+  //   const user = req.payload;
+  //   if (user.role !== "CUSTOMER") {
+  //     return res
+  //       .status(500)
+  //       .json({ err: `${user.role} Can't create comment` })
+  //       .end();
+  //   }
+  //   try {
+  //     const isCreateComment = await this.repoPort.createComment({
+  //       massage,
+  //       rating,
+  //       userId: user.id,
+  //       portId: commentId,
+  //     });
+  //     return res.status(200).json(isCreateComment).end();
+  //   } catch (err) {
+  //     console.error(err);
+  //     return res.status(500).json(`Can't Create comment ${err}`).end();
+  //   }
+  // }
 }

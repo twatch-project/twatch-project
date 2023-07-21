@@ -16,7 +16,7 @@ class HandlerCompany implements IHandlerCompany {
 
   async createCompany(
     req: JwtAuthRequest<Request, WithCompany>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -49,7 +49,7 @@ class HandlerCompany implements IHandlerCompany {
       return res.status(400).json({ error: "missing json body" }).end();
     }
 
-    return this.repo
+    return await this.repo
       .createCompany({
         companyName,
         companyRegistration,
@@ -84,7 +84,7 @@ class HandlerCompany implements IHandlerCompany {
 
   async getCompanyById(
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyId = Number(req.params.companyId);
 
@@ -115,7 +115,7 @@ class HandlerCompany implements IHandlerCompany {
 
   async updateCompanyInfo(
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {

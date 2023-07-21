@@ -33,27 +33,19 @@ class HandlerUser implements IHandlerUser {
         error: "missing username or password or role or email in body",
       });
     }
-
-    return this.repo
-      .createUser({
+    try {
+      const newUser = await this.repo.createUser({
         username,
         password: await hashPassword(password),
         role,
         email,
         registeredAt,
-      })
-      .then((newUser) =>
-        res
-          .status(201)
-          .json({ ...newUser, password: undefined })
-          .end(),
-      )
-      .catch((err) => {
-        const errMsg = `failed to create user ${username}`;
-        console.error(`${errMsg}: ${err}`);
-
-        return res.status(500).json({ error: errMsg }).end();
       });
+      return res.status(200).json({ newUser, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: err }).end();
+    }
   }
 
   async getId(
