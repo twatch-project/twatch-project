@@ -140,8 +140,8 @@ class HandlerCompany implements IHandlerCompany {
 
     const userId = req.payload.id;
 
-    return this.repo
-      .updateCompanyInfo({
+    try {
+      const updated = this.repo.updateCompanyInfo({
         address,
         sub_district,
         district,
@@ -151,12 +151,14 @@ class HandlerCompany implements IHandlerCompany {
         tag,
         companyId: companyId,
         userId,
-      })
-      .then((updated) => res.status(201).json(updated).end())
-      .catch((err) => {
-        const errMsg = `failed to update company ${companyId}: ${err}`;
-        console.error(errMsg);
-        return res.status(500).json({ error: errMsg }).end();
       });
+      return res.status(201).json({ updated, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't update Company with error : ${err}`)
+        .end();
+    }
   }
 }
