@@ -48,9 +48,8 @@ class HandlerCompany implements IHandlerCompany {
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
-
-    return await this.repo
-      .createCompany({
+    try {
+      const company = await this.repo.createCompany({
         companyName,
         companyRegistration,
         address,
@@ -61,15 +60,15 @@ class HandlerCompany implements IHandlerCompany {
         contact,
         tag,
         userId: req.payload.id,
-      })
-      .then((company) => res.status(200).json(company).end())
-      .catch((err) => {
-        console.error(`failed to create company: ${err}`);
-        return res
-          .status(500)
-          .json({ error: `failed to create company` })
-          .end();
       });
+      return res.status(200).json({ company, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ error: `failed to create company with error : ${err}` })
+        .end();
+    }
   }
 
   async getCompanys(_, res: Response): Promise<Response> {
