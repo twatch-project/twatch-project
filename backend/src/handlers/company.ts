@@ -96,23 +96,19 @@ class HandlerCompany implements IHandlerCompany {
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
 
-    return this.repo
-      .getCompanyById(companyId)
-      .then((company) => {
-        if (!company) {
-          return res
-            .status(404)
-            .json({ error: `no such todo: ${companyId}` })
-            .end();
-        }
-
-        return res.status(200).json(company).end();
-      })
-      .catch((err) => {
-        const errMsg = `failed to get todo ${companyId}: ${err}`;
-        console.error(errMsg);
-        return res.status(500).json({ error: errMsg });
-      });
+    try {
+      const company = await this.repo.getCompanyById(companyId);
+      if (!company) {
+        return res.status(404).json({ err: "No such company" }).end();
+      }
+      return res.status(200).json({ company, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't get Company with error : ${err}`)
+        .end();
+    }
   }
 
   async updateCompanyInfo(
