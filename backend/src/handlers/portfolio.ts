@@ -64,8 +64,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
     const company = await this.repoCompany.getCompanyId(userId);
     if (!company) throw new Error("company id not found");
 
-    return this.repoPort
-      .createPort({
+    try {
+      const port = this.repoPort.createPort({
         title,
         body,
         tag,
@@ -77,12 +77,15 @@ class HandlerPortfolio implements IHandlerPorfolio {
         updateAt,
         createAt,
         companyId: company.companyId,
-      })
-      .then((port) => res.status(201).json(port).end())
-      .catch((err) => {
-        console.error(`failed to create port: ${err}`);
-        return res.status(500).json({ error: `failed to create port` }).end();
       });
+      return res.status(201).json({ port, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't Create portfolio with error : ${err}`)
+        .end();
+    }
   }
 
   async getPorts(_, res: Response): Promise<Response> {
@@ -233,44 +236,4 @@ class HandlerPortfolio implements IHandlerPorfolio {
           .json({ error: `failed to delete port ${portId}` });
       });
   }
-
-  //Create Comment
-  // async createCommentPort(
-  //   req: JwtAuthRequest<WithCommentId, WithCommentPort>,
-  //   res: Response,
-  // ): Promise<Response> {
-  //   const commentId = Number(req.params);
-  //   if (isNaN(commentId)) {
-  //     return res
-  //       .status(500)
-  //       .json({ err: `Not Found comment ID is : ${commentId}` })
-  //       .end();
-  //   }
-  //   const { massage, rating } = req.body;
-  //   if (!massage) {
-  //     return res.status(500).json({ err: `fill some massage` }).end();
-  //   }
-  //   if (rating > 5 && rating < 0) {
-  //     return res.status(500).json({ err: `rating can store 0-5` }).end();
-  //   }
-  //   const user = req.payload;
-  //   if (user.role !== "CUSTOMER") {
-  //     return res
-  //       .status(500)
-  //       .json({ err: `${user.role} Can't create comment` })
-  //       .end();
-  //   }
-  //   try {
-  //     const isCreateComment = await this.repoPort.createComment({
-  //       massage,
-  //       rating,
-  //       userId: user.id,
-  //       portId: commentId,
-  //     });
-  //     return res.status(200).json(isCreateComment).end();
-  //   } catch (err) {
-  //     console.error(err);
-  //     return res.status(500).json(`Can't Create comment ${err}`).end();
-  //   }
-  // }
 }
