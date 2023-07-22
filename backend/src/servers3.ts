@@ -30,13 +30,13 @@ app.post('/images', upload.single('image'), async (req:any, res) => {
 
   const result = await uploadFile(file)
   await unlinkFile(file.path)
-  console.log(result)
+  console.log("result", result)
   const description = req.body.description
-  console.log(description)
+  console.log("description", description)
   res.send({imagePath: `/images/${result.Key}`})
 })
 
-app.listen(8000, () => console.log("listening on port 8080"))
+app.listen(8080, () => console.log("listening on port 8080"))
 }
 
 main()

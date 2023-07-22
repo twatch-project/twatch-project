@@ -49,20 +49,20 @@ model Company {
   userCompany User   @relation(fields: [userId], references: [userId])
   userId      String @unique
 
-  engineer  Engineer[]
+  // engineer  Engineer[]
   portfolio Portfolio[]
 }
 
-model Engineer {
-  engineerId Int    @id @default(autoincrement())
-  role       String
-  firstname  String
-  lastname   String
-  licenseNo  String @unique
+// model Engineer {
+//   engineerId Int    @id @default(autoincrement())
+//   role       String
+//   firstname  String
+//   lastname   String
+//   licenseNo  String @unique
 
-  company   Company @relation(fields: [companyId], references: [companyId])
-  companyId Int
-}
+//   company   Company @relation(fields: [companyId], references: [companyId])
+//   companyId Int
+// }
 
 model Portfolio {
   portId       Int      @id @default(autoincrement())
@@ -121,4 +121,13 @@ model feed {
   id   Int      @id @default(autoincrement())
   name String
   mets String[]
+}
+
+model Posts {
+  id            Int      @id @default(autoincrement())
+  imageName     String
+  caption       String
+  totalComments Int      @default(0)
+  totalLikes    Int      @default(0)
+  created       DateTime @default(now())
 }
