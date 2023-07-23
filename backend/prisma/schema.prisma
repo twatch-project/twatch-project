@@ -43,7 +43,7 @@ model Company {
   province            String
   postCode            Int
   contact             String
-  // rateprice           Int
+  // rateprice        Int
   tag                 String[]
 
   userCompany User   @relation(fields: [userId], references: [userId])
@@ -79,6 +79,19 @@ model Portfolio {
 
   postedBy  Company @relation(fields: [companyId], references: [companyId])
   companyId Int
+  user  CommentPortfolio[]
+}
+
+model CommentPortfolio {
+  commentId     Int      @id @default(autoincrement())
+  massage       String 
+  rating        Int
+  userId        String
+  createAt      DateTime @default(now())
+  updateAt      DateTime @default(now())
+
+  portfolio     Portfolio @relation(fields: [portId], references: [portId])
+  portId          Int
 }
 
 model Customer {
@@ -117,12 +130,6 @@ model Blog {
   customerId Int
 }
 
-model feed {
-  id   Int      @id @default(autoincrement())
-  name String
-  mets String[]
-}
-
 model Posts {
   id            Int      @id @default(autoincrement())
   imageName     String
@@ -131,3 +138,4 @@ model Posts {
   totalLikes    Int      @default(0)
   created       DateTime @default(now())
 }
+

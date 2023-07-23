@@ -192,3 +192,37 @@ export interface IHandlerPorfolio {
     res: Response,
   ): Promise<Response>;
 }
+
+export interface WithCommentPort {
+  userId: string;
+  massage: string;
+  rating: number;
+}
+
+export interface WithUpdateComment {
+  massage: string;
+  rating: number;
+}
+export interface WithCommentId {
+  commentId: number;
+}
+
+export interface IHandlerComment {
+  createCommentPort(
+    req: JwtAuthRequest<WithCommentId, WithCommentPort>,
+    res: Response,
+  ): Promise<Response>;
+  updateCommentPortfolio(
+    req: JwtAuthRequest<WithCommentId, WithUpdateComment>,
+    res: Response,
+  ): Promise<Response>;
+  getCommentPortfolioById(
+    req: JwtAuthRequest<WithCommentId, Empty>,
+    res: Response,
+  ): Promise<Response>;
+  getCommentPortfolios(_, res: Response): Promise<Response>;
+  deleteCommentPortfolio(
+    req: JwtAuthRequest<WithCommentId, WithCommentPort>,
+    res: Response,
+  ): Promise<Response>;
+}

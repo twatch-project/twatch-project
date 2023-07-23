@@ -11,7 +11,7 @@ import { JwtAuthRequest } from "../auth";
 
 export function newHandlerPortfolio(
   repoPort: IRepositoryPortfolio,
-  repoCompany: IRepositoryCompany
+  repoCompany: IRepositoryCompany,
 ) {
   return new HandlerPortfolio(repoPort, repoCompany);
 }
@@ -27,7 +27,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async createPortfolio(
     req: JwtAuthRequest<Request, WithPort>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -64,8 +64,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
     const company = await this.repoCompany.getCompanyId(userId);
     if (!company) throw new Error("company id not found");
 
-    return this.repoPort
-      .createPort({
+    try {
+      const port = this.repoPort.createPort({
         title,
         body,
         tag,
@@ -77,27 +77,33 @@ class HandlerPortfolio implements IHandlerPorfolio {
         updateAt,
         createAt,
         companyId: company.companyId,
-      })
-      .then((port) => res.status(201).json(port).end())
-      .catch((err) => {
-        console.error(`failed to create port: ${err}`);
-        return res.status(500).json({ error: `failed to create port` }).end();
       });
+      return res.status(201).json({ port, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't Create portfolio with error : ${err}`)
+        .end();
+    }
   }
 
   async getPorts(_, res: Response): Promise<Response> {
-    return this.repoPort
-      .getPorts()
-      .then((ports) => res.status(200).json({ data: ports }).end())
-      .catch((err) => {
-        console.error(`failed to get port: ${err}`);
-        return res.status(500).json({ error: `failed to get ports` }).end();
-      });
+    try {
+      const ports = await this.repoPort.getPorts();
+      return res.status(200).json({ ports, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't Get Portfolio with error : ${err}`)
+        .end();
+    }
   }
 
   async getPortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const portId = Number(req.params.portId);
 
@@ -106,29 +112,24 @@ class HandlerPortfolio implements IHandlerPorfolio {
         .status(400)
         .json({ error: `id ${req.params.portId} is not a number` });
     }
-
-    return this.repoPort
-      .getPortById(portId)
-      .then((port) => {
-        if (!port) {
-          return res
-            .status(404)
-            .json({ error: `no such port: ${portId}` })
-            .end();
-        }
-
-        return res.status(200).json(port).end();
-      })
-      .catch((err) => {
-        const errMsg = `failed to get port ${portId}: ${err}`;
-        console.error(errMsg);
-        return res.status(500).json({ error: errMsg });
-      });
+    try {
+      const port = await this.repoPort.getPortById(portId);
+      if (!port) {
+        return res.status(401).json("No such a Port").end();
+      }
+      return res.status(200).json({ port, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't get Port ID with Error Code ${err}`)
+        .end();
+    }
   }
 
   async getCompanyPorts(
     req: JwtAuthRequest<WithCompanyId, Empty>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyId = Number(req.params.companyId);
 
@@ -137,19 +138,24 @@ class HandlerPortfolio implements IHandlerPorfolio {
         .status(400)
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
-
-    return this.repoPort
-      .getCompanyPorts(companyId)
-      .then((ports) => res.status(200).json(ports).end())
-      .catch((err) => {
-        console.error(`failed to get ports: ${err}`);
-        return res.status(500).json({ error: `failed to get ports` }).end();
-      });
+    try {
+      const ports = await this.repoPort.getCompanyPorts(companyId);
+      if (!ports) {
+        return res.status(401).json("No such a company port").end();
+      }
+      return res.status(200).json({ ports, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't get company port with error code : ${err}`)
+        .end();
+    }
   }
 
   async updatePort(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -180,8 +186,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
     const updateAt = new Date();
 
-    return this.repoPort
-      .updatePort({
+    try {
+      const updated = this.repoPort.updatePort({
         portId,
         title,
         body,
@@ -193,18 +199,20 @@ class HandlerPortfolio implements IHandlerPorfolio {
         postCode,
         updateAt,
         companyId: company.companyId,
-      })
-      .then((updated) => res.status(201).json(updated).end())
-      .catch((err) => {
-        const errMsg = `failed to update port ${portId}: ${err}`;
-        console.error(errMsg);
-        return res.status(500).json({ error: errMsg }).end();
       });
+      return res.status(200).json({ updated, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't update port with error code : ${err}`)
+        .end();
+    }
   }
 
   async deletePortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -223,14 +231,18 @@ class HandlerPortfolio implements IHandlerPorfolio {
     const company = await this.repoCompany.getCompanyId(userId);
     if (!company) throw new Error("company id not found");
 
-    return this.repoPort
-      .deletePortById({ portId: portId, companyId: company.companyId })
-      .then((deleted) => res.status(200).json(deleted).end())
-      .catch((err) => {
-        console.error(`failed to delete port ${portId}: ${err}`);
-        return res
-          .status(500)
-          .json({ error: `failed to delete port ${portId}` });
+    try {
+      const deleted = this.repoPort.deletePortById({
+        portId: portId,
+        companyId: company.companyId,
       });
+      return res.status(200).json({ deleted, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't delet This port with error code : ${err}`)
+        .end();
+    }
   }
 }

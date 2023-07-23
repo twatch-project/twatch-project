@@ -16,7 +16,7 @@ class HandlerCompany implements IHandlerCompany {
 
   async createCompany(
     req: JwtAuthRequest<Request, WithCompany>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -48,9 +48,8 @@ class HandlerCompany implements IHandlerCompany {
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
-
-    return this.repo
-      .createCompany({
+    try {
+      const company = await this.repo.createCompany({
         companyName,
         companyRegistration,
         address,
@@ -61,30 +60,33 @@ class HandlerCompany implements IHandlerCompany {
         contact,
         tag,
         userId: req.payload.id,
-      })
-      .then((company) => res.status(200).json(company).end())
-      .catch((err) => {
-        console.error(`failed to create company: ${err}`);
-        return res
-          .status(500)
-          .json({ error: `failed to create company` })
-          .end();
       });
+      return res.status(200).json({ company, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ error: `failed to create company with error : ${err}` })
+        .end();
+    }
   }
 
   async getCompanys(_, res: Response): Promise<Response> {
-    return this.repo
-      .getCompanys()
-      .then((companys) => res.status(200).json({ data: companys }).end())
-      .catch((err) => {
-        console.error(`failed to get companys: ${err}`);
-        return res.status(500).json({ error: `failed to get companys` }).end();
-      });
+    try {
+      const companys = await this.repo.getCompanys();
+      return res.status(200).json({ companys, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json({ err: `failed to get companys with error : ${err}` })
+        .end();
+    }
   }
 
   async getCompanyById(
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyId = Number(req.params.companyId);
 
@@ -94,28 +96,24 @@ class HandlerCompany implements IHandlerCompany {
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
 
-    return this.repo
-      .getCompanyById(companyId)
-      .then((company) => {
-        if (!company) {
-          return res
-            .status(404)
-            .json({ error: `no such todo: ${companyId}` })
-            .end();
-        }
-
-        return res.status(200).json(company).end();
-      })
-      .catch((err) => {
-        const errMsg = `failed to get todo ${companyId}: ${err}`;
-        console.error(errMsg);
-        return res.status(500).json({ error: errMsg });
-      });
+    try {
+      const company = await this.repo.getCompanyById(companyId);
+      if (!company) {
+        return res.status(404).json({ err: "No such company" }).end();
+      }
+      return res.status(200).json({ company, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't get Company with error : ${err}`)
+        .end();
+    }
   }
 
   async updateCompanyInfo(
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
-    res: Response
+    res: Response,
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -142,8 +140,8 @@ class HandlerCompany implements IHandlerCompany {
 
     const userId = req.payload.id;
 
-    return this.repo
-      .updateCompanyInfo({
+    try {
+      const updated = this.repo.updateCompanyInfo({
         address,
         sub_district,
         district,
@@ -153,12 +151,14 @@ class HandlerCompany implements IHandlerCompany {
         tag,
         companyId: companyId,
         userId,
-      })
-      .then((updated) => res.status(201).json(updated).end())
-      .catch((err) => {
-        const errMsg = `failed to update company ${companyId}: ${err}`;
-        console.error(errMsg);
-        return res.status(500).json({ error: errMsg }).end();
       });
+      return res.status(201).json({ updated, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't update Company with error : ${err}`)
+        .end();
+    }
   }
 }
