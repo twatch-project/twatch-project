@@ -3,13 +3,13 @@ import { JwtAuthRequest, Payload } from ".";
 import { NextFunction, Response } from "express";
 import { IRepositoryBlacklist } from "../repositories";
 
-const secret = process.env.SECRET || "jwt-secret";
+const secret = process.env.SECRET || "jwt-secret-twatch";
 
 export function newJwt(data: Payload): string {
   return jwt.sign(data, secret, {
     algorithm: "HS512",
     expiresIn: "12h",
-    issuer: "content-api",
+    issuer: "twatch-api",
     subject: "registration",
     audience: "user",
   });
