@@ -23,10 +23,8 @@ const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex
 
 app.get("/", async (req, res:any) => {
   const posts:any = await prisma.posts.findMany({orderBy: [{ created: 'desc'}]})
-  console.log(posts)
   for (let post of posts) {
     post.imageUrl = await getObjectSignedUrl(post.imageName)
-    console.log("imageUrl",post.imageUrl)
   }
   return res.status(200).json(posts).end()
 })
@@ -53,19 +51,17 @@ app.post('/posts', upload.single('image'), async (req:any, res) => {
   res.redirect("/")
 })
 
-// app.get('/posts', upload.single('image'), async (req:any, res) => {
-//   const posts:any = await prisma.posts.findMany({orderBy: [{ created: 'desc'}]})
-//   return res.status(200).json(posts).end()
-// })
-
-app.post("/api/deletePost/:id", async (req, res) => {
-  const id = +req.params.id
+app.delete("/api/deletePost/:id", async (req, res) => {
+  const id:number = Number(req.params.id)
+  
   const post:any = await prisma.posts.findUnique({where: {id}}) 
+
+  console.log(post)
 
   await deleteFile(post.imageName)
 
   await prisma.posts.delete({where: {id: post.id}})
-  res.redirect("/")
+  return 
 })
 
 app.listen(8080, () => console.log("listening on port 8080"))
