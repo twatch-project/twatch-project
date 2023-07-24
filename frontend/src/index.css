@@ -2,7 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+nav a{
+  margin: 0 1rem;
+}
+
+@layer utilities{
+  .shadow-box{
+    box-shadow: 0 0  10px #5e5e5e;
+  }
+}
+
+@layer components{
+  .btn{
+    @apply flex justify-center items-center bg-blue w-24 h-9 rounded-md text-white
+  }
+}
+
+@layer utilities{
+  .h-665{
+    height:665px;
+  }
+}
+
+@layer utilities{
+  .gradient-sky{
+    background-image: linear-gradient(#ddecfb, #ffffff);
+  }
+}
+
+@layer components{
+  .company{
+  @apply w-36 h-12 bg-blue text-white my-2 rounded-md 
+  }
+}
+@layer components{
+  .customer{
+  @apply w-36 h-12 bg-white text-blue my-2 rounded-md border border-blue border-solid 
+  }
+}
+
+@layer utilities{
+  .w-995{
+    width: 995px;
+  }
+}
+@layer utilities{
+  .w-1045{
+    width: 1045px;
+  }
+}
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -70,4 +119,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
