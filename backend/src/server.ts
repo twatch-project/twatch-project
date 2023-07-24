@@ -1,70 +1,72 @@
-import express from 'express'
+import express from "express";
 import cors from "cors";
 
-import multer from 'multer'
-import sharp from 'sharp'
-import crypto from 'crypto'
+import multer from "multer";
+import sharp from "sharp";
+import crypto from "crypto";
 
-import { PrismaClient } from '@prisma/client'
-import { uploadFile, deleteFile, getObjectSignedUrl } from './auth/aws'
+import { PrismaClient } from "@prisma/client";
+import { uploadFile, deleteFile, getObjectSignedUrl } from "./services/aws";
 
 async function main() {
-const app = express()
-app.set('view engine', 'ejs')
-app.use(express.static("public"))
-app.use(cors())
+  const app = express();
 
-const prisma = new PrismaClient()
+  app.use(express.static("public"));
+  app.use(cors());
 
-const storage = multer.memoryStorage()
-const upload = multer({ storage: storage })
+  const prisma = new PrismaClient();
 
-const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
+  const storage = multer.memoryStorage();
+  const upload = multer({ storage: storage });
 
-app.get("/", async (req, res:any) => {
-  const posts:any = await prisma.posts.findMany({orderBy: [{ created: 'desc'}]})
-  for (let post of posts) {
-    post.imageUrl = await getObjectSignedUrl(post.imageName)
-  }
-  return res.status(200).json(posts).end()
-})
+  const generateFileName = (bytes = 32) =>
+    crypto.randomBytes(bytes).toString("hex");
 
-
-app.post('/posts', upload.single('image'), async (req:any, res) => {
-  const file = req.file
-  const caption = req.body.caption
-  const imageName = generateFileName()
-
-  const fileBuffer = await sharp(file.buffer)
-    .resize({ height: 1920, width: 1080, fit: "contain" })
-    .toBuffer()
-
-  await uploadFile(fileBuffer, imageName, file.mimetype)
-
-  await prisma.posts.create({
-    data: {
-      imageName,
-      caption,
+  app.get("/", async (req, res: any) => {
+    const posts: any = await prisma.posts.findMany({
+      orderBy: [{ created: "desc" }],
+    });
+    for (let post of posts) {
+      post.imageUrl = await getObjectSignedUrl(post.imageName);
     }
-  })
-  
-  res.redirect("/")
-})
+    return res.status(200).json(posts).end();
+  });
 
-app.delete("/api/deletePost/:id", async (req, res) => {
-  const id:number = Number(req.params.id)
-  
-  const post:any = await prisma.posts.findUnique({where: {id}}) 
+  app.post("/posts", upload.single("image"), async (req: any, res) => {
+    const file = req.file;
+    const caption = req.body.caption;
+    const imageName = generateFileName();
 
-  console.log(post)
+    const fileBuffer = await sharp(file.buffer)
+      .resize({ height: 1920, width: 1080, fit: "contain" })
+      .toBuffer();
 
-  await deleteFile(post.imageName)
+    await uploadFile(fileBuffer, imageName, file.mimetype);
 
-  await prisma.posts.delete({where: {id: post.id}})
-  return 
-})
+    const post = await prisma.posts.create({
+      data: {
+        imageName,
+        caption,
+      },
+    });
 
-app.listen(8080, () => console.log("listening on port 8080"))
+    return res.status(200).json(post).end()
+  });
+
+  app.delete("/api/deletePost/:id", async (req, res) => {
+    const id: number = Number(req.params.id);
+
+    const post: any = await prisma.posts.findUnique({ where: { id } });
+
+    console.log(post);
+
+    await deleteFile(post.imageName);
+
+    await prisma.posts.delete({ where: { id: post.id } });
+    return;
+  });
+
+  app.listen(8000, () => console.log("listening on port 8000"));
 }
 
-main()
+main();

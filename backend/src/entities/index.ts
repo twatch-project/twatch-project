@@ -26,6 +26,10 @@ export interface IUser extends ICreateUser {
 export interface ICreateCompany {
   companyName: string;
   companyRegistration: string;
+  imageCompany: string;
+  imageCompanyUrl: string;
+  imageContents: string[];
+  imageContentUrls: string[];
   address: string;
   sub_district: string;
   district: string;
@@ -43,6 +47,8 @@ export interface ICompany extends ICreateCompany {
 
 export interface ICreatePort {
   title: string;
+  imageContents: string[];
+  imageContentUrls: string[];
   body: string;
   tag: string[];
   address: string;

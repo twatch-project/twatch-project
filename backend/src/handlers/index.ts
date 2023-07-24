@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { JwtAuthRequest } from "../auth";
 import { GenderType } from "../entities";
-import { Gender } from "@prisma/client";
 import { UserRole } from "../entities";
 
 export interface AppRequest<Params, Body> extends Request<Params, any, Body> {}
@@ -46,7 +45,7 @@ export interface IHandlerUser {
 export interface WithCustomer {
   firstname: string;
   lastname: string;
-  gender: Gender;
+  gender: GenderType;
   dateOfBirth: Date;
   citizenId: string;
   province: string;
@@ -87,31 +86,31 @@ export interface WithBlogUpdate {
 export interface IHandlerCustomer {
   createCustomer(
     req: JwtAuthRequest<Empty, WithCustomer>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   getCustomerId(
     req: JwtAuthRequest<WithIdCustomer, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   getCustomers(_: Request, res: Response): Promise<Response>;
   updateCustomer(
     req: JwtAuthRequest<WithIdCustomer, WithUpdateCustomer>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
 }
 
 export interface IHandlerBlog {
   createCustomerBlog(
     req: JwtAuthRequest<Empty, WithBlog>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   updateCustomerBlog(
     req: JwtAuthRequest<WithBlogId, WithBlogUpdate>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   getBlogById(
     req: JwtAuthRequest<WithBlogId, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
 }
 // Company
@@ -136,21 +135,23 @@ export interface WithCompanyId {
 export interface IHandlerCompany {
   createCompany(
     req: JwtAuthRequest<Request, WithCompany>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   getCompanys(_, res: Response): Promise<Response>;
   getCompanyById(
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   updateCompanyInfo(
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
 }
 
 export interface WithPort {
   title: string;
+  imageContents: string[];
+  imageContentUrl: string[];
   body: string;
   tag: string[];
   address: string;
@@ -172,24 +173,24 @@ export interface WithPortAndCompanyId extends WithCompanyId {
 export interface IHandlerPorfolio {
   createPortfolio(
     req: JwtAuthRequest<Request, WithPort>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   getPorts(_, res: Response): Promise<Response>;
   getPortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   getCompanyPorts(
     req: JwtAuthRequest<Empty, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   updatePort(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   deletePortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
 }
 
@@ -210,19 +211,19 @@ export interface WithCommentId {
 export interface IHandlerComment {
   createCommentPort(
     req: JwtAuthRequest<WithCommentId, WithCommentPort>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   updateCommentPortfolio(
     req: JwtAuthRequest<WithCommentId, WithUpdateComment>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   getCommentPortfolioById(
     req: JwtAuthRequest<WithCommentId, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
   getCommentPortfolios(_, res: Response): Promise<Response>;
   deleteCommentPortfolio(
     req: JwtAuthRequest<WithCommentId, WithCommentPort>,
-    res: Response,
+    res: Response
   ): Promise<Response>;
 }

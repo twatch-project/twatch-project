@@ -81,6 +81,21 @@ export interface IRepositoryPortfolio {
     updateAt: Date;
     companyId: number;
   }): Promise<IPort>;
+  updatePortImage(arg: {
+    portId: number;
+    imageContents?: string[];
+    imageContentUrls?: string[];
+    title?: string;
+    body?: string;
+    tag?: string[];
+    address?: string;
+    sub_district?: string;
+    district?: string;
+    province?: string;
+    postCode?: number;
+    updateAt: Date;
+    companyId: number;
+  }): Promise<IPort>;
   deletePortById(arg: { portId: number; companyId: number }): Promise<IPort>;
 }
 
