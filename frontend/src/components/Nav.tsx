@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { useAuth } from '../providers/AuthProvider';
 export default function nav() {
+  const { isLoggedIn, logout } = useAuth();
   return (
     <div className="">
       <nav className="flex justify-between bg-white text-center p-[1rem] shadow-box">
@@ -13,12 +15,25 @@ export default function nav() {
           <Link to="/Customer">Customer</Link>
           <Link to="/Company">Company</Link>
           <Link to="/Contact">Contact</Link>
-          <Link to="/Register">SignUp</Link>
-          <Link to="/Login" className="bg-blue py-[5px] px-[1rem] rounded text-white">
-            Login
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <div>
+                <p>Wellcom</p>
+              </div>
+              <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
+                logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/Register">SignUp</Link>
+              <Link to="/Login" className="bg-blue py-[5px] px-[1rem] rounded text-white">
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </div>
-  )
+  );
 }

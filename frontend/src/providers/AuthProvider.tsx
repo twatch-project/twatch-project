@@ -48,12 +48,15 @@ const AuthProvider = (props: AuthProviderProps) => {
         body: JSON.stringify(loginInfo),
       });
       const data = await res.json();
+      if (data.statusCode === 404) {
+        throw new Error(data.massage);
+      }
 
       if (data.statusCode === 401) {
         throw new Error(data.message);
       }
 
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.accessToken);
       const accessToken = localStorage.getItem('token') || 'foo';
 
       const { userId } = await retrieveUserData(accessToken);
@@ -75,7 +78,7 @@ const AuthProvider = (props: AuthProviderProps) => {
 
   const logout: LogoutFunc = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('id');
+    localStorage.removeItem('userId');
     setIsLoggedIn(false);
     setUserInfo({ userId: null, token: null });
     // toast.success('Successful Logout')

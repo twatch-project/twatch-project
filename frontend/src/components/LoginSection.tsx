@@ -20,6 +20,9 @@ const Login = () => {
     }
 
     try {
+      if (!usernameInput || !passwordInput) {
+        return toast.error('no such username and password');
+      }
       await login(usernameInput, passwordInput);
 
       toast.success('Successful Login');
