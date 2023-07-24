@@ -1,10 +1,10 @@
-import img from '../img/3.jpg'
-import { Link } from 'react-router-dom'
-import Footer from '../components/Footer'
-import Nav from '../components/Nav'
+// import img from '../img/3.jpg'
+import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+import Nav from '../components/Nav';
 // import { styled } from '@mui/material'
 // import Rating from '@mui/material/Rating'
-import ReactStars from 'react-stars'
+import ReactStars from 'react-stars';
 
 // const StyledRating = styled(Rating)({
 //   '& .MuiRating-iconFilled': {
@@ -15,6 +15,8 @@ import ReactStars from 'react-stars'
 //   },
 // })
 export default function CompanyDetail() {
+  const img =
+    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   return (
     <>
       <Nav />
@@ -49,7 +51,7 @@ export default function CompanyDetail() {
 
             <Link to="/CompanyProfile">
               <div className="edit-info flex justify-end p-[15px]">
-                <button className="bg-blue rounded p-[10px] text-white">Edit Info</button>
+                <button className="bg-blue rounded p-[10px] text-white">Create company</button>
               </div>
             </Link>
           </div>
@@ -102,5 +104,5 @@ export default function CompanyDetail() {
       </section>
       <Footer />
     </>
-  )
+  );
 }

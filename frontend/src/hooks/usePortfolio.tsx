@@ -1,30 +1,30 @@
-import { host } from '../constant'
+import { host } from '../constant';
 
-import { useState, useEffect } from 'react'
-import { PortfolioHook } from '../types/portfolio.hook'
-import { PortfolioDto } from '../types/dto'
+import { useState, useEffect } from 'react';
+import { PortfolioHook } from '../types/portfolio.hook';
+import { PortfolioDto } from '../types/dto';
 
 const usePortfolio = (postId: string): PortfolioHook => {
-  const [data, setData] = useState<PortfolioDto | null>(null)
-  const [error, setError] = useState<null | unknown>(null)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [data, setData] = useState<PortfolioDto | null>(null);
+  const [error, setError] = useState<null | unknown>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        const res = await fetch(`${host}/content/${postId}`)
-        const data = await res.json()
+        const res = await fetch(`${host}/content/${postId}`);
+        const data = await res.json();
 
-        setData(data)
+        setData(data);
       } catch (err: any) {
-        setError(err.message)
+        setError(err.message);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
 
   return {
     data,
@@ -33,7 +33,7 @@ const usePortfolio = (postId: string): PortfolioHook => {
       loading,
       ready: error == null && !loading && data != null,
     },
-  }
-}
+  };
+};
 
-export default usePortfolio
+export default usePortfolio;

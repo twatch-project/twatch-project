@@ -1,5 +1,5 @@
-import React from 'react'
-import Nav from '../components/Nav'
+import React from 'react';
+import Nav from '../components/Nav';
 export default function CreateProfile() {
   return (
     <>
@@ -71,5 +71,5 @@ export default function CreateProfile() {
         </form>
       </section>
     </>
-  )
+  );
 }

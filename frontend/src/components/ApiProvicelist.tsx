@@ -1,59 +1,53 @@
-import * as React from 'react'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import FetchProivce from '../hooks/ProviceAPI'
-import FetchAmphure from '../hooks/AmphureAPI'
-import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook'
-import FetchTambon from '../hooks/TambonsAPI'
+import * as React from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import FetchProivce from '../hooks/ProviceAPI';
+import FetchAmphure from '../hooks/AmphureAPI';
+import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
+import FetchTambon from '../hooks/TambonsAPI';
 
 export default function Provicelist() {
-  const { provinces } = FetchProivce()
-  const { Amphure } = FetchAmphure()
-  const { tambons } = FetchTambon()
-  const [province, setProvince] = React.useState<{ id: number; name_th: string } | null>(null)
-  const [amphure, setAmphure] = React.useState<{ id: number; name_th: string } | null>(null)
-  const [amphureId, setAmphureId] = React.useState<AmphureDTO[] | null>(null)
-  const [tambon, setTambon] = React.useState('')
-  const [tambonId, setTambonId] = React.useState<TambonDTO[] | null>(null)
+  const { provinces } = FetchProivce();
+  const { Amphure } = FetchAmphure();
+  const { tambons } = FetchTambon();
+  const [province, setProvince] = React.useState<{ id: number; name_th: string } | null>(null);
+  const [amphure, setAmphure] = React.useState<{ id: number; name_th: string } | null>(null);
+  const [amphureId, setAmphureId] = React.useState<AmphureDTO[] | null>(null);
+  const [tambon, setTambon] = React.useState('');
+  const [tambonId, setTambonId] = React.useState<TambonDTO[] | null>(null);
 
   const handleChangeProvice = (event: SelectChangeEvent) => {
-    const selectedProvince = provinces.find((province) => province.name_th === event.target.value)
+    const selectedProvince = provinces.find((province) => province.name_th === event.target.value);
 
     if (selectedProvince) {
-      // Set the selected province object to state
-      setProvince(selectedProvince)
-
-      // Filter the Amphure array based on the selected province's ID
-      const filteredAmphure = Amphure.filter((amp) => amp.province_id === selectedProvince.id)
-
-      // Set the filtered Amphure to the state
-      setAmphureId(filteredAmphure)
-      setTambonId([])
+      setProvince(selectedProvince);
+      const filteredAmphure = Amphure.filter((amp) => amp.province_id === selectedProvince.id);
+      setAmphureId(filteredAmphure);
+      setTambonId([]);
     } else {
-      // If no province is selected, reset the state variables
-      setProvince(null)
-      setAmphureId([])
+      setProvince(null);
+      setAmphureId([]);
     }
-  }
+  };
 
   const handleChangeAmphure = (event: SelectChangeEvent) => {
-    const selectedAmphure = Amphure.find((ampher) => ampher.name_th === event.target.value)
+    const selectedAmphure = Amphure.find((ampher) => ampher.name_th === event.target.value);
 
     if (selectedAmphure) {
-      setAmphure(selectedAmphure)
-      const filteredTambon = tambons.filter((tambon) => tambon.amphure_id === selectedAmphure.id)
-      setTambonId(filteredTambon)
+      setAmphure(selectedAmphure);
+      const filteredTambon = tambons.filter((tambon) => tambon.amphure_id === selectedAmphure.id);
+      setTambonId(filteredTambon);
     } else {
-      setAmphure(null)
-      setTambonId([])
+      setAmphure(null);
+      setTambonId([]);
     }
-  }
+  };
 
   const handleChangeTambon = (event: SelectChangeEvent) => {
-    setTambon(event.target.value)
-  }
+    setTambon(event.target.value);
+  };
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 80 }}>
@@ -113,5 +107,5 @@ export default function Provicelist() {
         </Select>
       </FormControl>
     </div>
-  )
+  );
 }
