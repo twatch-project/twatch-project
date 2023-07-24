@@ -1,10 +1,5 @@
-import React, { FormEvent, useState } from 'react'
-import { useAuth } from '../providers/AuthProvider'
-import { useNavigate } from 'react-router-dom'
-import classes from './Login.module.css'
-import toast from 'react-hot-toast'
-import { Link } from 'react-router-dom'
-import { Button } from '@mui/material'
+import Login from '../components/LoginSection';
+import Nav from '../components/Nav';
 
 const Login = () => {
   const [usernameInput, setUsernameInput] = useState('')
@@ -35,40 +30,11 @@ const Login = () => {
   }
 
   return (
-    <div className={classes.form}>
-      <form onSubmit={handleSubmit} className={classes.login}>
-        <div className="text-2xl text-white">LOGIN</div>
-        <div className="text-left m-auto">
-          <label className="text-l flex flex-col text-white my-1">Username</label>
-          <input
-            type="text"
-            value={usernameInput}
-            className="px-2 py-0.5 rounded"
-            onChange={(e) => setUsernameInput(e.target.value)}
-            required
-          />
-        </div>
-        <div className="text-left m-auto mb-2">
-          <label className="text-l flex flex-col text-white my-1 ">Password</label>
-          <input
-            type="password"
-            value={passwordInput}
-            className="px-2 py-0.5 rounded"
-            onChange={(e) => setPasswordInput(e.target.value)}
-            required
-          />
-        </div>
+    <>
+      <Nav />
+      <Login />
+    </>
+  );
+};
 
-        <Button type="submit" variant="contained" disabled={isSubmitting}>
-          Login
-        </Button>
-
-        <Link to="/register" className="text-white">
-          Dont have an accout? Register
-        </Link>
-      </form>
-    </div>
-  )
-}
-
-export default Login
+export default login;
