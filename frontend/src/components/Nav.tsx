@@ -1,19 +1,24 @@
+import { Link } from 'react-router-dom'
 export default function nav() {
   return (
-    <nav className="flex fixed justify-between items-center bg-white shadow-2xl h-16 w-full ">
-      <h1 className="text-2xl font-bold mx-5">Twatch</h1>
-      <ul className="flex justify-center items-center gap-x-3 mx-5">
-        <li className="font-bold p-2">Home</li>
-        <li className="p-2">Customer</li>
-        <li className="p-2">Company</li>
-        <li className="p-2">Contact</li>
-        <li className="p-2">
-          <a href="/src/components/login.tsx">Sign Up</a>
-        </li>
-        <li className="p-2">
-          <button className="btn">Login</button>
-        </li>
-      </ul>
-    </nav>
+    <div className="sticky top-0 ">
+      <nav className="flex justify-between bg-white text-center p-[1rem] shadow-box">
+        <Link to="/" className="logo text-[24px] font-bold mx-[2rem]">
+          Twatch
+        </Link>
+        <div className="menu flex items-center mx-[2rem]">
+          <Link to="/" className="font-bold">
+            Home
+          </Link>
+          <Link to="/Customer">Customer</Link>
+          <Link to="/Company">Company</Link>
+          <Link to="/Contact">Contact</Link>
+          <Link to="/Register">Sign Up</Link>
+          <Link to="/Login" className="bg-blue py-[5px] px-[1rem] rounded text-white">
+            Login
+          </Link>
+        </div>
+      </nav>
+    </div>
   )
 }
