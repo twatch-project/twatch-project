@@ -1,36 +1,36 @@
-import React, { FormEvent, useState } from 'react'
-import { useAuth } from '../providers/AuthProvider'
-import { useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
-import { Link } from 'react-router-dom'
-import Nav from '../components/Nav'
+import React, { FormEvent, useState } from 'react';
+import { useAuth } from '../providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+import Nav from '../components/Nav';
 const Login = () => {
-  const [usernameInput, setUsernameInput] = useState('')
-  const [passwordInput, setPasswordInput] = useState('')
+  const [usernameInput, setUsernameInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
 
-  const [isSubmitting, setSubmitting] = useState(false)
-  const { login } = useAuth()
-  const navigate = useNavigate()
+  const [isSubmitting, setSubmitting] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (isSubmitting) {
-      return setSubmitting(true)
+      return setSubmitting(true);
     }
 
     try {
-      await login(usernameInput, passwordInput)
+      await login(usernameInput, passwordInput);
 
-      toast.success('Successful Login')
-      navigate('/')
+      toast.success('Successful Login');
+      navigate('/');
     } catch (err) {
-      console.error(err)
-      toast.error('Unsuccessful Login')
+      console.error(err);
+      toast.error('Unsuccessful Login');
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
   return (
     <>
       <Nav />
@@ -69,11 +69,6 @@ const Login = () => {
                 SignUp
               </button>
             </div>
-
-            {/* <Button type="submit" variant="contained" disabled={isSubmitting}>
-       Login
-     </Button> */}
-
             <Link to="/register" className="text-blue text-center">
               have an account? Register
             </Link>
@@ -81,7 +76,7 @@ const Login = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

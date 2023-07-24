@@ -2,85 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-nav a{
+nav a {
   margin: 0 1rem;
 }
 
-@layer utilities{
-  .shadow-box{
-    box-shadow: 0 0  10px #5e5e5e;
+@layer utilities {
+  .shadow-box {
+    box-shadow: 0 0 10px #5e5e5e;
   }
 }
 
-@layer components{
-  .btn{
+@layer components {
+  .btn {
     @apply flex justify-center items-center bg-blue w-24 h-9 rounded-md text-white
   }
 }
 
 
-@layer utilities{
-  .gradient-sky{
+@layer utilities {
+  .gradient-sky {
     background-image: linear-gradient(#ddecfb, #ffffff);
   }
 }
 
-@layer components{
-  .company{
-  @apply w-36 h-12 bg-blue text-white my-2 rounded-md 
-  }
-}
-@layer components{
-  .customer{
-  @apply w-36 h-12 bg-white text-blue my-2 rounded-md border border-blue border-solid 
+@layer components {
+  .company {
+    @apply w-36 h-12 bg-blue text-white my-2 rounded-md
   }
 }
 
-@layer utilities{
-  .w-995{
+@layer components {
+  .customer {
+    @apply w-36 h-12 bg-white text-blue my-2 rounded-md border border-blue border-solid
+  }
+}
+
+@layer utilities {
+  .w-995 {
     width: 995px;
   }
 }
-@layer utilities{
-  .w-1045{
+
+@layer utilities {
+  .w-1045 {
     width: 1045px;
   }
-}
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }

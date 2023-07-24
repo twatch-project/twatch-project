@@ -1,6 +1,8 @@
-import img3 from '../img/2.webp'
+// import img3 from '../img/2.webp'
 import { Link } from 'react-router-dom'
 export default function Hero() {
+  const img3 =
+    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
   return (
     <section className="flex justify-center items-start min-h-[100vh]">
       <div className="flex justify-center item-center gradient-sky h-[640px] ">

@@ -1,11 +1,11 @@
-import img from '../img/3.jpg'
-import Nav from '../components/Nav'
-import Company from '../components/Company'
-import Footer from '../components/Footer'
+// import img from '../img/3.jpg'
+import Nav from '../components/Nav';
+import Company from '../components/Company';
+import Footer from '../components/Footer';
 // import { styled } from '@mui/material'
 // import Rating from '@mui/material/Rating'
-import { Link } from 'react-router-dom'
-import ReactStars from 'react-stars'
+import { Link } from 'react-router-dom';
+import ReactStars from 'react-stars';
 
 // const StyledRating = styled(Rating)({
 //   '& .MuiRating-iconFilled': {
@@ -16,6 +16,8 @@ import ReactStars from 'react-stars'
 //   },
 // })
 export default function Comment() {
+  const img =
+    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   // const navigate = useNavigate()
   // const [rating, setRating] = useState<number>(0)
   // const [comment, setComment] = useState<string>('')
@@ -93,5 +95,5 @@ export default function Comment() {
       <Company />
       <Footer />
     </>
-  )
+  );
 }
