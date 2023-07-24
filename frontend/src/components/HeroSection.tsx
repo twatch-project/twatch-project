@@ -1,4 +1,4 @@
-import img3 from '../img/3.jpg'
+import img3 from '../img/2.webp'
 import { Link } from 'react-router-dom'
 export default function Hero() {
   return (
@@ -24,7 +24,7 @@ export default function Hero() {
 
           <div className="flex justify-center items-center box-right ">
             <div className="flex justify-center items-center  w-[510px] h-[300px]">
-              <img src={img3} alt="" />
+              <img className="w-full h-full" src={img3} alt="" />
             </div>
           </div>
         </section>
