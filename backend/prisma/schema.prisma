@@ -34,21 +34,21 @@ model User {
 }
 
 model Company {
-  companyId           Int    @id @default(autoincrement())
+  companyId           Int      @id @default(autoincrement())
   companyName         String
   companyRegistration String
   imageCompany        String
   imageCompanyUrl     String
-  // imageContent        String
-  // imageContentUrl     String
+  imageContents       String[]
+  imageContentUrls    String[]
   address             String
   sub_district        String
   district            String
   province            String
-  // postCode            Int
+  postCode            Int
   contact             String
   // rateprice        Int
-  // tag                 String[]
+  tag                 String[]
 
   userCompany User   @relation(fields: [userId], references: [userId])
   userId      String @unique
@@ -69,21 +69,23 @@ model Company {
 // }
 
 model Portfolio {
-  portId       Int      @id @default(autoincrement())
-  title        String
-  body         String
-  tag          String[]
-  province     String
-  district     String
-  sub_district String
-  address      String
-  postCode     Int
-  createAt     DateTime
-  updateAt     DateTime
+  portId            Int      @id @default(autoincrement())
+  imageContents     String[]
+  imageContentUrls  String[]
+  title             String
+  body              String
+  tag               String[]
+  province          String
+  district          String
+  sub_district      String
+  address           String
+  postCode          Int
+  createAt          DateTime
+  updateAt          DateTime
 
-  postedBy  Company            @relation(fields: [companyId], references: [companyId])
-  companyId Int
-  user      CommentPortfolio[]
+  postedBy          Company            @relation(fields: [companyId], references: [companyId])
+  companyId         Int
+  user              CommentPortfolio[]
 }
 
 model CommentPortfolio {

@@ -33,9 +33,9 @@ class HandlerCompany implements IHandlerCompany {
       sub_district,
       district,
       province,
-      // postCode,
+      postCode,
       contact,
-      // tag,
+      tag,
     } = req.body;
 
     if (
@@ -45,9 +45,9 @@ class HandlerCompany implements IHandlerCompany {
       !sub_district ||
       !district ||
       !province ||
-      // !postCode ||
-      !contact
-      // !tag
+      !postCode ||
+      !contact ||
+      !tag
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
@@ -55,25 +55,43 @@ class HandlerCompany implements IHandlerCompany {
     const generateFileName = (bytes = 32) =>
       crypto.randomBytes(bytes).toString("hex");
 
-    const file = req.file;
-    // const file2 = req.file("image");
+    if (!req.files) {
+      return res.status(400);
+    }
+
+    const fCompany = req.files["company"];
+    const fContents = req.files["content"];
 
     const imageCompany = generateFileName();
-    // const imageContent = generateFileName();
+    const imageContents: string[] = fContents.map(() => generateFileName());
 
-    const fileBuffer1 = await sharp(file?.buffer)
+    const fileBufferCompany = await sharp(fCompany[0]?.buffer)
       .resize({ height: 1920, width: 1080, fit: "contain" })
       .toBuffer();
 
-    // const fileBuffer2 = await sharp(file2?.buffer)
-    //   .resize({ height: 1920, width: 1080, fit: "contain" })
-    //   .toBuffer();
+    const fileBufferContents: Buffer[] = await Promise.all(
+      fContents.map(async (fContent): Promise<Buffer> => {
+        return await sharp(fContent.buffer)
+          .resize({ height: 1920, width: 1080, fit: "contain" })
+          .toBuffer();
+      })
+    );
 
-    await uploadFile(fileBuffer1, imageCompany, file?.mimetype);
-    // await uploadFile(fileBuffer2, imageCompany, file2?.mimetype);
+    await uploadFile(fileBufferCompany, imageCompany, fCompany[0]?.mimetype);
+    for (let i = 0; i < imageContents.length; i++) {
+      await uploadFile(
+        fileBufferContents[i],
+        imageContents[i],
+        fContents[i]?.mimetype
+      );
+    }
 
     const imageCompanyUrl = await getObjectSignedUrl(imageCompany);
-    // const imageContentUrl = await getObjectSignedUrl(imageContent);
+    const imageContentUrls: string[] = await Promise.all(
+      imageContents.map(async (imageContent): Promise<string> => {
+        return await getObjectSignedUrl(imageContent);
+      })
+    );
 
     try {
       const company = await this.repo.createCompany({
@@ -81,15 +99,15 @@ class HandlerCompany implements IHandlerCompany {
         companyRegistration,
         imageCompany,
         imageCompanyUrl,
-        // imageContent,
-        // imageContentUrl,
+        imageContents,
+        imageContentUrls,
         address,
         sub_district,
         district,
         province,
-        // postCode,
+        postCode,
         contact,
-        // tag,
+        tag,
         userId: req.payload.id,
       });
       return res.status(200).json({ company, status: "ok" }).end();

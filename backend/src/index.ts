@@ -128,7 +128,10 @@ async function main() {
     "/",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     // upload.single("avatar"),
-    upload.single("image"),
+    upload.fields([
+      { name: "company", maxCount: 1 },
+      { name: "content", maxCount: 5 },
+    ]),
     handlerCompany.createCompany.bind(handlerCompany)
   );
 

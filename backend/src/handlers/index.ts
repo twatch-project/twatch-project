@@ -118,8 +118,6 @@ export interface WithCompany {
   companyId: number;
   companyName: string;
   companyRegistration: string;
-  imageCompany: string;
-  // imageContent: string;
   address: string;
   sub_district: string;
   district: string;
@@ -152,6 +150,8 @@ export interface IHandlerCompany {
 
 export interface WithPort {
   title: string;
+  imageContents: string[];
+  imageContentUrl: string[];
   body: string;
   tag: string[];
   address: string;

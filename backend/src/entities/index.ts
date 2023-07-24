@@ -28,15 +28,15 @@ export interface ICreateCompany {
   companyRegistration: string;
   imageCompany: string;
   imageCompanyUrl: string;
-  // imageContent: string;
-  // imageContentUrl: string;
+  imageContents: string[];
+  imageContentUrls: string[];
   address: string;
   sub_district: string;
   district: string;
   province: string;
-  // postCode: number;
+  postCode: number;
   contact: string;
-  // tag: string[];
+  tag: string[];
 
   userId: string;
 }
@@ -47,6 +47,8 @@ export interface ICompany extends ICreateCompany {
 
 export interface ICreatePort {
   title: string;
+  imageContents: string[];
+  imageContentUrls: string[];
   body: string;
   tag: string[];
   address: string;

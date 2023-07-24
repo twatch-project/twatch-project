@@ -8,10 +8,13 @@ import {
   WithPortId,
 } from ".";
 import { JwtAuthRequest } from "../auth";
+import { getObjectSignedUrl, uploadFile } from "../services/aws";
+import sharp from "sharp";
+import crypto from "crypto";
 
 export function newHandlerPortfolio(
   repoPort: IRepositoryPortfolio,
-  repoCompany: IRepositoryCompany,
+  repoCompany: IRepositoryCompany
 ) {
   return new HandlerPortfolio(repoPort, repoCompany);
 }
@@ -27,7 +30,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async createPortfolio(
     req: JwtAuthRequest<Request, WithPort>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -57,6 +60,40 @@ class HandlerPortfolio implements IHandlerPorfolio {
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
+
+    const generateFileName = (bytes = 32) =>
+      crypto.randomBytes(bytes).toString("hex");
+
+    if (!req.files) {
+      return res.status(400);
+    }
+
+    const fContents = req.files["content"];
+
+    const imageContents: string[] = fContents.map(() => generateFileName());
+
+    const fileBufferContents: Buffer[] = await Promise.all(
+      fContents.map(async (fContent): Promise<Buffer> => {
+        return await sharp(fContent.buffer)
+          .resize({ height: 1920, width: 1080, fit: "contain" })
+          .toBuffer();
+      })
+    );
+
+    for (let i = 0; i < imageContents.length; i++) {
+      await uploadFile(
+        fileBufferContents[i],
+        imageContents[i],
+        fContents[i]?.mimetype
+      );
+    }
+
+    const imageContentUrls: string[] = await Promise.all(
+      imageContents.map(async (imageContent): Promise<string> => {
+        return await getObjectSignedUrl(imageContent);
+      })
+    );
+
     const updateAt = new Date();
     const createAt = new Date();
     const userId = req.payload.id;
@@ -67,6 +104,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
     try {
       const port = this.repoPort.createPort({
         title,
+        imageContents,
+        imageContentUrls,
         body,
         tag,
         address,
@@ -103,7 +142,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async getPortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const portId = Number(req.params.portId);
 
@@ -129,7 +168,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async getCompanyPorts(
     req: JwtAuthRequest<WithCompanyId, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const companyId = Number(req.params.companyId);
 
@@ -155,7 +194,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async updatePort(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -186,6 +225,61 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
     const updateAt = new Date();
 
+    const generateFileName = (bytes = 32) =>
+      crypto.randomBytes(bytes).toString("hex");
+
+    if (req.files) {
+      const fContents = req.files["content"];
+
+      const imageContents: string[] = fContents.map(() => generateFileName());
+
+      const fileBufferContents: Buffer[] = await Promise.all(
+        fContents.map(async (fContent): Promise<Buffer> => {
+          return await sharp(fContent.buffer)
+            .resize({ height: 1920, width: 1080, fit: "contain" })
+            .toBuffer();
+        })
+      );
+
+      for (let i = 0; i < imageContents.length; i++) {
+        await uploadFile(
+          fileBufferContents[i],
+          imageContents[i],
+          fContents[i]?.mimetype
+        );
+      }
+
+      const imageContentUrls: string[] = await Promise.all(
+        imageContents.map(async (imageContent): Promise<string> => {
+          return await getObjectSignedUrl(imageContent);
+        })
+      );
+      try {
+        const updated = this.repoPort.updatePortImage({
+          portId,
+          title,
+          imageContents,
+          imageContentUrls,
+          body,
+          tag,
+          address,
+          sub_district,
+          district,
+          province,
+          postCode,
+          updateAt,
+          companyId: company.companyId,
+        });
+        return res.status(200).json({ updated, status: "ok" }).end();
+      } catch (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .json(`Can't update port with error code : ${err}`)
+          .end();
+      }
+    }
+
     try {
       const updated = this.repoPort.updatePort({
         portId,
@@ -212,7 +306,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
   async deletePortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -241,7 +335,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
       console.error(err);
       return res
         .status(500)
-        .json(`Can't delet This port with error code : ${err}`)
+        .json(`Can't delete This port with error code : ${err}`)
         .end();
     }
   }

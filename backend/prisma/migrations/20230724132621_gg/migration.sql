@@ -23,11 +23,15 @@ CREATE TABLE "Company" (
     "companyRegistration" TEXT NOT NULL,
     "imageCompany" TEXT NOT NULL,
     "imageCompanyUrl" TEXT NOT NULL,
+    "imageContents" TEXT[],
+    "imageContentUrls" TEXT[],
     "address" TEXT NOT NULL,
     "sub_district" TEXT NOT NULL,
     "district" TEXT NOT NULL,
     "province" TEXT NOT NULL,
+    "postCode" INTEGER NOT NULL,
     "contact" TEXT NOT NULL,
+    "tag" TEXT[],
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "Company_pkey" PRIMARY KEY ("companyId")
@@ -36,6 +40,8 @@ CREATE TABLE "Company" (
 -- CreateTable
 CREATE TABLE "Portfolio" (
     "portId" SERIAL NOT NULL,
+    "imageContents" TEXT[],
+    "imageContentUrls" TEXT[],
     "title" TEXT NOT NULL,
     "body" TEXT NOT NULL,
     "tag" TEXT[],
