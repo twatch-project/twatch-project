@@ -1,11 +1,9 @@
 import React, { FormEvent, useState } from 'react'
 import { useAuth } from '../providers/AuthProvider'
 import { useNavigate } from 'react-router-dom'
-import classes from './Login.module.css'
 import toast from 'react-hot-toast'
 import { Link } from 'react-router-dom'
-import { Button } from '@mui/material'
-
+import Nav from '../components/Nav'
 const Login = () => {
   const [usernameInput, setUsernameInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
@@ -34,39 +32,55 @@ const Login = () => {
     }
   }
   return (
-    <div className={classes.form}>
-      <form onSubmit={handleSubmit} className={classes.login}>
-        <div className="text-2xl text-white">LOGIN</div>
-        <div className="text-left m-auto">
-          <label className="text-l flex flex-col text-white my-1">Username</label>
-          <input
-            type="text"
-            value={usernameInput}
-            className="px-2 py-0.5 rounded"
-            onChange={(e) => setUsernameInput(e.target.value)}
-            required
-          />
-        </div>
-        <div className="text-left m-auto mb-2">
-          <label className="text-l flex flex-col text-white my-1 ">Password</label>
-          <input
-            type="password"
-            value={passwordInput}
-            className="px-2 py-0.5 rounded"
-            onChange={(e) => setPasswordInput(e.target.value)}
-            required
-          />
-        </div>
+    <>
+      <Nav />
+      <section className="flex items-center justify-center min-h-[100vh]">
+        <div className="flex justify-center item-center ">
+          <form
+            onSubmit={handleSubmit}
+            className="flex   bg-white justify-center item-center flex-col m-3 rounded-md p-10 shadow-box gap-y-[20px] border-[0.5px]"
+          >
+            <h1 className="text-3xl font-bold py-5">
+              Welcome to <span className="text-blue">Twatch.</span>
+            </h1>
+            <div className="text-center font-bold text-2xl">LOGIN</div>
+            <div className="">
+              <label className="text-l flex flex-col text-black my-1 font-bold">Username</label>
+              <input
+                type="text"
+                value={usernameInput}
+                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+                onChange={(e) => setUsernameInput(e.target.value)}
+                required
+              />
+            </div>
+            <div className="">
+              <label className="text-l flex flex-col text-black my-1 font-bold">Password</label>
+              <input
+                type="password"
+                value={passwordInput}
+                className="flex items-center w-[305px] h-[38px]  border-solid border-blue border-2 rounded-md px-[5px]"
+                onChange={(e) => setPasswordInput(e.target.value)}
+                required
+              />
+            </div>
+            <div className="flex justify-center py-5">
+              <button className="btn " disabled={isSubmitting}>
+                SignUp
+              </button>
+            </div>
 
-        <Button type="submit" variant="contained" disabled={isSubmitting}>
-          Login
-        </Button>
+            {/* <Button type="submit" variant="contained" disabled={isSubmitting}>
+       Login
+     </Button> */}
 
-        <Link to="/register" className="text-white">
-          Dont have an accout? Register
-        </Link>
-      </form>
-    </div>
+            <Link to="/register" className="text-blue text-center">
+              have an account? Register
+            </Link>
+          </form>
+        </div>
+      </section>
+    </>
   )
 }
 

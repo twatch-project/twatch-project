@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { IRepositoryPortfolio } from ".";
-import { ICreatePort, IPort } from "../entities";
+
+import {  ICreatePort, IPort } from "../entities";
 
 export function newRepositoryPortfolio(db: PrismaClient) {
   return new RepositoryPortfolio(db);

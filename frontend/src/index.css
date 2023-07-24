@@ -2,7 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+nav a{
+  margin: 0 1rem;
+}
+
+@layer utilities{
+  .shadow-box{
+    box-shadow: 0 0  10px #5e5e5e;
+  }
+}
+
+@layer components{
+  .btn{
+    @apply flex justify-center items-center bg-blue w-24 h-9 rounded-md text-white
+  }
+}
+
+
+@layer utilities{
+  .gradient-sky{
+    background-image: linear-gradient(#ddecfb, #ffffff);
+  }
+}
+
+@layer components{
+  .company{
+  @apply w-36 h-12 bg-blue text-white my-2 rounded-md 
+  }
+}
+@layer components{
+  .customer{
+  @apply w-36 h-12 bg-white text-blue my-2 rounded-md border border-blue border-solid 
+  }
+}
+
+@layer utilities{
+  .w-995{
+    width: 995px;
+  }
+}
+@layer utilities{
+  .w-1045{
+    width: 1045px;
+  }
+}
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -26,48 +70,17 @@ a {
 a:hover {
   color: #535bf2;
 }
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
