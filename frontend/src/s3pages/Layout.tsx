@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom'
 
 import { useLocation, useNavigate } from 'react-router-dom'
-// import NavBar from './Navbar'
 
 export default function Layout() {
   const location = useLocation()
@@ -20,7 +19,6 @@ export default function Layout() {
 
   return (
     <div>
-      {/* <NavBar {...actions}></NavBar> */}
       <div>
         <Outlet />
       </div>
