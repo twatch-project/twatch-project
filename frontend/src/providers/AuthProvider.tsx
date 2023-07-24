@@ -103,6 +103,50 @@ const AuthProvider = (props: AuthProviderProps) => {
     }
   }
 
+  // const CompanyProfile: CompanyProfileFunc = async (
+  //   companyName: string,
+  //   companyRegistration: string,
+  //   body: string,
+  //   imageContent: string,
+  //   address: string,
+  //   sub_district: string,
+  //   district: string,
+  //   province: string,
+  //   contract: string,
+  //   tag: string,
+  // ) => {
+  //   const CompanyProfileInfo = {
+  //     companyName,
+  //     companyRegistration,
+  //     body,
+  //     imageContent,
+  //     address,
+  //     sub_district,
+  //     district,
+  //     province,
+  //     contract,
+  //     tag,
+  //   }
+  //   console.log(CompanyProfileInfo)
+
+  //   try {
+  //     const res = await fetch(`${host}/user`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(CompanyProfileInfo),
+  //     })
+  //     const data = await res.json()
+
+  //     if (data.statusCode === 401) {
+  //       throw new Error(data.message)
+  //     }
+  //   } catch (err: any) {
+  //     throw new Error(err.message)
+  //   }
+  // }
+
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, ...userInfo, logout, register }}>{children}</AuthContext.Provider>
   )
