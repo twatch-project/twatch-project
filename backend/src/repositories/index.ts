@@ -51,6 +51,10 @@ export interface IRepositoryCompany {
   getCompanyById(companyId: number): Promise<ICompany | null>;
   updateCompanyInfo(arg: {
     companyId: number;
+    imageCompany?: string;
+    imageCompanyUrl?: string;
+    imageContents?: string[];
+    imageContentUrls?: string[];
     address?: string;
     sub_district?: string;
     district?: string;
@@ -69,19 +73,6 @@ export interface IRepositoryPortfolio {
   getPortById(portId: number): Promise<IPort | null>;
   getCompanyPorts(companyId: number): Promise<IPort[]>;
   updatePort(arg: {
-    portId: number;
-    title?: string;
-    body?: string;
-    tag?: string[];
-    address?: string;
-    sub_district?: string;
-    district?: string;
-    province?: string;
-    postCode?: number;
-    updateAt: Date;
-    companyId: number;
-  }): Promise<IPort>;
-  updatePortImage(arg: {
     portId: number;
     imageContents?: string[];
     imageContentUrls?: string[];

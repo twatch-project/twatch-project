@@ -8,9 +8,12 @@ import {
   WithPortId,
 } from ".";
 import { JwtAuthRequest } from "../auth";
-import { getObjectSignedUrl, uploadFile } from "../services/aws";
+import {
+  generateFileName,
+  getObjectSignedUrl,
+  uploadFile,
+} from "../services/aws";
 import sharp from "sharp";
-import crypto from "crypto";
 
 export function newHandlerPortfolio(
   repoPort: IRepositoryPortfolio,
@@ -60,9 +63,6 @@ class HandlerPortfolio implements IHandlerPorfolio {
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
-
-    const generateFileName = (bytes = 32) =>
-      crypto.randomBytes(bytes).toString("hex");
 
     if (!req.files) {
       return res.status(400);
@@ -224,9 +224,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
     if (!company) throw new Error("company id not found");
 
     const updateAt = new Date();
-
-    const generateFileName = (bytes = 32) =>
-      crypto.randomBytes(bytes).toString("hex");
+    let imageContents: string[] | undefined;
+    let imageContentUrls: string[] | undefined;
 
     if (req.files) {
       const fContents = req.files["content"];
@@ -249,41 +248,19 @@ class HandlerPortfolio implements IHandlerPorfolio {
         );
       }
 
-      const imageContentUrls: string[] = await Promise.all(
+      imageContentUrls = await Promise.all(
         imageContents.map(async (imageContent): Promise<string> => {
           return await getObjectSignedUrl(imageContent);
         })
       );
-      try {
-        const updated = this.repoPort.updatePortImage({
-          portId,
-          title,
-          imageContents,
-          imageContentUrls,
-          body,
-          tag,
-          address,
-          sub_district,
-          district,
-          province,
-          postCode,
-          updateAt,
-          companyId: company.companyId,
-        });
-        return res.status(200).json({ updated, status: "ok" }).end();
-      } catch (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .json(`Can't update port with error code : ${err}`)
-          .end();
-      }
     }
 
     try {
       const updated = this.repoPort.updatePort({
         portId,
         title,
+        imageContents,
+        imageContentUrls,
         body,
         tag,
         address,
