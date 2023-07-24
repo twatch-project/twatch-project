@@ -18,11 +18,6 @@ nav a{
   }
 }
 
-@layer utilities{
-  .h-665{
-    height:665px;
-  }
-}
 
 @layer utilities{
   .gradient-sky{
