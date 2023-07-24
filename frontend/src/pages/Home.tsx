@@ -1,5 +1,7 @@
 // import { useAuth } from '../providers/AuthProvider'
 // import CompanyList from '../components/CompanyList'
+import ApiProvicelist from '../components/ApiProvicelist'
+
 import Nav from '../components/Nav'
 import HeroSection from '../components/HeroSection'
 import Sell from '../components/Sell'
@@ -13,6 +15,7 @@ const Home = () => {
     <>
       <Nav />
       <HeroSection />
+      <ApiProvicelist />
       <Sell />
       <Blog />
       <Company />
