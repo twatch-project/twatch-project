@@ -34,17 +34,21 @@ model User {
 }
 
 model Company {
-  companyId           Int      @id @default(autoincrement())
+  companyId           Int    @id @default(autoincrement())
   companyName         String
   companyRegistration String
+  imageCompany        String
+  imageCompanyUrl     String
+  // imageContent        String
+  // imageContentUrl     String
   address             String
   sub_district        String
   district            String
   province            String
-  postCode            Int
+  // postCode            Int
   contact             String
   // rateprice        Int
-  tag                 String[]
+  // tag                 String[]
 
   userCompany User   @relation(fields: [userId], references: [userId])
   userId      String @unique
@@ -77,21 +81,21 @@ model Portfolio {
   createAt     DateTime
   updateAt     DateTime
 
-  postedBy  Company @relation(fields: [companyId], references: [companyId])
+  postedBy  Company            @relation(fields: [companyId], references: [companyId])
   companyId Int
-  user  CommentPortfolio[]
+  user      CommentPortfolio[]
 }
 
 model CommentPortfolio {
-  commentId     Int      @id @default(autoincrement())
-  massage       String 
-  rating        Int
-  userId        String
-  createAt      DateTime @default(now())
-  updateAt      DateTime @default(now())
+  commentId Int      @id @default(autoincrement())
+  massage   String
+  rating    Int
+  userId    String
+  createAt  DateTime @default(now())
+  updateAt  DateTime @default(now())
 
-  portfolio     Portfolio @relation(fields: [portId], references: [portId])
-  portId          Int
+  portfolio Portfolio @relation(fields: [portId], references: [portId])
+  portId    Int
 }
 
 model Customer {
@@ -138,4 +142,3 @@ model Posts {
   totalLikes    Int      @default(0)
   created       DateTime @default(now())
 }
-

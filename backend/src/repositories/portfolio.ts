@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { IRepositoryPortfolio } from ".";
-
-import {  ICreatePort, IPort } from "../entities";
+import { ICreatePort, IPort } from "../entities";
 
 export function newRepositoryPortfolio(db: PrismaClient) {
   return new RepositoryPortfolio(db);
@@ -37,24 +36,14 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
 
   async getPortById(portId: number): Promise<IPort | null> {
     return await this.db.portfolio.findUnique({
-      include: {
-        postedBy: { select: { companyName: true } },
-        user: { select: { commentId: true, massage: true, userId: true } },
-      },
+      include: { postedBy: { select: { companyName: true } } },
       where: { portId },
     });
   }
 
   async getCompanyPorts(companyId: number): Promise<IPort[]> {
     return await this.db.portfolio.findMany({
-      include: {
-        postedBy: { select: { companyName: true } },
-        user: {
-          select: {
-            commentId: true,
-          },
-        },
-      },
+      include: { postedBy: { select: { companyName: true } } },
       where: { companyId },
     });
   }
@@ -88,6 +77,8 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
       },
     });
   }
+
+  //@TODO Try catch
 
   async deletePortById(arg: {
     portId: number;

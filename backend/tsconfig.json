@@ -10,5 +10,5 @@
     "noUnusedLocals": true,
     "outDir": "dist"
   },
-  "include": ["src/**/*", "src/server.js"]
+  "include": ["src/**/*", "src/server.ts"]
 }

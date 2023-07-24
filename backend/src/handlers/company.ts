@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { IHandlerCompany, WithCompany, WithCompanyId } from ".";
 import { JwtAuthRequest } from "../auth";
 import { IRepositoryCompany } from "../repositories";
+import { getObjectSignedUrl, uploadFile } from "../services/aws";
+import sharp from "sharp";
+import crypto from "crypto";
 
 export function newHandlerCompany(repoCompany: IRepositoryCompany) {
   return new HandlerCompany(repoCompany);
@@ -16,7 +19,7 @@ class HandlerCompany implements IHandlerCompany {
 
   async createCompany(
     req: JwtAuthRequest<Request, WithCompany>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {
@@ -30,9 +33,9 @@ class HandlerCompany implements IHandlerCompany {
       sub_district,
       district,
       province,
-      postCode,
+      // postCode,
       contact,
-      tag,
+      // tag,
     } = req.body;
 
     if (
@@ -42,23 +45,51 @@ class HandlerCompany implements IHandlerCompany {
       !sub_district ||
       !district ||
       !province ||
-      !postCode ||
-      !contact ||
-      !tag
+      // !postCode ||
+      !contact
+      // !tag
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
+
+    const generateFileName = (bytes = 32) =>
+      crypto.randomBytes(bytes).toString("hex");
+
+    const file = req.file;
+    // const file2 = req.file("image");
+
+    const imageCompany = generateFileName();
+    // const imageContent = generateFileName();
+
+    const fileBuffer1 = await sharp(file?.buffer)
+      .resize({ height: 1920, width: 1080, fit: "contain" })
+      .toBuffer();
+
+    // const fileBuffer2 = await sharp(file2?.buffer)
+    //   .resize({ height: 1920, width: 1080, fit: "contain" })
+    //   .toBuffer();
+
+    await uploadFile(fileBuffer1, imageCompany, file?.mimetype);
+    // await uploadFile(fileBuffer2, imageCompany, file2?.mimetype);
+
+    const imageCompanyUrl = await getObjectSignedUrl(imageCompany);
+    // const imageContentUrl = await getObjectSignedUrl(imageContent);
+
     try {
       const company = await this.repo.createCompany({
         companyName,
         companyRegistration,
+        imageCompany,
+        imageCompanyUrl,
+        // imageContent,
+        // imageContentUrl,
         address,
         sub_district,
         district,
         province,
-        postCode,
+        // postCode,
         contact,
-        tag,
+        // tag,
         userId: req.payload.id,
       });
       return res.status(200).json({ company, status: "ok" }).end();
@@ -86,7 +117,7 @@ class HandlerCompany implements IHandlerCompany {
 
   async getCompanyById(
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const companyId = Number(req.params.companyId);
 
@@ -113,7 +144,7 @@ class HandlerCompany implements IHandlerCompany {
 
   async updateCompanyInfo(
     req: JwtAuthRequest<WithCompanyId, WithCompany>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const companyRole = req.payload.role;
     if (companyRole !== "COMPANY") {

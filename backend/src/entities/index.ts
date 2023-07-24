@@ -26,13 +26,17 @@ export interface IUser extends ICreateUser {
 export interface ICreateCompany {
   companyName: string;
   companyRegistration: string;
+  imageCompany: string;
+  imageCompanyUrl: string;
+  // imageContent: string;
+  // imageContentUrl: string;
   address: string;
   sub_district: string;
   district: string;
   province: string;
-  postCode: number;
+  // postCode: number;
   contact: string;
-  tag: string[];
+  // tag: string[];
 
   userId: string;
 }

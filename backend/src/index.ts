@@ -17,6 +17,7 @@ import { newRepositoryPortfolio } from "./repositories/portfolio";
 import { newHandlerPortfolio } from "./handlers/portfolio";
 import { newRepositoryCommentPort } from "./repositories/commentport";
 import { newHandlerCommentPort } from "./handlers/commentport";
+import multer from "multer";
 
 async function main() {
   const db = new PrismaClient();
@@ -54,10 +55,13 @@ async function main() {
   const companyRouter = express.Router();
   const portfolioRouter = express.Router();
   const commentRouter = express.Router();
+  const storage = multer.memoryStorage();
+  const upload = multer({ storage: storage });
 
   server.use(cors());
   server.use(express.json());
   server.use(express.urlencoded({ extended: false }));
+  server.use(express.static("public"));
 
   server.use("/user", userRouter);
   server.use("/auth", authRouter);
@@ -78,12 +82,12 @@ async function main() {
   authRouter.get(
     "/me",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerUser.getId.bind(handlerUser),
+    handlerUser.getId.bind(handlerUser)
   );
   authRouter.get(
     "/logout",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerUser.logout.bind(handlerUser),
+    handlerUser.logout.bind(handlerUser)
   );
 
   //customer API
@@ -91,29 +95,29 @@ async function main() {
   customerRouter.post(
     "/",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerCustomer.createCustomer.bind(handlerCustomer),
+    handlerCustomer.createCustomer.bind(handlerCustomer)
   );
   customerRouter.get(
     "/:id",
-    handlerCustomer.getCustomerId.bind(handlerCustomer),
+    handlerCustomer.getCustomerId.bind(handlerCustomer)
   );
   customerRouter.get("/", handlerCustomer.getCustomers.bind(handlerCustomer));
   customerRouter.patch(
     "/:id",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerCustomer.updateCustomer.bind(handlerCustomer),
+    handlerCustomer.updateCustomer.bind(handlerCustomer)
   );
 
   //Create blog
   customerRouter.post(
     "/blog",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerBlog.createCustomerBlog.bind(handlerBlog),
+    handlerBlog.createCustomerBlog.bind(handlerBlog)
   );
   customerRouter.patch(
     "/blog/:id",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerBlog.updateCustomerBlog.bind(handlerBlog),
+    handlerBlog.updateCustomerBlog.bind(handlerBlog)
   );
   userBlog.get("/", handlerBlog.getBlogsCustomer.bind(handlerBlog));
   customerRouter.get("/blog/:id", handlerBlog.getBlogById.bind(handlerBlog));
@@ -123,60 +127,64 @@ async function main() {
   companyRouter.post(
     "/",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerCompany.createCompany.bind(handlerCompany),
+    // upload.single("avatar"),
+    upload.single("image"),
+    handlerCompany.createCompany.bind(handlerCompany)
   );
+
   companyRouter.get("/", handlerCompany.getCompanys.bind(handlerCompany));
   companyRouter.get(
     "/:companyId",
-    handlerCompany.getCompanyById.bind(handlerCompany),
+    handlerCompany.getCompanyById.bind(handlerCompany)
   );
+
   companyRouter.patch(
     "/:companyId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerCompany.updateCompanyInfo.bind(handlerCompany),
+    handlerCompany.updateCompanyInfo.bind(handlerCompany)
   );
 
   // Portfolio API
   portfolioRouter.post(
     "/",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerPortfolio.createPortfolio.bind(handlerPortfolio),
+    handlerPortfolio.createPortfolio.bind(handlerPortfolio)
   );
   portfolioRouter.get("/", handlerPortfolio.getPorts.bind(handlerPortfolio));
   portfolioRouter.get(
     "/:portId",
-    handlerPortfolio.getPortById.bind(handlerPortfolio),
+    handlerPortfolio.getPortById.bind(handlerPortfolio)
   );
   portfolioRouter.get(
     "/company/:companyId",
-    handlerPortfolio.getCompanyPorts.bind(handlerPortfolio),
+    handlerPortfolio.getCompanyPorts.bind(handlerPortfolio)
   );
   portfolioRouter.patch(
     "/:portId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerPortfolio.updatePort.bind(handlerPortfolio),
+    handlerPortfolio.updatePort.bind(handlerPortfolio)
   );
   portfolioRouter.delete(
     "/:portId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerPortfolio.deletePortById.bind(handlerPortfolio),
+    handlerPortfolio.deletePortById.bind(handlerPortfolio)
   );
 
   //Comment API
   commentRouter.post(
     "/:commentId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerCommentPort.createCommentPort.bind(handlerCommentPort),
+    handlerCommentPort.createCommentPort.bind(handlerCommentPort)
   );
   commentRouter.patch(
     "/:commentId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerCommentPort.updateCommentPortfolio.bind(handlerCommentPort),
+    handlerCommentPort.updateCommentPortfolio.bind(handlerCommentPort)
   );
   commentRouter.delete(
     "/:commentId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    handlerCommentPort.deleteCommentPortfolio.bind(handlerCommentPort),
+    handlerCommentPort.deleteCommentPortfolio.bind(handlerCommentPort)
   );
 
   // server
