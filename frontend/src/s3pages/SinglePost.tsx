@@ -1,5 +1,3 @@
-import { TrashIcon } from '@heroicons/react/solid'
-
 export default function SinglePost(arg: {
   className: any
   post: any
@@ -8,8 +6,8 @@ export default function SinglePost(arg: {
   deletePostClicked: any
 }) {
   console.log(arg.post)
-  const { id, caption, imageUrl, totalComments, totalLikes } = arg.post
-  console.log(imageUrl)
+  const { id, companyName, imageCompanyUrl, totalComments, totalLikes } = arg.post
+  console.log(imageCompanyUrl)
 
   return (
     <div className={arg.className + ' outline-1'} style={{ width: 650 }}>
@@ -19,10 +17,10 @@ export default function SinglePost(arg: {
           <p className="text-lg  hover:underline">username</p>
         </div> */}
 
-        <p className="text-base">{caption}</p>
+        <p className="text-base">{companyName}</p>
 
         <div className="flex flex-row items-end space-x-4 justify-center">
-          <img className="rounded" width="430" height="768" src={imageUrl}></img>
+          <img className="rounded" width="430" height="768" src={imageCompanyUrl}></img>
 
           {/* Actions */}
           <div className="flex flex-col space-y-4">
@@ -36,7 +34,7 @@ export default function SinglePost(arg: {
             </div> */}
 
             <div className="flex flex-col items-center" onClick={() => arg.deletePostClicked({ id })}>
-              <TrashIcon className="cursor-pointer hover:text-gray-900 active:text-gray-700 h-14 w-14 text-gray-700" />
+              <>Delete</>
             </div>
           </div>
         </div>
