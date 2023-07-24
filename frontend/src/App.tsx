@@ -9,6 +9,9 @@ import CompanyDetail from './pages/CompanyDetail'
 import CompanyProfile from './pages/CompanyProfile'
 import CreateProfile from './pages/CreateProfile'
 import AllCompany from './pages/AllCompany'
+import Layout from './s3pages/Layout'
+import Home from './s3pages/Home'
+import NewPost from './s3pages/NewPost'
 
 function App() {
   return (
@@ -29,6 +32,15 @@ function App() {
         </Route>
         {/* <Route path="/login" element={<Login />} /> */}
         {/* <Route path="/register" element={<Register />} /> */}
+        {/* <Route path="/" element={<Home />} /> */}
+        {/* /// S3 */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="newPost" element={<NewPost />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
         {/* <Route path="/new" element={<Create />} /> */}
         {/* <Route path="/content/:id" element={<Content />} /> */}
         {/* <Route path="/content/:id/edit" element={<Edit />} /> */}

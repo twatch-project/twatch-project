@@ -67,6 +67,7 @@ class RepositoryCompany implements IRepositoryCompany {
           },
         },
       },
+
       where: { companyId },
     });
   }
