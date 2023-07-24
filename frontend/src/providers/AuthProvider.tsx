@@ -59,14 +59,14 @@ const AuthProvider = (props: AuthProviderProps) => {
       localStorage.setItem('token', data.accessToken);
       const accessToken = localStorage.getItem('token') || 'foo';
 
-      const { userId } = await retrieveUserData(accessToken);
+      const { user } = await retrieveUserData(accessToken);
 
-      localStorage.setItem('userId', userId);
+      localStorage.setItem('userId', user.userId);
 
       setIsLoggedIn(true);
       setUserInfo(() => {
         const update = {
-          userId,
+          userId: user.userId,
           token: accessToken,
         };
         return update;
