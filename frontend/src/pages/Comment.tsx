@@ -2,20 +2,24 @@ import img from '../img/3.jpg'
 import Nav from '../components/Nav'
 import Company from '../components/Company'
 import Footer from '../components/Footer'
-import { styled } from '@mui/material'
-import Rating from '@mui/material/Rating'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+// import { styled } from '@mui/material'
+// import Rating from '@mui/material/Rating'
 import { Link } from 'react-router-dom'
-const StyledRating = styled(Rating)({
-  '& .MuiRating-iconFilled': {
-    color: '#ff6d75',
-  },
-  '& .MuiRating-iconHover': {
-    color: '#ff3d47',
-  },
-})
+import ReactStars from 'react-stars'
+
+// const StyledRating = styled(Rating)({
+//   '& .MuiRating-iconFilled': {
+//     color: '#ff6d75',
+//   },
+//   '& .MuiRating-iconHover': {
+//     color: '#ff3d47',
+//   },
+// })
 export default function Comment() {
+  // const navigate = useNavigate()
+  // const [rating, setRating] = useState<number>(0)
+  // const [comment, setComment] = useState<string>('')
+
   return (
     <>
       <Nav />
@@ -52,100 +56,40 @@ export default function Comment() {
         </div>
       </section>
 
-      <div className="comment flex justify-center items-center min-h-[100vh]">
-        <section className="flex flex-col items-center">
-          <div className="head p-[15px] text-left font-bold">COMMENT</div>
-          <div className="center flex flex-col gap-[25px]">
-            <div className="card-comment flex items-center justify-between w-[835px] h-[100px] border-[0.5px]">
-              <div className="left flex gap-x-[10px] m-[10px]">
-                <div className="imgBx w-[50px] h-[50px] rounded-[100%] overflow-hidden">
-                  <img className="w-full h-full" src={img} alt="" />
+      <form action="">
+        \
+        <div className="comment flex justify-center items-center min-h-[100vh]">
+          <section className="flex flex-col items-center">
+            <div className="head p-[15px] text-left font-bold">COMMENT</div>
+            <div className="center flex flex-col gap-[25px]">
+              <div className="card-comment flex items-center justify-between w-[835px] h-[100px] border-[0.5px]">
+                <div className="left flex gap-x-[10px] m-[10px]">
+                  <div className="imgBx w-[50px] h-[50px] rounded-[100%] overflow-hidden">
+                    <img className="w-full h-full" src={img} alt="" />
+                  </div>
+                  <div className="name">
+                    <h1>TaiChi</h1>
+                    <input type="text" placeholder="Add comment" />
+                  </div>
                 </div>
-                <div className="name">
-                  <h1>TaiChi</h1>
-                  <p>Add comment.....</p>
+                <div className="right  gap-x-[10px] m-[10px]">
+                  <ReactStars
+                    count={5}
+                    // value={}
+                    // onChange={(rating) => setRating(rating)}
+                    size={24}
+                    color2={'#ffd700'}
+                    half={false}
+                  />
                 </div>
-              </div>
-              <div className="right  gap-x-[10px] m-[10px]">
-                <StyledRating
-                  name="Heart Rate"
-                  defaultValue={5}
-                  getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-                  icon={<FavoriteIcon fontSize="inherit" />}
-                  emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                  readOnly
-                />
               </div>
             </div>
-            <div className="card-comment flex items-center justify-between w-[835px] h-[100px] border-[0.5px]">
-              <div className="left flex gap-x-[10px] m-[10px]">
-                <div className="imgBx w-[50px] h-[50px] rounded-[100%] overflow-hidden">
-                  <img className="w-full h-full" src={img} alt="" />
-                </div>
-                <div className="name">
-                  <h1>TaiChi</h1>
-                  <p>Add comment.....</p>
-                </div>
-              </div>
-              <div className="right  gap-x-[10px] m-[10px]">
-                <StyledRating
-                  name="Heart Rate"
-                  defaultValue={5}
-                  getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-                  icon={<FavoriteIcon fontSize="inherit" />}
-                  emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                  readOnly
-                />
-              </div>
+            <div className="footer p-[1rem]">
+              <button className="bg-blue p-[1rem] text-white rounded">Show more</button>
             </div>
-            <div className="card-comment flex items-center justify-between w-[835px] h-[100px] border-[0.5px]">
-              <div className="left flex gap-x-[10px] m-[10px]">
-                <div className="imgBx w-[50px] h-[50px] rounded-[100%] overflow-hidden">
-                  <img className="w-full h-full" src={img} alt="" />
-                </div>
-                <div className="name">
-                  <h1>TaiChi</h1>
-                  <p>Add comment.....</p>
-                </div>
-              </div>
-              <div className="right  gap-x-[10px] m-[10px]">
-                <StyledRating
-                  name="Heart Rate"
-                  defaultValue={5}
-                  getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-                  icon={<FavoriteIcon fontSize="inherit" />}
-                  emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                  readOnly
-                />
-              </div>
-            </div>
-            <div className="card-comment flex items-center justify-between w-[835px] h-[100px] border-[0.5px]">
-              <div className="left flex gap-x-[10px] m-[10px]">
-                <div className="imgBx w-[50px] h-[50px] rounded-[100%] overflow-hidden">
-                  <img className="w-full h-full" src={img} alt="" />
-                </div>
-                <div className="name">
-                  <h1>TaiChi</h1>
-                  <p>Add comment.....</p>
-                </div>
-              </div>
-              <div className="right  gap-x-[10px] m-[10px]">
-                <StyledRating
-                  name="Heart Rate"
-                  defaultValue={5}
-                  getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-                  icon={<FavoriteIcon fontSize="inherit" />}
-                  emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                  readOnly
-                />
-              </div>
-            </div>
-          </div>
-          <div className="footer p-[1rem]">
-            <button className="bg-blue p-[1rem] text-white rounded">Show more</button>
-          </div>
-        </section>
-      </div>
+          </section>
+        </div>
+      </form>
       <Company />
       <Footer />
     </>
