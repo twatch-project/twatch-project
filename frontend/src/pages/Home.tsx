@@ -1,12 +1,14 @@
 // import { useAuth } from '../providers/AuthProvider'
-import CompanyList from '../components/CompanyList'
+// import CompanyList from '../components/CompanyList'
+import ApiProvicelist from '../components/ApiProvicelist'
 
 const Home = () => {
   //   const { isLoggedIn } = useAuth()
   return (
     <div>
       <div>
-        <CompanyList />
+        {/* <CompanyList /> */}
+        <ApiProvicelist />
       </div>
     </div>
   )
