@@ -360,7 +360,6 @@ export default function CreateCompanyProfile() {
               required
             />
           </div>
-
           <div className="flex flex-col items-center">
             <input type="file" ref={filesInputRef} style={{ display: 'none' }} onChange={handleFileSelect} multiple />
             <Button variant="outlined" type="button" onClick={handleAddFiles}>
