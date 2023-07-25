@@ -31,7 +31,7 @@ class HandlerUser implements IHandlerUser {
     if (!username || !password || !role || !email) {
       return res.status(400).json({
         error: "missing username or password or role or email in body",
-      });
+      }).end();
     }
     try {
       const newUser = await this.repo.createUser({
