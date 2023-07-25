@@ -40,13 +40,13 @@ const LoginSection = () => {
         <div className="flex justify-center item-center ">
           <form
             onSubmit={handleSubmit}
-            className="flex   bg-white justify-center item-center flex-col m-3 rounded-md p-10 shadow-box gap-y-[20px] border-[0.5px]"
+            className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md p-10 shadow-md hover:shadow-lg gap-y-[30px] border-[0.5px]"
           >
             <h1 className="text-3xl font-bold py-5">
               Welcome to <span className="text-blue">Twatch.</span>
             </h1>
             <div className="text-center font-bold text-2xl">LOGIN</div>
-            <div>
+            <div className="w-full">
               <TextField
                 id="outlined-basic"
                 type="text"
@@ -54,10 +54,10 @@ const LoginSection = () => {
                 value={usernameInput}
                 variant="outlined"
                 onChange={(e) => setUsernameInput(e.target.value)}
-                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+                className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
               />
             </div>
-            <div>
+            <div className="w-full">
               <TextField
                 id="outlined-basic"
                 type="password"
@@ -65,11 +65,14 @@ const LoginSection = () => {
                 value={passwordInput}
                 variant="outlined"
                 onChange={(e) => setPasswordInput(e.target.value)}
-                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+                className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
               />
             </div>
             <div className="flex justify-center py-5">
-              <button className="btn " disabled={isSubmitting}>
+              <button
+                className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110"
+                disabled={isSubmitting}
+              >
                 Login
               </button>
             </div>
