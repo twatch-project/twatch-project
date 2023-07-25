@@ -49,7 +49,7 @@ export default function Company() {
               </div>
             </div>
 
-            <Link to="/company/:companyId">
+            <Link to="/company/create">
               <div className="edit-info flex justify-end p-[15px]">
                 <button className="bg-blue rounded p-[10px] text-white">Create company</button>
               </div>

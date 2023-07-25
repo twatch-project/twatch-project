@@ -70,15 +70,6 @@ const LoginSection = () => {
               />
             </div>
             <div className="w-full">
-              {/* <TextField
-                id="outlined-basic"
-                type="password"
-                label="password"
-                value={passwordInput}
-                variant="outlined"
-                onChange={(e) => setPasswordInput(e.target.value)}
-                className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
-              /> */}
               <FormControl variant="outlined" className="w-full">
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput
