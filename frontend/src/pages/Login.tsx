@@ -1,13 +1,18 @@
-import Login from '../components/LoginSection';
+import LoginSection from '../components/LoginSection';
 import Nav from '../components/Nav';
 
 const LoginPage = () => {
+
+
   return (
     <>
       <Nav />
-      <Login />
+      <LoginSection />
     </>
   );
 };
 
+
 export default LoginPage;
+
+

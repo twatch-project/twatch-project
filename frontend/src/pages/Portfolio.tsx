@@ -15,7 +15,7 @@ import ReactStars from 'react-stars';
 //     color: '#ff3d47',
 //   },
 // })
-export default function Comment() {
+export default function Portfolio() {
   const img =
     'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   // const navigate = useNavigate()
@@ -44,7 +44,7 @@ export default function Comment() {
                 omnis at beatae fugiat commodi nulla sed quaerat dolores perspiciatis ipsam!
               </p>
             </div>
-            <Link to="/CreateProfile">
+            <Link to="/create/portfolio">
               <div className="footer py-[15px]">
                 <button className="bg-blue p-[15px] text-white rounded">Edit Portfolio</button>
               </div>

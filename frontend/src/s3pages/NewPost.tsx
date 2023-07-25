@@ -1,61 +1,61 @@
-import { useState } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { host } from '../constant'
-import { useAuth } from '../providers/AuthProvider'
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { host } from '../constant';
+import { useAuth } from '../providers/AuthProvider';
 
 export default function NewPost() {
-  const [fileCompany, setFileCompany] = useState<any>()
-  const [fileContents, setFileContents] = useState<any>()
+  const [fileCompany, setFileCompany] = useState<any>();
+  const [fileContents, setFileContents] = useState<any>();
   // const [file2, setFile2] = useState<any>()
-  const [companyName, setCompanyName] = useState<string>('')
-  const [companyRegistration, setCompanyRegistration] = useState<string>('')
-  const [address, setAdress] = useState<string>('')
-  const [subDistrict, setSubDistric] = useState<string>('')
-  const [distric, setDistric] = useState<string>('')
-  const [province, setProvice] = useState<string>('')
-  const [contact, setContact] = useState<string>('')
+  const [companyName, setCompanyName] = useState<string>('');
+  const [companyRegistration, setCompanyRegistration] = useState<string>('');
+  const [address, setAdress] = useState<string>('');
+  const [subDistrict, setSubDistric] = useState<string>('');
+  const [distric, setDistric] = useState<string>('');
+  const [province, setProvice] = useState<string>('');
+  const [contact, setContact] = useState<string>('');
   // const [postCode, setPostCode] = useState<number>(10000)
   // const [tag, setTag] = useState<string>('')
-  const { token } = useAuth()
+  const { token } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const submit = async (event: any) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const formData = new FormData()
-    formData.append('company', fileCompany)
-    formData.append('content', fileContents)
+    const formData = new FormData();
+    formData.append('company', fileCompany);
+    formData.append('content', fileContents);
     // formData.append('image', file2)
-    formData.append('companyName', companyName)
-    formData.append('companyRegistration', companyRegistration)
-    formData.append('address', address)
-    formData.append('sub_district', subDistrict)
-    formData.append('district', distric)
-    formData.append('province', province)
+    formData.append('companyName', companyName);
+    formData.append('companyRegistration', companyRegistration);
+    formData.append('address', address);
+    formData.append('sub_district', subDistrict);
+    formData.append('district', distric);
+    formData.append('province', province);
     // formData.append('postCode', postCode)
-    formData.append('contact', contact)
+    formData.append('contact', contact);
     // formData.append('tag', tag)
-    console.log('hello')
+    console.log('hello');
     await axios.post(`${host}/company`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
-    })
-    navigate('/')
-  }
+    });
+    navigate('/');
+  };
 
   const fileCompanySelected = (event: any) => {
-    const file = event.target.files[0]
-    setFileCompany(file)
-  }
+    const file = event.target.files[0];
+    setFileCompany(file);
+  };
 
   const fileContentsSelected = (event: any) => {
-    const file = event.target.files[0]
-    setFileContents(file)
-  }
+    const file = event.target.files[0];
+    setFileContents(file);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -88,5 +88,5 @@ export default function NewPost() {
         <button type="submit">Submit</button>
       </form>
     </div>
-  )
+  );
 }
