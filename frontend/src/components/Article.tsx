@@ -21,5 +21,5 @@ export default function article() {
         </article>
       </section>
     </section>
-  )
+  );
 }

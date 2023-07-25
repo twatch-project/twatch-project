@@ -1,7 +1,7 @@
 // import { CompanyDto } from '../types/dto'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 // import img from '../img/3.jpg'
-import ReactStars from 'react-stars'
+import ReactStars from 'react-stars';
 // import { styled } from '@mui/material'
 // import Rating from '@mui/material/Rating'
 // import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -17,7 +17,7 @@ import ReactStars from 'react-stars'
 // })
 export default function Company() {
   const img =
-    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
+    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   return (
     <>
       <section className="flex justify-center m-[50px] items-center flex-col">
@@ -112,5 +112,5 @@ export default function Company() {
         </div>
       </section>
     </>
-  )
+  );
 }

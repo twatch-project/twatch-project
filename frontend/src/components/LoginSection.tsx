@@ -1,10 +1,10 @@
-import React, { FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAuth } from '../providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
-const Login = () => {
+const LoginSection = () => {
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
@@ -83,4 +83,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginSection;

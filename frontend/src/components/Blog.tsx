@@ -1,7 +1,7 @@
 // import img from '../img/3.jpg'
 export default function Blog() {
   const img =
-    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
+    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   return (
     <section className="flex justify-center items-center min-h-[50vh]">
       <div className="flex justify-center items-center flex-col">
@@ -78,5 +78,5 @@ export default function Blog() {
         </div>
       </div>
     </section>
-  )
+  );
 }
