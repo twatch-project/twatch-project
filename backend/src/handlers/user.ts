@@ -7,7 +7,7 @@ import { newJwt } from "../auth/jwt";
 
 export function newHandlerUser(
   repoUser: IRepositoryUser,
-  repoBlacklist: IRepositoryBlacklist,
+  repoBlacklist: IRepositoryBlacklist
 ): IHandlerUser {
   return new HandlerUser(repoUser, repoBlacklist);
 }
@@ -23,7 +23,7 @@ class HandlerUser implements IHandlerUser {
 
   async register(
     req: AppRequest<Empty, WithUser>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const { username, password, role, email } = req.body;
     const registeredAt = new Date();
@@ -50,13 +50,17 @@ class HandlerUser implements IHandlerUser {
 
   async getId(
     req: JwtAuthRequest<Empty, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     if (!req.payload.id) {
-      return res.status(400).json({ error: "wrong username or password" });
+      return res
+        .status(400)
+        .json({ error: "wrong username or password" })
+        .end();
     }
     try {
       const user = await this.repo.getId(req.payload.id);
+      console.log(user);
       return res.status(200).json({ user, status: "ok" }).end();
     } catch (err) {
       console.error(err);
@@ -66,7 +70,7 @@ class HandlerUser implements IHandlerUser {
 
   async login(
     req: AppRequest<Empty, WithUser>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -113,7 +117,7 @@ class HandlerUser implements IHandlerUser {
 
   async logout(
     req: JwtAuthRequest<Empty, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     try {
       await this.repoBlacklist.addToBlackList(req.token);

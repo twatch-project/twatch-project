@@ -21,6 +21,10 @@ CREATE TABLE "Company" (
     "companyId" SERIAL NOT NULL,
     "companyName" TEXT NOT NULL,
     "companyRegistration" TEXT NOT NULL,
+    "imageCompany" TEXT NOT NULL,
+    "imageCompanyUrl" TEXT NOT NULL,
+    "imageContents" TEXT[],
+    "imageContentUrls" TEXT[],
     "address" TEXT NOT NULL,
     "sub_district" TEXT NOT NULL,
     "district" TEXT NOT NULL,
@@ -36,6 +40,8 @@ CREATE TABLE "Company" (
 -- CreateTable
 CREATE TABLE "Portfolio" (
     "portId" SERIAL NOT NULL,
+    "imageContents" TEXT[],
+    "imageContentUrls" TEXT[],
     "title" TEXT NOT NULL,
     "body" TEXT NOT NULL,
     "tag" TEXT[],
@@ -49,6 +55,19 @@ CREATE TABLE "Portfolio" (
     "companyId" INTEGER NOT NULL,
 
     CONSTRAINT "Portfolio_pkey" PRIMARY KEY ("portId")
+);
+
+-- CreateTable
+CREATE TABLE "CommentPortfolio" (
+    "commentId" SERIAL NOT NULL,
+    "massage" TEXT NOT NULL,
+    "rating" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
+    "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updateAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "portId" INTEGER NOT NULL,
+
+    CONSTRAINT "CommentPortfolio_pkey" PRIMARY KEY ("commentId")
 );
 
 -- CreateTable
@@ -88,15 +107,6 @@ CREATE TABLE "Blog" (
 );
 
 -- CreateTable
-CREATE TABLE "feed" (
-    "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "mets" TEXT[],
-
-    CONSTRAINT "feed_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Posts" (
     "id" SERIAL NOT NULL,
     "imageName" TEXT NOT NULL,
@@ -128,6 +138,9 @@ ALTER TABLE "Company" ADD CONSTRAINT "Company_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "Portfolio" ADD CONSTRAINT "Portfolio_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company"("companyId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CommentPortfolio" ADD CONSTRAINT "CommentPortfolio_portId_fkey" FOREIGN KEY ("portId") REFERENCES "Portfolio"("portId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Customer" ADD CONSTRAINT "Customer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE CASCADE ON UPDATE CASCADE;

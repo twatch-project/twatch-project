@@ -37,6 +37,10 @@ model Company {
   companyId           Int      @id @default(autoincrement())
   companyName         String
   companyRegistration String
+  imageCompany        String
+  imageCompanyUrl     String
+  imageContents       String[]
+  imageContentUrls    String[]
   address             String
   sub_district        String
   district            String
@@ -65,33 +69,35 @@ model Company {
 // }
 
 model Portfolio {
-  portId       Int      @id @default(autoincrement())
-  title        String
-  body         String
-  tag          String[]
-  province     String
-  district     String
-  sub_district String
-  address      String
-  postCode     Int
-  createAt     DateTime
-  updateAt     DateTime
+  portId            Int      @id @default(autoincrement())
+  imageContents     String[]
+  imageContentUrls  String[]
+  title             String
+  body              String
+  tag               String[]
+  province          String
+  district          String
+  sub_district      String
+  address           String
+  postCode          Int
+  createAt          DateTime
+  updateAt          DateTime
 
-  postedBy  Company @relation(fields: [companyId], references: [companyId])
-  companyId Int
-  user  CommentPortfolio[]
+  postedBy          Company            @relation(fields: [companyId], references: [companyId])
+  companyId         Int
+  user              CommentPortfolio[]
 }
 
 model CommentPortfolio {
-  commentId     Int      @id @default(autoincrement())
-  massage       String 
-  rating        Int
-  userId        String
-  createAt      DateTime @default(now())
-  updateAt      DateTime @default(now())
+  commentId Int      @id @default(autoincrement())
+  massage   String
+  rating    Int
+  userId    String
+  createAt  DateTime @default(now())
+  updateAt  DateTime @default(now())
 
-  portfolio     Portfolio @relation(fields: [portId], references: [portId])
-  portId          Int
+  portfolio Portfolio @relation(fields: [portId], references: [portId])
+  portId    Int
 }
 
 model Customer {
@@ -138,4 +144,3 @@ model Posts {
   totalLikes    Int      @default(0)
   created       DateTime @default(now())
 }
-
