@@ -72,7 +72,7 @@ class HandlerUser implements IHandlerUser {
     if (!username || !password) {
       return res
         .status(400)
-        .json({ error: "missing username or password in body" });
+        .json({ error: "missing username or password in body" }).end();
     }
     try {
       const user = await this.repo.getUserByUsername(username);
