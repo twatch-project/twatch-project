@@ -12,6 +12,7 @@ import AllCompany from './pages/AllCompany';
 import Layout from './s3pages/Layout';
 import Homes3 from './s3pages/Home';
 import NewPost from './s3pages/NewPost';
+import FileUploadMultiple from './components/UploadMultifile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homes3 />} />
         <Route>
+          <Route path="/uploadfile" element={<FileUploadMultiple />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/CompanyDetail" element={<CompanyDetail />} />

@@ -74,5 +74,5 @@ export default function Sell() {
         </section>
       </div>
     </section>
-  )
+  );
 }

@@ -9,6 +9,7 @@ export default function nav() {
           Twatch
         </Link>
         <div className="menu flex items-center mx-[2rem]">
+          <Link to="/uploadfile">Test Uploadfile</Link>
           <Link to="/" className="font-bold">
             Home
           </Link>
