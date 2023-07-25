@@ -1,4 +1,3 @@
-import React from 'react';
 import { useCompanyList } from '../hooks/useCompanyList';
 import Loading from './Loading';
 import CompanyCard from './CompanyCard';

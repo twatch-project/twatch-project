@@ -1,4 +1,3 @@
-import React from 'react';
 import Nav from '../components/Nav';
 // import img from '../img/3.jpg'
 import ReactStars from 'react-stars';

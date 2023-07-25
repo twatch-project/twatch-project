@@ -9,6 +9,7 @@ import Companys from './pages/Companys';
 import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
+import EditPortfolio from './pages/EditPortfolio';
 // import Homes3 from './s3pages/Home';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
+          <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} />
         </Route>
         {/* <Route path="/login" element={<Login />} /> */}
         {/* <Route path="/register" element={<Register />} /> */}
@@ -42,7 +44,7 @@ function App() {
         {/* <Route path="/new" element={<Create />} /> */}
         {/* <Route path="/content/:id" element={<Content />} /> */}
         {/* <Route path="/content/:id/edit" element={<Edit />} /> */}
-        {/* <Route path="*" element={<Error message="Page Not Found" />} /> */}
+        <Route path="*" element={<Error message="Page Not Found" />} />
       </Routes>
       {/* </Layout> */}
     </>

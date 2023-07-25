@@ -1,4 +1,4 @@
-import { UserRole } from "./auth.context";
+import { UserRole } from './auth.context';
 
 export interface UserDto {
   userId: string;
@@ -12,9 +12,11 @@ export interface CompanyDto {
   companyId: number;
   companyName: string;
   companyRegistration: string;
+  imageCompany: string;
+  imageCompanyUrl: string;
+  imageContents: string[];
+  imageContentUrls: string[];
   body: string;
-  imageProfile: string; //@TODO Add in backend
-  imageContent: string[]; //@TODO Add in backend
   address: string;
   sub_district: string;
   district: string;
@@ -31,7 +33,8 @@ export interface PortfolioDto {
   portId: number;
   title: string;
   body: string;
-  imageContent: string; //@TODO Add in backend
+  imageContents: string[];
+  imageContentUrls: string[]; //@TODO Add in backend
   tag: string[];
   address: string;
   sub_district: string;
