@@ -3,7 +3,10 @@ import { useAuth } from '../providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import { TextField } from '@mui/material';
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import React from 'react';
 const LoginSection = () => {
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -34,6 +37,15 @@ const LoginSection = () => {
       setSubmitting(false);
     }
   };
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <section className="flex items-center justify-center min-h-[100vh]">
@@ -54,11 +66,11 @@ const LoginSection = () => {
                 value={usernameInput}
                 variant="outlined"
                 onChange={(e) => setUsernameInput(e.target.value)}
-                className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+                className="w-full  border-blue border-2 rounded-md px-[5px] "
               />
             </div>
             <div className="w-full">
-              <TextField
+              {/* <TextField
                 id="outlined-basic"
                 type="password"
                 label="password"
@@ -66,7 +78,29 @@ const LoginSection = () => {
                 variant="outlined"
                 onChange={(e) => setPasswordInput(e.target.value)}
                 className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
-              />
+              /> */}
+              <FormControl variant="outlined" className="w-full">
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
             </div>
             <div className="flex justify-center py-5">
               <button
