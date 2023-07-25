@@ -1,10 +1,10 @@
-import React from 'react'
-import { PortfolioDto } from '../types/dto'
-import { Link } from 'react-router-dom'
-import { styled } from '@mui/material'
-import Rating from '@mui/material/Rating'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import React from 'react';
+import { PortfolioDto } from '../types/dto';
+import { Link } from 'react-router-dom';
+import { styled } from '@mui/material';
+import Rating from '@mui/material/Rating';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const StyledRating = styled(Rating)({
   '& .MuiRating-iconFilled': {
@@ -13,7 +13,7 @@ const StyledRating = styled(Rating)({
   '& .MuiRating-iconHover': {
     color: '#ff3d47',
   },
-})
+});
 
 const PortfolioCard = ({ portId, title, body, imageContent, companyId, rating }: PortfolioDto) => {
   return (
@@ -36,7 +36,7 @@ const PortfolioCard = ({ portId, title, body, imageContent, companyId, rating }:
         </div>
       </Link>
     </>
-  )
-}
+  );
+};
 
-export default PortfolioCard
+export default PortfolioCard;

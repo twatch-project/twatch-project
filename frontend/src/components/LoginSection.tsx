@@ -3,7 +3,10 @@ import { useAuth } from '../providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import { TextField } from '@mui/material';
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import React from 'react';
 const LoginSection = () => {
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -34,19 +37,28 @@ const LoginSection = () => {
       setSubmitting(false);
     }
   };
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <section className="flex items-center justify-center min-h-[100vh]">
         <div className="flex justify-center item-center ">
           <form
             onSubmit={handleSubmit}
-            className="flex   bg-white justify-center item-center flex-col m-3 rounded-md p-10 shadow-box gap-y-[20px] border-[0.5px]"
+            className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md p-10 shadow-md hover:shadow-lg gap-y-[30px] border-[0.5px]"
           >
             <h1 className="text-3xl font-bold py-5">
               Welcome to <span className="text-blue">Twatch.</span>
             </h1>
             <div className="text-center font-bold text-2xl">LOGIN</div>
-            <div>
+            <div className="w-full">
               <TextField
                 id="outlined-basic"
                 type="text"
@@ -54,22 +66,47 @@ const LoginSection = () => {
                 value={usernameInput}
                 variant="outlined"
                 onChange={(e) => setUsernameInput(e.target.value)}
-                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+                className="w-full  border-blue border-2 rounded-md px-[5px] "
               />
             </div>
-            <div>
-              <TextField
+            <div className="w-full">
+              {/* <TextField
                 id="outlined-basic"
                 type="password"
                 label="password"
                 value={passwordInput}
                 variant="outlined"
                 onChange={(e) => setPasswordInput(e.target.value)}
-                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
-              />
+                className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+              /> */}
+              <FormControl variant="outlined" className="w-full">
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
             </div>
             <div className="flex justify-center py-5">
-              <button className="btn " disabled={isSubmitting}>
+              <button
+                className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110"
+                disabled={isSubmitting}
+              >
                 Login
               </button>
             </div>
