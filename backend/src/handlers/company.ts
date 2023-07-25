@@ -36,10 +36,12 @@ class HandlerCompany implements IHandlerCompany {
       sub_district,
       district,
       province,
-      postCode,
+
       contact,
       tag,
     } = req.body;
+
+    const postCode: number = Number(req.body.postCode);
 
     if (
       !companyName ||
@@ -177,15 +179,10 @@ class HandlerCompany implements IHandlerCompany {
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
 
-    const {
-      address,
-      sub_district,
-      district,
-      province,
-      postCode,
-      contact,
-      tag,
-    } = req.body;
+    const { address, sub_district, district, province, contact, tag } =
+      req.body;
+
+    const postCode = Number(req.body.postCode);
 
     const userId = req.payload.id;
 

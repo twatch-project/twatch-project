@@ -127,7 +127,6 @@ async function main() {
   companyRouter.post(
     "/",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
-    // upload.single("avatar"),
     upload.fields([
       { name: "company", maxCount: 1 },
       { name: "content", maxCount: 5 },
@@ -144,6 +143,10 @@ async function main() {
   companyRouter.patch(
     "/:companyId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    upload.fields([
+      { name: "company", maxCount: 1 },
+      { name: "content", maxCount: 5 },
+    ]),
     handlerCompany.updateCompanyInfo.bind(handlerCompany)
   );
 
@@ -151,6 +154,7 @@ async function main() {
   portfolioRouter.post(
     "/",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    upload.fields([{ name: "content", maxCount: 5 }]),
     handlerPortfolio.createPortfolio.bind(handlerPortfolio)
   );
   portfolioRouter.get("/", handlerPortfolio.getPorts.bind(handlerPortfolio));
@@ -165,6 +169,7 @@ async function main() {
   portfolioRouter.patch(
     "/:portId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
+    upload.fields([{ name: "content", maxCount: 5 }]),
     handlerPortfolio.updatePort.bind(handlerPortfolio)
   );
   portfolioRouter.delete(

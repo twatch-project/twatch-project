@@ -40,7 +40,14 @@ class HandlerPortfolio implements IHandlerPorfolio {
       return res.status(400).json({ error: "not company role" }).end();
     }
 
-    const {
+    console.log(companyRole);
+
+    const { title, body, tag, address, sub_district, district, province } =
+      req.body;
+
+    const postCode = Number(req.body.postCode);
+
+    console.log(
       title,
       body,
       tag,
@@ -48,8 +55,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
       sub_district,
       district,
       province,
-      postCode,
-    } = req.body;
+      postCode
+    );
 
     if (
       !title ||
@@ -208,16 +215,10 @@ class HandlerPortfolio implements IHandlerPorfolio {
         .status(400)
         .json({ error: `id ${req.params.portId} is not a number` });
     }
-    const {
-      title,
-      body,
-      address,
-      sub_district,
-      district,
-      province,
-      postCode,
-      tag,
-    } = req.body;
+    const { title, body, address, sub_district, district, province, tag } =
+      req.body;
+
+    const postCode = Number(req.body.postCode);
 
     const userId = req.payload.id;
     const company = await this.repoCompany.getCompanyId(userId);
