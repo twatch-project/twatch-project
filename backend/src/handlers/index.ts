@@ -118,6 +118,10 @@ export interface WithCompany {
   companyId: number;
   companyName: string;
   companyRegistration: string;
+  imageCompany: string;
+  imageCompanyUrl: string;
+  imageContents: string[];
+  imageContentUrls: string[];
   address: string;
   sub_district: string;
   district: string;

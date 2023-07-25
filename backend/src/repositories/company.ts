@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { IRepositoryCompany } from ".";
 import { ICompany, ICreateCompany } from "../entities";
+import { deleteFile } from "../services/aws";
 
 export function newRepositoryCompany(db: PrismaClient) {
   return new RepositoryCompany(db);
@@ -74,6 +75,10 @@ class RepositoryCompany implements IRepositoryCompany {
 
   async updateCompanyInfo(arg: {
     companyId: number;
+    imageCompany?: string;
+    imageCompanyUrl?: string;
+    imageContents?: string[];
+    imageContentUrls?: string[];
     address?: string;
     sub_district?: string;
     district?: string;
@@ -83,6 +88,31 @@ class RepositoryCompany implements IRepositoryCompany {
     tag?: string[];
     userId: string;
   }): Promise<ICompany> {
+    const company = await this.db.company.findFirst({
+      where: { companyId: arg.companyId, userId: arg.userId },
+    });
+
+    if (!company) {
+      return Promise.reject(`no such port ${arg.companyId} not found`);
+    }
+
+    if (arg.imageCompany && arg.imageContents) {
+      await deleteFile(company.imageContents);
+      await deleteFile(company.imageContentUrls);
+      await deleteFile(company.imageCompany);
+      await deleteFile(company.imageCompanyUrl);
+    }
+
+    if (arg.imageCompany) {
+      await deleteFile(company.imageCompany);
+      await deleteFile(company.imageCompanyUrl);
+    }
+
+    if (arg.imageContentUrls) {
+      await deleteFile(company.imageContents);
+      await deleteFile(company.imageContentUrls);
+    }
+
     return await this.db.company.update({
       include: {
         userCompany: {

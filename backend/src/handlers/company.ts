@@ -2,9 +2,12 @@ import { Request, Response } from "express";
 import { IHandlerCompany, WithCompany, WithCompanyId } from ".";
 import { JwtAuthRequest } from "../auth";
 import { IRepositoryCompany } from "../repositories";
-import { getObjectSignedUrl, uploadFile } from "../services/aws";
+import {
+  generateFileName,
+  getObjectSignedUrl,
+  uploadFile,
+} from "../services/aws";
 import sharp from "sharp";
-import crypto from "crypto";
 
 export function newHandlerCompany(repoCompany: IRepositoryCompany) {
   return new HandlerCompany(repoCompany);
@@ -33,10 +36,12 @@ class HandlerCompany implements IHandlerCompany {
       sub_district,
       district,
       province,
-      postCode,
+
       contact,
       tag,
     } = req.body;
+
+    const postCode: number = Number(req.body.postCode);
 
     if (
       !companyName ||
@@ -51,9 +56,6 @@ class HandlerCompany implements IHandlerCompany {
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
-
-    const generateFileName = (bytes = 32) =>
-      crypto.randomBytes(bytes).toString("hex");
 
     if (!req.files) {
       return res.status(400);
@@ -177,20 +179,71 @@ class HandlerCompany implements IHandlerCompany {
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
 
-    const {
-      address,
-      sub_district,
-      district,
-      province,
-      postCode,
-      contact,
-      tag,
-    } = req.body;
+    const { address, sub_district, district, province, contact, tag } =
+      req.body;
+
+    const postCode = Number(req.body.postCode);
 
     const userId = req.payload.id;
 
+    let imageCompany;
+    let imageCompanyUrl;
+    let imageContents: string[] | undefined;
+    let imageContentUrls: string[] | undefined;
+
+    if (req.files) {
+      const fCompany = req.files["company"];
+      if (fCompany) {
+        const imageCompany: string = generateFileName();
+
+        const fileBufferCompany = await sharp(fCompany[0]?.buffer)
+          .resize({ height: 1920, width: 1080, fit: "contain" })
+          .toBuffer();
+
+        await uploadFile(
+          fileBufferCompany,
+          imageCompany,
+          fCompany[0]?.mimetype
+        );
+
+        imageCompanyUrl = await getObjectSignedUrl(imageCompany);
+      }
+
+      const fContents = req.files["content"];
+
+      if (fContents) {
+        const imageContents: string[] = fContents.map(() => generateFileName());
+
+        const fileBufferContents: Buffer[] = await Promise.all(
+          fContents.map(async (fContent): Promise<Buffer> => {
+            return await sharp(fContent.buffer)
+              .resize({ height: 1920, width: 1080, fit: "contain" })
+              .toBuffer();
+          })
+        );
+
+        for (let i = 0; i < imageContents.length; i++) {
+          await uploadFile(
+            fileBufferContents[i],
+            imageContents[i],
+            fContents[i]?.mimetype
+          );
+        }
+
+        imageContentUrls = await Promise.all(
+          imageContents.map(async (imageContent): Promise<string> => {
+            return await getObjectSignedUrl(imageContent);
+          })
+        );
+      }
+    }
+
     try {
       const updated = this.repo.updateCompanyInfo({
+        imageCompany,
+        imageCompanyUrl,
+        imageContents,
+        imageContentUrls,
         address,
         sub_district,
         district,
