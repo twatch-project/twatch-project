@@ -59,7 +59,7 @@ export interface IRepositoryCompany {
     sub_district?: string;
     district?: string;
     province?: string;
-    postCode?: number;
+    postCode?: string;
     contact?: string;
     tag?: string[];
     userId: string;
@@ -83,7 +83,7 @@ export interface IRepositoryPortfolio {
     sub_district?: string;
     district?: string;
     province?: string;
-    postCode?: number;
+    postCode?: string;
     updateAt: Date;
     companyId: number;
   }): Promise<IPort>;

@@ -126,7 +126,7 @@ export interface WithCompany {
   sub_district: string;
   district: string;
   province: string;
-  postCode: number;
+  postCode: string;
   contact: string;
   tag?: string[];
   userId: string;
@@ -162,7 +162,7 @@ export interface WithPort {
   sub_district: string;
   district: string;
   province: string;
-  postCode: number;
+  postCode: string;
   companyId: number;
 }
 

@@ -34,7 +34,7 @@ export interface ICreateCompany {
   sub_district: string;
   district: string;
   province: string;
-  postCode: number;
+  postCode: string;
   contact: string;
   tag: string[];
 
@@ -55,7 +55,7 @@ export interface ICreatePort {
   sub_district: string;
   district: string;
   province: string;
-  postCode: number;
+  postCode: string;
   createAt: Date;
   updateAt: Date;
 

@@ -45,7 +45,7 @@ model Company {
   sub_district        String
   district            String
   province            String
-  postCode            Int
+  postCode            String
   contact             String
   // rateprice        Int
   tag                 String[]
@@ -69,23 +69,23 @@ model Company {
 // }
 
 model Portfolio {
-  portId            Int      @id @default(autoincrement())
-  imageContents     String[]
-  imageContentUrls  String[]
-  title             String
-  body              String
-  tag               String[]
-  province          String
-  district          String
-  sub_district      String
-  address           String
-  postCode          Int
-  createAt          DateTime
-  updateAt          DateTime
+  portId           Int      @id @default(autoincrement())
+  imageContents    String[]
+  imageContentUrls String[]
+  title            String
+  body             String
+  tag              String[]
+  province         String
+  district         String
+  sub_district     String
+  address          String
+  postCode         String
+  createAt         DateTime
+  updateAt         DateTime
 
-  postedBy          Company            @relation(fields: [companyId], references: [companyId])
-  companyId         Int
-  user              CommentPortfolio[]
+  postedBy  Company            @relation(fields: [companyId], references: [companyId])
+  companyId Int
+  user      CommentPortfolio[]
 }
 
 model CommentPortfolio {

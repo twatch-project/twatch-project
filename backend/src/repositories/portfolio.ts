@@ -60,7 +60,7 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
     sub_district?: string;
     district?: string;
     province?: string;
-    postCode?: number;
+    postCode?: string;
     updateAt: Date;
     companyId: number;
   }): Promise<IPort> {
