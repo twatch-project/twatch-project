@@ -27,17 +27,14 @@ export default function NewPost() {
     const formData = new FormData();
     formData.append('company', fileCompany);
     formData.append('content', fileContents);
-    // formData.append('image', file2)
     formData.append('companyName', companyName);
     formData.append('companyRegistration', companyRegistration);
     formData.append('address', address);
     formData.append('sub_district', subDistrict);
     formData.append('district', distric);
     formData.append('province', province);
-    // formData.append('postCode', postCode)
     formData.append('contact', contact);
-    // formData.append('tag', tag)
-    console.log('hello');
+
     await axios.post(`${host}/company`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',

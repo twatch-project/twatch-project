@@ -15,4 +15,3 @@ export const Tags = [
   'ARTDECO',
   'MIXANDMATCH',
 ];
-

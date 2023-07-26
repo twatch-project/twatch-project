@@ -48,8 +48,6 @@ model Company {
   province            String
   postCode            String
   contact             String
-  body                String
-  // rateprice        Int
   tag                 String[]
 
   userCompany User   @relation(fields: [userId], references: [userId])

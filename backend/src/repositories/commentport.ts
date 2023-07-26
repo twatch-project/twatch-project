@@ -54,17 +54,7 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
     });
   }
 
-  async getRatingByPortId(
-    portId: number
-  ): Promise<{ _avg: { rating: boolean | null } }> {
-    return await this.db.commentPortfolio.groupBy({
-      by: ["portId"],
-      where: { portId: portId },
-      _avg: {
-        rating: true,
-      },
-    });
-  }
+
 
   async getCommentPortByUserId(userId: string): Promise<ICommentPort[]> {
     return await this.db.commentPortfolio.findMany({

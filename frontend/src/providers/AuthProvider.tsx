@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChildProps, IAuthContext, UserRole } from '../types/auth.context';
 import { host } from '../constant';
+import { toast } from 'react-hot-toast';
 
 export type AuthProviderProps = ChildProps;
 type UserInfo = Pick<IAuthContext, 'userId' | 'token'>;
@@ -81,12 +82,11 @@ const AuthProvider = (props: AuthProviderProps) => {
     localStorage.removeItem('userId');
     setIsLoggedIn(false);
     setUserInfo({ userId: null, token: null });
-    // toast.success('Successful Logout')
+    toast.success('Successful Logout');
   };
 
   const register: RegisterFunc = async (username: string, password: string, role: UserRole, email: string) => {
     const registerInfo = { username, password, role, email };
-    console.log(registerInfo);
 
     try {
       const res = await fetch(`${host}/user`, {
@@ -105,50 +105,6 @@ const AuthProvider = (props: AuthProviderProps) => {
       throw new Error(err.message);
     }
   };
-
-  // const CompanyProfile: CompanyProfileFunc = async (
-  //   companyName: string,
-  //   companyRegistration: string,
-  //   body: string,
-  //   imageContent: string,
-  //   address: string,
-  //   sub_district: string,
-  //   district: string,
-  //   province: string,
-  //   contract: string,
-  //   tag: string,
-  // ) => {
-  //   const CompanyProfileInfo = {
-  //     companyName,
-  //     companyRegistration,
-  //     body,
-  //     imageContent,
-  //     address,
-  //     sub_district,
-  //     district,
-  //     province,
-  //     contract,
-  //     tag,
-  //   }
-  //   console.log(CompanyProfileInfo)
-
-  //   try {
-  //     const res = await fetch(`${host}/user`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(CompanyProfileInfo),
-  //     })
-  //     const data = await res.json()
-
-  //     if (data.statusCode === 401) {
-  //       throw new Error(data.message)
-  //     }
-  //   } catch (err: any) {
-  //     throw new Error(err.message)
-  //   }
-  // }
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, ...userInfo, logout, register }}>{children}</AuthContext.Provider>
