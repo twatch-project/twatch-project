@@ -172,12 +172,12 @@ const CreatePortfolioSection = () => {
 
   return (
     <>
-      <section className="flex justify-center">
+      <section className="flex justify-center ">
         <form
           onSubmit={handlerSubmit}
           className="flex w-[600px] border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[10px] m-[15px] "
         >
-          <h1 className="font-bold ">CREATE PORTFORLIO</h1>
+          <h1 className="font-bold ">CREATE PORTFOLIO</h1>
           <div className="input">
             <TextField
               id="outlined-multiline-static"

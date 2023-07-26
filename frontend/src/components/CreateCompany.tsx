@@ -21,7 +21,7 @@ import FetchAmphure from '../hooks/AmphureAPI';
 import FetchProivce from '../hooks/ProviceAPI';
 import FetchTambon from '../hooks/TambonsAPI';
 import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
-import profileimg from '../img/user.png';
+// import profileimg from '../img/user.png';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

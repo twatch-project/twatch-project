@@ -50,6 +50,7 @@ export default function Company() {
             </div>
 
             <Link to="/company/create">
+              {/* <Link to="/CreateCompanyProfile"> */}
               <div className="edit-info flex justify-end p-[15px]">
                 <button className="bg-blue rounded p-[10px] text-white">Create company</button>
               </div>
