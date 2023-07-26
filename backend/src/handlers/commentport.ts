@@ -22,7 +22,7 @@ class HandlerCommentPort implements IHandlerComment {
 
   async createCommentPort(
     req: JwtAuthRequest<WithCommentId, WithCommentPort>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const commentId = Number(req.params.commentId);
     if (isNaN(commentId)) {
@@ -61,7 +61,7 @@ class HandlerCommentPort implements IHandlerComment {
 
   async updateCommentPortfolio(
     req: JwtAuthRequest<WithCommentId, WithUpdateComment>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const commentId = Number(req.params.commentId);
     if (isNaN(commentId)) {
@@ -103,7 +103,7 @@ class HandlerCommentPort implements IHandlerComment {
 
   async getCommentPortfolioById(
     req: JwtAuthRequest<WithCommentId, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const commentId = Number(req.params.commentId);
     if (isNaN(commentId)) {
@@ -141,7 +141,7 @@ class HandlerCommentPort implements IHandlerComment {
 
   async deleteCommentPortfolio(
     req: JwtAuthRequest<WithCommentId, WithCommentPort>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const commentId = Number(req.params.commentId);
     if (isNaN(commentId)) {

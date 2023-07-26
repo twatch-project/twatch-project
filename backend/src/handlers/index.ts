@@ -122,6 +122,7 @@ export interface WithCompany {
   imageCompanyUrl: string;
   imageContents: string[];
   imageContentUrls: string[];
+  body: string;
   address: string;
   sub_district: string;
   district: string;
@@ -194,6 +195,10 @@ export interface IHandlerPorfolio {
   ): Promise<Response>;
   deletePortById(
     req: JwtAuthRequest<WithPortId, WithPort>,
+    res: Response
+  ): Promise<Response>;
+  getRatingByPortId(
+    req: JwtAuthRequest<WithPortId, Empty>,
     res: Response
   ): Promise<Response>;
 }

@@ -68,7 +68,6 @@ class RepositoryCompany implements IRepositoryCompany {
           },
         },
       },
-
       where: { companyId },
     });
   }
@@ -97,8 +96,10 @@ class RepositoryCompany implements IRepositoryCompany {
     }
 
     if (arg.imageCompany && arg.imageContents) {
-      await deleteFile(company.imageContents);
-      await deleteFile(company.imageContentUrls);
+      for (let i = 0; i < company.imageContents.length; i++) {
+        await deleteFile(company.imageContents[i]);
+        await deleteFile(company.imageContentUrls[i]);
+      }
       await deleteFile(company.imageCompany);
       await deleteFile(company.imageCompanyUrl);
     }
@@ -109,8 +110,10 @@ class RepositoryCompany implements IRepositoryCompany {
     }
 
     if (arg.imageContentUrls) {
-      await deleteFile(company.imageContents);
-      await deleteFile(company.imageContentUrls);
+      for (let i = 0; i < company.imageContents.length; i++) {
+        await deleteFile(company.imageContents[i]);
+        await deleteFile(company.imageContentUrls[i]);
+      }
     }
 
     return await this.db.company.update({

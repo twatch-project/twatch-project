@@ -88,6 +88,9 @@ export interface IRepositoryPortfolio {
     companyId: number;
   }): Promise<IPort>;
   deletePortById(arg: { portId: number; companyId: number }): Promise<IPort>;
+  getRatingByPortId(
+    portId: number
+  ): Promise<{ _avg: { rating: boolean | null } }>;
 }
 
 export interface IRepositoryCommentPort {
