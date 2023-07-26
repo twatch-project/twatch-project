@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import FetchAmphure from '../hooks/AmphureAPI';
 import FetchProivce from '../hooks/ProviceAPI';
-import FetchTambon from '../hooks/TambonsAPI';
+import AddressThai from '../hooks/AddressThai';
 import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
 import { Tags, host } from '../constant';
 import axios from 'axios';
@@ -55,7 +55,7 @@ const EditPortfolioSection = () => {
   const navigate = useNavigate();
   const { provinces } = FetchProivce();
   const { Amphure } = FetchAmphure();
-  const { tambons } = FetchTambon();
+  const { tambons } = AddressThai();
   const [province, setProvince] = useState<{ id: number; name_th: string } | null>(null);
   const [amphure, setAmphure] = useState<{ id: number; name_th: string } | null>(null);
   const [amphureId, setAmphureId] = useState<AmphureDTO[] | null>(null);

@@ -6,12 +6,12 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FetchProivce from '../hooks/ProviceAPI';
 import FetchAmphure from '../hooks/AmphureAPI';
 import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
-import FetchTambon from '../hooks/TambonsAPI';
+import AddressThai from '../hooks/AddressThai';
 
 export default function Provicelist() {
   const { provinces } = FetchProivce();
   const { Amphure } = FetchAmphure();
-  const { tambons } = FetchTambon();
+  const { tambons } = AddressThai();
   const [province, setProvince] = React.useState<{ id: number; name_th: string } | null>(null);
   const [amphure, setAmphure] = React.useState<{ id: number; name_th: string } | null>(null);
   const [amphureId, setAmphureId] = React.useState<AmphureDTO[] | null>(null);
