@@ -152,8 +152,6 @@ const EditPortfolioSection = () => {
       for (let i = 0; i < tags.length; i++) {
         formData.append('tag', tags[i]);
       }
-      console.log(...formData);
-      console.log(token);
       await axios.patch(`${host}/portfolio/${portId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',

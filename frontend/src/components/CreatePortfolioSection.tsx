@@ -131,7 +131,6 @@ const CreatePortfolioSection = () => {
     }
     try {
       if (!tambon?.name_th || !amphure?.name_th || !province?.name_th || !postCode) {
-        console.log('Missing Address');
         return;
       }
 
@@ -150,8 +149,6 @@ const CreatePortfolioSection = () => {
       for (let i = 0; i < tags.length; i++) {
         formData.append('tag', tags[i]);
       }
-      console.log(...formData);
-      console.log(token);
       await axios.post(`${host}/portfolio`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',

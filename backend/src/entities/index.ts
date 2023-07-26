@@ -37,7 +37,6 @@ export interface ICreateCompany {
   province: string;
   postCode: string;
   contact: string;
-  body: string
   tag: string[];
 
   userId: string;

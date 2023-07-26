@@ -29,9 +29,6 @@ const Register = () => {
         return toast.error('Password not macth !!!');
       }
 
-      console.log('Register');
-      console.log(roleInput);
-
       await register(usernameInput, passwordInput, roleInput, emailInput);
 
       toast.success('Successful Registration.');

@@ -131,7 +131,6 @@ export interface WithCompany {
   contact: string;
   tag?: string[];
   userId: string;
-  body: string
 }
 
 export interface WithCompanyId {

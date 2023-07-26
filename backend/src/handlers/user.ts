@@ -60,7 +60,6 @@ class HandlerUser implements IHandlerUser {
     }
     try {
       const user = await this.repo.getId(req.payload.id);
-      console.log(user);
       return res.status(200).json({ user, status: "ok" }).end();
     } catch (err) {
       console.error(err);

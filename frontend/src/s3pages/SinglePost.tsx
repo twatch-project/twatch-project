@@ -1,13 +1,11 @@
 export default function SinglePost(arg: {
-  className: any
-  post: any
-  likeClicked: any
-  commentClicked: any
-  deletePostClicked: any
+  className: any;
+  post: any;
+  likeClicked: any;
+  commentClicked: any;
+  deletePostClicked: any;
 }) {
-  console.log(arg.post)
-  const { id, companyName, imageCompanyUrl, totalComments, totalLikes } = arg.post
-  console.log(imageCompanyUrl)
+  const { id, companyName, imageCompanyUrl, totalComments, totalLikes } = arg.post;
 
   return (
     <div className={arg.className + ' outline-1'} style={{ width: 650 }}>
@@ -40,5 +38,5 @@ export default function SinglePost(arg: {
         </div>
       </div>
     </div>
-  )
+  );
 }
