@@ -33,6 +33,7 @@ class HandlerCompany implements IHandlerCompany {
     const {
       companyName,
       companyRegistration,
+      body,
       address,
       sub_district,
       district,
@@ -48,6 +49,7 @@ class HandlerCompany implements IHandlerCompany {
     if (
       !companyName ||
       !companyRegistration ||
+      !body ||
       !address ||
       !sub_district ||
       !district ||
@@ -110,6 +112,7 @@ class HandlerCompany implements IHandlerCompany {
         imageCompanyUrl,
         imageContents,
         imageContentUrls,
+        body,
         address,
         sub_district,
         district,
@@ -187,8 +190,15 @@ class HandlerCompany implements IHandlerCompany {
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
 
-    const { address, sub_district, district, province, contact, tag, postCode } =
-      req.body;
+    const {
+      address,
+      sub_district,
+      district,
+      province,
+      contact,
+      tag,
+      postCode,
+    } = req.body;
 
     const userId = req.payload.id;
 

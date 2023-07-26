@@ -29,6 +29,48 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
     });
   }
 
+  async getRatingByPortId(
+    portId: number
+  ): Promise<{ _avg: { rating: boolean | null } }> {
+    return await this.db.commentPortfolio.groupBy({
+      by: ["portId"],
+      where: { portId: portId },
+      _avg: {
+        rating: true,
+      },
+    });
+  }
+
+  // async getRatingByCompanyId(companyId: number): Promise<any> {
+  //   const ports = await this.db.portfolio.findMany({
+  //     where: { companyId },
+  //   });
+
+  //   const port = ports.map((port) => port.portId);
+
+  //   let portRatings: number[] = [];
+  //   for (let i = 0; i < port.length; i++) {
+  //     const ratingInPortId = await this.db.commentPortfolio.groupBy({
+  //       by: ["portId"],
+  //       where: { portId: port[i] },
+  //     });
+  //     const ratings: number[] = ratingInPortId
+  //       .map((ratings) => ratings.portId)
+  //       .map((rating) => rating);
+
+  //     let sumRating = ratings[0];
+  //     for (let j = 1; j < ratings.length; j++) {
+  //       sumRating = ratings[i] + sumRating;
+  //     }
+  //     portRatings.push(sumRating);
+  //   }
+
+  //   let rating: number = portRatings[0];
+  //   for (let k = 1; k < portRatings.length; k++) {
+  //     rating = rating + portRatings[k];
+  //   }
+  // }
+
   async getPorts(): Promise<IPort[]> {
     return await this.db.portfolio.findMany({
       include: { postedBy: { select: { companyName: true } } },
@@ -37,9 +79,14 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
 
   async getPortById(portId: number): Promise<IPort | null> {
     return await this.db.portfolio.findUnique({
-      include: { postedBy: { select: { companyName: true } } ,user: {select: {
-        rating:true
-      }}},
+      include: {
+        postedBy: { select: { companyName: true } },
+        commentBy: {
+          select: {
+            rating: true,
+          },
+        },
+      },
       where: { portId },
     });
   }
@@ -75,8 +122,10 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
     }
 
     if (arg.imageContentUrls && arg.imageContents) {
-      await deleteFile(port.imageContents);
-      await deleteFile(port.imageContentUrls);
+      for (let i = 0; i < port.imageContents.length; i++) {
+        await deleteFile(port.imageContents[i]);
+        await deleteFile(port.imageContentUrls[i]);
+      }
     }
 
     return await this.db.portfolio.update({
@@ -112,8 +161,10 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
       return Promise.reject(`no such port ${arg.portId} not found`);
     }
 
-    await deleteFile(port.imageContents);
-    await deleteFile(port.imageContentUrls);
+    for (let i = 0; i < port.imageContents.length; i++) {
+      await deleteFile(port.imageContents[i]);
+      await deleteFile(port.imageContentUrls[i]);
+    }
 
     return this.db.portfolio.delete({ where: { portId: arg.portId } });
   }

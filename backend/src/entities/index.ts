@@ -30,6 +30,7 @@ export interface ICreateCompany {
   imageCompanyUrl: string;
   imageContents: string[];
   imageContentUrls: string[];
+  body: string;
   address: string;
   sub_district: string;
   district: string;

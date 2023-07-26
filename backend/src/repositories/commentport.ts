@@ -18,7 +18,7 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
         portfolio: {
           select: {
             portId: true,
-            user: true,
+            commentBy: true,
           },
         },
       },
@@ -35,7 +35,7 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
   }
 
   async getCommentPortfolioById(
-    commentId: number,
+    commentId: number
   ): Promise<ICommentPort | null> {
     return await this.db.commentPortfolio.findUnique({
       include: {
@@ -51,6 +51,18 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
         },
       },
       where: { commentId },
+    });
+  }
+
+  async getRatingByPortId(
+    portId: number
+  ): Promise<{ _avg: { rating: boolean | null } }> {
+    return await this.db.commentPortfolio.groupBy({
+      by: ["portId"],
+      where: { portId: portId },
+      _avg: {
+        rating: true,
+      },
     });
   }
 
