@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
+
 import {
   Box,
   Button,
@@ -25,6 +26,7 @@ import { Tags, host } from '../constant';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
 import SendIcon from '@mui/icons-material/Send';
+// import { Link } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -44,6 +46,7 @@ function getStyles(name: string, tag: readonly string[], theme: Theme) {
 }
 
 const EditPortfolioSection = () => {
+  // const { isLoggedIn, logout } = useAuth();
   const [title, setTitle] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -174,19 +177,34 @@ const EditPortfolioSection = () => {
 
   return (
     <>
-      <section className="flex justify-center">
+      <section className="flex justify-center flex-col ">
         <form
           onSubmit={handlerSubmit}
           className="flex w-[600px] border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[10px] m-[15px] "
         >
-          <h1 className="font-bold ">EDIT PORTFORLIO</h1>
+          {/* {isLoggedIn ? (
+            <>
+              <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
+                logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/Register">SignUp</Link>
+              <Link to="/Login" className="bg-blue py-[5px] px-[1rem] rounded text-white">
+                Login
+              </Link>
+            </>
+          )} */}
+          <h1 className="font-bold text-[24px] my-[20px]">EDIT PORTFOLIO</h1>
           <div className="input">
             <TextField
+              sx={{ width: 300, height: 70 }}
               id="outlined-multiline-static"
               label="TITLE"
               multiline
               type="text"
-              rows={10}
+              // rows={10}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -194,20 +212,25 @@ const EditPortfolioSection = () => {
           </div>
           <div className="input">
             <TextField
+              sx={{ width: 300, height: 70 }}
               id="outlined-multiline-static"
               label="BODY"
               multiline
               type="text"
-              rows={10}
+              // rows={10}
               value={body}
               onChange={(e) => setBody(e.target.value)}
               required
             />
           </div>
-          <div>
-            <h1>Multiple File Input Example</h1>
+          <div className="flex flex-col gap-2">
+            <h1 className="text-sm ">Multiple File Input Example</h1>
             <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileSelect} multiple />
-            <button type="button" onClick={handleAddFile}>
+            <button
+              className="p-[10px] border-black border-[0.5px] rounded-full hover:bg-blue hover:text-white duration-500"
+              type="button"
+              onClick={handleAddFile}
+            >
               Add File
             </button>
             <Button
@@ -218,7 +241,7 @@ const EditPortfolioSection = () => {
             >
               Submit
             </Button>
-            <ul>
+            <ul className="flex justify-center">
               {selectedFiles.map((file, index) => (
                 <li key={index}>{file.name}</li>
               ))}
@@ -226,7 +249,7 @@ const EditPortfolioSection = () => {
           </div>
 
           <div>
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl sx={{ m: 1, minWidth: 100 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Provice</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -245,7 +268,7 @@ const EditPortfolioSection = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -264,7 +287,7 @@ const EditPortfolioSection = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl sx={{ m: 1, minWidth: 100 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -285,38 +308,47 @@ const EditPortfolioSection = () => {
           </div>
 
           <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">ADDRESS</label>
-            <input
-              type="text"
+            <TextField
+              sx={{ width: 300, height: 70 }}
+              id="outlined-multiline-static"
+              label="ADDRESS"
+              multiline
+              type="address"
+              // rows={10}
               value={address}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
               onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
           <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">POST CODE</label>
-            <input
-              type="text"
-              value={postCode}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
-              onChange={(e) => setPostCode(e.target.value)}
+            <TextField
+              sx={{ width: 300, height: 70 }}
+              id="outlined-multiline-static"
+              label="ADDRESS"
+              multiline
+              type="address"
+              // rows={10}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
           <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">CONTRACT</label>
-            <input
-              type="text"
+            <TextField
+              sx={{ width: 300, height: 70 }}
+              id="outlined-multiline-static"
+              label="CONTACT"
+              multiline
+              type="contact"
+              // rows={10}
               value={contact}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
-              onChange={(e) => setContact(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
           {/* <TagSelect /> */}
           <div>
-            <FormControl sx={{ m: 1, width: 300 }}>
+            <FormControl sx={{ width: 300 }}>
               <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
               <Select
                 labelId="demo-multiple-chip-label"
@@ -342,7 +374,10 @@ const EditPortfolioSection = () => {
               </Select>
             </FormControl>
           </div>
-          <button className="my-[10px] p-[10px] bg-blue rounded text-white" disabled={isSubmitting}>
+          <button
+            className="my-[10px] p-[10px] bg-blue rounded-lg text-white hover:border-black border-[0.5px] duration-500 hover:bg-white hover:text-black"
+            disabled={isSubmitting}
+          >
             CONFIRM
           </button>
         </form>
