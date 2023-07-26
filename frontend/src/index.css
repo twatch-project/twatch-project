@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  display: flex;
+}
 nav a {
   margin: 0 1rem;
 }
