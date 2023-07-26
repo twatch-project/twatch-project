@@ -3,9 +3,9 @@ import { JwtAuthRequest } from "../auth";
 import { GenderType } from "../entities";
 import { UserRole } from "../entities";
 
-export interface AppRequest<Params, Body> extends Request<Params, any, Body> {}
+export interface AppRequest<Params, Body> extends Request<Params, any, Body> { }
 
-export interface Empty {}
+export interface Empty { }
 
 export type HandlerFunc<Req> = (req: Req, res: Response) => Promise<Response>;
 
@@ -130,6 +130,7 @@ export interface WithCompany {
   contact: string;
   tag?: string[];
   userId: string;
+  body: string
 }
 
 export interface WithCompanyId {
