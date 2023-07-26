@@ -14,11 +14,12 @@ const StyledRating = styled(Rating)({
   },
 });
 
-const CompanyCard = ({ companyId, imageProfile, companyName, rating, body }: CompanyDto) => {
+const CompanyCard = ({ companyId, imageCompanyUrl, imageContentUrls, companyName, rating, body }: CompanyDto) => {
   return (
     <>
       <Link to={`/company/${companyId}`}>
-        <div>{imageProfile}</div>
+        <div>{imageCompanyUrl}</div>
+        <div>{imageContentUrls}</div>
         <div>{companyName}</div>
         <div>{body}</div>
         <div>

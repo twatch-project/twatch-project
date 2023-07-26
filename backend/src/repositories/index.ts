@@ -95,7 +95,7 @@ export interface IRepositoryCommentPort {
   getCommentPortfolioById(commentId: number): Promise<ICommentPort | null>;
   getCommentPortfolio(): Promise<ICommentPort[]>;
   updateCommentPortfolio(msg: IUpdateComment): Promise<ICommentPort>;
-  dateleCommentPortfolioById(arg: {
+  deleteCommentPortfolioById(arg: {
     commentId: number;
     userId: string;
   }): Promise<ICommentPort>;

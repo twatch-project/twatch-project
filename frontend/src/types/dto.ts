@@ -57,3 +57,11 @@ export interface ErrorDto {
   message: string;
   erorr: string;
 }
+
+export interface CommentPortDTO {
+  userId: string;
+  massage: string;
+  rating: number;
+
+  portId: number;
+}

@@ -44,7 +44,7 @@ function App() {
         {/* <Route path="/new" element={<Create />} /> */}
         {/* <Route path="/content/:id" element={<Content />} /> */}
         {/* <Route path="/content/:id/edit" element={<Edit />} /> */}
-        <Route path="*" element={<Error message="Page Not Found" />} />
+        {/* <Route path="*" element={<Error message="Page Not Found" />} /> */}
       </Routes>
       {/* </Layout> */}
     </>
