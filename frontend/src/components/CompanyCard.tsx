@@ -1,4 +1,3 @@
-import React from 'react';
 import { CompanyDto } from '../types/dto';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material';
@@ -15,11 +14,12 @@ const StyledRating = styled(Rating)({
   },
 });
 
-const CompanyCard = ({ companyId, imageProfile, companyName, rating, body }: CompanyDto) => {
+const CompanyCard = ({ companyId, imageCompanyUrl, imageContentUrls, companyName, rating, body }: CompanyDto) => {
   return (
     <>
       <Link to={`/company/${companyId}`}>
-        <div>{imageProfile}</div>
+        <div>{imageCompanyUrl}</div>
+        <div>{imageContentUrls}</div>
         <div>{companyName}</div>
         <div>{body}</div>
         <div>

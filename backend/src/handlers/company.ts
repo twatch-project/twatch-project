@@ -39,14 +39,12 @@ class HandlerCompany implements IHandlerCompany {
       province,
       body,
       contact,
+      postCode,
       tag,
       postCode
     } = req.body;
-
     console.log("ssss")
     console.log(companyName, companyRegistration, address, sub_district, district, province, postCode, contact, tag, body)
-
-
     if (
       !companyName ||
       !companyRegistration ||

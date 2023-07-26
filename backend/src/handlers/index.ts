@@ -163,7 +163,7 @@ export interface WithPort {
   sub_district: string;
   district: string;
   province: string;
-  postCode: number;
+  postCode: string;
   companyId: number;
 }
 

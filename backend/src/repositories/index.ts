@@ -83,7 +83,7 @@ export interface IRepositoryPortfolio {
     sub_district?: string;
     district?: string;
     province?: string;
-    postCode?: number;
+    postCode?: string;
     updateAt: Date;
     companyId: number;
   }): Promise<IPort>;
@@ -95,7 +95,7 @@ export interface IRepositoryCommentPort {
   getCommentPortfolioById(commentId: number): Promise<ICommentPort | null>;
   getCommentPortfolio(): Promise<ICommentPort[]>;
   updateCommentPortfolio(msg: IUpdateComment): Promise<ICommentPort>;
-  dateleCommentPortfolioById(arg: {
+  deleteCommentPortfolioById(arg: {
     commentId: number;
     userId: string;
   }): Promise<ICommentPort>;
