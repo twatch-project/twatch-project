@@ -22,6 +22,9 @@ import FetchProivce from '../hooks/ProviceAPI';
 import FetchTambon from '../hooks/TambonsAPI';
 import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
 import profileimg from '../img/user.png';
+import { useAuth } from '../providers/AuthProvider';
+import axios from 'axios';
+import { host } from '../constant';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -81,6 +84,7 @@ export default function CreateCompanyProfile() {
   const [tambonId, setTambonId] = useState<TambonDTO[] | null>(null);
 
   const theme = useTheme();
+  const { token } = useAuth();
   const [Tag, setTag] = useState<string[]>([]);
 
   const [imageProfile, setImageProfile] = useState<boolean>(true);
@@ -155,100 +159,75 @@ export default function CreateCompanyProfile() {
       return setSubmitting(true);
     }
     try {
-      try {
-        if (selectedFile) {
-          console.log('File is being uploaded...', selectedFile.name);
-
-          const formData = new FormData();
-          formData.append('file', selectedFile);
-          fetch('upload_endpoint', {
-            method: 'POST',
-            body: formData,
-          })
-            .then((response) => {
-              // Handle the response from the server if needed.
-              console.log('File uploaded successfully:', response);
-            })
-            .catch((error) => {
-              // Handle errors during the file upload.
-              console.error('Error uploading file:', error);
-            });
-        }
-        for (const file of selectedFiles) {
-          console.log('Selected file:', file.name);
-          // Upload the file (you can implement your upload logic here).
-          const formData = new FormData();
-          formData.append('file', file);
-
-          // Replace 'your_upload_endpoint' with your actual API endpoint for file upload.
-          const response = await fetch('upload_endpoint', {
-            method: 'POST',
-            body: formData,
-          });
-          if (response.ok) {
-            console.log(`File "${file.name}" uploaded successfully.`);
-          } else {
-            console.log(`File "${file.name}" upload failed.`);
-          }
-        }
-        // Clear the selectedFiles array after uploading.
-        setSelectedFiles([]);
-      } catch (error) {
-        console.error('Error uploading file:', error);
+      const formData = new FormData();
+      if (selectedFile) {
+        formData.append('company', selectedFile);
+        // fetch('upload_endpoint', {
+        //   method: 'POST',
+        //   body: formData,
+        // })
+        //   .then((response) => {
+        //     // Handle the response from the server if needed.
+        //     console.log('File uploaded successfully:', response);
+        //   })
+        //   .catch((error) => {
+        //     // Handle errors during the file upload.
+        //     console.error('Error uploading file:', error);
+        //   });
       }
-      if (!companyName) {
-        return alert(`You don't have Company Name`);
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append('content', selectedFiles[i]);
       }
+      // for (const file of selectedFiles) {
+      //   console.log('Selected file:', file.name);
+      //   formData.append('content', selectedFiles[i]);
+      //   const response = await fetch('upload_endpoint', {
+      //     method: 'POST',
+      //     body: formData,
+      //   });
+      // if (response.ok) {
+      //   console.log(`File "${file.name}" uploaded successfully.`);
+      // } else {
+      //   console.log(`File "${file.name}" upload failed.`);
+      // }
+      // }
+      // Clear the selectedFiles array after uploading.
+      setSelectedFiles([]);
       if (
-        !amphure?.name_th ||
-        !province?.name_th ||
-        !tambon?.name_th ||
         !companyName ||
         !body ||
         !companyRegistration ||
         !address ||
         !contract ||
-        !zipcode
+        !zipcode ||
+        !tambon?.name_th ||
+        !amphure?.name_th ||
+        !province?.name_th
       ) {
         toast.error('Fill someting');
+        return;
       }
-      console.log(
-        'amphure',
-        amphure?.name_th,
-        'provice',
-        province?.name_th,
-        'tambon',
-        tambon?.name_th,
-        'companyname',
-        companyName,
-        'body',
-        body,
-        'company',
-        companyRegistration,
-        'address',
-        address,
-        'contract',
-        contract,
-        'zipcode',
-        zipcode,
-        'tag',
-        Tag,
-      );
-      // await CompanyProfile(
-      //   companyName,
-      //   companyRegistration,
-      //   body,
-      //   imageContent,
-      //   province,
-      //   address,
-      //   sub_district,
-      //   district,
-      //   contract,
-      //   tag,
-      // )
+
+      formData.append('companyName', companyName);
+      formData.append('companyRegistration', companyRegistration);
+      formData.append('body', body);
+      formData.append('postCode', zipcode);
+      formData.append('sub_district', tambon?.name_th);
+      formData.append('district', amphure?.name_th);
+      formData.append('province', province?.name_th);
+      for (let i = 0; i < tags.length; i++) {
+        formData.append('tag', tags[i]);
+      }
+      console.log(...formData);
+      await axios.post(`${host}/company`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(`Successful Create CompanyProfile.`);
 
-      navigate('/Home');
+      navigate('/home');
     } catch (err) {
       console.error(err);
       toast.error(`Unsuccessful Create Company Profile`);
