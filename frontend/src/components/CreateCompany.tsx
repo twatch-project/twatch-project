@@ -160,21 +160,12 @@ export default function CreateCompanyProfile() {
     }
     try {
       const formData = new FormData();
-      if (selectedFile) {
-        formData.append('company', selectedFile);
-        // fetch('upload_endpoint', {
-        //   method: 'POST',
-        //   body: formData,
-        // })
-        //   .then((response) => {
-        //     // Handle the response from the server if needed.
-        //     console.log('File uploaded successfully:', response);
-        //   })
-        //   .catch((error) => {
-        //     // Handle errors during the file upload.
-        //     console.error('Error uploading file:', error);
-        //   });
+
+      if (!selectedFile) {
+        toast.error('image not found');
+        return;
       }
+      formData.append('company', selectedFile);
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append('content', selectedFiles[i]);
       }
@@ -207,16 +198,17 @@ export default function CreateCompanyProfile() {
         toast.error('Fill someting');
         return;
       }
-
       formData.append('companyName', companyName);
       formData.append('companyRegistration', companyRegistration);
+      formData.append('contact', contract);
       formData.append('body', body);
       formData.append('postCode', zipcode);
+      formData.append('address', address);
       formData.append('sub_district', tambon?.name_th);
       formData.append('district', amphure?.name_th);
       formData.append('province', province?.name_th);
-      for (let i = 0; i < tags.length; i++) {
-        formData.append('tag', tags[i]);
+      for (let i = 0; i < Tag.length; i++) {
+        formData.append('tag', Tag[i]);
       }
       console.log(...formData);
       await axios.post(`${host}/company`, formData, {
@@ -226,7 +218,6 @@ export default function CreateCompanyProfile() {
         },
       });
       toast.success(`Successful Create CompanyProfile.`);
-
       navigate('/home');
     } catch (err) {
       console.error(err);
