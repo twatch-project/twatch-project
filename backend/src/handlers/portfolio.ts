@@ -42,10 +42,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
     console.log(companyRole);
 
-    const { title, body, tag, address, sub_district, district, province } =
+    const { title, body, tag, address, sub_district, district, province, postCode } =
       req.body;
-
-    const postCode = Number(req.body.postCode);
 
     console.log(
       title,
@@ -215,10 +213,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
         .status(400)
         .json({ error: `id ${req.params.portId} is not a number` });
     }
-    const { title, body, address, sub_district, district, province, tag } =
+    const { title, body, address, sub_district, district, province, tag , postCode} =
       req.body;
-
-    const postCode = Number(req.body.postCode);
 
     const userId = req.payload.id;
     const company = await this.repoCompany.getCompanyId(userId);

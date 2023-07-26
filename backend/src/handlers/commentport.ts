@@ -162,7 +162,7 @@ class HandlerCommentPort implements IHandlerComment {
         .end();
     }
     try {
-      const deleteCommentById = await this.repo.dateleCommentPortfolioById({
+      const deleteCommentById = await this.repo.deleteCommentPortfolioById({
         commentId,
         userId,
       });

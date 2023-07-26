@@ -37,7 +37,9 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
 
   async getPortById(portId: number): Promise<IPort | null> {
     return await this.db.portfolio.findUnique({
-      include: { postedBy: { select: { companyName: true } } },
+      include: { postedBy: { select: { companyName: true } } ,user: {select: {
+        rating:true
+      }}},
       where: { portId },
     });
   }
@@ -60,7 +62,7 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
     sub_district?: string;
     district?: string;
     province?: string;
-    postCode?: number;
+    postCode?: string;
     updateAt: Date;
     companyId: number;
   }): Promise<IPort> {

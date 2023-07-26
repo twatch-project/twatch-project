@@ -76,7 +76,7 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
     });
   }
 
-  async dateleCommentPortfolioById(arg: {
+  async deleteCommentPortfolioById(arg: {
     commentId: number;
     userId: string;
   }): Promise<ICommentPort> {

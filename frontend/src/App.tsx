@@ -9,8 +9,8 @@ import Companys from './pages/Companys';
 import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
-// import Create
-// import Homes3 from './s3pages/Home';
+import EditPortfolio from './pages/EditPortfolio';
+
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
+          <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} />
         </Route>
         {/* <Route path="/login" element={<Login />} /> */}
         {/* <Route path="/register" element={<Register />} /> */}

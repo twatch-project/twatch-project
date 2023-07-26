@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../providers/AuthProvider';
-export default function nav() {
+export default function Nav() {
   const { isLoggedIn, logout } = useAuth();
   return (
     <div className="">

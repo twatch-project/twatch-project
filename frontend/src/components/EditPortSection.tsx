@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
@@ -43,7 +43,7 @@ function getStyles(name: string, tag: readonly string[], theme: Theme) {
   };
 }
 
-const CreatePortfolioSection = () => {
+const EditPortfolioSection = () => {
   const [title, setTitle] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -62,6 +62,7 @@ const CreatePortfolioSection = () => {
   const [tambon, setTambon] = useState<{ id: number; name_th: string } | null>(null);
   const [tambonId, setTambonId] = useState<TambonDTO[] | null>(null);
   const [tags, setTag] = useState<string[]>([]);
+  const { portId } = useParams();
 
   const theme = useTheme();
   const { token } = useAuth();
@@ -130,21 +131,22 @@ const CreatePortfolioSection = () => {
       return setSubmitting(true);
     }
     try {
-      if (!tambon?.name_th || !amphure?.name_th || !province?.name_th || !postCode) {
-        console.log('Missing Address');
-        return;
-      }
-
       const formData = new FormData();
+      if (tambon?.name_th) {
+        formData.append('sub_district', tambon?.name_th);
+      }
+      if (amphure?.name_th) {
+        formData.append('district', amphure?.name_th);
+      }
+      if (province?.name_th) {
+        formData.append('province', province?.name_th);
+      }
       formData.append('title', title);
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append('content', selectedFiles[i]);
       }
       formData.append('body', body);
       formData.append('address', address);
-      formData.append('sub_district', tambon?.name_th);
-      formData.append('district', amphure?.name_th);
-      formData.append('province', province?.name_th);
       formData.append('postCode', postCode);
       formData.append('contact', contact);
       for (let i = 0; i < tags.length; i++) {
@@ -152,19 +154,19 @@ const CreatePortfolioSection = () => {
       }
       console.log(...formData);
       console.log(token);
-      await axios.post(`${host}/portfolio`, formData, {
+      await axios.patch(`${host}/portfolio/${portId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
 
-      toast.success(`Successful Create Portfolio.`);
+      toast.success(`Successful Edit Portfolio.`);
       setSelectedFiles([]);
-      navigate('/company/:companyId');
+      navigate(`/company`);
     } catch (err) {
       console.error(err);
-      toast.error(`Unsuccessful Create Portfolio`);
+      toast.error(`Unsuccessful Edit Portfolio`);
     } finally {
       setSubmitting(false);
     }
@@ -177,7 +179,7 @@ const CreatePortfolioSection = () => {
           onSubmit={handlerSubmit}
           className="flex w-[600px] border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[10px] m-[15px] "
         >
-          <h1 className="font-bold ">CREATE PORTFORLIO</h1>
+          <h1 className="font-bold ">EDIT PORTFORLIO</h1>
           <div className="input">
             <TextField
               id="outlined-multiline-static"
@@ -349,4 +351,4 @@ const CreatePortfolioSection = () => {
   );
 };
 
-export default CreatePortfolioSection;
+export default EditPortfolioSection;
