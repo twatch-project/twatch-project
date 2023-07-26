@@ -25,10 +25,11 @@ class HandlerCompany implements IHandlerCompany {
     res: Response
   ): Promise<Response> {
     const companyRole = req.payload.role;
+    console.log("req file", req.files)
+    console.log("req body", req.body)
     if (companyRole !== "COMPANY") {
       return res.status(400).json({ error: "not company role" }).end();
     }
-
     const {
       companyName,
       companyRegistration,
@@ -36,12 +37,15 @@ class HandlerCompany implements IHandlerCompany {
       sub_district,
       district,
       province,
-
+      body,
       contact,
       tag,
+      postCode
     } = req.body;
 
-    const postCode: number = Number(req.body.postCode);
+    console.log("ssss")
+    console.log(companyName, companyRegistration, address, sub_district, district, province, postCode, contact, tag, body)
+
 
     if (
       !companyName ||
@@ -52,18 +56,23 @@ class HandlerCompany implements IHandlerCompany {
       !province ||
       !postCode ||
       !contact ||
-      !tag
+      !tag ||
+      !body
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
 
+    console.log(companyName, companyRegistration, address, sub_district, district, province, postCode, contact, tag, body)
     if (!req.files) {
       return res.status(400);
     }
 
+    console.log("65")
+
     const fCompany = req.files["company"];
     const fContents = req.files["content"];
 
+    console.log("70")
     const imageCompany = generateFileName();
     const imageContents: string[] = fContents.map(() => generateFileName());
 
@@ -109,6 +118,7 @@ class HandlerCompany implements IHandlerCompany {
         province,
         postCode,
         contact,
+        body,
         tag,
         userId: req.payload.id,
       });
@@ -179,10 +189,8 @@ class HandlerCompany implements IHandlerCompany {
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
 
-    const { address, sub_district, district, province, contact, tag } =
+    const { address, sub_district, district, province, contact, tag, postCode } =
       req.body;
-
-    const postCode = Number(req.body.postCode);
 
     const userId = req.payload.id;
 

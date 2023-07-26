@@ -34,8 +34,9 @@ export interface ICreateCompany {
   sub_district: string;
   district: string;
   province: string;
-  postCode: number;
+  postCode: string;
   contact: string;
+  body: string
   tag: string[];
 
   userId: string;

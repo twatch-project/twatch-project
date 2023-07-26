@@ -45,8 +45,9 @@ model Company {
   sub_district        String
   district            String
   province            String
-  postCode            Int
+  postCode            String
   contact             String
+  body                String
   // rateprice        Int
   tag                 String[]
 
