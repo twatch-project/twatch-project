@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast';
-import './App.css';
+// import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Register from './pages/Register';
 import Home from './pages/Home';
@@ -11,8 +11,6 @@ import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
 import ImageGallery from './components/Imgeselect';
 import EditPortfolio from './pages/EditPortfolio';
-
-
 
 function App() {
   return (
@@ -26,7 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/companys" element={<Companys />} />
-          <Route path="/company/:companyId" element={<Company />} />
+          <Route path="/company/:id" element={<Company />} />
           <Route path="/company/create" element={<CreateCompanyProfile />} />
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />

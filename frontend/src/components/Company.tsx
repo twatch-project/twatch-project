@@ -8,6 +8,7 @@ import ReactStars from 'react-stars';
 // import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 
 export default function Company() {
+  // const { company } = props;
   const img =
     'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   return (
@@ -47,9 +48,9 @@ export default function Company() {
               </div>
             </div>
             <div className="card  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
-              <Link to="/company/:companyId" className="head">
-                <img src={img} alt="" />
-              </Link>
+              {/* <Link to={`/company/${company.Id}`} className="head"> */}
+              <img src={img} alt="" />
+              {/* </Link> */}
               <div className="center text-center my-2">
                 <h1 className="font-bold  p-[10px]">CLEVERSE ACADEMY</h1>
                 <p className="text-sm p-[10px]">
