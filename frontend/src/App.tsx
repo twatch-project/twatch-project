@@ -9,7 +9,9 @@ import Companys from './pages/Companys';
 import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
+import ImageGallery from './components/Imgeselect';
 import EditPortfolio from './pages/EditPortfolio';
+
 
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
+        <Route path="/testimage" element={<ImageGallery />} />
         {/* <Route path="/" element={<Homes3 />} /> */}
         <Route>
           <Route path="/" element={<Home />} />
