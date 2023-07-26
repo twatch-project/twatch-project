@@ -8,5 +8,5 @@ export default function Footer() {
         <p>Privacy policy | Term of service | Contract</p>
       </div>
     </footer>
-  )
+  );
 }

@@ -9,7 +9,6 @@ import Company from '../components/Company';
 import Article from '../components/Article';
 import Footer from '../components/Footer';
 const Home = () => {
-  // const { isLoggedIn } = useAuth()
   return (
     <>
       <Nav />

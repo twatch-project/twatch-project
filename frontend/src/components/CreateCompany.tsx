@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ChangeEvent, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
 import {
   Box,
+  Button,
   Chip,
   FormControl,
   InputLabel,
@@ -21,6 +21,7 @@ import FetchAmphure from '../hooks/AmphureAPI';
 import FetchProivce from '../hooks/ProviceAPI';
 import FetchTambon from '../hooks/TambonsAPI';
 import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
+import profileimg from '../img/user.png';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -53,14 +54,20 @@ function getStyles(name: string, tag: readonly string[], theme: Theme) {
 }
 
 export default function CreateCompanyProfile() {
+  const filesInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   const [companyName, setCompanyName] = useState('');
   const [companyRegistration, setCompanyRegistration] = useState('');
   const [body, setBody] = useState('');
-  const [imageContent, setImageContent] = useState('');
+  // const [imageContent, setImageContent] = useState('');
   const [address, setAddress] = useState('');
   // const [sub_district, setSub_district] = useState('');
   // const [district, setDistrict] = useState('');
   const [contract, setContract] = useState('');
+  const [zipcode, setZipcode] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
   // const { CompanyProfile } = useAuth()
   const navigate = useNavigate();
@@ -75,6 +82,8 @@ export default function CreateCompanyProfile() {
 
   const theme = useTheme();
   const [Tag, setTag] = React.useState<string[]>([]);
+
+  const [imageProfile, setImageProfile] = useState<boolean>(true);
 
   const handleChange = (event: SelectChangeEvent<typeof Tag>) => {
     const {
@@ -120,6 +129,31 @@ export default function CreateCompanyProfile() {
     }
   };
 
+  //Upload image profile company
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file || null);
+    setImageProfile(false);
+  };
+
+  //UploadFile image company profile
+  const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...Array.from(files)]);
+    }
+  };
+
+  const handleAddFile = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+  const handleAddFiles = () => {
+    if (filesInputRef.current) {
+      filesInputRef.current.click();
+    }
+  };
   const handlerSubmit = async (event: FormEvent<HTMLUnknownElement>) => {
     event.preventDefault();
 
@@ -127,18 +161,88 @@ export default function CreateCompanyProfile() {
       return setSubmitting(true);
     }
     try {
+      try {
+        if (selectedFile) {
+          console.log('File is being uploaded...', selectedFile.name);
+
+          const formData = new FormData();
+          formData.append('file', selectedFile);
+
+          fetch('upload_endpoint', {
+            method: 'POST',
+            body: formData,
+          })
+            .then((response) => {
+              // Handle the response from the server if needed.
+              console.log('File uploaded successfully:', response);
+            })
+            .catch((error) => {
+              // Handle errors during the file upload.
+              console.error('Error uploading file:', error);
+            });
+        }
+        for (const file of selectedFiles) {
+          console.log('Selected file:', file.name);
+
+          // Upload the file (you can implement your upload logic here).
+          const formData = new FormData();
+          formData.append('file', file);
+
+          // Replace 'your_upload_endpoint' with your actual API endpoint for file upload.
+          const response = await fetch('upload_endpoint', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            console.log(`File "${file.name}" uploaded successfully.`);
+          } else {
+            console.log(`File "${file.name}" upload failed.`);
+          }
+        }
+
+        // Clear the selectedFiles array after uploading.
+        setSelectedFiles([]);
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
       if (!companyName) {
         return alert(`You don't have Company Name`);
       }
+
+      if (
+        !amphure?.name_th ||
+        !province?.name_th ||
+        !tambon?.name_th ||
+        !companyName ||
+        !body ||
+        !companyRegistration ||
+        !address ||
+        !contract ||
+        !zipcode
+      ) {
+        toast.error('Fill someting');
+      }
       console.log(
+        'amphure',
         amphure?.name_th,
+        'provice',
         province?.name_th,
+        'tambon',
         tambon?.name_th,
+        'companyname',
         companyName,
+        'body',
         body,
+        'company',
         companyRegistration,
+        'address',
         address,
+        'contract',
         contract,
+        'zipcode',
+        zipcode,
+        'tag',
         Tag,
       );
       // await CompanyProfile(
@@ -163,56 +267,89 @@ export default function CreateCompanyProfile() {
       setSubmitting(false);
     }
   };
-  // console.log(amphure?.name_th, province?.name_th, tambon?.name_th);
-  // console.log(companyName, companyRegistration, body, amphureId, tambonId);
+
   return (
     <>
-      <section className="flex justify-center">
+      <section
+        className="flex justify-center my-10
+
+"
+      >
         <form
           onSubmit={handlerSubmit}
-          className="flex w-[600px] border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[10px] m-[15px] "
+          className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
           <h1 className="font-bold ">CREATE COMPANY PROFILE</h1>
-          <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-            <img className=" w-full h-full rounded-full truncate" src="" alt="" />
-          </div>
-          <div className="upload ">
+          {imageProfile ? (
+            <>
+              <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
+                <img className="w-full h-full rounded-full truncate" src={profileimg} alt="imageprofile" />
+              </div>
+            </>
+          ) : (
+            <>
+              {selectedFile && (
+                <>
+                  <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
+                    <img
+                      className="w-full h-full rounded-full truncate"
+                      src={URL.createObjectURL(selectedFile)}
+                      alt="image-profile"
+                    />
+                  </div>
+                </>
+              )}
+            </>
+          )}
+          <div className="upload flex flex-col items-center">
             <input
               type="file"
-              className="m-[15px] w-[120px] bg-blue text-white p-[5px] rounded-[5px] text-sm"
+              className="m-[15px] w-[120px] bg-blue text-white p-[5px] rounded-[5px] text-sm "
               placeholder="Upload file"
+              onChange={handleFileChange}
+              ref={fileInputRef}
+              style={{ display: 'none' }}
             />
+            <Button variant="outlined" type="button" onClick={handleAddFile}>
+              Profile IMAGE
+            </Button>
+            <p>{selectedFile?.name}</p>
           </div>
-          <div className="input">
-            <label className="flex flex-col text-black my-1 font-bold">COMPANY NAME</label>
-            <input
-              type="text"
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="COMPANY NAME"
               value={companyName}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
+              variant="outlined"
+              type="text"
               onChange={(e) => setCompanyName(e.target.value)}
               required
             />
           </div>
-          <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">COMPANY REGISTRATION NUMBER</label>
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="COMPANY REGISTRATION NUMBER"
+              value={companyRegistration}
+              variant="outlined"
+              type="text"
+              onChange={(e) => setCompanyRegistration(e.target.value)}
+              required
+            />
+            {/* <label className=" flex flex-col text-black my-1 font-bold">COMPANY REGISTRATION NUMBER</label>
             <input
               type="text"
               value={companyRegistration}
               className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
               onChange={(e) => setCompanyRegistration(e.target.value)}
               required
-            />
-          </div>
-          <div className="input">
-            {/* <label className=" flex flex-col text-black my-1 font-bold">BODY</label>
-            <input
-              type="text"
-              value={body}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
-              onChange={(e) => setBody(e.target.value)}
-              required
             /> */}
+          </div>
+          <div className="w-full">
             <TextField
+              className="w-full"
               id="outlined-multiline-static"
               label="BODY"
               multiline
@@ -223,19 +360,19 @@ export default function CreateCompanyProfile() {
               required
             />
           </div>
-          <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">IMAGE</label>
-            <input
-              type="file"
-              value={imageContent}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
-              onChange={(e) => setImageContent(e.target.value)}
-              required
-            />
+          <div className="flex flex-col items-center">
+            <input type="file" ref={filesInputRef} style={{ display: 'none' }} onChange={handleFileSelect} multiple />
+            <Button variant="outlined" type="button" onClick={handleAddFiles}>
+              Add File
+            </Button>
+            <ul>
+              {selectedFiles.map((file, index) => (
+                <li key={index}>{file.name}</li>
+              ))}
+            </ul>
           </div>
-
-          <div>
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+          <div className="w-auto">
+            <FormControl sx={{ m: 1, minWidth: 200 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Provice</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -254,7 +391,7 @@ export default function CreateCompanyProfile() {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl sx={{ m: 1, minWidth: 150 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -273,7 +410,7 @@ export default function CreateCompanyProfile() {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl sx={{ m: 1, minWidth: 200 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -293,27 +430,45 @@ export default function CreateCompanyProfile() {
             </FormControl>
           </div>
 
-          <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">ADDRESS</label>
-            <input
-              type="text"
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="ADDRESS"
               value={address}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
+              variant="outlined"
+              type="text"
               onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
-          <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">CONTRACT</label>
-            <input
-              type="text"
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="CONTRACT"
               value={contract}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
+              variant="outlined"
+              type="text"
               onChange={(e) => setContract(e.target.value)}
               required
             />
           </div>
-          {/* <TagSelect /> */}
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="Zipcode"
+              variant="outlined"
+              type="number"
+              value={zipcode}
+              onChange={(e) => setZipcode(e.target.value)}
+              inputProps={{
+                min: 0,
+              }}
+              required
+            />
+          </div>
           <div>
             <FormControl sx={{ m: 1, width: 300 }}>
               <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
@@ -341,8 +496,8 @@ export default function CreateCompanyProfile() {
               </Select>
             </FormControl>
           </div>
-          <button className="my-[10px] p-[10px] bg-blue rounded text-white" disabled={isSubmitting}>
-            CONFIRM
+          <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
+            Submit
           </button>
         </form>
       </section>

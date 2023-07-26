@@ -47,11 +47,11 @@ const Register = () => {
 
   return (
     <>
-      <section className="flex justify-center items-center min-h-[150vh]">
+      <section className="flex justify-center items-center my-10">
         <div className="flex justify-center item-center">
           <form
             onSubmit={handleSubmit}
-            className="flex   bg-white justify-center item-center flex-col m-3 rounded-md p-10 shadow-box gap-y-[20px] border-[0.5px]"
+            className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md px-10 py-5 shadow-md hover:shadow-lg gap-y-[40px] border-[0.5px]"
           >
             <h1 className="text-3xl font-bold py-5">
               Welcome to <span className="text-blue">Twatch.</span>
@@ -65,7 +65,7 @@ const Register = () => {
                 value={usernameInput}
                 variant="outlined"
                 onChange={(e) => setUsernameInput(e.target.value)}
-                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+                className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
                 required
               />
             </div>
@@ -77,7 +77,7 @@ const Register = () => {
                 value={passwordInput}
                 variant="outlined"
                 onChange={(e) => setPasswordInput(e.target.value)}
-                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+                className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
                 required
               />
             </div>
@@ -89,15 +89,27 @@ const Register = () => {
                 value={passwordConfirm}
                 variant="outlined"
                 onChange={(e) => setPasswordConfirm(e.target.value)}
-                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
+                className="w-full h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
                 required
               />
             </div>
             <div>
-              <FormControl sx={{ m: 1, minWidth: 305 }}>
+              <TextField
+                id="outlined-basic"
+                type="text"
+                label="email"
+                value={emailInput}
+                variant="outlined"
+                onChange={(e) => setEmailInput(e.target.value)}
+                className="w-full h-[38px] border-solid border-blue border-2 rounded-md "
+                required
+              />
+            </div>
+            <div className="w-full justify-items-center">
+              <FormControl>
                 <InputLabel
                   id="demo-simple-select-autowidth-label"
-                  className="text-l flex flex-col text-black my-1 font-bold"
+                  className="w-full justify-items-center text-l flex flex-col text-black font-bold"
                 >
                   Role
                 </InputLabel>
@@ -114,20 +126,11 @@ const Register = () => {
                 </Select>
               </FormControl>
             </div>
-            <div>
-              <TextField
-                id="outlined-basic"
-                type="text"
-                label="email"
-                value={emailInput}
-                variant="outlined"
-                onChange={(e) => setEmailInput(e.target.value)}
-                className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px] "
-                required
-              />
-            </div>
             <div className="flex justify-center py-5">
-              <button className="btn " disabled={isSubmitting}>
+              <button
+                className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110"
+                disabled={isSubmitting}
+              >
                 SignUp
               </button>
             </div>

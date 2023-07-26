@@ -28,7 +28,7 @@ export default function Company() {
           </div>
           <section className="flex justify-center gap-[50px] w-[1040px] flex-wrap ">
             <div className="card  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
-              <Link to="/CompanyDetail" className="head">
+              <Link to="/company/:companyId" className="head">
                 <img src={img} alt="" />
               </Link>
               <div className="center text-center my-2">
@@ -55,7 +55,7 @@ export default function Company() {
               </div>
             </div>
             <div className="card  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
-              <Link to="/CompanyDetail" className="head">
+              <Link to="/company/:companyId" className="head">
                 <img src={img} alt="" />
               </Link>
               <div className="center text-center my-2">
@@ -82,7 +82,7 @@ export default function Company() {
               </div>
             </div>
             <div className="card  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
-              <Link to="/CompanyDetail" className="head">
+              <Link to="/company/:companyId" className="head">
                 <img src={img} alt="" />
               </Link>
               <div className="center text-center my-2">

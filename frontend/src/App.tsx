@@ -10,7 +10,7 @@ import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
 import EditPortfolio from './pages/EditPortfolio';
-// import Homes3 from './s3pages/Home';
+
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<Homes3 />} /> */}
         <Route>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/companys" element={<Companys />} />
