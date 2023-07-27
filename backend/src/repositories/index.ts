@@ -28,6 +28,7 @@ export interface IRepositoryUser {
   createUser(user: ICreateUser): Promise<IUser>;
   getUserByUsername(username: string): Promise<IUser | null>;
   getId(id: string): Promise<IUser | null>;
+  getCompanyIdByUser(userId: string): Promise<ICompany | null>;
 }
 
 //implements RepositoryCustomer
