@@ -22,9 +22,9 @@ export default function Company() {
     status: { loading },
   } = useCompany(Id);
 
-  const imgs = [
-    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-  ];
+  // const imgs = [
+  //   'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+  // ];
 
   if (!data || loading) return null;
 
@@ -50,19 +50,19 @@ export default function Company() {
             <div className="detail flex flex-col gap-1">
               <div className="flex gap-3">
                 <MapsHomeWorkOutlinedIcon />
-                <span>Address : {data?.address}</span>
+                <span>Address : {data.address}</span>
               </div>
               <div className="flex gap-3">
                 <MapOutlinedIcon />
-                <span>Province : {data?.province}</span>
+                <span>Province : {data.province}</span>
               </div>
               <div className="flex gap-3">
                 <AssistantPhotoIcon />
-                <span>District : {data?.district}</span>
+                <span>District : {data.district}</span>
               </div>
               <div className="flex gap-3">
                 <ContactPhoneOutlinedIcon />
-                <span>Contact : {}</span>
+                <span>Contact : {data.contract}</span>
               </div>
             </div>
             <div className="text py-[15px]">

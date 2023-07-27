@@ -12,7 +12,7 @@ const LoginSection = () => {
   const [passwordInput, setPasswordInput] = useState('');
 
   const [isSubmitting, setSubmitting] = useState(false);
-  const { login } = useAuth();
+  const { login, ...userInfo } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -29,6 +29,10 @@ const LoginSection = () => {
       await login(usernameInput, passwordInput);
 
       toast.success('Successful Login');
+
+      if (!userInfo.companyId) {
+        navigate('/company/create');
+      }
       navigate('/');
     } catch (err) {
       console.error(err);

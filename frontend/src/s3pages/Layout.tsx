@@ -1,21 +1,21 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Layout() {
-  const location = useLocation()
-  console.log(location.pathname)
+  const location = useLocation();
+  console.log(location.pathname);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const actions = {
     onHome: () => {
-      navigate('/')
+      navigate('/');
     },
     onNewPost: () => {
-      navigate('/newPost')
+      navigate('/newPost');
     },
-  }
+  };
 
   return (
     <div>
@@ -23,5 +23,5 @@ export default function Layout() {
         <Outlet />
       </div>
     </div>
-  )
+  );
 }

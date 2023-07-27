@@ -166,24 +166,12 @@ export default function CreateCompanyProfile() {
         return;
       }
       formData.append('company', selectedFile);
+
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append('content', selectedFiles[i]);
       }
-      // for (const file of selectedFiles) {
-      //   console.log('Selected file:', file.name);
-      //   formData.append('content', selectedFiles[i]);
-      //   const response = await fetch('upload_endpoint', {
-      //     method: 'POST',
-      //     body: formData,
-      //   });
-      // if (response.ok) {
-      //   console.log(`File "${file.name}" uploaded successfully.`);
-      // } else {
-      //   console.log(`File "${file.name}" upload failed.`);
-      // }
-      // }
-      // Clear the selectedFiles array after uploading.
       setSelectedFiles([]);
+
       if (
         !companyName ||
         !body ||
@@ -218,7 +206,7 @@ export default function CreateCompanyProfile() {
         },
       });
       toast.success(`Successful Create CompanyProfile.`);
-      navigate('/home');
+      navigate('/');
     } catch (err) {
       console.error(err);
       toast.error(`Unsuccessful Create Company Profile`);

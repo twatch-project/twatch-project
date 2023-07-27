@@ -3,7 +3,7 @@ import { ChildProps, IAuthContext, UserRole } from '../types/auth.context';
 import { host } from '../constant';
 
 export type AuthProviderProps = ChildProps;
-type UserInfo = Pick<IAuthContext, 'userId' | 'token'>;
+type UserInfo = Pick<IAuthContext, 'userId' | 'token' | 'companyId'>;
 
 type LoginFunc = IAuthContext['login'];
 type LogoutFunc = IAuthContext['logout'];
@@ -34,6 +34,7 @@ const AuthProvider = (props: AuthProviderProps) => {
   const [userInfo, setUserInfo] = useState<UserInfo>({
     userId: localStorage.getItem('userId'),
     token: localStorage.getItem('token'),
+    companyId: localStorage.getItem('companyId'),
   });
 
   const login: LoginFunc = async (username: string, password: string) => {
@@ -60,7 +61,8 @@ const AuthProvider = (props: AuthProviderProps) => {
       const accessToken = localStorage.getItem('token') || 'foo';
 
       const { user } = await retrieveUserData(accessToken);
-
+      console.log(user.company.companyId);
+      localStorage.setItem('companyId', user.company.companyId);
       localStorage.setItem('userId', user.userId);
 
       setIsLoggedIn(true);
@@ -68,6 +70,7 @@ const AuthProvider = (props: AuthProviderProps) => {
         const update = {
           userId: user.userId,
           token: accessToken,
+          companyId: user.company.companyId,
         };
         return update;
       });
@@ -79,8 +82,9 @@ const AuthProvider = (props: AuthProviderProps) => {
   const logout: LogoutFunc = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
+    localStorage.removeItem('companyId');
     setIsLoggedIn(false);
-    setUserInfo({ userId: null, token: null });
+    setUserInfo({ userId: null, token: null, companyId: null });
     // toast.success('Successful Logout')
   };
 
