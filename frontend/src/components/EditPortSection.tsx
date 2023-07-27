@@ -172,7 +172,7 @@ const EditPortfolioSection = () => {
           onSubmit={handlerSubmit}
           className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
-          <h1 className="font-bold ">CREATE PORTFOLIO</h1>
+          <h1 className="font-bold ">EDIT PORTFOLIO</h1>
           <div className="w-full">
             <TextField
               className="w-full"
