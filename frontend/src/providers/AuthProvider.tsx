@@ -43,7 +43,7 @@ const AuthProvider = (props: AuthProviderProps) => {
 
     try {
       const res = await fetch(`${host}/auth/login`, {
-        method: 'Post',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -61,17 +61,16 @@ const AuthProvider = (props: AuthProviderProps) => {
       localStorage.setItem('token', data.accessToken);
       const accessToken = localStorage.getItem('token') || 'foo';
 
-      const { user } = await retrieveUserData(accessToken);
-      console.log(user.company.companyId);
-      localStorage.setItem('companyId', user.company.companyId);
-      localStorage.setItem('userId', user.userId);
+      const { user, company } = await retrieveUserData(accessToken);
 
+      localStorage.setItem('companyId', company);
+      localStorage.setItem('userId', user.userId);
       setIsLoggedIn(true);
       setUserInfo(() => {
         const update = {
           userId: user.userId,
           token: accessToken,
-          companyId: user.company.companyId,
+          companyId: company,
         };
         return update;
       });
