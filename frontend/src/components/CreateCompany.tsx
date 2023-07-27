@@ -334,7 +334,7 @@ export default function CreateCompanyProfile() {
                 {amphureId &&
                   amphureId.map((amphure) => (
                     <MenuItem key={amphure.province_id} value={amphure.name_en}>
-                      {amphure.name_th}
+                      {amphure.name_en}
                     </MenuItem>
                   ))}
               </Select>
@@ -353,7 +353,7 @@ export default function CreateCompanyProfile() {
                 {tambonId &&
                   tambonId.map((tambon) => (
                     <MenuItem key={tambon.id} value={tambon.name_en}>
-                      {tambon.name_th}
+                      {tambon.name_en}
                     </MenuItem>
                   ))}
               </Select>

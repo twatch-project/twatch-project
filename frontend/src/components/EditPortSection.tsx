@@ -52,10 +52,10 @@ const EditPortfolioSection = () => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
   const { provinces, amphures, tambons } = useAddressThai();
-  const [province, setProvince] = useState<{ id: number; name_th: string } | null>(null);
-  const [amphure, setAmphure] = useState<{ id: number; name_th: string } | null>(null);
+  const [province, setProvince] = useState<{ id: number; name_en: string } | null>(null);
+  const [amphure, setAmphure] = useState<{ id: number; name_en: string } | null>(null);
   const [amphureId, setAmphureId] = useState<AmphureDto[] | null>(null);
-  const [tambon, setTambon] = useState<{ id: number; name_th: string } | null>(null);
+  const [tambon, setTambon] = useState<{ id: number; name_en: string } | null>(null);
   const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
   const [tags, setTag] = useState<string[]>([]);
   const { portId } = useParams();
@@ -88,7 +88,7 @@ const EditPortfolioSection = () => {
   };
 
   const handleChangeAmphure = (event: SelectChangeEvent) => {
-    const selectedAmphure = amphures.find((amphure) => amphure.name_th === event.target.value);
+    const selectedAmphure = amphures.find((amphure) => amphure.name_en === event.target.value);
 
     if (selectedAmphure) {
       setAmphure(selectedAmphure);
@@ -101,7 +101,7 @@ const EditPortfolioSection = () => {
   };
 
   const handleChangeTambon = (event: SelectChangeEvent) => {
-    const selectedTambon = tambons.find((tambon) => tambon.name_th === event.target.value);
+    const selectedTambon = tambons.find((tambon) => tambon.name_en === event.target.value);
     if (selectedTambon) {
       setTambon(selectedTambon);
     }
@@ -128,14 +128,14 @@ const EditPortfolioSection = () => {
     }
     try {
       const formData = new FormData();
-      if (tambon?.name_th) {
-        formData.append('sub_district', tambon?.name_th);
+      if (tambon?.name_en) {
+        formData.append('sub_district', tambon?.name_en);
       }
-      if (amphure?.name_th) {
-        formData.append('district', amphure?.name_th);
+      if (amphure?.name_en) {
+        formData.append('district', amphure?.name_en);
       }
-      if (province?.name_th) {
-        formData.append('province', province?.name_th);
+      if (province?.name_en) {
+        formData.append('province', province?.name_en);
       }
       formData.append('title', title);
       for (let i = 0; i < selectedFiles.length; i++) {
@@ -225,7 +225,7 @@ const EditPortfolioSection = () => {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={province ? province.name_th : ''}
+                value={province ? province.name_en : ''}
                 onChange={handleChangeProvice}
                 autoWidth
                 label="Provice"
@@ -244,15 +244,15 @@ const EditPortfolioSection = () => {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={amphure ? amphure.name_th : ''}
+                value={amphure ? amphure.name_en : ''}
                 onChange={handleChangeAmphure}
                 autoWidth
                 label="amphure"
               >
                 {amphureId &&
                   amphureId.map((amphure) => (
-                    <MenuItem key={amphure.province_id} value={amphure.name_th}>
-                      {amphure.name_th}
+                    <MenuItem key={amphure.province_id} value={amphure.name_en}>
+                      {amphure.name_en}
                     </MenuItem>
                   ))}
               </Select>
@@ -263,15 +263,15 @@ const EditPortfolioSection = () => {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={tambon ? tambon.name_th : ''}
+                value={tambon ? tambon.name_en : ''}
                 onChange={handleChangeTambon}
                 autoWidth
                 label="tambons"
               >
                 {tambonId &&
                   tambonId.map((tambon) => (
-                    <MenuItem key={tambon.id} value={tambon.name_th}>
-                      {tambon.name_th}
+                    <MenuItem key={tambon.id} value={tambon.name_en}>
+                      {tambon.name_en}
                     </MenuItem>
                   ))}
               </Select>
