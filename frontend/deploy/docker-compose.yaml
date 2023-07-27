@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: academy
+
+  redis:
+    image: redis
+
+  app:
+    # Build image nodeserver from Dockerfile in GitHub repo
+    image: nodejs-cicd
+    build: https://github.com/twatch-project/twatch-project.git#develop
+    environment:
+      POSTGRES_PASSWORD: academy
+    ports:
+      - "8000:8000"
