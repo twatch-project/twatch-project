@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:current-alpine
 
 ENV PORT=8000
 ENV REDIS_URL=redis://rd:6379
@@ -13,7 +13,6 @@ COPY . .
 RUN npm i -g pnpm
 RUN pnpm i
 RUN npx prisma generate
-RUN npx prisma migrate dev
 RUN npx tsc
 
 CMD ["node", "dist/index.js"]
