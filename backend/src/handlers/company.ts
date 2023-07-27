@@ -28,35 +28,34 @@ class HandlerCompany implements IHandlerCompany {
     if (companyRole !== "COMPANY") {
       return res.status(400).json({ error: "not company role" }).end();
     }
+
     const {
       companyName,
       companyRegistration,
+      body,
       address,
       sub_district,
       district,
       province,
-      body,
       contact,
       postCode,
       tag,
     } = req.body;
-    console.log(companyName, companyRegistration, address, sub_district, district, province, postCode, contact, tag, body)
     if (
       !companyName ||
       !companyRegistration ||
+      !body ||
       !address ||
       !sub_district ||
       !district ||
       !province ||
       !postCode ||
       !contact ||
-      !tag ||
-      !body
+      !tag
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
 
-    console.log(companyName, companyRegistration, address, sub_district, district, province, postCode, contact, tag, body)
     if (!req.files) {
       return res.status(400);
     }
@@ -103,13 +102,13 @@ class HandlerCompany implements IHandlerCompany {
         imageCompanyUrl,
         imageContents,
         imageContentUrls,
+        body,
         address,
         sub_district,
         district,
         province,
         postCode,
         contact,
-        body,
         tag,
         userId: req.payload.id,
       });
@@ -180,8 +179,15 @@ class HandlerCompany implements IHandlerCompany {
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
 
-    const { address, sub_district, district, province, contact, tag, postCode } =
-      req.body;
+    const {
+      address,
+      sub_district,
+      district,
+      province,
+      contact,
+      tag,
+      postCode,
+    } = req.body;
 
     const userId = req.payload.id;
 

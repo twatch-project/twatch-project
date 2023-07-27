@@ -11,5 +11,5 @@ export interface Payload {
   id: string;
   username: string;
   role: UserRole;
-  companyId?: number
+  companyId: number;
 }

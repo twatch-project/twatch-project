@@ -17,14 +17,10 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import FetchAmphure from '../hooks/AmphureAPI';
-import FetchProivce from '../hooks/ProviceAPI';
-import FetchTambon from '../hooks/TambonsAPI';
-import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
 import profileimg from '../img/user.png';
-import { useAuth } from '../providers/AuthProvider';
-import axios from 'axios';
-import { host } from '../constant';
+import { Tags } from '../constant';
+import useAddressThai from '../hooks/useAddressThai';
+import { AmphureDto, TambonDto } from '../types/dto';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,19 +33,6 @@ const MenuProps = {
   },
 };
 
-const tags = [
-  'MINIMALMODERN',
-  'CONTEMPORARYMODERN',
-  'MODERNLUXURY',
-  'MODERNSTYLE',
-  'MIDCENTURYMODERN',
-  'VINTAGESTYLE',
-  'LOFTINDUSTRALSTYLE',
-  'SCANDINAVIANSTYLE',
-  'ARTDECO',
-  'MIXANDMATCH',
-];
-
 function getStyles(name: string, tag: readonly string[], theme: Theme) {
   return {
     fontWeight: tag.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
@@ -61,49 +44,40 @@ export default function CreateCompanyProfile() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const [companyName, setCompanyName] = useState('');
-  const [companyRegistration, setCompanyRegistration] = useState('');
-  const [body, setBody] = useState('');
-  // const [imageContent, setImageContent] = useState('');
-  const [address, setAddress] = useState('');
-  // const [sub_district, setSub_district] = useState('');
-  // const [district, setDistrict] = useState('');
-  const [contract, setContract] = useState('');
-  const [zipcode, setZipcode] = useState('');
-  const [isSubmitting, setSubmitting] = useState(false);
-  // const { CompanyProfile } = useAuth()
+  const [companyName, setCompanyName] = useState<string>('');
+  const [companyRegistration, setCompanyRegistration] = useState<string>('');
+  const [body, setBody] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
+  const [contact, setContact] = useState<string>('');
+  const [postCode, setPostCode] = useState<string>('');
+  const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { provinces } = FetchProivce();
-  const { Amphure } = FetchAmphure();
-  const { tambons } = FetchTambon();
-  const [province, setProvince] = useState<{ id: number; name_th: string } | null>(null);
-  const [amphure, setAmphure] = useState<{ id: number; name_th: string } | null>(null);
-  const [amphureId, setAmphureId] = useState<AmphureDTO[] | null>(null);
-  const [tambon, setTambon] = useState<{ id: number; name_th: string } | null>(null);
-  const [tambonId, setTambonId] = useState<TambonDTO[] | null>(null);
-
-  const theme = useTheme();
-  const { token } = useAuth();
-  const [Tag, setTag] = useState<string[]>([]);
-
+  const { provinces, amphures, tambons } = useAddressThai();
+  const [province, setProvince] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [amphure, setAmphure] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [amphureId, setAmphureId] = React.useState<AmphureDto[] | null>(null);
+  const [tambon, setTambon] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [tambonId, setTambonId] = React.useState<TambonDto[] | null>(null);
   const [imageProfile, setImageProfile] = useState<boolean>(true);
+  const theme = useTheme();
+  const [tags, setTags] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof Tag>) => {
+  const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     const {
       target: { value },
     } = event;
-    setTag(
+    setTags(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
 
   const handleChangeProvice = (event: SelectChangeEvent) => {
-    const selectedProvince = provinces.find((province) => province.name_th === event.target.value);
+    const selectedProvince = provinces.find((province) => province.name_en === event.target.value);
+
     if (selectedProvince) {
       setProvince(selectedProvince);
-      const filteredAmphure = Amphure.filter((amp) => amp.province_id === selectedProvince.id);
+      const filteredAmphure = amphures.filter((amphure) => amphure.province_id === selectedProvince.id);
       setAmphureId(filteredAmphure);
       setTambonId([]);
     } else {
@@ -111,8 +85,10 @@ export default function CreateCompanyProfile() {
       setAmphureId([]);
     }
   };
+
   const handleChangeAmphure = (event: SelectChangeEvent) => {
-    const selectedAmphure = Amphure.find((ampher) => ampher.name_th === event.target.value);
+    const selectedAmphure = amphures.find((amphure) => amphure.name_en === event.target.value);
+
     if (selectedAmphure) {
       setAmphure(selectedAmphure);
       const filteredTambon = tambons.filter((tambon) => tambon.amphure_id === selectedAmphure.id);
@@ -122,19 +98,20 @@ export default function CreateCompanyProfile() {
       setTambonId([]);
     }
   };
+
   const handleChangeTambon = (event: SelectChangeEvent) => {
-    const selectedTambon = tambons.find((tb) => tb.name_th === event.target.value);
+    const selectedTambon = tambons.find((tambon) => tambon.name_en === event.target.value);
     if (selectedTambon) {
       setTambon(selectedTambon);
     }
   };
-
   //Upload image profile company
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setSelectedFile(file || null);
     setImageProfile(false);
   };
+
   //UploadFile image company profile
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -142,6 +119,7 @@ export default function CreateCompanyProfile() {
       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...Array.from(files)]);
     }
   };
+
   const handleAddFile = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -159,65 +137,70 @@ export default function CreateCompanyProfile() {
       return setSubmitting(true);
     }
     try {
-      const formData = new FormData();
+      try {
+        if (selectedFile) {
+          console.log('File is being uploaded...', selectedFile.name);
 
-      if (!selectedFile) {
-        toast.error('image not found');
-        return;
+          const formData = new FormData();
+          formData.append('file', selectedFile);
+
+          fetch('upload_endpoint', {
+            method: 'POST',
+            body: formData,
+          })
+            .then((response) => {
+              // Handle the response from the server if needed.
+              console.log('File uploaded successfully:', response);
+            })
+            .catch((error) => {
+              // Handle errors during the file upload.
+              console.error('Error uploading file:', error);
+            });
+        }
+        for (const file of selectedFiles) {
+          console.log('Selected file:', file.name);
+
+          // Upload the file (you can implement your upload logic here).
+          const formData = new FormData();
+          formData.append('file', file);
+
+          // Replace 'your_upload_endpoint' with your actual API endpoint for file upload.
+          const response = await fetch('upload_endpoint', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            console.log(`File "${file.name}" uploaded successfully.`);
+          } else {
+            console.log(`File "${file.name}" upload failed.`);
+          }
+        }
+
+        // Clear the selectedFiles array after uploading.
+        setSelectedFiles([]);
+      } catch (error) {
+        console.error('Error uploading file:', error);
       }
-      formData.append('company', selectedFile);
-      for (let i = 0; i < selectedFiles.length; i++) {
-        formData.append('content', selectedFiles[i]);
+      if (!companyName) {
+        return alert(`You don't have Company Name`);
       }
-      // for (const file of selectedFiles) {
-      //   console.log('Selected file:', file.name);
-      //   formData.append('content', selectedFiles[i]);
-      //   const response = await fetch('upload_endpoint', {
-      //     method: 'POST',
-      //     body: formData,
-      //   });
-      // if (response.ok) {
-      //   console.log(`File "${file.name}" uploaded successfully.`);
-      // } else {
-      //   console.log(`File "${file.name}" upload failed.`);
-      // }
-      // }
-      // Clear the selectedFiles array after uploading.
-      setSelectedFiles([]);
+
       if (
+        !amphure?.name_en ||
+        !province?.name_en ||
+        !tambon?.name_en ||
         !companyName ||
         !body ||
         !companyRegistration ||
         !address ||
-        !contract ||
-        !zipcode ||
-        !tambon?.name_th ||
-        !amphure?.name_th ||
-        !province?.name_th
+        !contact ||
+        !postCode
       ) {
         toast.error('Fill someting');
-        return;
       }
-      formData.append('companyName', companyName);
-      formData.append('companyRegistration', companyRegistration);
-      formData.append('contact', contract);
-      formData.append('body', body);
-      formData.append('postCode', zipcode);
-      formData.append('address', address);
-      formData.append('sub_district', tambon?.name_th);
-      formData.append('district', amphure?.name_th);
-      formData.append('province', province?.name_th);
-      for (let i = 0; i < Tag.length; i++) {
-        formData.append('tag', Tag[i]);
-      }
-      console.log(...formData);
-      await axios.post(`${host}/company`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      });
       toast.success(`Successful Create CompanyProfile.`);
+
       navigate('/home');
     } catch (err) {
       console.error(err);
@@ -229,29 +212,30 @@ export default function CreateCompanyProfile() {
 
   return (
     <>
-      <section
-        className="flex justify-center my-10
-"
-      >
+      <section className="flex justify-center my-10">
         <form
           onSubmit={handlerSubmit}
           className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
           <h1 className="font-bold ">CREATE COMPANY PROFILE</h1>
           {imageProfile ? (
-            <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-              <img className="w-full h-full rounded-full truncate" src={profileimg} alt="imageprofile" />
-            </div>
+            <>
+              <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
+                <img className="w-full h-full rounded-full truncate" src={profileimg} alt="imageprofile" />
+              </div>
+            </>
           ) : (
             <>
               {selectedFile && (
-                <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-                  <img
-                    className="w-full h-full rounded-full truncate"
-                    src={URL.createObjectURL(selectedFile)}
-                    alt="image-profile"
-                  />
-                </div>
+                <>
+                  <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
+                    <img
+                      className="w-full h-full rounded-full truncate"
+                      src={URL.createObjectURL(selectedFile)}
+                      alt="image-profile"
+                    />
+                  </div>
+                </>
               )}
             </>
           )}
@@ -323,56 +307,59 @@ export default function CreateCompanyProfile() {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={province ? province.name_th : ''}
+                value={province ? province.name_en : ''}
                 onChange={handleChangeProvice}
                 autoWidth
                 label="Provice"
               >
                 {provinces &&
                   provinces.map((province) => (
-                    <MenuItem key={province.id} value={province.name_th}>
-                      {province.name_th}
+                    <MenuItem key={province.id} value={province.name_en}>
+                      {province.name_en}
                     </MenuItem>
                   ))}
               </Select>
             </FormControl>
+
             <FormControl sx={{ m: 1, minWidth: 150 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={amphure ? amphure.name_th : ''}
+                value={amphure ? amphure.name_en : ''}
                 onChange={handleChangeAmphure}
                 autoWidth
                 label="amphure"
               >
                 {amphureId &&
                   amphureId.map((amphure) => (
-                    <MenuItem key={amphure.province_id} value={amphure.name_th}>
-                      {amphure.name_th}
+                    <MenuItem key={amphure.province_id} value={amphure.name_en}>
+                      {amphure.name_en}
                     </MenuItem>
                   ))}
               </Select>
             </FormControl>
+
             <FormControl sx={{ m: 1, minWidth: 200 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={tambon ? tambon.name_th : ''}
+                value={tambon ? tambon.name_en : ''}
                 onChange={handleChangeTambon}
                 autoWidth
                 label="tambons"
               >
                 {tambonId &&
                   tambonId.map((tambon) => (
-                    <MenuItem key={tambon.id} value={tambon.name_th}>
-                      {tambon.name_th}
+                    <MenuItem key={tambon.id} value={tambon.name_en}>
+                      {tambon.name_en}
                     </MenuItem>
                   ))}
               </Select>
             </FormControl>
           </div>
+
           <div className="w-full">
             <TextField
               className="w-full"
@@ -389,11 +376,11 @@ export default function CreateCompanyProfile() {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="CONTRACT"
-              value={contract}
+              label="CONTACT"
+              value={contact}
               variant="outlined"
               type="text"
-              onChange={(e) => setContract(e.target.value)}
+              onChange={(e) => setContact(e.target.value)}
               required
             />
           </div>
@@ -401,11 +388,11 @@ export default function CreateCompanyProfile() {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="Zipcode"
+              label="POSTCODE"
               variant="outlined"
               type="number"
-              value={zipcode}
-              onChange={(e) => setZipcode(e.target.value)}
+              value={postCode}
+              onChange={(e) => setPostCode(e.target.value)}
               inputProps={{
                 min: 0,
               }}
@@ -419,7 +406,7 @@ export default function CreateCompanyProfile() {
                 labelId="demo-multiple-chip-label"
                 id="demo-multiple-chip"
                 multiple
-                value={Tag}
+                value={tags}
                 onChange={handleChange}
                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                 renderValue={(selected) => (
@@ -431,8 +418,8 @@ export default function CreateCompanyProfile() {
                 )}
                 MenuProps={MenuProps}
               >
-                {tags.map((tag) => (
-                  <MenuItem key={tag} value={tag} style={getStyles(tag, Tag, theme)}>
+                {Tags.map((tag) => (
+                  <MenuItem key={tag} value={tag} style={getStyles(tag, tags, theme)}>
                     {tag}
                   </MenuItem>
                 ))}

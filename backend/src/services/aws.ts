@@ -24,7 +24,7 @@ const s3Client: any = new S3Client({
   },
 });
 
-export function uploadFile(fileBuffer, fileName, mimetype) {
+export function uploadFile(fileBuffer, fileName: string, mimetype) {
   const uploadParams = {
     Bucket: bucketName,
     Body: fileBuffer,
@@ -35,7 +35,7 @@ export function uploadFile(fileBuffer, fileName, mimetype) {
   return s3Client.send(new PutObjectCommand(uploadParams));
 }
 
-export function deleteFile(fileName) {
+export function deleteFile(fileName: string) {
   const deleteParams = {
     Bucket: bucketName,
     Key: fileName,
@@ -44,7 +44,7 @@ export function deleteFile(fileName) {
   return s3Client.send(new DeleteObjectCommand(deleteParams));
 }
 
-export async function getObjectSignedUrl(key) {
+export async function getObjectSignedUrl(key: string) {
   const params = {
     Bucket: bucketName,
     Key: key,

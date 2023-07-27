@@ -10,7 +10,7 @@ import {
 } from ".";
 
 export function newHandlerCustomer(
-  repo: IRepositoryCustomer,
+  repo: IRepositoryCustomer
 ): IHandlerCustomer {
   return new HandlerCustomer(repo);
 }
@@ -22,7 +22,7 @@ class HandlerCustomer implements IHandlerCustomer {
 
   async createCustomer(
     req: JwtAuthRequest<Empty, WithCustomer>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const {
       firstname,
@@ -51,10 +51,9 @@ class HandlerCustomer implements IHandlerCustomer {
     const covertDateOfBirth: Date = new Date(
       dateOfBirth[0],
       dateOfBirth[1],
-      dateOfBirth[2],
+      dateOfBirth[2]
     ); // (year , mouth 0-11 , day 0-30)
     const userId = req.payload.id;
-    console.log("user id ", userId);
     const customerInfo = {
       firstname,
       lastname,
@@ -80,7 +79,7 @@ class HandlerCustomer implements IHandlerCustomer {
 
   async getCustomerId(
     req: JwtAuthRequest<WithIdCustomer, Empty>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const id = Number(req.params.id);
     if (!id) {
@@ -122,7 +121,7 @@ class HandlerCustomer implements IHandlerCustomer {
 
   async updateCustomer(
     req: JwtAuthRequest<WithIdCustomer, WithUpdateCustomer>,
-    res: Response,
+    res: Response
   ): Promise<Response> {
     const id = Number(req.params.id);
     if (isNaN(id)) {
