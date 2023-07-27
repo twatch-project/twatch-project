@@ -17,14 +17,12 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import FetchAmphure from '../hooks/AmphureAPI';
-import FetchProivce from '../hooks/ProviceAPI';
-import AddressThai from '../hooks/AddressThai';
 import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
 import { Tags, host } from '../constant';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
 import SendIcon from '@mui/icons-material/Send';
+import useAddressThai from '../hooks/useAddressThai';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -53,9 +51,7 @@ const CreatePortfolioSection = () => {
   const [contact, setContact] = useState<string>('');
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { provinces } = FetchProivce();
-  const { Amphure } = FetchAmphure();
-  const { tambons } = AddressThai();
+  const { provinces, amphures, tambons } = useAddressThai();
   const [province, setProvince] = useState<{ id: number; name_th: string } | null>(null);
   const [amphure, setAmphure] = useState<{ id: number; name_th: string } | null>(null);
   const [amphureId, setAmphureId] = useState<AmphureDTO[] | null>(null);
@@ -81,7 +77,7 @@ const CreatePortfolioSection = () => {
 
     if (selectedProvince) {
       setProvince(selectedProvince);
-      const filteredAmphure = Amphure.filter((amp) => amp.province_id === selectedProvince.id);
+      const filteredAmphure = amphures.filter((amphure) => amphure.province_id === selectedProvince.id);
       setAmphureId(filteredAmphure);
       setTambonId([]);
     } else {
@@ -91,7 +87,7 @@ const CreatePortfolioSection = () => {
   };
 
   const handleChangeAmphure = (event: SelectChangeEvent) => {
-    const selectedAmphure = Amphure.find((ampher) => ampher.name_th === event.target.value);
+    const selectedAmphure = amphures.find((amphure) => amphure.name_th === event.target.value);
 
     if (selectedAmphure) {
       setAmphure(selectedAmphure);
@@ -104,7 +100,7 @@ const CreatePortfolioSection = () => {
   };
 
   const handleChangeTambon = (event: SelectChangeEvent) => {
-    const selectedTambon = tambons.find((tb) => tb.name_th === event.target.value);
+    const selectedTambon = tambons.find((tambon) => tambon.name_th === event.target.value);
     if (selectedTambon) {
       setTambon(selectedTambon);
     }

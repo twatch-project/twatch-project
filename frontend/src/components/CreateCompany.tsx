@@ -20,7 +20,7 @@ import {
 import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
 import profileimg from '../img/user.png';
 import { Tags } from '../constant';
-import AddressThai from '../hooks/AddressThai';
+import useAddressThai from '../hooks/useAddressThai';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -44,7 +44,6 @@ export default function CreateCompanyProfile() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   const [companyName, setCompanyName] = useState<string>('');
   const [companyRegistration, setCompanyRegistration] = useState<string>('');
   const [body, setBody] = useState<string>('');
@@ -53,7 +52,7 @@ export default function CreateCompanyProfile() {
   const [postCode, setPostCode] = useState<string>('');
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { provinces, amphures, tambons } = AddressThai();
+  const { provinces, amphures, tambons } = useAddressThai();
   const [province, setProvince] = React.useState<{ id: number; name_th: string } | null>(null);
   const [amphure, setAmphure] = React.useState<{ id: number; name_th: string } | null>(null);
   const [amphureId, setAmphureId] = React.useState<AmphureDTO[] | null>(null);
@@ -78,7 +77,7 @@ export default function CreateCompanyProfile() {
 
     if (selectedProvince) {
       setProvince(selectedProvince);
-      const filteredAmphure = amphures.filter((amp) => amp.province_id === selectedProvince.id);
+      const filteredAmphure = amphures.filter((amphure) => amphure.province_id === selectedProvince.id);
       setAmphureId(filteredAmphure);
       setTambonId([]);
     } else {
@@ -88,7 +87,7 @@ export default function CreateCompanyProfile() {
   };
 
   const handleChangeAmphure = (event: SelectChangeEvent) => {
-    const selectedAmphure = amphures.find((ampher) => ampher.name_th === event.target.value);
+    const selectedAmphure = amphures.find((amphure) => amphure.name_th === event.target.value);
 
     if (selectedAmphure) {
       setAmphure(selectedAmphure);
@@ -101,12 +100,11 @@ export default function CreateCompanyProfile() {
   };
 
   const handleChangeTambon = (event: SelectChangeEvent) => {
-    const selectedTambon = tambons.find((tb) => tb.name_th === event.target.value);
+    const selectedTambon = tambons.find((tambon) => tambon.name_th === event.target.value);
     if (selectedTambon) {
       setTambon(selectedTambon);
     }
   };
-
   //Upload image profile company
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
