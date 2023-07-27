@@ -18,9 +18,11 @@ import {
   useTheme,
 } from '@mui/material';
 import profileimg from '../img/user.png';
-import { Tags } from '../constant';
-import useAddressThai from '../hooks/useAddressThai';
+import { useAuth } from '../providers/AuthProvider';
+import axios from 'axios';
+import { Tags, host } from '../constant';
 import { AmphureDto, TambonDto } from '../types/dto';
+import useAddressThai from '../hooks/useAddressThai';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -58,6 +60,7 @@ export default function CreateCompanyProfile() {
   const [amphureId, setAmphureId] = React.useState<AmphureDto[] | null>(null);
   const [tambon, setTambon] = React.useState<{ id: number; name_en: string } | null>(null);
   const [tambonId, setTambonId] = React.useState<TambonDto[] | null>(null);
+  const { token } = useAuth();
   const [imageProfile, setImageProfile] = useState<boolean>(true);
   const theme = useTheme();
   const [tags, setTags] = React.useState<string[]>([]);
@@ -111,7 +114,6 @@ export default function CreateCompanyProfile() {
     setSelectedFile(file || null);
     setImageProfile(false);
   };
-
   //UploadFile image company profile
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -119,7 +121,6 @@ export default function CreateCompanyProfile() {
       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...Array.from(files)]);
     }
   };
-
   const handleAddFile = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -137,68 +138,52 @@ export default function CreateCompanyProfile() {
       return setSubmitting(true);
     }
     try {
-      try {
-        if (selectedFile) {
-          console.log('File is being uploaded...', selectedFile.name);
+      const formData = new FormData();
 
-          const formData = new FormData();
-          formData.append('file', selectedFile);
-
-          fetch('upload_endpoint', {
-            method: 'POST',
-            body: formData,
-          })
-            .then((response) => {
-              // Handle the response from the server if needed.
-              console.log('File uploaded successfully:', response);
-            })
-            .catch((error) => {
-              // Handle errors during the file upload.
-              console.error('Error uploading file:', error);
-            });
-        }
-        for (const file of selectedFiles) {
-          console.log('Selected file:', file.name);
-
-          // Upload the file (you can implement your upload logic here).
-          const formData = new FormData();
-          formData.append('file', file);
-
-          // Replace 'your_upload_endpoint' with your actual API endpoint for file upload.
-          const response = await fetch('upload_endpoint', {
-            method: 'POST',
-            body: formData,
-          });
-
-          if (response.ok) {
-            console.log(`File "${file.name}" uploaded successfully.`);
-          } else {
-            console.log(`File "${file.name}" upload failed.`);
-          }
-        }
-
-        // Clear the selectedFiles array after uploading.
-        setSelectedFiles([]);
-      } catch (error) {
-        console.error('Error uploading file:', error);
+      if (!selectedFile) {
+        toast.error('image not found');
+        return;
       }
-      if (!companyName) {
-        return alert(`You don't have Company Name`);
+      formData.append('company', selectedFile);
+
+      for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append('content', selectedFiles[i]);
       }
+      setSelectedFiles([]);
 
       if (
-        !amphure?.name_en ||
-        !province?.name_en ||
-        !tambon?.name_en ||
         !companyName ||
         !body ||
         !companyRegistration ||
         !address ||
         !contact ||
-        !postCode
+        !postCode ||
+        !tambon?.name_en ||
+        !amphure?.name_en ||
+        !province?.name_en
       ) {
         toast.error('Fill someting');
+        return;
       }
+      formData.append('companyName', companyName);
+      formData.append('companyRegistration', companyRegistration);
+      formData.append('contact', contact);
+      formData.append('body', body);
+      formData.append('postCode', postCode);
+      formData.append('address', address);
+      formData.append('sub_district', tambon?.name_en);
+      formData.append('district', amphure?.name_en);
+      formData.append('province', province?.name_en);
+      for (let i = 0; i < tags.length; i++) {
+        formData.append('tag', tags[i]);
+      }
+      console.log(...formData);
+      await axios.post(`${host}/company`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(`Successful Create CompanyProfile.`);
       navigate('/');
     } catch (err) {
@@ -211,30 +196,29 @@ export default function CreateCompanyProfile() {
 
   return (
     <>
-      <section className="flex justify-center my-10">
+      <section
+        className="flex justify-center my-10
+"
+      >
         <form
           onSubmit={handlerSubmit}
           className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
           <h1 className="font-bold ">CREATE COMPANY PROFILE</h1>
           {imageProfile ? (
-            <>
-              <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-                <img className="w-full h-full rounded-full truncate" src={profileimg} alt="imageprofile" />
-              </div>
-            </>
+            <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
+              <img className="w-full h-full rounded-full truncate" src={profileimg} alt="imageprofile" />
+            </div>
           ) : (
             <>
               {selectedFile && (
-                <>
-                  <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-                    <img
-                      className="w-full h-full rounded-full truncate"
-                      src={URL.createObjectURL(selectedFile)}
-                      alt="image-profile"
-                    />
-                  </div>
-                </>
+                <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
+                  <img
+                    className="w-full h-full rounded-full truncate"
+                    src={URL.createObjectURL(selectedFile)}
+                    alt="image-profile"
+                  />
+                </div>
               )}
             </>
           )}
@@ -319,7 +303,6 @@ export default function CreateCompanyProfile() {
                   ))}
               </Select>
             </FormControl>
-
             <FormControl sx={{ m: 1, minWidth: 150 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
               <Select
@@ -338,7 +321,6 @@ export default function CreateCompanyProfile() {
                   ))}
               </Select>
             </FormControl>
-
             <FormControl sx={{ m: 1, minWidth: 200 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
               <Select
@@ -358,7 +340,6 @@ export default function CreateCompanyProfile() {
               </Select>
             </FormControl>
           </div>
-
           <div className="w-full">
             <TextField
               className="w-full"
@@ -375,7 +356,7 @@ export default function CreateCompanyProfile() {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="CONTACT"
+              label="contact"
               value={contact}
               variant="outlined"
               type="text"
@@ -387,7 +368,7 @@ export default function CreateCompanyProfile() {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="POSTCODE"
+              label="postCode"
               variant="outlined"
               type="number"
               value={postCode}
