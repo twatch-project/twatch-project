@@ -20,7 +20,6 @@ import {
 import { Tags, host } from '../constant';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
-import SendIcon from '@mui/icons-material/Send';
 import useAddressThai from '../hooks/useAddressThai';
 import { AmphureDto, TambonDto } from '../types/dto';
 
@@ -43,7 +42,7 @@ function getStyles(name: string, tag: readonly string[], theme: Theme) {
 
 const EditPortfolioSection = () => {
   const [title, setTitle] = useState<string>('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const filesInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [body, setBody] = useState<string>('');
   const [address, setAddress] = useState<string>('');
@@ -114,9 +113,9 @@ const EditPortfolioSection = () => {
     }
   };
 
-  const handleAddFile = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+  const handleAddFiles = () => {
+    if (filesInputRef.current) {
+      filesInputRef.current.click();
     }
   };
 
@@ -168,16 +167,17 @@ const EditPortfolioSection = () => {
 
   return (
     <>
-      <section className="flex justify-center">
+      <section className="flex justify-center my-10">
         <form
           onSubmit={handlerSubmit}
-          className="flex w-[600px] border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[10px] m-[15px] "
+          className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
-          <h1 className="font-bold ">EDIT PORTFORLIO</h1>
-          <div className="input">
+          <h1 className="font-bold ">CREATE PORTFOLIO</h1>
+          <div className="w-full">
             <TextField
+              className="w-full"
               id="outlined-multiline-static"
-              label="TITLE"
+              label="BODY"
               multiline
               type="text"
               rows={10}
@@ -186,8 +186,9 @@ const EditPortfolioSection = () => {
               required
             />
           </div>
-          <div className="input">
+          <div className="w-full">
             <TextField
+              className="w-full"
               id="outlined-multiline-static"
               label="BODY"
               multiline
@@ -198,19 +199,10 @@ const EditPortfolioSection = () => {
               required
             />
           </div>
-          <div>
-            <h1>Multiple File Input Example</h1>
-            <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileSelect} multiple />
-            <button type="button" onClick={handleAddFile}>
+          <div className="flex flex-col items-center">
+            <input type="file" ref={filesInputRef} style={{ display: 'none' }} onChange={handleFileSelect} multiple />
+            <Button variant="outlined" type="button" onClick={handleAddFiles}>
               Add File
-            </button>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={handlerSubmit}
-              disabled={selectedFiles.length === 0}
-            >
-              Submit
             </Button>
             <ul>
               {selectedFiles.map((file, index) => (
@@ -218,9 +210,8 @@ const EditPortfolioSection = () => {
               ))}
             </ul>
           </div>
-
-          <div>
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+          <div className="w-auto">
+            <FormControl sx={{ m: 1, minWidth: 200 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Provice</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -238,8 +229,7 @@ const EditPortfolioSection = () => {
                   ))}
               </Select>
             </FormControl>
-
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl sx={{ m: 1, minWidth: 150 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -257,8 +247,7 @@ const EditPortfolioSection = () => {
                   ))}
               </Select>
             </FormControl>
-
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <FormControl sx={{ m: 1, minWidth: 200 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -277,38 +266,45 @@ const EditPortfolioSection = () => {
               </Select>
             </FormControl>
           </div>
-
-          <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">ADDRESS</label>
-            <input
-              type="text"
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="ADDRESS"
               value={address}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
+              variant="outlined"
+              type="text"
               onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
-          <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">POST CODE</label>
-            <input
-              type="text"
-              value={postCode}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
-              onChange={(e) => setPostCode(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input">
-            <label className=" flex flex-col text-black my-1 font-bold">CONTRACT</label>
-            <input
-              type="text"
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="contact"
               value={contact}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
+              variant="outlined"
+              type="text"
               onChange={(e) => setContact(e.target.value)}
               required
             />
           </div>
-          {/* <TagSelect /> */}
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="postCode"
+              variant="outlined"
+              type="number"
+              value={postCode}
+              onChange={(e) => setPostCode(e.target.value)}
+              inputProps={{
+                min: 0,
+              }}
+              required
+            />
+          </div>
           <div>
             <FormControl sx={{ m: 1, width: 300 }}>
               <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
@@ -336,8 +332,8 @@ const EditPortfolioSection = () => {
               </Select>
             </FormControl>
           </div>
-          <button className="my-[10px] p-[10px] bg-blue rounded text-white" disabled={isSubmitting}>
-            CONFIRM
+          <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
+            Submit
           </button>
         </form>
       </section>
