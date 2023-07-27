@@ -14,6 +14,11 @@ const Register = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+  console.log(usernameInput);
+  console.log(passwordInput);
+  console.log(passwordConfirm);
+  console.log(roleInput);
+  console.log(emailInput);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,11 +31,11 @@ const Register = () => {
       if (passwordInput !== passwordConfirm) {
         setPasswordConfirm('');
         setPasswordInput('');
-        return toast.error('Password not macth !!!');
+        return toast.error('Password not match !!!');
       }
 
-      console.log('Register');
-      console.log(roleInput);
+      // console.log('Register');
+      // console.log(roleInput);
 
       await register(usernameInput, passwordInput, roleInput, emailInput);
 

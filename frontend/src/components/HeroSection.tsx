@@ -17,7 +17,7 @@ export default function Hero() {
               a space that reflects your vision, aspirations, and lifestyle
             </p>
             <div className="group-btn flex gap-x-5 my-3">
-              <Link to="/AllCompany">
+              <Link to="/company">
                 <button className="company">Company</button>
               </Link>
               <button className="customer">Customer Blog</button>

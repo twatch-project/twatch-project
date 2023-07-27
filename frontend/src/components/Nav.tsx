@@ -13,7 +13,7 @@ export default function Nav() {
   return (
     <div className="">
       <nav className="flex justify-between bg-white text-center p-[1rem] shadow-box">
-        <Link to="/" className="logo text-[24px] font-bold mx-[2rem]">
+        <Link to="/" className="logo text-[24px] font-bold  max-sm:hidden">
           Twatch
         </Link>
         <div className="right flex items-center">
@@ -26,12 +26,16 @@ export default function Nav() {
             <Link to="/Contact">Contact</Link>
             {isLoggedIn ? (
               <>
-                <div>
-                  <p>Welcome</p>
-                </div>
                 <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
                   logout
                 </button>
+                {/* <Link to="/EditPortSection">
+                  <div className="">
+                    <div className="imgB w-[40px] h-[40px] bg-[#cfcfcf] overflow-hidden rounded-full ">
+                      <img className="w-full h-full" src="" alt="" />
+                    </div>
+                  </div>
+                </Link> */}
               </>
             ) : (
               <>

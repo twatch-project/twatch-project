@@ -14,7 +14,7 @@ export default function DisplayNav() {
   return (
     <nav className="">
       <div className="">
-        <div className="">
+        <div className="flex flex-col w-[100%] p-[15px]">
           <Link to="/">Home</Link>
           <Link to="/EditBlog">Customer</Link>
           <Link to="/CompanyProfile">Company</Link>
