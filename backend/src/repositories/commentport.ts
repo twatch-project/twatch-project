@@ -1,14 +1,15 @@
-import { IRepositoryCommentPort, prisma } from ".";
+import { PrismaClient } from "@prisma/client";
+import { IRepositoryCommentPort} from ".";
 import { ICommentPort, ICreateCommentPort, IUpdateComment } from "../entities";
 
-export function newRepositoryCommentPort(db: prisma) {
+export function newRepositoryCommentPort(db: PrismaClient) {
   return new RepositoryCommentPort(db);
 }
 
 class RepositoryCommentPort implements IRepositoryCommentPort {
-  private db: prisma;
+  private db: PrismaClient;
 
-  constructor(db: prisma) {
+  constructor(db: PrismaClient) {
     this.db = db;
   }
 

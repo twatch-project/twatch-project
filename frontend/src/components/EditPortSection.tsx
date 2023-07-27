@@ -17,14 +17,12 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import FetchAmphure from '../hooks/AmphureAPI';
-import FetchProivce from '../hooks/ProviceAPI';
-import FetchTambon from '../hooks/TambonsAPI';
-import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
 import { Tags, host } from '../constant';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
 import SendIcon from '@mui/icons-material/Send';
+import useAddressThai from '../hooks/useAddressThai';
+import { AmphureDto, TambonDto } from '../types/dto';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -53,14 +51,12 @@ const EditPortfolioSection = () => {
   const [contact, setContact] = useState<string>('');
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { provinces } = FetchProivce();
-  const { Amphure } = FetchAmphure();
-  const { tambons } = FetchTambon();
+  const { provinces, amphures, tambons } = useAddressThai();
   const [province, setProvince] = useState<{ id: number; name_th: string } | null>(null);
   const [amphure, setAmphure] = useState<{ id: number; name_th: string } | null>(null);
-  const [amphureId, setAmphureId] = useState<AmphureDTO[] | null>(null);
+  const [amphureId, setAmphureId] = useState<AmphureDto[] | null>(null);
   const [tambon, setTambon] = useState<{ id: number; name_th: string } | null>(null);
-  const [tambonId, setTambonId] = useState<TambonDTO[] | null>(null);
+  const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
   const [tags, setTag] = useState<string[]>([]);
   const { portId } = useParams();
 
@@ -78,11 +74,11 @@ const EditPortfolioSection = () => {
   };
 
   const handleChangeProvice = (event: SelectChangeEvent) => {
-    const selectedProvince = provinces.find((province) => province.name_th === event.target.value);
+    const selectedProvince = provinces.find((province) => province.name_en === event.target.value);
 
     if (selectedProvince) {
       setProvince(selectedProvince);
-      const filteredAmphure = Amphure.filter((amp) => amp.province_id === selectedProvince.id);
+      const filteredAmphure = amphures.filter((amphure) => amphure.province_id === selectedProvince.id);
       setAmphureId(filteredAmphure);
       setTambonId([]);
     } else {
@@ -92,7 +88,7 @@ const EditPortfolioSection = () => {
   };
 
   const handleChangeAmphure = (event: SelectChangeEvent) => {
-    const selectedAmphure = Amphure.find((ampher) => ampher.name_th === event.target.value);
+    const selectedAmphure = amphures.find((amphure) => amphure.name_th === event.target.value);
 
     if (selectedAmphure) {
       setAmphure(selectedAmphure);
@@ -105,7 +101,7 @@ const EditPortfolioSection = () => {
   };
 
   const handleChangeTambon = (event: SelectChangeEvent) => {
-    const selectedTambon = tambons.find((tb) => tb.name_th === event.target.value);
+    const selectedTambon = tambons.find((tambon) => tambon.name_th === event.target.value);
     if (selectedTambon) {
       setTambon(selectedTambon);
     }
@@ -236,8 +232,8 @@ const EditPortfolioSection = () => {
               >
                 {provinces &&
                   provinces.map((province) => (
-                    <MenuItem key={province.id} value={province.name_th}>
-                      {province.name_th}
+                    <MenuItem key={province.id} value={province.name_en}>
+                      {province.name_en}
                     </MenuItem>
                   ))}
               </Select>
