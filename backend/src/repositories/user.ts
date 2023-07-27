@@ -18,10 +18,14 @@ class RepositoryUser implements IRepositoryUser {
     }
 
     async getUserByUsername(username: string): Promise<IUser | null> {
-        return await this.db.user.findUnique({ where: { username } });
+        return await this.db.user.findUnique({
+            where: { username }
+        });
     }
 
     async getId(userId: string): Promise<IUser | null> {
-        return await this.db.user.findUnique({ where: { userId } });
+        return await this.db.user.findUnique({
+            where: { userId }
+        });
     }
 }

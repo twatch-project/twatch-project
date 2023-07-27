@@ -25,8 +25,6 @@ class HandlerCompany implements IHandlerCompany {
     res: Response
   ): Promise<Response> {
     const companyRole = req.payload.role;
-    console.log("req file", req.files)
-    console.log("req body", req.body)
     if (companyRole !== "COMPANY") {
       return res.status(400).json({ error: "not company role" }).end();
     }
@@ -41,9 +39,7 @@ class HandlerCompany implements IHandlerCompany {
       contact,
       postCode,
       tag,
-      postCode
     } = req.body;
-    console.log("ssss")
     console.log(companyName, companyRegistration, address, sub_district, district, province, postCode, contact, tag, body)
     if (
       !companyName ||
@@ -65,23 +61,20 @@ class HandlerCompany implements IHandlerCompany {
       return res.status(400);
     }
 
-    console.log("65")
-
     const fCompany = req.files["company"];
     const fContents = req.files["content"];
 
-    console.log("70")
     const imageCompany = generateFileName();
     const imageContents: string[] = fContents.map(() => generateFileName());
 
     const fileBufferCompany = await sharp(fCompany[0]?.buffer)
-      .resize({ height: 1920, width: 1080, fit: "contain" })
+      .resize({ height: 1920, width: 1080, fit: "cover" })
       .toBuffer();
 
     const fileBufferContents: Buffer[] = await Promise.all(
       fContents.map(async (fContent): Promise<Buffer> => {
         return await sharp(fContent.buffer)
-          .resize({ height: 1920, width: 1080, fit: "contain" })
+          .resize({ height: 1920, width: 1080, fit: "cover" })
           .toBuffer();
       })
     );
