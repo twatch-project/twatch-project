@@ -1,13 +1,11 @@
 FROM node:current-alpine
 
-WORKDIR /app
-
-COPY package.json package-lock.json ./
-
-RUN npm install -g pnpm && \
-    pnpm install
+WORKDIR /home/app
 
 COPY . .
+
+RUN npm i -g pnpm
+RUN pnpm i
 
 CMD [ "npm", "run dev" ]
 
