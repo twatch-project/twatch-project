@@ -24,13 +24,13 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: /backend/Dockerfile
+          file: ./backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/twatchcicd:latest
       - name: Build and push Frontend
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: /frontend/Dockerfile
+          file: ./frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/twatchcicd:latest
