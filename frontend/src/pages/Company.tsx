@@ -1,5 +1,5 @@
 // import img from '../img/3.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
 // import { styled } from '@mui/material'
@@ -11,40 +11,54 @@ import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import { Avatar } from '@mui/material';
 import ImageGallery from '../components/Showsileimg';
-import img3 from '../img/phil-hearing-IYfp2Ixe9nM-unsplash.jpg';
+import useCompany from '../hooks/useCompany';
 
-// const StyledRating = styled(Rating)({
-//   '& .MuiRating-iconFilled': {
-//     color: '#ff6d75',
-//   },
-//   '& .MuiRating-iconHover': {
-//     color: '#ff3d47',
-//   },
-// })
 export default function Company() {
-  const img =
-    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
-  const images = [img, img, img3, img, img3, img3, img3, img3, img3, img3];
+  const { id } = useParams();
+  const Id = Number(id);
+
+  const {
+    data,
+    status: { loading },
+  } = useCompany(Id);
+
+  const imgs = [
+    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+  ];
+
+  if (!data || loading) return null;
+
+  console.log(data.address);
+  const img = data.imageCompanyUrl;
+
+  // if (!data?.imageContentUrls) {
+  //   return (
+  //     <>
+  //       <div>Loading</div>
+  //     </>
+  //   );
+  // }
+  // const images = data?.imageContentUrls;
   return (
     <>
       <Nav />
       <section className="flex items-center justify-center min-h-[100vh] w-4/5 m-auto">
         <div className="HeroSection h-[600px] flex  justify-between">
-          <ImageGallery images={images} />
+          <ImageGallery images={data.imageContentUrls} />
           <div className="companyName w-1/2 h-[480px] flex justify-center flex-col m-5 p-5">
             <h1 className=" font-bold text-[18px] py-[15px]">Company Name</h1>
             <div className="detail flex flex-col gap-1">
               <div className="flex gap-3">
                 <MapsHomeWorkOutlinedIcon />
-                <span>Address : {}</span>
+                <span>Address : {data?.address}</span>
               </div>
               <div className="flex gap-3">
                 <MapOutlinedIcon />
-                <span>Province : {}</span>
+                <span>Province : {data?.province}</span>
               </div>
               <div className="flex gap-3">
                 <AssistantPhotoIcon />
-                <span>District : {}</span>
+                <span>District : {data?.district}</span>
               </div>
               <div className="flex gap-3">
                 <ContactPhoneOutlinedIcon />

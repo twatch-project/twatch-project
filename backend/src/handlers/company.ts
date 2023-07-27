@@ -41,7 +41,6 @@ class HandlerCompany implements IHandlerCompany {
       postCode,
       tag,
     } = req.body;
-
     if (
       !companyName ||
       !companyRegistration ||
@@ -68,13 +67,13 @@ class HandlerCompany implements IHandlerCompany {
     const imageContents: string[] = fContents.map(() => generateFileName());
 
     const fileBufferCompany = await sharp(fCompany[0]?.buffer)
-      .resize({ height: 1920, width: 1080, fit: "contain" })
+      .resize({ height: 1920, width: 1080, fit: "cover" })
       .toBuffer();
 
     const fileBufferContents: Buffer[] = await Promise.all(
       fContents.map(async (fContent): Promise<Buffer> => {
         return await sharp(fContent.buffer)
-          .resize({ height: 1920, width: 1080, fit: "contain" })
+          .resize({ height: 1920, width: 1080, fit: "cover" })
           .toBuffer();
       })
     );
