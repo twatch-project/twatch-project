@@ -22,7 +22,7 @@ export interface CompanyDto {
   district: string;
   province: string;
   postCode: string;
-  contract: string;
+  contact: string;
   tag: string[];
   rating: number; //@TODO Add in backend
 
