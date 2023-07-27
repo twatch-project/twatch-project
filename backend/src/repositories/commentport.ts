@@ -1,14 +1,15 @@
-import { IRepositoryCommentPort, prisma } from ".";
+import { PrismaClient } from "@prisma/client";
+import { IRepositoryCommentPort} from ".";
 import { ICommentPort, ICreateCommentPort, IUpdateComment } from "../entities";
 
-export function newRepositoryCommentPort(db: prisma) {
+export function newRepositoryCommentPort(db: PrismaClient) {
   return new RepositoryCommentPort(db);
 }
 
 class RepositoryCommentPort implements IRepositoryCommentPort {
-  private db: prisma;
+  private db: PrismaClient;
 
-  constructor(db: prisma) {
+  constructor(db: PrismaClient) {
     this.db = db;
   }
 
@@ -18,7 +19,7 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
         portfolio: {
           select: {
             portId: true,
-            user: true,
+            commentBy: true,
           },
         },
       },
@@ -35,7 +36,7 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
   }
 
   async getCommentPortfolioById(
-    commentId: number,
+    commentId: number
   ): Promise<ICommentPort | null> {
     return await this.db.commentPortfolio.findUnique({
       include: {
@@ -53,6 +54,8 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
       where: { commentId },
     });
   }
+
+
 
   async getCommentPortByUserId(userId: string): Promise<ICommentPort[]> {
     return await this.db.commentPortfolio.findMany({

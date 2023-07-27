@@ -29,9 +29,12 @@ class HandlerUser implements IHandlerUser {
     const registeredAt = new Date();
 
     if (!username || !password || !role || !email) {
-      return res.status(400).json({
-        error: "missing username or password or role or email in body",
-      }).end();
+      return res
+        .status(400)
+        .json({
+          error: "missing username or password or role or email in body",
+        })
+        .end();
     }
     try {
       const newUser = await this.repo.createUser({
@@ -75,7 +78,8 @@ class HandlerUser implements IHandlerUser {
     if (!username || !password) {
       return res
         .status(400)
-        .json({ error: "missing username or password in body" }).end();
+        .json({ error: "missing username or password in body" })
+        .end();
     }
     try {
       const user = await this.repo.getUserByUsername(username);
@@ -88,10 +92,20 @@ class HandlerUser implements IHandlerUser {
       if (!compareHash(password, user.password)) {
         return res.status(401).json({ error: `invalid credentail` }).end();
       }
+
+      const company = await this.repo.getCompanyIdByUser(user.userId);
+      if (!company) {
+        return res
+          .status(404)
+          .json({ error: `no such company: ${username}`, statusCode: 404 })
+          .end();
+      }
+
       const payload: Payload = {
         id: user.userId,
         username: user.username,
         role: user.role,
+        companyId: company?.companyId,
       };
       const token = newJwt(payload);
       return res

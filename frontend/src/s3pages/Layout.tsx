@@ -4,8 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Layout() {
   const location = useLocation();
-  console.log(location.pathname);
-
   const navigate = useNavigate();
 
   const actions = {
