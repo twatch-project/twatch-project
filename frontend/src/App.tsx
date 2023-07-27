@@ -9,15 +9,14 @@ import Companys from './pages/Companys';
 import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
-import ImageGallery from './components/Imgeselect';
 import EditPortfolio from './pages/EditPortfolio';
+import EditCompanyProfile from './components/EditCompanyProfile';
 
 function App() {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
-        <Route path="/testimage" element={<ImageGallery />} />
         {/* <Route path="/" element={<Homes3 />} /> */}
         <Route>
           <Route path="/" element={<Home />} />
@@ -26,6 +25,7 @@ function App() {
           <Route path="/companys" element={<Companys />} />
           <Route path="/company/:id" element={<Company />} />
           <Route path="/company/create" element={<CreateCompanyProfile />} />
+          <Route path="/company/edit" element={<EditCompanyProfile />} />
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />

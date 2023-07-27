@@ -1,4 +1,4 @@
-import { PortfolioDto } from './dto'
-import { _DateState } from './hook'
+import { PortfolioDto } from './dto';
+import { _DateState } from './hook';
 
-export type PortfolioHook = _DateState<PortfolioDto>
+export type PortfolioHook = _DateState<PortfolioDto>;
