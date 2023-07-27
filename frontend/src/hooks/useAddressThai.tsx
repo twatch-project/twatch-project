@@ -1,58 +1,38 @@
 import { useEffect, useState } from 'react';
-import { AmphureDTO, ProviceDTO, TambonDTO } from '../types/ProviceList.hook';
 import { Apitambons, thaiAmphure, thaiProvinceData } from '../constant';
+import { AmphureDto, ProviceDto, TambonDto } from '../types/dto';
 
-const AddressThai = () => {
-  const [tambons, setTambons] = useState<TambonDTO[]>([]);
-  const [amphures, setAmphure] = useState<AmphureDTO[]>([]);
-  const [provinces, setProvinces] = useState<ProviceDTO[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = `${Apitambons}`;
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data: TambonDTO[] = await response.json();
-        setTambons(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+const useAddressThai = () => {
+  const [tambons, setTambons] = useState<TambonDto[]>([]);
+  const [amphures, setAmphure] = useState<AmphureDto[]>([]);
+  const [provinces, setProvinces] = useState<ProviceDto[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `${thaiProvinceData}`;
-        const response = await fetch(url);
-        if (!response.ok) {
+        const urlTambon = `${Apitambons}`;
+        const resTambon = await fetch(urlTambon);
+        if (!resTambon.ok) {
+          throw new Error('Failed to fetch dataTambon');
+        }
+        const dataTambon: TambonDto[] = await resTambon.json();
+        setTambons(dataTambon);
+
+        const urlProvince = `${thaiProvinceData}`;
+        const resProvince = await fetch(urlProvince);
+        if (!resProvince.ok) {
           throw new Error('Failed to fetch data');
         }
-        const data: ProviceDTO[] = await response.json();
-        setProvinces(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+        const dataProvince: ProviceDto[] = await resProvince.json();
+        setProvinces(dataProvince);
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = `${thaiAmphure}`;
-        const response = await fetch(url);
-        if (!response.ok) {
+        const urlAmphure = `${thaiAmphure}`;
+        const resAmphure = await fetch(urlAmphure);
+        if (!resAmphure.ok) {
           throw new Error('Failed to fetch data');
         }
-        const data: AmphureDTO[] = await response.json();
-        setAmphure(data);
+        const dataAmphure: AmphureDto[] = await resAmphure.json();
+        setAmphure(dataAmphure);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -64,4 +44,4 @@ const AddressThai = () => {
   return { tambons, amphures, provinces };
 };
 
-export default AddressThai;
+export default useAddressThai;

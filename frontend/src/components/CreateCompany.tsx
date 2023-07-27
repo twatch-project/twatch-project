@@ -17,10 +17,10 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
 import profileimg from '../img/user.png';
 import { Tags } from '../constant';
 import useAddressThai from '../hooks/useAddressThai';
+import { AmphureDto, TambonDto } from '../types/dto';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -53,11 +53,11 @@ export default function CreateCompanyProfile() {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
   const { provinces, amphures, tambons } = useAddressThai();
-  const [province, setProvince] = React.useState<{ id: number; name_th: string } | null>(null);
-  const [amphure, setAmphure] = React.useState<{ id: number; name_th: string } | null>(null);
-  const [amphureId, setAmphureId] = React.useState<AmphureDTO[] | null>(null);
-  const [tambon, setTambon] = React.useState<{ id: number; name_th: string } | null>(null);
-  const [tambonId, setTambonId] = React.useState<TambonDTO[] | null>(null);
+  const [province, setProvince] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [amphure, setAmphure] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [amphureId, setAmphureId] = React.useState<AmphureDto[] | null>(null);
+  const [tambon, setTambon] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [tambonId, setTambonId] = React.useState<TambonDto[] | null>(null);
   const [imageProfile, setImageProfile] = useState<boolean>(true);
   const theme = useTheme();
   const [tags, setTags] = React.useState<string[]>([]);
@@ -73,7 +73,7 @@ export default function CreateCompanyProfile() {
   };
 
   const handleChangeProvice = (event: SelectChangeEvent) => {
-    const selectedProvince = provinces.find((province) => province.name_th === event.target.value);
+    const selectedProvince = provinces.find((province) => province.name_en === event.target.value);
 
     if (selectedProvince) {
       setProvince(selectedProvince);
@@ -87,7 +87,7 @@ export default function CreateCompanyProfile() {
   };
 
   const handleChangeAmphure = (event: SelectChangeEvent) => {
-    const selectedAmphure = amphures.find((amphure) => amphure.name_th === event.target.value);
+    const selectedAmphure = amphures.find((amphure) => amphure.name_en === event.target.value);
 
     if (selectedAmphure) {
       setAmphure(selectedAmphure);
@@ -100,7 +100,7 @@ export default function CreateCompanyProfile() {
   };
 
   const handleChangeTambon = (event: SelectChangeEvent) => {
-    const selectedTambon = tambons.find((tambon) => tambon.name_th === event.target.value);
+    const selectedTambon = tambons.find((tambon) => tambon.name_en === event.target.value);
     if (selectedTambon) {
       setTambon(selectedTambon);
     }
@@ -187,9 +187,9 @@ export default function CreateCompanyProfile() {
       }
 
       if (
-        !amphure?.name_th ||
-        !province?.name_th ||
-        !tambon?.name_th ||
+        !amphure?.name_en ||
+        !province?.name_en ||
+        !tambon?.name_en ||
         !companyName ||
         !body ||
         !companyRegistration ||
@@ -199,28 +199,6 @@ export default function CreateCompanyProfile() {
       ) {
         toast.error('Fill someting');
       }
-      console.log(
-        'amphure',
-        amphure?.name_th,
-        'provice',
-        province?.name_th,
-        'tambon',
-        tambon?.name_th,
-        'companyname',
-        companyName,
-        'body',
-        body,
-        'company',
-        companyRegistration,
-        'address',
-        address,
-        'contract',
-        contact,
-        'zipcode',
-        postCode,
-        'tag',
-        tags,
-      );
       toast.success(`Successful Create CompanyProfile.`);
 
       navigate('/home');
@@ -298,14 +276,6 @@ export default function CreateCompanyProfile() {
               onChange={(e) => setCompanyRegistration(e.target.value)}
               required
             />
-            {/* <label className=" flex flex-col text-black my-1 font-bold">COMPANY REGISTRATION NUMBER</label>
-            <input
-              type="text"
-              value={companyRegistration}
-              className="w-[305px] h-[38px] border-solid border-blue border-2 rounded-md px-[5px]"
-              onChange={(e) => setCompanyRegistration(e.target.value)}
-              required
-            /> */}
           </div>
           <div className="w-full">
             <TextField
@@ -337,15 +307,15 @@ export default function CreateCompanyProfile() {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={province ? province.name_th : ''}
+                value={province ? province.name_en : ''}
                 onChange={handleChangeProvice}
                 autoWidth
                 label="Provice"
               >
                 {provinces &&
                   provinces.map((province) => (
-                    <MenuItem key={province.id} value={province.name_th}>
-                      {province.name_th}
+                    <MenuItem key={province.id} value={province.name_en}>
+                      {province.name_en}
                     </MenuItem>
                   ))}
               </Select>
@@ -356,14 +326,14 @@ export default function CreateCompanyProfile() {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={amphure ? amphure.name_th : ''}
+                value={amphure ? amphure.name_en : ''}
                 onChange={handleChangeAmphure}
                 autoWidth
                 label="amphure"
               >
                 {amphureId &&
                   amphureId.map((amphure) => (
-                    <MenuItem key={amphure.province_id} value={amphure.name_th}>
+                    <MenuItem key={amphure.province_id} value={amphure.name_en}>
                       {amphure.name_th}
                     </MenuItem>
                   ))}
@@ -375,14 +345,14 @@ export default function CreateCompanyProfile() {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={tambon ? tambon.name_th : ''}
+                value={tambon ? tambon.name_en : ''}
                 onChange={handleChangeTambon}
                 autoWidth
                 label="tambons"
               >
                 {tambonId &&
                   tambonId.map((tambon) => (
-                    <MenuItem key={tambon.id} value={tambon.name_th}>
+                    <MenuItem key={tambon.id} value={tambon.name_en}>
                       {tambon.name_th}
                     </MenuItem>
                   ))}
@@ -406,7 +376,7 @@ export default function CreateCompanyProfile() {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="CONTRACT"
+              label="CONTACT"
               value={contact}
               variant="outlined"
               type="text"
@@ -418,7 +388,7 @@ export default function CreateCompanyProfile() {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="Zipcode"
+              label="POSTCODE"
               variant="outlined"
               type="number"
               value={postCode}

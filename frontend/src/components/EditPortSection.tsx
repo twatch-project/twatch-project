@@ -17,12 +17,12 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import { AmphureDTO, TambonDTO } from '../types/ProviceList.hook';
 import { Tags, host } from '../constant';
 import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
 import SendIcon from '@mui/icons-material/Send';
 import useAddressThai from '../hooks/useAddressThai';
+import { AmphureDto, TambonDto } from '../types/dto';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -54,9 +54,9 @@ const EditPortfolioSection = () => {
   const { provinces, amphures, tambons } = useAddressThai();
   const [province, setProvince] = useState<{ id: number; name_th: string } | null>(null);
   const [amphure, setAmphure] = useState<{ id: number; name_th: string } | null>(null);
-  const [amphureId, setAmphureId] = useState<AmphureDTO[] | null>(null);
+  const [amphureId, setAmphureId] = useState<AmphureDto[] | null>(null);
   const [tambon, setTambon] = useState<{ id: number; name_th: string } | null>(null);
-  const [tambonId, setTambonId] = useState<TambonDTO[] | null>(null);
+  const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
   const [tags, setTag] = useState<string[]>([]);
   const { portId } = useParams();
 
@@ -74,7 +74,7 @@ const EditPortfolioSection = () => {
   };
 
   const handleChangeProvice = (event: SelectChangeEvent) => {
-    const selectedProvince = provinces.find((province) => province.name_th === event.target.value);
+    const selectedProvince = provinces.find((province) => province.name_en === event.target.value);
 
     if (selectedProvince) {
       setProvince(selectedProvince);
@@ -232,8 +232,8 @@ const EditPortfolioSection = () => {
               >
                 {provinces &&
                   provinces.map((province) => (
-                    <MenuItem key={province.id} value={province.name_th}>
-                      {province.name_th}
+                    <MenuItem key={province.id} value={province.name_en}>
+                      {province.name_en}
                     </MenuItem>
                   ))}
               </Select>
