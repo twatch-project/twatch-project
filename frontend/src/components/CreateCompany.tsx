@@ -17,13 +17,14 @@
 //   Theme,
 //   useTheme,
 // } from '@mui/material';
+// import profileimg from '../img/user.png';
 // import { useAuth } from '../providers/AuthProvider';
 // import axios from 'axios';
 // import { Tags, host } from '../constant';
 // import { AmphureDto, TambonDto } from '../types/dto';
 // import useAddressThai from '../hooks/useAddressThai';
 
-<<<<<<< HEAD
+
 // const ITEM_HEIGHT = 48;
 // const ITEM_PADDING_TOP = 8;
 // const MenuProps = {
@@ -34,19 +35,6 @@
 //     },
 //   },
 // };
-=======
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
->>>>>>> main
 
 // function getStyles(name: string, tag: readonly string[], theme: Theme) {
 //   return {
@@ -115,7 +103,6 @@ const MenuProps = {
 //     }
 //   };
 
-<<<<<<< HEAD
 //   const handleChangeTambon = (event: SelectChangeEvent) => {
 //     const selectedTambon = tambons.find((tambon) => tambon.name_en === event.target.value);
 //     if (selectedTambon) {
@@ -147,38 +134,6 @@ const MenuProps = {
 //   };
 //   const handlerSubmit = async (event: FormEvent<HTMLUnknownElement>) => {
 //     event.preventDefault();
-=======
-  const handleChangeTambon = (event: SelectChangeEvent) => {
-    const selectedTambon = tambons.find((tambon) => tambon.name_en === event.target.value);
-    if (selectedTambon) {
-      setTambon(selectedTambon);
-    }
-  };
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    setSelectedFile(file || null);
-    setImageProfile(false);
-  };
-
-  const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files) {
-      setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...Array.from(files)]);
-    }
-  };
-  const handleAddFile = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-  const handleAddFiles = () => {
-    if (filesInputRef.current) {
-      filesInputRef.current.click();
-    }
-  };
-  const handlerSubmit = async (event: FormEvent<HTMLUnknownElement>) => {
-    event.preventDefault();
->>>>>>> main
 
 //     if (isSubmitting) {
 //       return setSubmitting(true);

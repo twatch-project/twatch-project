@@ -3,19 +3,24 @@ import { Routes, Route } from 'react-router-dom';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Company from './pages/Company';
+
+// import CreateCompanyProfile from './pages/CreateCompanyProfile';
+// import CreateProfile from './pages/CreateProfile';
+// import EditPortfolioSection from './components/EditPortSection';
 import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
 import EditCompanyProfile from './pages/EditCompany';
 import { useAuth } from './providers/AuthProvider';
 import Companys from './pages/Companys';
-
+        
 function App() {
   const { isLoggedIn } = useAuth();
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
+        {/* <Route path="/testimage" element={<ImageGallery />} /> */}
         <Route>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
@@ -27,7 +32,6 @@ function App() {
           <Route path="/company/edit/:id" element={<EditCompanyProfile />} />
           {/* </Route> */}
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
-
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
           {/* <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} /> */}

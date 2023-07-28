@@ -1,0 +1,36 @@
+name: Test workflows
+run-name: "[${{ github.sha }}] Triggering test by ${{ github.actor }}"
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  docker:
+    name: Test TypeScript code for event ${{ github.event_name }} on ${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push Backend
+        uses: docker/build-push-action@v4
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/twatchcicd:latest
+      - name: Build and push Frontend
+        uses: docker/build-push-action@v4
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/twatchcicd:latest

@@ -1,17 +1,22 @@
 services:
-  postgres:
-    image: postgres
+  pg:
+    image: postgres:latest
+    ports: 
+      - 5432:5432
     environment:
-      POSTGRES_PASSWORD: academy
+      - POSTGRES_USER: pguser
+      - POSTGRES_PASSWORD: academy
 
-  redis:
-    image: redis
+  rd:
+    image: redis:latest
 
   app:
     # Build image nodeserver from Dockerfile in GitHub repo
-    image: nodejs-cicd
+    image: twatchcicd
     build: https://github.com/twatch-project/twatch-project.git#develop
     environment:
       POSTGRES_PASSWORD: academy
+      REDIS_URL: redis://rd:6379
+      DATABASE_URL: postgresql://pguser:academy@pg:5432
     ports:
       - "8000:8000"
