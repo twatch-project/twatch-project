@@ -1,20 +1,20 @@
 import { PortfolioDto } from '../types/dto';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/material';
-import Rating from '@mui/material/Rating';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import { styled } from '@mui/material';
+// import Rating from '@mui/material/Rating';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const StyledRating = styled(Rating)({
-  '& .MuiRating-iconFilled': {
-    color: '#ff6d75',
-  },
-  '& .MuiRating-iconHover': {
-    color: '#ff3d47',
-  },
-});
+// const StyledRating = styled(Rating)({
+//   '& .MuiRating-iconFilled': {
+//     color: '#ff6d75',
+//   },
+//   '& .MuiRating-iconHover': {
+//     color: '#ff3d47',
+//   },
+// });
 
-const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId, rating }: PortfolioDto) => {
+const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId }: PortfolioDto) => {
   return (
     <>
       <Link to={`/portfolio/${portId}`}>
@@ -22,7 +22,7 @@ const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId, ratin
         <div>{title}</div>
         <div>{body}</div>
         <div>{companyId}</div>
-        <div>
+        {/* <div>
           <StyledRating
             name="Heart Rate"
             defaultValue={5}
@@ -32,7 +32,7 @@ const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId, ratin
             emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
             readOnly
           />
-        </div>
+        </div> */}
       </Link>
     </>
   );

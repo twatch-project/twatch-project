@@ -1,5 +1,5 @@
-import { ChangeEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { ChangeEvent, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
@@ -17,11 +17,13 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import { Tags, host } from '../constant';
-import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
-import useAddressThai from '../hooks/useAddressThai';
+import axios from 'axios';
+import { Tags, host } from '../constant';
 import { AmphureDto, TambonDto } from '../types/dto';
+import useAddressThai from '../hooks/useAddressThai';
+import useCompany from '../hooks/useCompany';
+import { Link } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -40,32 +42,41 @@ function getStyles(name: string, tag: readonly string[], theme: Theme) {
   };
 }
 
-const CreatePortfolioSection = () => {
-  const [title, setTitle] = useState<string>('');
+export default function EditCompanyProfile() {
   const filesInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [body, setBody] = useState<string>('');
   const [address, setAddress] = useState<string>('');
-  const [postCode, setPostCode] = useState<string>('');
   const [contact, setContact] = useState<string>('');
+  const [postCode, setPostCode] = useState<string>('');
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
   const { provinces, amphures, tambons } = useAddressThai();
-  const [province, setProvince] = useState<{ id: number; name_en: string } | null>(null);
-  const [amphure, setAmphure] = useState<{ id: number; name_en: string } | null>(null);
-  const [amphureId, setAmphureId] = useState<AmphureDto[] | null>(null);
-  const [tambon, setTambon] = useState<{ id: number; name_en: string } | null>(null);
-  const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
-  const [tags, setTag] = useState<string[]>([]);
-
-  const theme = useTheme();
+  const [province, setProvince] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [amphure, setAmphure] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [amphureId, setAmphureId] = React.useState<AmphureDto[] | null>(null);
+  const [tambon, setTambon] = React.useState<{ id: number; name_en: string } | null>(null);
+  const [tambonId, setTambonId] = React.useState<TambonDto[] | null>(null);
   const { token } = useAuth();
+  const [imageProfile, setImageProfile] = useState<boolean>(true);
+  const theme = useTheme();
+  const [tags, setTags] = React.useState<string[]>([]);
+
+  const { id } = useParams();
+  const Id = Number(id);
+
+  const {
+    data,
+    status: { loading },
+  } = useCompany(Id);
 
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     const {
       target: { value },
     } = event;
-    setTag(
+    setTags(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
@@ -105,19 +116,28 @@ const CreatePortfolioSection = () => {
     }
   };
 
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setSelectedFile(file || null);
+    setImageProfile(false);
+  };
+
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
       setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, ...Array.from(files)]);
     }
   };
-
+  const handleAddFile = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
   const handleAddFiles = () => {
     if (filesInputRef.current) {
       filesInputRef.current.click();
     }
   };
-
   const handlerSubmit = async (event: FormEvent<HTMLUnknownElement>) => {
     event.preventDefault();
 
@@ -125,42 +145,55 @@ const CreatePortfolioSection = () => {
       return setSubmitting(true);
     }
     try {
-      if (!tambon?.name_en || !amphure?.name_en || !province?.name_en || !postCode) {
+      const formData = new FormData();
+
+      if (!selectedFile) {
+        toast.error('image not found');
         return;
       }
+      formData.append('company', selectedFile);
 
-      const formData = new FormData();
-      formData.append('title', title);
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append('content', selectedFiles[i]);
       }
+      setSelectedFiles([]);
+
+      if (!body || !address || !contact || !postCode || !tambon?.name_en || !amphure?.name_en || !province?.name_en) {
+        toast.error('Fill someting');
+        return;
+      }
+      formData.append('contact', contact);
       formData.append('body', body);
+      formData.append('postCode', postCode);
       formData.append('address', address);
       formData.append('sub_district', tambon?.name_en);
       formData.append('district', amphure?.name_en);
       formData.append('province', province?.name_en);
-      formData.append('postCode', postCode);
-      formData.append('contact', contact);
       for (let i = 0; i < tags.length; i++) {
         formData.append('tag', tags[i]);
       }
-      await axios.post(`${host}/portfolio`, formData, {
+      await axios.patch(`${host}/company/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
-
-      toast.success(`Successful Create Portfolio.`);
-      setSelectedFiles([]);
-      navigate('/company/:companyId');
+      toast.success(`Successful Create CompanyProfile.`);
+      navigate('/');
     } catch (err) {
       console.error(err);
-      toast.error(`Unsuccessful Create Portfolio`);
+      toast.error(`Unsuccessful Create Company Profile`);
     } finally {
       setSubmitting(false);
     }
   };
+
+  if (!data || loading)
+    return (
+      <div>
+        <p>Loading</p>
+      </div>
+    );
 
   return (
     <>
@@ -170,21 +203,39 @@ const CreatePortfolioSection = () => {
       >
         <form
           onSubmit={handlerSubmit}
-          className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
+          className="flex w-3/4 sm:w-3/5 md:w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
-          <h1 className="font-bold ">CREATE PORTFOLIO</h1>
-          <div className="w-full">
-            <TextField
-              className="w-full"
-              id="outlined-multiline-static"
-              label="BODY"
-              multiline
-              type="text"
-              rows={10}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
+          <h1 className="font-bold ">EDIT COMPANY PROFILE</h1>
+          {imageProfile ? (
+            <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
+              <img className="w-full h-full rounded-full truncate" src={data.imageCompanyUrl} alt="imageprofile" />
+            </div>
+          ) : (
+            <>
+              {selectedFile && (
+                <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
+                  <img
+                    className="w-full h-full rounded-full truncate"
+                    src={URL.createObjectURL(selectedFile)}
+                    alt="image-profile"
+                  />
+                </div>
+              )}
+            </>
+          )}
+          <div className="upload flex flex-col items-center">
+            <input
+              type="file"
+              className="m-[15px] w-[120px] bg-blue text-white p-[5px] rounded-[5px] text-sm "
+              placeholder="Upload file"
+              onChange={handleFileChange}
+              ref={fileInputRef}
+              style={{ display: 'none' }}
             />
+            <Button variant="outlined" type="button" onClick={handleAddFile}>
+              Profile IMAGE
+            </Button>
+            <p>{selectedFile?.name}</p>
           </div>
           <div className="w-full">
             <TextField
@@ -196,7 +247,6 @@ const CreatePortfolioSection = () => {
               rows={10}
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              required
             />
           </div>
           <div className="flex flex-col items-center">
@@ -275,26 +325,24 @@ const CreatePortfolioSection = () => {
               variant="outlined"
               type="text"
               onChange={(e) => setAddress(e.target.value)}
-              required
             />
           </div>
           <div className="w-full">
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="contact"
+              label="CONTACT"
               value={contact}
               variant="outlined"
               type="text"
               onChange={(e) => setContact(e.target.value)}
-              required
             />
           </div>
           <div className="w-full">
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="postCode"
+              label="POSTCODE"
               variant="outlined"
               type="number"
               value={postCode}
@@ -302,12 +350,11 @@ const CreatePortfolioSection = () => {
               inputProps={{
                 min: 0,
               }}
-              required
             />
           </div>
           <div>
             <FormControl sx={{ m: 1, width: 300 }}>
-              <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
+              <InputLabel id="demo-multiple-chip-label">TAGS</InputLabel>
               <Select
                 labelId="demo-multiple-chip-label"
                 id="demo-multiple-chip"
@@ -335,10 +382,13 @@ const CreatePortfolioSection = () => {
           <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
             Submit
           </button>
+          <Link to={`/company/${id}`}>
+            <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
+              Back
+            </button>
+          </Link>
         </form>
       </section>
     </>
   );
-};
-
-export default CreatePortfolioSection;
+}

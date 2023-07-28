@@ -36,6 +36,15 @@ class HandlerUser implements IHandlerUser {
         })
         .end();
     }
+
+    const usernameData = await this.repo.getUsername(username);
+    if (username === usernameData?.username) {
+      return res
+        .status(401)
+        .json({ error: "This username is used already" })
+        .end();
+    }
+
     try {
       const newUser = await this.repo.createUser({
         username,
@@ -64,7 +73,10 @@ class HandlerUser implements IHandlerUser {
     try {
       const user = await this.repo.getId(req.payload.id);
 
-      return res.status(200).json({ user, company: req.payload.companyId, status: "ok" }).end();
+      return res
+        .status(200)
+        .json({ user, company: req.payload.companyId, status: "ok" })
+        .end();
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: `failed to get id` }).end();
@@ -95,13 +107,18 @@ class HandlerUser implements IHandlerUser {
       }
 
       const company = await this.repo.getCompanyIdByUser(user.userId);
+<<<<<<< HEAD
       // if (!company) {
       //   return res
       //     .status(404)
       //     .json({ error: `no such company: ${username}`, statusCode: 404 })
       //     .end();
       // }
-      console.log(company?.companyId)
+      console.log(company?.companyId);
+=======
+
+
+>>>>>>> main
       const payload: Payload = {
         id: user.userId,
         username: user.username,
