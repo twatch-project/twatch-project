@@ -30,16 +30,6 @@ export default function Company() {
       </div>
     );
 
-  // const img = data.imageCompanyUrl;
-
-  // if (!data?.imageContentUrls) {
-  //   return (
-  //     <>
-  //       <div>Loading</div>
-  //     </>
-  //   );
-  // }
-  // const images = data?.imageContentUrls;
   return (
     <>
       <Nav />
@@ -76,7 +66,6 @@ export default function Company() {
                 <p>02-1234567</p>
               </div>
             </div>
-
             <div className="edit-info flex justify-end p-[15px]">
               <Link to="/company/create">
                 <button
