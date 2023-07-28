@@ -95,13 +95,8 @@ class HandlerUser implements IHandlerUser {
       }
 
       const company = await this.repo.getCompanyIdByUser(user.userId);
-      // if (!company) {
-      //   return res
-      //     .status(404)
-      //     .json({ error: `no such company: ${username}`, statusCode: 404 })
-      //     .end();
-      // }
-      console.log(company?.companyId)
+
+
       const payload: Payload = {
         id: user.userId,
         username: user.username,

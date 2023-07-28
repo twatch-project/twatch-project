@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
@@ -17,13 +17,13 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import profileimg from '../img/user.png';
 import { useAuth } from '../providers/AuthProvider';
 import axios from 'axios';
 import { Tags, host } from '../constant';
 import { AmphureDto, TambonDto } from '../types/dto';
 import useAddressThai from '../hooks/useAddressThai';
-
+import useCompany from '../hooks/useCompany';
+import { Link } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -42,13 +42,11 @@ function getStyles(name: string, tag: readonly string[], theme: Theme) {
   };
 }
 
-export default function CreateCompanyProfile() {
+export default function EditCompanyProfile() {
   const filesInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [companyName, setCompanyName] = useState<string>('');
-  const [companyRegistration, setCompanyRegistration] = useState<string>('');
   const [body, setBody] = useState<string>('');
   const [address, setAddress] = useState<string>('');
   const [contact, setContact] = useState<string>('');
@@ -65,6 +63,14 @@ export default function CreateCompanyProfile() {
   const [imageProfile, setImageProfile] = useState<boolean>(true);
   const theme = useTheme();
   const [tags, setTags] = React.useState<string[]>([]);
+
+  const { id } = useParams();
+  const Id = Number(id);
+
+  const {
+    data,
+    status: { loading },
+  } = useCompany(Id);
 
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     const {
@@ -109,6 +115,7 @@ export default function CreateCompanyProfile() {
       setTambon(selectedTambon);
     }
   };
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setSelectedFile(file || null);
@@ -151,22 +158,10 @@ export default function CreateCompanyProfile() {
       }
       setSelectedFiles([]);
 
-      if (
-        !companyName ||
-        !body ||
-        !companyRegistration ||
-        !address ||
-        !contact ||
-        !postCode ||
-        !tambon?.name_en ||
-        !amphure?.name_en ||
-        !province?.name_en
-      ) {
+      if (!body || !address || !contact || !postCode || !tambon?.name_en || !amphure?.name_en || !province?.name_en) {
         toast.error('Fill someting');
         return;
       }
-      formData.append('companyName', companyName);
-      formData.append('companyRegistration', companyRegistration);
       formData.append('contact', contact);
       formData.append('body', body);
       formData.append('postCode', postCode);
@@ -177,8 +172,7 @@ export default function CreateCompanyProfile() {
       for (let i = 0; i < tags.length; i++) {
         formData.append('tag', tags[i]);
       }
-      console.log(...formData);
-      await axios.post(`${host}/company`, formData, {
+      await axios.patch(`${host}/company/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -194,6 +188,13 @@ export default function CreateCompanyProfile() {
     }
   };
 
+  if (!data || loading)
+    return (
+      <div>
+        <p>Loading</p>
+      </div>
+    );
+
   return (
     <>
       <section
@@ -202,12 +203,12 @@ export default function CreateCompanyProfile() {
       >
         <form
           onSubmit={handlerSubmit}
-          className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
+          className="flex w-3/4 sm:w-3/5 md:w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
-          <h1 className="font-bold ">CREATE COMPANY PROFILE</h1>
+          <h1 className="font-bold ">EDIT COMPANY PROFILE</h1>
           {imageProfile ? (
             <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-              <img className="w-full h-full rounded-full truncate" src={profileimg} alt="imageprofile" />
+              <img className="w-full h-full rounded-full truncate" src={data.imageCompanyUrl} alt="imageprofile" />
             </div>
           ) : (
             <>
@@ -239,30 +240,6 @@ export default function CreateCompanyProfile() {
           <div className="w-full">
             <TextField
               className="w-full"
-              id="outlined-basic"
-              label="COMPANY NAME"
-              value={companyName}
-              variant="outlined"
-              type="text"
-              onChange={(e) => setCompanyName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="w-full">
-            <TextField
-              className="w-full"
-              id="outlined-basic"
-              label="COMPANY REGISTRATION NUMBER"
-              value={companyRegistration}
-              variant="outlined"
-              type="text"
-              onChange={(e) => setCompanyRegistration(e.target.value)}
-              required
-            />
-          </div>
-          <div className="w-full">
-            <TextField
-              className="w-full"
               id="outlined-multiline-static"
               label="BODY"
               multiline
@@ -270,7 +247,6 @@ export default function CreateCompanyProfile() {
               rows={10}
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              required
             />
           </div>
           <div className="flex flex-col items-center">
@@ -349,26 +325,24 @@ export default function CreateCompanyProfile() {
               variant="outlined"
               type="text"
               onChange={(e) => setAddress(e.target.value)}
-              required
             />
           </div>
           <div className="w-full">
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="contact"
+              label="CONTACT"
               value={contact}
               variant="outlined"
               type="text"
               onChange={(e) => setContact(e.target.value)}
-              required
             />
           </div>
           <div className="w-full">
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="postCode"
+              label="POSTCODE"
               variant="outlined"
               type="number"
               value={postCode}
@@ -376,12 +350,11 @@ export default function CreateCompanyProfile() {
               inputProps={{
                 min: 0,
               }}
-              required
             />
           </div>
           <div>
             <FormControl sx={{ m: 1, width: 300 }}>
-              <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
+              <InputLabel id="demo-multiple-chip-label">TAGS</InputLabel>
               <Select
                 labelId="demo-multiple-chip-label"
                 id="demo-multiple-chip"
@@ -409,6 +382,11 @@ export default function CreateCompanyProfile() {
           <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
             Submit
           </button>
+          <Link to={`/company/${id}`}>
+            <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
+              Back
+            </button>
+          </Link>
         </form>
       </section>
     </>
