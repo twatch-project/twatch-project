@@ -43,7 +43,6 @@ export interface PortfolioDto {
   postCode: number;
   createAt: Date;
   updateAt: Date;
-  rating: number; //@TODO Add in backend
 
   companyId: number;
 }

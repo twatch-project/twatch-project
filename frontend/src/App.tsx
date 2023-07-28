@@ -3,14 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Company from './pages/Company';
-import Login from './pages/Login';
 import CreatePortfolio from './pages/CreatePortfolio';
-import CreateCompanyProfile from './pages/CreateCompanyProfile';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
-import EditPortfolio from './pages/EditPortfolio';
 import EditCompanyProfile from './pages/EditCompany';
 import { useAuth } from './providers/AuthProvider';
+import Companys from './pages/Companys';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -22,12 +20,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
-<!--           <Route path="/CreateCompanyProfile" element={<CreateCompanyProfile />} /> -->
           <Route path="/companys" element={<Companys />} />
           <Route path="/company/:id" element={<Company />} />
           {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
-
-          <Route path="/company/create" element={<CreateCompanyProfile />} />
+          {/* <Route path="/company/create" element={<CreateCompanyProfile />} /> */}
           <Route path="/company/edit/:id" element={<EditCompanyProfile />} />
           {/* </Route> */}
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
@@ -35,7 +31,6 @@ function App() {
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
           {/* <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} /> */}
-          <Route path="/editPortSection" element={<EditPortfolioSection />} />
           <Route path="/company" element={<Company />} />
         </Route>
         {/* <Route path="/login" element={<Login />} /> */}

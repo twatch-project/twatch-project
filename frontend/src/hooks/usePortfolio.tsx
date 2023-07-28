@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { PortfolioHook } from '../types/portfolio.hook';
 import { PortfolioDto } from '../types/dto';
 
-const usePortfolio = (postId: string): PortfolioHook => {
+const usePortfolio = (portId: string): PortfolioHook => {
   const [data, setData] = useState<PortfolioDto | null>(null);
   const [error, setError] = useState<null | unknown>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,7 +13,7 @@ const usePortfolio = (postId: string): PortfolioHook => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${host}/content/${postId}`);
+        const res = await fetch(`${host}/content/${portId}`);
         const data = await res.json();
 
         setData(data);

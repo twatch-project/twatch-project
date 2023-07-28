@@ -99,10 +99,11 @@ const AuthProvider = (props: AuthProviderProps) => {
         },
         body: JSON.stringify(registerInfo),
       });
-      const data = await res.json();
+      const status = await res.status;
 
-      if (data.statusCode === 401) {
-        throw new Error(data.message);
+      if (status === 401) {
+        toast.error('THIS USERNAME IS USED ALREADY`');
+        throw new Error(`This username is used already`);
       }
     } catch (err: any) {
       throw new Error(err.message);

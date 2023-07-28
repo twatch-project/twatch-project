@@ -44,7 +44,7 @@ function getStyles(name: string, tag: readonly string[], theme: Theme) {
 const EditPortfolioSection = () => {
   // const { isLoggedIn, logout } = useAuth();
   const [title, setTitle] = useState<string>('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const filesInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [body, setBody] = useState<string>('');
   const [address, setAddress] = useState<string>('');
@@ -115,9 +115,9 @@ const EditPortfolioSection = () => {
     }
   };
 
-  const handleAddFile = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+  const handleAddFiles = () => {
+    if (filesInputRef.current) {
+      filesInputRef.current.click();
     }
   };
 
@@ -169,31 +169,17 @@ const EditPortfolioSection = () => {
 
   return (
     <>
-      <section className="flex justify-center flex-col ">
+      <section className="flex justify-center my-10">
         <form
           onSubmit={handlerSubmit}
-          className="flex w-[600px] border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[10px] m-[15px] "
+          className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
-          {/* {isLoggedIn ? (
-            <>
-              <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
-                logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/Register">SignUp</Link>
-              <Link to="/Login" className="bg-blue py-[5px] px-[1rem] rounded text-white">
-                Login
-              </Link>
-            </>
-          )} */}
-          <h1 className="font-bold text-[24px] my-[20px]">EDIT PORTFOLIO</h1>
-          <div className="input">
+          <h1 className="font-bold ">EDIT PORTFOLIO</h1>
+          <div className="w-full">
             <TextField
-              sx={{ width: 300, height: 70 }}
+              className="w-full"
               id="outlined-multiline-static"
-              label="TITLE"
+              label="BODY"
               multiline
               type="text"
               // rows={10}
@@ -202,9 +188,9 @@ const EditPortfolioSection = () => {
               required
             />
           </div>
-          <div className="input">
+          <div className="w-full">
             <TextField
-              sx={{ width: 300, height: 70 }}
+              className="w-full"
               id="outlined-multiline-static"
               label="BODY"
               multiline
@@ -215,23 +201,10 @@ const EditPortfolioSection = () => {
               required
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <h1 className="text-sm ">Multiple File Input Example</h1>
-            <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileSelect} multiple />
-            <button
-              className="p-[10px] border-black border-[0.5px] rounded-full hover:bg-blue hover:text-white duration-500"
-              type="button"
-              onClick={handleAddFile}
-            >
+          <div className="flex flex-col items-center">
+            <input type="file" ref={filesInputRef} style={{ display: 'none' }} onChange={handleFileSelect} multiple />
+            <Button variant="outlined" type="button" onClick={handleAddFiles}>
               Add File
-            </button>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={handlerSubmit}
-              disabled={selectedFiles.length === 0}
-            >
-              Submit
             </Button>
             <ul className="flex justify-center">
               {selectedFiles.map((file, index) => (
@@ -239,9 +212,8 @@ const EditPortfolioSection = () => {
               ))}
             </ul>
           </div>
-
-          <div>
-            <FormControl sx={{ m: 1, minWidth: 100 }}>
+          <div className="w-auto">
+            <FormControl sx={{ m: 1, minWidth: 200 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Provice</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -259,8 +231,7 @@ const EditPortfolioSection = () => {
                   ))}
               </Select>
             </FormControl>
-
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <FormControl sx={{ m: 1, minWidth: 150 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -278,8 +249,7 @@ const EditPortfolioSection = () => {
                   ))}
               </Select>
             </FormControl>
-
-            <FormControl sx={{ m: 1, minWidth: 100 }}>
+            <FormControl sx={{ m: 1, minWidth: 200 }}>
               <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
@@ -298,47 +268,45 @@ const EditPortfolioSection = () => {
               </Select>
             </FormControl>
           </div>
-
-          <div className="input">
+          <div className="w-full">
             <TextField
-              sx={{ width: 300, height: 70 }}
-              id="outlined-multiline-static"
+              className="w-full"
+              id="outlined-basic"
               label="ADDRESS"
-              multiline
-              type="address"
-              // rows={10}
               value={address}
+              variant="outlined"
+              type="text"
               onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
-          <div className="input">
+          <div className="w-full">
             <TextField
-              sx={{ width: 300, height: 70 }}
-              id="outlined-multiline-static"
-              label="ADDRESS"
-              multiline
-              type="address"
-              // rows={10}
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input">
-            <TextField
-              sx={{ width: 300, height: 70 }}
-              id="outlined-multiline-static"
-              label="CONTACT"
-              multiline
-              type="contact"
-              // rows={10}
+              className="w-full"
+              id="outlined-basic"
+              label="contact"
               value={contact}
-              onChange={(e) => setAddress(e.target.value)}
+              variant="outlined"
+              type="text"
+              onChange={(e) => setContact(e.target.value)}
               required
             />
           </div>
-          {/* <TagSelect /> */}
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              id="outlined-basic"
+              label="postCode"
+              variant="outlined"
+              type="number"
+              value={postCode}
+              onChange={(e) => setPostCode(e.target.value)}
+              inputProps={{
+                min: 0,
+              }}
+              required
+            />
+          </div>
           <div>
             <FormControl sx={{ width: 300 }}>
               <InputLabel id="demo-multiple-chip-label">Tags</InputLabel>
@@ -366,11 +334,8 @@ const EditPortfolioSection = () => {
               </Select>
             </FormControl>
           </div>
-          <button
-            className="my-[10px] p-[10px] bg-blue rounded-lg text-white hover:border-black border-[0.5px] duration-500 hover:bg-white hover:text-black"
-            disabled={isSubmitting}
-          >
-            CONFIRM
+          <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
+            Submit
           </button>
         </form>
       </section>

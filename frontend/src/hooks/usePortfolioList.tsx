@@ -15,7 +15,7 @@ const usePortfolioList = (): PortfolioListHook => {
         const res = await fetch(`${host}/portfolio`);
         const data = await res.json();
 
-        setData(data.data);
+        setData(data);
       } catch (err: any) {
         setError(err.message);
       } finally {
