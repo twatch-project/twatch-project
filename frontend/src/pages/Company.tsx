@@ -30,23 +30,13 @@ export default function Company() {
       </div>
     );
 
-  // const img = data.imageCompanyUrl;
-
-  // if (!data?.imageContentUrls) {
-  //   return (
-  //     <>
-  //       <div>Loading</div>
-  //     </>
-  //   );
-  // }
-  // const images = data?.imageContentUrls;
   return (
     <>
       <Nav />
-      <section className="flex items-center justify-center min-h-[80vh] w-4/5 mx-auto mt-20">
-        <div className="HeroSection h-[600px] flex bg-cover justify-between p-2">
+      <section className="flex items-center justify-center min-h-[80vh]  mx-auto mt-20">
+        <div className="HeroSection h-full flex w-3/5 p-2 gap-5">
           <ImageGallery images={data.imageContentUrls} />
-          <div className="companyName w-1/2 h-[480px] flex justify-center flex-col m-5 p-5">
+          <div className="companyName w-1/2 h-full flex justify-between flex-col m-5 px-5 border rounded-xl">
             <h1 className=" font-bold text-[18px] py-[15px]">{data.companyName}</h1>
             <div className="detail flex flex-col gap-1">
               <div className="flex gap-3">
@@ -72,13 +62,12 @@ export default function Company() {
             <div className="footer flex justify-between w-[300px] my-[20px]">
               <div className="icon-left">Twatch0000@gmail.com</div>
               <div className="icon-right">
-                <div className="icon"></div>
-                <p>02-1234567</p>
+                {/* <div className="icon"></div>
+                <p></p> */}
               </div>
             </div>
-
             <div className="edit-info flex justify-end p-[15px]">
-              <Link to="/company/create">
+              <Link to={`/company/edit/${id}`}>
                 <button
                   type="button"
                   className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

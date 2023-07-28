@@ -1,34 +1,37 @@
 import { Toaster } from 'react-hot-toast';
-// import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Company from './pages/Company';
-import Companys from './pages/Companys';
 import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
-// import ImageGallery from './components/Imgeselect';
-import EditPortfolio from './pages/EditPortfolio';
+import EditCompanyProfile from './pages/EditCompany';
+import { useAuth } from './providers/AuthProvider';
+import Companys from './pages/Companys';
 
 function App() {
+  const { isLoggedIn } = useAuth();
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
-        {/* <Route path="/testimage" element={<ImageGallery />} /> */}
-        {/* <Route path="/" element={<Homes3 />} /> */}
         <Route>
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/companys" element={<Companys />} />
           <Route path="/company/:id" element={<Company />} />
+          {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
           {/* <Route path="/company/create" element={<CreateCompanyProfile />} /> */}
+          <Route path="/company/edit/:id" element={<EditCompanyProfile />} />
+          {/* </Route> */}
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
+
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
-          <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} />
+          {/* <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} /> */}
+          <Route path="/company" element={<Company />} />
         </Route>
         {/* <Route path="/login" element={<Login />} /> */}
         {/* <Route path="/register" element={<Register />} /> */}

@@ -107,6 +107,7 @@ class HandlerUser implements IHandlerUser {
       }
 
       const company = await this.repo.getCompanyIdByUser(user.userId);
+<<<<<<< HEAD
       // if (!company) {
       //   return res
       //     .status(404)
@@ -114,6 +115,10 @@ class HandlerUser implements IHandlerUser {
       //     .end();
       // }
       console.log(company?.companyId);
+=======
+
+
+>>>>>>> main
       const payload: Payload = {
         id: user.userId,
         username: user.username,

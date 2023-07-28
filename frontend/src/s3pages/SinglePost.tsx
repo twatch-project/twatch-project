@@ -5,6 +5,7 @@ export default function SinglePost(arg: {
   commentClicked: any;
   deletePostClicked: any;
 }) {
+
   const { id, companyName, imageCompanyUrl, totalComments, totalLikes } = arg.post;
 
   return (

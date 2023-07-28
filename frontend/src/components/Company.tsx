@@ -1,14 +1,7 @@
-// import { CompanyDto } from '../types/dto'
 import { Link } from 'react-router-dom';
-// import img from '../img/3.jpg'
 import ReactStars from 'react-stars';
-// import { styled } from '@mui/material'
-// import Rating from '@mui/material/Rating'
-// import FavoriteIcon from '@mui/icons-material/Favorite'
-// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 
 export default function Company() {
-  // const { company } = props;
   const img =
     'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   return (
@@ -19,9 +12,9 @@ export default function Company() {
             <div className="title font-bold text-[24px]">Blog Company</div>
             <div className="search">Search</div>
           </div>
-          <section className="flex justify-center gap-[50px] w-[1040px] flex-wrap ">
-            <div className="card  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
-              <Link to="/company/:id" className="head">
+          <section className="flex justify-center gap-[50px] w-[1040px] flex-wrap">
+            <div className="card  flex flex-col flex-wrap w-[300px] bg-white rounded border-[0.5px] overflow-hidden">
+              <Link to="/company/:companyId" className="head hover:scale-150 duration-500">
                 <img src={img} alt="" />
               </Link>
               <div className="center text-center my-2">
