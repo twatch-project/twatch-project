@@ -49,7 +49,7 @@ const PortfolioSection = () => {
         {Number(companyId) === pageCompanyId ? (
           <Link to={`/portfolio/${portId}/edit`}>
             <Button type="submit" variant="contained">
-              Edit
+              EDIT PORFOLIO
             </Button>
           </Link>
         ) : undefined}
