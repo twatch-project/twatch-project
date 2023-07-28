@@ -10,11 +10,9 @@ import React from 'react';
 const LoginSection = () => {
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
-
   const [isSubmitting, setSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -27,9 +25,14 @@ const LoginSection = () => {
         return toast.error('no such username and password');
       }
       await login(usernameInput, passwordInput);
-
       toast.success('Successful Login');
-      navigate('/');
+
+      const checkCompany = await localStorage.getItem('companyId');
+
+      if (checkCompany) {
+        navigate('/');
+      }
+      navigate('/company/create');
     } catch (err) {
       console.error(err);
       toast.error('Unsuccessful Login');

@@ -41,20 +41,20 @@ model Company {
   imageCompanyUrl     String
   imageContents       String[]
   imageContentUrls    String[]
+  body                String
   address             String
   sub_district        String
   district            String
   province            String
   postCode            String
   contact             String
-  // rateprice        Int
   tag                 String[]
 
   userCompany User   @relation(fields: [userId], references: [userId])
   userId      String @unique
 
   // engineer  Engineer[]
-  portfolio Portfolio[]
+  portfolioBy Portfolio[]
 }
 
 // model Engineer {
@@ -85,7 +85,7 @@ model Portfolio {
 
   postedBy  Company            @relation(fields: [companyId], references: [companyId])
   companyId Int
-  user      CommentPortfolio[]
+  commentBy CommentPortfolio[]
 }
 
 model CommentPortfolio {

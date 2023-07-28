@@ -28,6 +28,7 @@ export interface IRepositoryUser {
   createUser(user: ICreateUser): Promise<IUser>;
   getUserByUsername(username: string): Promise<IUser | null>;
   getId(id: string): Promise<IUser | null>;
+  getCompanyIdByUser(userId: string): Promise<ICompany | null>;
 }
 
 //implements RepositoryCustomer
@@ -88,6 +89,9 @@ export interface IRepositoryPortfolio {
     companyId: number;
   }): Promise<IPort>;
   deletePortById(arg: { portId: number; companyId: number }): Promise<IPort>;
+  getRatingByPortId(
+    portId: number
+  ): Promise<{ _avg: { rating: boolean | null } }>;
 }
 
 export interface IRepositoryCommentPort {

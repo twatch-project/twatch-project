@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ChildProps, IAuthContext, UserRole } from '../types/auth.context';
 import { host } from '../constant';
+import { toast } from 'react-hot-toast';
 
 export type AuthProviderProps = ChildProps;
-type UserInfo = Pick<IAuthContext, 'userId' | 'token'>;
+type UserInfo = Pick<IAuthContext, 'userId' | 'token' | 'companyId'>;
 
 type LoginFunc = IAuthContext['login'];
 type LogoutFunc = IAuthContext['logout'];
@@ -34,6 +35,7 @@ const AuthProvider = (props: AuthProviderProps) => {
   const [userInfo, setUserInfo] = useState<UserInfo>({
     userId: localStorage.getItem('userId'),
     token: localStorage.getItem('token'),
+    companyId: localStorage.getItem('companyId'),
   });
 
   const login: LoginFunc = async (username: string, password: string) => {
@@ -41,7 +43,7 @@ const AuthProvider = (props: AuthProviderProps) => {
 
     try {
       const res = await fetch(`${host}/auth/login`, {
-        method: 'Post',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -59,15 +61,16 @@ const AuthProvider = (props: AuthProviderProps) => {
       localStorage.setItem('token', data.accessToken);
       const accessToken = localStorage.getItem('token') || 'foo';
 
-      const { user } = await retrieveUserData(accessToken);
+      const { user, company } = await retrieveUserData(accessToken);
 
+      localStorage.setItem('companyId', company);
       localStorage.setItem('userId', user.userId);
-
       setIsLoggedIn(true);
       setUserInfo(() => {
         const update = {
           userId: user.userId,
           token: accessToken,
+          companyId: company,
         };
         return update;
       });
@@ -79,14 +82,14 @@ const AuthProvider = (props: AuthProviderProps) => {
   const logout: LogoutFunc = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
+    localStorage.removeItem('companyId');
     setIsLoggedIn(false);
-    setUserInfo({ userId: null, token: null });
-    // toast.success('Successful Logout')
+    setUserInfo({ userId: null, token: null, companyId: null });
+    toast.success('Successful Logout');
   };
 
   const register: RegisterFunc = async (username: string, password: string, role: UserRole, email: string) => {
     const registerInfo = { username, password, role, email };
-    console.log(registerInfo);
 
     try {
       const res = await fetch(`${host}/user`, {
@@ -105,50 +108,6 @@ const AuthProvider = (props: AuthProviderProps) => {
       throw new Error(err.message);
     }
   };
-
-  // const CompanyProfile: CompanyProfileFunc = async (
-  //   companyName: string,
-  //   companyRegistration: string,
-  //   body: string,
-  //   imageContent: string,
-  //   address: string,
-  //   sub_district: string,
-  //   district: string,
-  //   province: string,
-  //   contract: string,
-  //   tag: string,
-  // ) => {
-  //   const CompanyProfileInfo = {
-  //     companyName,
-  //     companyRegistration,
-  //     body,
-  //     imageContent,
-  //     address,
-  //     sub_district,
-  //     district,
-  //     province,
-  //     contract,
-  //     tag,
-  //   }
-  //   console.log(CompanyProfileInfo)
-
-  //   try {
-  //     const res = await fetch(`${host}/user`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(CompanyProfileInfo),
-  //     })
-  //     const data = await res.json()
-
-  //     if (data.statusCode === 401) {
-  //       throw new Error(data.message)
-  //     }
-  //   } catch (err: any) {
-  //     throw new Error(err.message)
-  //   }
-  // }
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, ...userInfo, logout, register }}>{children}</AuthContext.Provider>

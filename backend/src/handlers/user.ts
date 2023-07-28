@@ -29,9 +29,12 @@ class HandlerUser implements IHandlerUser {
     const registeredAt = new Date();
 
     if (!username || !password || !role || !email) {
-      return res.status(400).json({
-        error: "missing username or password or role or email in body",
-      }).end();
+      return res
+        .status(400)
+        .json({
+          error: "missing username or password or role or email in body",
+        })
+        .end();
     }
     try {
       const newUser = await this.repo.createUser({
@@ -60,8 +63,8 @@ class HandlerUser implements IHandlerUser {
     }
     try {
       const user = await this.repo.getId(req.payload.id);
-      console.log(user);
-      return res.status(200).json({ user, status: "ok" }).end();
+
+      return res.status(200).json({ user, company: req.payload.companyId, status: "ok" }).end();
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: `failed to get id` }).end();
@@ -76,7 +79,8 @@ class HandlerUser implements IHandlerUser {
     if (!username || !password) {
       return res
         .status(400)
-        .json({ error: "missing username or password in body" }).end();
+        .json({ error: "missing username or password in body" })
+        .end();
     }
     try {
       const user = await this.repo.getUserByUsername(username);
@@ -89,10 +93,20 @@ class HandlerUser implements IHandlerUser {
       if (!compareHash(password, user.password)) {
         return res.status(401).json({ error: `invalid credentail` }).end();
       }
+
+      const company = await this.repo.getCompanyIdByUser(user.userId);
+      // if (!company) {
+      //   return res
+      //     .status(404)
+      //     .json({ error: `no such company: ${username}`, statusCode: 404 })
+      //     .end();
+      // }
+      console.log(company?.companyId)
       const payload: Payload = {
         id: user.userId,
         username: user.username,
         role: user.role,
+        companyId: company?.companyId,
       };
       const token = newJwt(payload);
       return res
@@ -102,6 +116,7 @@ class HandlerUser implements IHandlerUser {
           id: user.userId,
           username: user.username,
           role: user.role,
+          companyId: company?.companyId,
           registeredAt: user.registeredAt,
           accessToken: token,
         })

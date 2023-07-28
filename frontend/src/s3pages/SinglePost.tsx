@@ -5,9 +5,8 @@ export default function SinglePost(arg: {
   commentClicked: any;
   deletePostClicked: any;
 }) {
-  console.log(arg.post);
+
   const { id, companyName, imageCompanyUrl, totalComments, totalLikes } = arg.post;
-  console.log(imageCompanyUrl);
 
   return (
     <div className={arg.className + ' outline-1'} style={{ width: 650 }}>

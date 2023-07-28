@@ -40,12 +40,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
       return res.status(400).json({ error: "not company role" }).end();
     }
 
-    console.log(companyRole);
-
-    const { title, body, tag, address, sub_district, district, province, postCode } =
-      req.body;
-
-    console.log(
+    const {
       title,
       body,
       tag,
@@ -53,8 +48,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
       sub_district,
       district,
       province,
-      postCode
-    );
+      postCode,
+    } = req.body;
 
     if (
       !title ||
@@ -146,7 +141,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
   }
 
   async getPortById(
-    req: JwtAuthRequest<WithPortId, WithPort>,
+    req: JwtAuthRequest<WithPortId, Empty>,
     res: Response
   ): Promise<Response> {
     const portId = Number(req.params.portId);
@@ -161,6 +156,34 @@ class HandlerPortfolio implements IHandlerPorfolio {
       if (!port) {
         return res.status(401).json("No such a Port").end();
       }
+
+      return res.status(200).json({ port, status: "ok" }).end();
+    } catch (err) {
+      console.error(err);
+      return res
+        .status(500)
+        .json(`Can't get Port ID with Error Code ${err}`)
+        .end();
+    }
+  }
+
+  async getRatingByPortId(
+    req: JwtAuthRequest<WithPortId, Empty>,
+    res: Response
+  ): Promise<Response> {
+    const portId = Number(req.params.portId);
+
+    if (isNaN(portId)) {
+      return res
+        .status(400)
+        .json({ error: `id ${req.params.portId} is not a number` });
+    }
+    try {
+      const port = await this.repoPort.getRatingByPortId(portId);
+      if (!port) {
+        return res.status(401).json("No such a Port").end();
+      }
+
       return res.status(200).json({ port, status: "ok" }).end();
     } catch (err) {
       console.error(err);
@@ -213,8 +236,16 @@ class HandlerPortfolio implements IHandlerPorfolio {
         .status(400)
         .json({ error: `id ${req.params.portId} is not a number` });
     }
-    const { title, body, address, sub_district, district, province, tag , postCode} =
-      req.body;
+    const {
+      title,
+      body,
+      address,
+      sub_district,
+      district,
+      province,
+      tag,
+      postCode,
+    } = req.body;
 
     const userId = req.payload.id;
     const company = await this.repoCompany.getCompanyId(userId);

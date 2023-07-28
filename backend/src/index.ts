@@ -160,7 +160,8 @@ async function main() {
   portfolioRouter.get("/", handlerPortfolio.getPorts.bind(handlerPortfolio));
   portfolioRouter.get(
     "/:portId",
-    handlerPortfolio.getPortById.bind(handlerPortfolio)
+    handlerPortfolio.getPortById.bind(handlerPortfolio),
+    handlerPortfolio.getRatingByPortId.bind(handlerPortfolio)
   );
   portfolioRouter.get(
     "/company/:companyId",

@@ -32,6 +32,7 @@ class HandlerCompany implements IHandlerCompany {
     const {
       companyName,
       companyRegistration,
+      body,
       address,
       sub_district,
       district,
@@ -40,10 +41,10 @@ class HandlerCompany implements IHandlerCompany {
       postCode,
       tag,
     } = req.body;
-
     if (
       !companyName ||
       !companyRegistration ||
+      !body ||
       !address ||
       !sub_district ||
       !district ||
@@ -66,13 +67,13 @@ class HandlerCompany implements IHandlerCompany {
     const imageContents: string[] = fContents.map(() => generateFileName());
 
     const fileBufferCompany = await sharp(fCompany[0]?.buffer)
-      .resize({ height: 1920, width: 1080, fit: "contain" })
+      .resize({ height: 1920, width: 1080, fit: "cover" })
       .toBuffer();
 
     const fileBufferContents: Buffer[] = await Promise.all(
       fContents.map(async (fContent): Promise<Buffer> => {
         return await sharp(fContent.buffer)
-          .resize({ height: 1920, width: 1080, fit: "contain" })
+          .resize({ height: 1920, width: 1080, fit: "cover" })
           .toBuffer();
       })
     );
@@ -101,6 +102,7 @@ class HandlerCompany implements IHandlerCompany {
         imageCompanyUrl,
         imageContents,
         imageContentUrls,
+        body,
         address,
         sub_district,
         district,
@@ -177,8 +179,15 @@ class HandlerCompany implements IHandlerCompany {
         .json({ error: `id ${req.params.companyId} is not a number` });
     }
 
-    const { address, sub_district, district, province, contact, tag, postCode } =
-      req.body;
+    const {
+      address,
+      sub_district,
+      district,
+      province,
+      contact,
+      tag,
+      postCode,
+    } = req.body;
 
     const userId = req.payload.id;
 

@@ -22,7 +22,7 @@ export interface CompanyDto {
   district: string;
   province: string;
   postCode: string;
-  contract: string;
+  contact: string;
   tag: string[];
   rating: number; //@TODO Add in backend
 
@@ -64,4 +64,24 @@ export interface CommentPortDTO {
   rating: number;
 
   portId: number;
+}
+
+export interface ProviceDto {
+  id: number;
+  name_th: string;
+  name_en: string;
+}
+
+export interface AmphureDto {
+  id: number;
+  name_th: string;
+  name_en: string;
+  province_id: number;
+}
+
+export interface TambonDto {
+  id: number;
+  name_th: string;
+  name_en: string;
+  amphure_id: number;
 }

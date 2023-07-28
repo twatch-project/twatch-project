@@ -15,8 +15,7 @@ const useCompany = (companyId: number): CompanyHook => {
       try {
         const res = await fetch(`${host}/company/${companyId}`);
         const data = await res.json();
-
-        setData(data);
+        setData(data.company);
       } catch (err: any) {
         setError(err.message);
       } finally {
