@@ -1,14 +1,19 @@
 export default function Sell() {
   return (
-    <section className="flex justify-center items-start min-h-[50vh] ">
+    <section className="flex justify-center  min-h-[50vh] ">
       <div className="flex justify-center w-[80%] ">
-        <section className="flex flex-col justify-between  items-center my-5 p-[15px] m-auto">
+        <section className=" flex flex-col  items-center  ">
           <div className="top font-bold text-2xl p-[10px] m-[10px]">
             <h1>Twatch No. 1 of Job Search</h1>
           </div>
 
-          <div className="flex footer ">
-            <div className="flex flex-col h-20 text-center box1">
+          <div className="flex items-center footer">
+            <div
+              className="flex flex-col h-20 text-center
+            
+            
+              box1"
+            >
               <div className="icon flex justify-center my-[10px]">
                 <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
