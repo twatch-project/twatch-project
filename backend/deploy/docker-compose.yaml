@@ -12,7 +12,7 @@ services:
 
   app:
     # Build image nodeserver from Dockerfile in GitHub repo
-    image: nodejs-cicd
+    image: twatchcicd
     build: https://github.com/twatch-project/twatch-project.git#develop
     environment:
       POSTGRES_PASSWORD: academy
