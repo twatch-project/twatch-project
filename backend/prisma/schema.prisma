@@ -90,7 +90,7 @@ model Portfolio {
 
 model CommentPortfolio {
   commentId Int      @id @default(autoincrement())
-  massage   String
+  message   String
   rating    Int
   userId    String
   createAt  DateTime @default(now())

@@ -73,7 +73,7 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
         commentId: msg.commentId,
       },
       data: {
-        massage: msg.massage,
+        message: msg.message,
         rating: msg.rating,
       },
     });

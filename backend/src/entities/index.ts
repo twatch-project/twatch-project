@@ -143,7 +143,7 @@ export interface IUpdateBlog {
 
 export interface ICreateCommentPort {
   userId: string;
-  massage: string;
+  message: string;
   rating: number;
   portId: number;
 }
@@ -154,6 +154,6 @@ export interface ICommentPort extends ICreateCommentPort {
 
 export interface IUpdateComment {
   commentId: number;
-  massage: string;
+  message: string;
   rating: number;
 }

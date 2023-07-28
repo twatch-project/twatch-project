@@ -121,12 +121,13 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
       return Promise.reject(`no such port ${arg.portId} not found`);
     }
 
-    if (arg.imageContentUrls && arg.imageContents) {
-      for (let i = 0; i < port.imageContents.length; i++) {
-        await deleteFile(port.imageContents[i]);
-        await deleteFile(port.imageContentUrls[i]);
-      }
+    try {
+      await Promise.all(port.imageContentUrls.map(u => deleteFile(u)))
+
+    } catch(err) {
+
     }
+
 
     return await this.db.portfolio.update({
       include: { postedBy: { select: { companyName: true } } },
@@ -161,10 +162,17 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
       return Promise.reject(`no such port ${arg.portId} not found`);
     }
 
+    // console.log(port)
+
     for (let i = 0; i < port.imageContents.length; i++) {
+      // console.log(port.imageContentUrls)
       await deleteFile(port.imageContents[i]);
-      await deleteFile(port.imageContentUrls[i]);
+      // await deleteFile(port.imageContentUrls[i]);
     }
+ 
+    // console.log(port)
+    // console.log(port.imageContentUrls[0])
+    // console.log(port.imageContentUrls[1])
 
     return this.db.portfolio.delete({ where: { portId: arg.portId } });
   }

@@ -205,16 +205,17 @@ export interface IHandlerPorfolio {
 
 export interface WithCommentPort {
   userId: string;
-  massage: string;
+  message: string;
   rating: number;
 }
 
 export interface WithUpdateComment {
-  massage: string;
+  message: string;
   rating: number;
 }
 export interface WithCommentId {
   commentId: number;
+  portId:number;
 }
 
 export interface IHandlerComment {
