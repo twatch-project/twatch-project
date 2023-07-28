@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Company from './pages/Company';
-
 // import CreateCompanyProfile from './pages/CreateCompanyProfile';
 // import CreateProfile from './pages/CreateProfile';
 // import EditPortfolioSection from './components/EditPortSection';
@@ -13,7 +12,7 @@ import Login from './pages/Login';
 import EditCompanyProfile from './pages/EditCompany';
 import { useAuth } from './providers/AuthProvider';
 import Companys from './pages/Companys';
-        
+
 function App() {
   const { isLoggedIn } = useAuth();
   return (
@@ -37,20 +36,6 @@ function App() {
           {/* <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} /> */}
           <Route path="/company" element={<Company />} />
         </Route>
-        {/* <Route path="/login" element={<Login />} /> */}
-        {/* <Route path="/register" element={<Register />} /> */}
-        {/* <Route path="/" element={<Home />} /> */}
-        {/* /// S3 */}
-        {/* <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/newPost" element={<NewPost />} />
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} /> */}
-
-        {/* <Route path="/new" element={<Create />} /> */}
-        {/* <Route path="/content/:id" element={<Content />} /> */}
-        {/* <Route path="/content/:id/edit" element={<Edit />} /> */}
         {/* <Route path="*" element={<Error message="Page Not Found" />} /> */}
       </Routes>
       {/* </Layout> */}
