@@ -1,6 +1,6 @@
 services:
   front-end:
-    build: .
+    build: https://github.com/twatch-project/twatch-project.git#develop
     volumes:
       - ./src:/app/src
     ports:
