@@ -1,4 +1,3 @@
-import React from 'react';
 import { PortfolioDto } from '../types/dto';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material';

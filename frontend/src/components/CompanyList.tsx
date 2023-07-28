@@ -4,7 +4,7 @@ import CompanyCard from './CompanyCard';
 
 const CompanyList = () => {
   const {
-    status: { loading, error, ready },
+    status: { loading, ready },
     data,
   } = useCompanyList();
 
