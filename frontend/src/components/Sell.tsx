@@ -10,8 +10,6 @@ export default function Sell() {
           <div className="flex items-center footer">
             <div
               className="flex flex-col h-20 text-center
-            
-            
               box1"
             >
               <div className="icon flex justify-center my-[10px]">
