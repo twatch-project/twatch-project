@@ -10,9 +10,11 @@ import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
 import EditPortfolio from './pages/EditPortfolio';
-import EditCompanyProfile from './components/EditCompanyProfile';
+import EditCompanyProfile from './pages/EditCompany';
+import { useAuth } from './providers/AuthProvider';
 
 function App() {
+  const { isLoggedIn } = useAuth();
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
@@ -24,8 +26,11 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/companys" element={<Companys />} />
           <Route path="/company/:id" element={<Company />} />
+          {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
+
           <Route path="/company/create" element={<CreateCompanyProfile />} />
-          <Route path="/company/edit" element={<EditCompanyProfile />} />
+          <Route path="/company/edit/:id" element={<EditCompanyProfile />} />
+          {/* </Route> */}
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />

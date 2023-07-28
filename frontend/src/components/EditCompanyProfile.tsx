@@ -17,13 +17,13 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-import profileimg from '../img/user.png';
 import { useAuth } from '../providers/AuthProvider';
 import axios from 'axios';
 import { Tags, host } from '../constant';
 import { AmphureDto, TambonDto } from '../types/dto';
 import useAddressThai from '../hooks/useAddressThai';
 import useCompany from '../hooks/useCompany';
+import { Link } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -47,8 +47,6 @@ export default function EditCompanyProfile() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [companyName, setCompanyName] = useState<string>('');
-  const [companyRegistration, setCompanyRegistration] = useState<string>('');
   const [body, setBody] = useState<string>('');
   const [address, setAddress] = useState<string>('');
   const [contact, setContact] = useState<string>('');
@@ -117,13 +115,13 @@ export default function EditCompanyProfile() {
       setTambon(selectedTambon);
     }
   };
-  //Upload image profile company
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setSelectedFile(file || null);
     setImageProfile(false);
   };
-  //UploadFile image company profile
+
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
@@ -160,22 +158,10 @@ export default function EditCompanyProfile() {
       }
       setSelectedFiles([]);
 
-      if (
-        !companyName ||
-        !body ||
-        !companyRegistration ||
-        !address ||
-        !contact ||
-        !postCode ||
-        !tambon?.name_en ||
-        !amphure?.name_en ||
-        !province?.name_en
-      ) {
+      if (!body || !address || !contact || !postCode || !tambon?.name_en || !amphure?.name_en || !province?.name_en) {
         toast.error('Fill someting');
         return;
       }
-      formData.append('companyName', companyName);
-      formData.append('companyRegistration', companyRegistration);
       formData.append('contact', contact);
       formData.append('body', body);
       formData.append('postCode', postCode);
@@ -202,6 +188,13 @@ export default function EditCompanyProfile() {
     }
   };
 
+  if (!data || loading)
+    return (
+      <div>
+        <p>Loading</p>
+      </div>
+    );
+
   return (
     <>
       <section
@@ -215,7 +208,7 @@ export default function EditCompanyProfile() {
           <h1 className="font-bold ">EDIT COMPANY PROFILE</h1>
           {imageProfile ? (
             <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-              <img className="w-full h-full rounded-full truncate" src={profileimg} alt="imageprofile" />
+              <img className="w-full h-full rounded-full truncate" src={data.imageCompanyUrl} alt="imageprofile" />
             </div>
           ) : (
             <>
@@ -243,28 +236,6 @@ export default function EditCompanyProfile() {
               Profile IMAGE
             </Button>
             <p>{selectedFile?.name}</p>
-          </div>
-          <div className="w-full">
-            <TextField
-              className="w-full"
-              id="outlined-basic"
-              label="COMPANY NAME"
-              value={companyName}
-              variant="outlined"
-              type="text"
-              onChange={(e) => setCompanyName(e.target.value)}
-            />
-          </div>
-          <div className="w-full">
-            <TextField
-              className="w-full"
-              id="outlined-basic"
-              label="COMPANY REGISTRATION NUMBER"
-              value={companyRegistration}
-              variant="outlined"
-              type="text"
-              onChange={(e) => setCompanyRegistration(e.target.value)}
-            />
           </div>
           <div className="w-full">
             <TextField
@@ -411,6 +382,11 @@ export default function EditCompanyProfile() {
           <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
             Submit
           </button>
+          <Link to={`/company/${id}`}>
+            <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
+              Back
+            </button>
+          </Link>
         </form>
       </section>
     </>

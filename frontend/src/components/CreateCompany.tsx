@@ -108,13 +108,12 @@ export default function CreateCompanyProfile() {
       setTambon(selectedTambon);
     }
   };
-  //Upload image profile company
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setSelectedFile(file || null);
     setImageProfile(false);
   };
-  //UploadFile image company profile
+
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
