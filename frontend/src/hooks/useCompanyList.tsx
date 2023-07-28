@@ -15,7 +15,7 @@ export const useCompanyList = (): CompanyListHook => {
         const res = await fetch(`${host}/company`);
         const data = await res.json();
 
-        setData(data.data);
+        setData(data);
       } catch (err: any) {
         setError(err.message);
       } finally {
