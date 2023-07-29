@@ -7,7 +7,7 @@ import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
 import EditCompanyProfile from './pages/EditCompany';
-import CreateCompanyProfile from './components/CreateCompany';
+import CreateCompanyProfile from './components/companys/CreateCompany';
 import EditPortfolio from './pages/EditPortfolio';
 import Companys from './pages/Companys';
 

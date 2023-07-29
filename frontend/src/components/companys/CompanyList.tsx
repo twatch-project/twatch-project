@@ -1,5 +1,5 @@
-import { useCompanyList } from '../hooks/useCompanyList';
-import Loading from './Loading';
+import { useCompanyList } from '../../hooks/useCompanyList';
+import Loading from '../Loading';
 import CompanyCard from './CompanyCard';
 
 const CompanyList = () => {

@@ -11,17 +11,16 @@ export default function Nav() {
     setShowMenu(!showMenu);
   };
   return (
-    <div className="mx-auto my-[0]">
-      <nav className="flex justify-between bg-white text-center p-[1rem] shadow-box">
+    <div className="mx-auto w-auto">
+      <nav className="flex justify-between bg-white text-center p-[1rem] border-b drop-shadow-md w-full">
         <Link to="/" className="logo text-[24px] font-bold  max-sm:hidden">
-          Twatch
+          Craftcon
         </Link>
         <div className="right flex items-center">
           <div className="menu flex items-center mx-[2rem] max-md:hidden">
             <Link to="/" className="font-bold">
               Home
             </Link>
-            <Link to="/Customer">Customer</Link>
             <Link to="/Company">Company</Link>
             <Link to="/Contact">Contact</Link>
             {isLoggedIn ? (
@@ -29,18 +28,14 @@ export default function Nav() {
                 <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
                   logout
                 </button>
-                {/* <Link to="/EditPortSection">
-                  <div className="">
-                    <div className="imgB w-[40px] h-[40px] bg-[#cfcfcf] overflow-hidden rounded-full ">
-                      <img className="w-full h-full" src="" alt="" />
-                    </div>
-                  </div>
-                </Link> */}
               </>
             ) : (
               <>
                 <Link to="/Register">SignUp</Link>
-                <Link to="/Login" className="bg-blue py-[5px] px-[1rem] rounded text-white">
+                <Link
+                  to="/Login"
+                  className="bg-blue py-[5px] px-[1rem] rounded text-white hover:bg-white hover:text-blue border hover:border-blue"
+                >
                   Login
                 </Link>
               </>
@@ -52,7 +47,6 @@ export default function Nav() {
               {showMenu && (
                 <div className="hidden" style={{ display: 'block' }}>
                   <DisplayNav />
-                  {/* <Nav /> */}
                 </div>
               )}
               <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1000 1000">

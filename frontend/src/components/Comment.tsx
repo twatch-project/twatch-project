@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactStars from 'react-stars';
 // import img from '../'
 export default function Comment() {

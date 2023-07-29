@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useAuth } from '../providers/AuthProvider';
+import { useAuth } from '../../providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
@@ -105,7 +105,7 @@ const LoginSection = () => {
               </button>
             </div>
             <Link to="/register" className="text-blue text-center">
-              have an account? Register
+              Dont have an accout? Register
             </Link>
           </form>
         </div>

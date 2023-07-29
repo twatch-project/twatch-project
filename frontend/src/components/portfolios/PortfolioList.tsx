@@ -1,6 +1,6 @@
-import Loading from './Loading';
+import Loading from '../Loading';
 import PortfolioCard from './PortfolioCard';
-import usePortfolioList from '../hooks/usePortfolioList';
+import usePortfolioList from '../../hooks/usePortfolioList';
 
 const PortfolioList = () => {
   const {

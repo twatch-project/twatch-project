@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import usePortfolio from '../hooks/usePortfolio';
-import Loading from './Loading';
-import { useAuth } from '../providers/AuthProvider';
+import usePortfolio from '../../hooks/usePortfolio';
+import Loading from '../Loading';
+import { useAuth } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
-import ImageGallery from './Showsileimg';
+import ImageGallery from '../Showsileimg';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import AssistantPhotoIcon from '@mui/icons-material/AssistantPhotoOutlined';
