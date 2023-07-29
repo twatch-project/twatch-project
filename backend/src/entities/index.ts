@@ -57,6 +57,7 @@ export interface ICreatePort {
   district: string;
   province: string;
   postCode: string;
+  contact: string;
   createAt: Date;
   updateAt: Date;
 
@@ -92,7 +93,7 @@ export interface ICreateCustomer {
   sub_district: string;
   address: string;
   contact: string;
-  postCode: number;
+  postCode: string;
 }
 
 export interface ICustomer extends ICreateCustomer {
@@ -110,7 +111,7 @@ export interface IUpdateCustomer {
   address: string;
   contact: string;
   userId: string;
-  postCode: number;
+  postCode: string;
 }
 
 export interface ICreateBlog {
@@ -142,10 +143,11 @@ export interface IUpdateBlog {
 }
 
 export interface ICreateCommentPort {
-  userId: string;
-  massage: string;
+  message: string;
   rating: number;
+
   portId: number;
+  userId: string;
 }
 
 export interface ICommentPort extends ICreateCommentPort {
@@ -154,6 +156,6 @@ export interface ICommentPort extends ICreateCommentPort {
 
 export interface IUpdateComment {
   commentId: number;
-  massage: string;
+  message: string;
   rating: number;
 }

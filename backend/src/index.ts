@@ -181,9 +181,13 @@ async function main() {
 
   //Comment API
   commentRouter.post(
-    "/:commentId",
+    "/:portId",
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerCommentPort.createCommentPort.bind(handlerCommentPort)
+  );
+  commentRouter.get(
+    "/:portId",
+    handlerCommentPort.getCommentByPortId.bind(handlerCommentPort)
   );
   commentRouter.patch(
     "/:commentId",

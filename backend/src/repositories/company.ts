@@ -95,24 +95,23 @@ class RepositoryCompany implements IRepositoryCompany {
       return Promise.reject(`no such port ${arg.companyId} not found`);
     }
 
-    if (arg.imageCompany && arg.imageContents) {
+    if (
+      (arg.imageCompany || arg.imageCompanyUrl) &&
+      (arg.imageContents || arg.imageContentUrls)
+    ) {
       for (let i = 0; i < company.imageContents.length; i++) {
         await deleteFile(company.imageContents[i]);
-        await deleteFile(company.imageContentUrls[i]);
       }
       await deleteFile(company.imageCompany);
-      await deleteFile(company.imageCompanyUrl);
     }
 
-    if (arg.imageCompany) {
+    if (arg.imageCompany || arg.imageCompanyUrl) {
       await deleteFile(company.imageCompany);
-      await deleteFile(company.imageCompanyUrl);
     }
 
-    if (arg.imageContentUrls) {
+    if (arg.imageContentUrls || arg.imageContents) {
       for (let i = 0; i < company.imageContents.length; i++) {
         await deleteFile(company.imageContents[i]);
-        await deleteFile(company.imageContentUrls[i]);
       }
     }
 

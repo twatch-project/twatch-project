@@ -13,10 +13,10 @@ const usePortfolio = (portId: string): PortfolioHook => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${host}/content/${portId}`);
+        const res = await fetch(`${host}/portfolio/${portId}`);
         const data = await res.json();
 
-        setData(data);
+        setData(data.port);
       } catch (err: any) {
         setError(err.message);
       } finally {

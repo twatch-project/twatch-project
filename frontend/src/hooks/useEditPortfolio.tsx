@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
-import { CompanyHook } from '../types/company.hook';
-import { CompanyDto } from '../types/dto';
 import { host } from '../constant';
 
-const useCompany = (companyId: string | undefined): CompanyHook => {
-  const [data, setData] = useState<CompanyDto | null>(null);
+import { useState, useEffect } from 'react';
+import { PortfolioHook } from '../types/portfolio.hook';
+import { PortfolioDto } from '../types/dto';
+
+const useEditPortfolio = (portId: string): PortfolioHook => {
+  const [data, setData] = useState<PortfolioDto | null>(null);
   const [error, setError] = useState<null | unknown>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -12,9 +13,10 @@ const useCompany = (companyId: string | undefined): CompanyHook => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${host}/company/${companyId}`);
+        const res = await fetch(`${host}/portfolio/${portId}`);
         const data = await res.json();
-        setData(data.company);
+
+        setData(data.port);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -22,7 +24,7 @@ const useCompany = (companyId: string | undefined): CompanyHook => {
       }
     };
     fetchData();
-  }, []);
+  }, [data]);
 
   return {
     data,
@@ -34,4 +36,4 @@ const useCompany = (companyId: string | undefined): CompanyHook => {
   };
 };
 
-export default useCompany;
+export default useEditPortfolio;

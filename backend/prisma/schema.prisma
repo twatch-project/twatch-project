@@ -29,6 +29,7 @@ model User {
   email        String   @unique
   registeredAt DateTime @default(now())
 
+  comment  CommentPortfolio[]
   company  Company[]
   customer Customer[]
 }
@@ -53,20 +54,8 @@ model Company {
   userCompany User   @relation(fields: [userId], references: [userId])
   userId      String @unique
 
-  // engineer  Engineer[]
   portfolioBy Portfolio[]
 }
-
-// model Engineer {
-//   engineerId Int    @id @default(autoincrement())
-//   role       String
-//   firstname  String
-//   lastname   String
-//   licenseNo  String @unique
-
-//   company   Company @relation(fields: [companyId], references: [companyId])
-//   companyId Int
-// }
 
 model Portfolio {
   portId           Int      @id @default(autoincrement())
@@ -80,21 +69,24 @@ model Portfolio {
   sub_district     String
   address          String
   postCode         String
+  contact          String
   createAt         DateTime
   updateAt         DateTime
 
-  postedBy  Company            @relation(fields: [companyId], references: [companyId])
+  postedBy  Company @relation(fields: [companyId], references: [companyId])
   companyId Int
   commentBy CommentPortfolio[]
 }
 
 model CommentPortfolio {
   commentId Int      @id @default(autoincrement())
-  massage   String
+  message   String
   rating    Int
-  userId    String
   createAt  DateTime @default(now())
   updateAt  DateTime @default(now())
+
+  commentBy User @relation(fields: [userId],references: [userId])
+  userId    String
 
   portfolio Portfolio @relation(fields: [portId], references: [portId])
   portId    Int
@@ -112,7 +104,7 @@ model Customer {
   sub_district String
   address      String
   contact      String
-  postCode     Int
+  postCode     String
 
   userCustomer User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
   userId       String @unique

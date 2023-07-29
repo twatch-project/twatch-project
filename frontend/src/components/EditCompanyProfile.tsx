@@ -22,8 +22,8 @@ import axios from 'axios';
 import { Tags, host } from '../constant';
 import { AmphureDto, TambonDto } from '../types/dto';
 import useAddressThai from '../hooks/useAddressThai';
-import useCompany from '../hooks/useCompany';
 import { Link } from 'react-router-dom';
+import useEditCompany from '../hooks/useEditCompany';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -64,13 +64,12 @@ export default function EditCompanyProfile() {
   const theme = useTheme();
   const [tags, setTags] = React.useState<string[]>([]);
 
-  const { id } = useParams();
-  const Id = Number(id);
+  const { companyId } = useParams();
 
   const {
     data,
     status: { loading },
-  } = useCompany(Id);
+  } = useEditCompany(companyId);
 
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     const {
@@ -172,17 +171,17 @@ export default function EditCompanyProfile() {
       for (let i = 0; i < tags.length; i++) {
         formData.append('tag', tags[i]);
       }
-      await axios.patch(`${host}/company/${id}`, formData, {
+      await axios.patch(`${host}/company/${companyId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.success(`Successful Create CompanyProfile.`);
-      navigate('/');
+      toast.success(`Successful Edit CompanyProfile.`);
+      navigate(`/company/${companyId}`);
     } catch (err) {
       console.error(err);
-      toast.error(`Unsuccessful Create Company Profile`);
+      toast.error(`Unsuccessful Edit Company Profile`);
     } finally {
       setSubmitting(false);
     }
@@ -269,7 +268,7 @@ export default function EditCompanyProfile() {
                 value={province ? province.name_en : ''}
                 onChange={handleChangeProvice}
                 autoWidth
-                label="Provice"
+                label="PROVINCE"
               >
                 {provinces &&
                   provinces.map((province) => (
@@ -287,7 +286,7 @@ export default function EditCompanyProfile() {
                 value={amphure ? amphure.name_en : ''}
                 onChange={handleChangeAmphure}
                 autoWidth
-                label="amphure"
+                label="DISTRICT"
               >
                 {amphureId &&
                   amphureId.map((amphure) => (
@@ -305,7 +304,7 @@ export default function EditCompanyProfile() {
                 value={tambon ? tambon.name_en : ''}
                 onChange={handleChangeTambon}
                 autoWidth
-                label="tambons"
+                label="SUB-DISTRICT"
               >
                 {tambonId &&
                   tambonId.map((tambon) => (
@@ -382,7 +381,7 @@ export default function EditCompanyProfile() {
           <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
             Submit
           </button>
-          <Link to={`/company/${id}`}>
+          <Link to={`/company/${companyId}`}>
             <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
               Back
             </button>
