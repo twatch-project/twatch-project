@@ -174,12 +174,12 @@ const EditPortfolioSection = () => {
           onSubmit={handlerSubmit}
           className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
         >
-          <h1 className="font-bold ">EDIT PORTFOLIO</h1>
+          <h1 className="font-bold">EDIT PORTFOLIO</h1>
           <div className="w-full">
             <TextField
               className="w-full"
               id="outlined-multiline-static"
-              label="BODY"
+              label="Title"
               multiline
               type="text"
               // rows={10}
@@ -192,7 +192,7 @@ const EditPortfolioSection = () => {
             <TextField
               className="w-full"
               id="outlined-multiline-static"
-              label="BODY"
+              label="Body"
               multiline
               type="text"
               // rows={10}
@@ -221,7 +221,7 @@ const EditPortfolioSection = () => {
                 value={province ? province.name_en : ''}
                 onChange={handleChangeProvice}
                 autoWidth
-                label="Provice"
+                label="Province"
               >
                 {provinces &&
                   provinces.map((province) => (
@@ -272,7 +272,7 @@ const EditPortfolioSection = () => {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="ADDRESS"
+              label="Address"
               value={address}
               variant="outlined"
               type="text"
@@ -284,7 +284,7 @@ const EditPortfolioSection = () => {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="contact"
+              label="Contact"
               value={contact}
               variant="outlined"
               type="text"
@@ -296,7 +296,7 @@ const EditPortfolioSection = () => {
             <TextField
               className="w-full"
               id="outlined-basic"
-              label="postCode"
+              label="PostCode"
               variant="outlined"
               type="number"
               value={postCode}

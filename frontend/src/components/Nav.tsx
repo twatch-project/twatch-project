@@ -11,7 +11,7 @@ export default function Nav() {
     setShowMenu(!showMenu);
   };
   return (
-    <div className="">
+    <div className="mx-auto my-[0]">
       <nav className="flex justify-between bg-white text-center p-[1rem] shadow-box">
         <Link to="/" className="logo text-[24px] font-bold  max-sm:hidden">
           Twatch

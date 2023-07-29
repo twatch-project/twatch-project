@@ -102,7 +102,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
     if (!company) throw new Error("company id not found");
 
     try {
-      const port = this.repoPort.createPort({
+      const port = await this.repoPort.createPort({
         title,
         imageContents,
         imageContentUrls,

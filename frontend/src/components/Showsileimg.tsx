@@ -12,8 +12,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   };
 
   return (
-    <div className="flex flex-col w-1/2 h-full items-center mt-4">
-      <img src={mainImage} alt="Main" className="object-cover max-h-72 w-full rounded-lg mb-4" />
+    <div className="flex flex-col w-full items-center mt-4">
+      <img
+        src={mainImage}
+        alt="Main"
+        className="object-cover object-center max-h-[350px] min-h-[300px] w-full rounded-lg mb-4"
+      />
       <div className="flex gap-2">
         {images.map((image, index) => (
           <button
@@ -21,7 +25,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
             onClick={() => handleImageChange(image)}
             className={`w-24 h-20 rounded-lg border ${mainImage === image ? 'border-blue-500' : 'border-gray-400'}`}
           >
-            <img src={image} alt={`Image ${index + 1}`} className="w-44 h-full object-cover rounded-lg " />
+            <img src={image} alt={`Image ${index + 1}`} className="w-full h-full  object-cover rounded-lg " />
           </button>
         ))}
       </div>
