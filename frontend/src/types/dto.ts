@@ -24,7 +24,6 @@ export interface CompanyDto {
   postCode: string;
   contact: string;
   tag: string[];
-  rating: number; //@TODO Add in backend
 
   userId: string;
 }
@@ -34,7 +33,7 @@ export interface PortfolioDto {
   title: string;
   body: string;
   imageContents: string[];
-  imageContentUrls: string[]; //@TODO Add in backend
+  imageContentUrls: string[];
   tag: string[];
   address: string;
   sub_district: string;

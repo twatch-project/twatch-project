@@ -24,33 +24,28 @@ class HandlerCommentPort implements IHandlerComment {
     req: JwtAuthRequest<WithCommentId, WithCommentPort>,
     res: Response
   ): Promise<Response> {
-    const commentId = Number(req.params.commentId);
-    if (isNaN(commentId)) {
+    const portId = Number(req.params.portId);
+    if (isNaN(portId)) {
       return res
         .status(401)
-        .json({ err: `Not Found comment ID is : ${commentId}` })
+        .json({ err: `Not Found port Id is : ${portId}` })
         .end();
     }
-    const { massage, rating } = req.body;
-    if (!massage) {
+    const { message, rating } = req.body;
+    if (!message) {
       return res.status(500).json({ err: `fill some massage` }).end();
     }
     if (rating > 5 && rating < 0) {
       return res.status(500).json({ err: `rating can store 0-5` }).end();
     }
-    const user = req.payload;
-    if (user.role !== "CUSTOMER") {
-      return res
-        .status(500)
-        .json({ err: `${user.role} Can't create comment` })
-        .end();
-    }
+    const userId = req.payload.id;
+
     try {
       const isCreateComment = await this.repo.createComment({
-        massage,
+        message,
         rating,
-        userId: user.id,
-        portId: commentId,
+        userId,
+        portId,
       });
       return res.status(200).json(isCreateComment).end();
     } catch (err) {
@@ -70,7 +65,7 @@ class HandlerCommentPort implements IHandlerComment {
         .json({ err: `${commentId} is not a number` })
         .end();
     }
-    const { massage, rating } = req.body;
+    const { message, rating } = req.body;
     if (rating > 5 && rating < 0) {
       return res.status(500).json({ err: `rating can store 0-5` }).end();
     }
@@ -88,7 +83,7 @@ class HandlerCommentPort implements IHandlerComment {
     try {
       const getUpdateComent = await this.repo.updateCommentPortfolio({
         commentId,
-        massage,
+        message: message,
         rating,
       });
       return res.status(200).json({ getUpdateComent, status: "ok" }).end();
@@ -170,6 +165,27 @@ class HandlerCommentPort implements IHandlerComment {
     } catch (err) {
       console.error(err);
       return res.status(500).json(`Fail to delete ${err}`).end();
+    }
+  }
+
+  async getCommentByPortId(
+    req: JwtAuthRequest<WithCommentId, WithCommentPort>,
+    res: Response
+  ): Promise<Response> {
+    const portId = Number(req.params.portId);
+    if (isNaN(portId)) {
+      return res
+        .status(500)
+        .json({ err: `${portId} is not a number` })
+        .end();
+    }
+    try {
+      const commentByPortId = await this.repo.getCommentPortByPortId(portId);
+
+      return res.status(200).json(commentByPortId).end();
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json(`Fail to get comment ${err}`).end();
     }
   }
 }

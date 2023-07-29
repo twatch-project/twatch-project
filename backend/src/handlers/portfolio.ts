@@ -49,6 +49,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
       district,
       province,
       postCode,
+      contact,
     } = req.body;
 
     if (
@@ -59,7 +60,8 @@ class HandlerPortfolio implements IHandlerPorfolio {
       !sub_district ||
       !district ||
       !province ||
-      !postCode
+      !postCode ||
+      !contact
     ) {
       return res.status(400).json({ error: "missing json body" }).end();
     }
@@ -115,8 +117,10 @@ class HandlerPortfolio implements IHandlerPorfolio {
         postCode,
         updateAt,
         createAt,
+        contact,
         companyId: company.companyId,
       });
+      console.log(port);
       return res.status(201).json({ port, status: "ok" }).end();
     } catch (err) {
       console.error(err);
@@ -284,7 +288,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
     }
 
     try {
-      const updated = this.repoPort.updatePort({
+      const updated = await this.repoPort.updatePort({
         portId,
         title,
         imageContents,
@@ -331,7 +335,7 @@ class HandlerPortfolio implements IHandlerPorfolio {
     if (!company) throw new Error("company id not found");
 
     try {
-      const deleted = this.repoPort.deletePortById({
+      const deleted = await this.repoPort.deletePortById({
         portId: portId,
         companyId: company.companyId,
       });

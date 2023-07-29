@@ -86,6 +86,7 @@ export interface IRepositoryPortfolio {
     district?: string;
     province?: string;
     postCode?: string;
+    contact?: string;
     updateAt: Date;
     companyId: number;
   }): Promise<IPort>;
@@ -105,4 +106,5 @@ export interface IRepositoryCommentPort {
     userId: string;
   }): Promise<ICommentPort>;
   getCommentPortByUserId(userId: string): Promise<ICommentPort[]>;
+  getCommentPortByPortId(portId: number): Promise<ICommentPort[]>
 }

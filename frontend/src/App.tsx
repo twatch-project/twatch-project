@@ -7,12 +7,8 @@ import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
 import EditCompanyProfile from './pages/EditCompany';
-import Companys from './pages/Companys';
-// import EditPortfolioSection from './components/EditPortSection';
-// import CreateCompanyProfile from './pages/CreateCompanyProfile';
-// import CreateProfile from './pages/CreateProfile';
-// import EditPortfolioSection from './components/EditPortSection';
-// import ShowMore from './components/ShowMore';
+import CreateCompanyProfile from './components/CreateCompany';
+import EditPortfolio from './pages/EditPortfolio';
 
 function App() {
   // const { isLoggedIn } = useAuth();
@@ -29,10 +25,13 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/companys" element={<Companys />} />
           <Route path="/company/:id" element={<Company />} />
+          {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
+          <Route path="/company/create" element={<CreateCompanyProfile />} />
           <Route path="/company/edit/:id" element={<EditCompanyProfile />} />
+          {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
-          {/* <Route path="/editPortfolioSection/" element={<EditPortfolioSection />} /> */}
+          <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} />
           <Route path="/company" element={<Company />} />
         </Route>
       </Routes>
@@ -48,5 +47,3 @@ function App() {
 
 export default App;
 
-// url: http://api.relay.cleverse.academy/test
-// body: {"status": "ok"}

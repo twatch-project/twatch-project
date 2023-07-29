@@ -3,7 +3,7 @@ import { CompanyHook } from '../types/company.hook';
 import { CompanyDto } from '../types/dto';
 import { host } from '../constant';
 
-const useCompany = (companyId: string | undefined): CompanyHook => {
+const useEditCompany = (companyId: string | undefined): CompanyHook => {
   const [data, setData] = useState<CompanyDto | null>(null);
   const [error, setError] = useState<null | unknown>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -22,7 +22,7 @@ const useCompany = (companyId: string | undefined): CompanyHook => {
       }
     };
     fetchData();
-  }, []);
+  }, [data]);
 
   return {
     data,
@@ -34,4 +34,4 @@ const useCompany = (companyId: string | undefined): CompanyHook => {
   };
 };
 
-export default useCompany;
+export default useEditCompany;
