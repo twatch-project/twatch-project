@@ -1,4 +1,4 @@
-import EditCompanyProfile from '../components/EditCompanyProfile';
+import EditCompanyProfile from '../components/companys/EditCompanyProfile';
 
 export default function EditCompany() {
   return (
