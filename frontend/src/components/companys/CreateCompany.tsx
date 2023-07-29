@@ -185,7 +185,6 @@ export default function CreateCompanyProfile() {
       for (let i = 0; i < tags.length; i++) {
         formData.append('tag', tags[i]);
       }
-      console.log(...formData);
       await axios.post(`${host}/company`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',

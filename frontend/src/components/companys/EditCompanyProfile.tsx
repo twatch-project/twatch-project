@@ -23,7 +23,6 @@ import { Tags, host } from '../../constant';
 import { AmphureDto, TambonDto } from '../../types/dto';
 import useAddressThai from '../../hooks/useAddressThai';
 import { Link } from 'react-router-dom';
-import usericon from '../img/user.png';
 import useEditCompany from '../../hooks/useEditCompany';
 
 const ITEM_HEIGHT = 48;
@@ -212,7 +211,7 @@ export default function EditCompanyProfile() {
           <h1 className="font-bold ">EDIT COMPANY PROFILE</h1>
           {imageProfile ? (
             <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-              <img className="w-full h-full rounded-full truncate" src={usericon} alt="imageprofile" />
+              <img className="w-full h-full rounded-full truncate" src={data?.imageCompanyUrl} alt="imageprofile" />
             </div>
           ) : (
             <>
