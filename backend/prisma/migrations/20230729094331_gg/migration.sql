@@ -25,11 +25,12 @@ CREATE TABLE "Company" (
     "imageCompanyUrl" TEXT NOT NULL,
     "imageContents" TEXT[],
     "imageContentUrls" TEXT[],
+    "body" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "sub_district" TEXT NOT NULL,
     "district" TEXT NOT NULL,
     "province" TEXT NOT NULL,
-    "postCode" INTEGER NOT NULL,
+    "postCode" TEXT NOT NULL,
     "contact" TEXT NOT NULL,
     "tag" TEXT[],
     "userId" TEXT NOT NULL,
@@ -49,7 +50,8 @@ CREATE TABLE "Portfolio" (
     "district" TEXT NOT NULL,
     "sub_district" TEXT NOT NULL,
     "address" TEXT NOT NULL,
-    "postCode" INTEGER NOT NULL,
+    "postCode" TEXT NOT NULL,
+    "contact" TEXT NOT NULL,
     "createAt" TIMESTAMP(3) NOT NULL,
     "updateAt" TIMESTAMP(3) NOT NULL,
     "companyId" INTEGER NOT NULL,
@@ -60,11 +62,11 @@ CREATE TABLE "Portfolio" (
 -- CreateTable
 CREATE TABLE "CommentPortfolio" (
     "commentId" SERIAL NOT NULL,
-    "massage" TEXT NOT NULL,
+    "message" TEXT NOT NULL,
     "rating" INTEGER NOT NULL,
-    "userId" TEXT NOT NULL,
     "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updateAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userId" TEXT NOT NULL,
     "portId" INTEGER NOT NULL,
 
     CONSTRAINT "CommentPortfolio_pkey" PRIMARY KEY ("commentId")
@@ -83,7 +85,7 @@ CREATE TABLE "Customer" (
     "sub_district" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "contact" TEXT NOT NULL,
-    "postCode" INTEGER NOT NULL,
+    "postCode" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "Customer_pkey" PRIMARY KEY ("customerId")
@@ -106,18 +108,6 @@ CREATE TABLE "Blog" (
     CONSTRAINT "Blog_pkey" PRIMARY KEY ("blogId")
 );
 
--- CreateTable
-CREATE TABLE "Posts" (
-    "id" SERIAL NOT NULL,
-    "imageName" TEXT NOT NULL,
-    "caption" TEXT NOT NULL,
-    "totalComments" INTEGER NOT NULL DEFAULT 0,
-    "totalLikes" INTEGER NOT NULL DEFAULT 0,
-    "created" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "Posts_pkey" PRIMARY KEY ("id")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
@@ -138,6 +128,9 @@ ALTER TABLE "Company" ADD CONSTRAINT "Company_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "Portfolio" ADD CONSTRAINT "Portfolio_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company"("companyId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CommentPortfolio" ADD CONSTRAINT "CommentPortfolio_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "CommentPortfolio" ADD CONSTRAINT "CommentPortfolio_portId_fkey" FOREIGN KEY ("portId") REFERENCES "Portfolio"("portId") ON DELETE RESTRICT ON UPDATE CASCADE;

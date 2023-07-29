@@ -3,9 +3,9 @@ import { JwtAuthRequest } from "../auth";
 import { GenderType } from "../entities";
 import { UserRole } from "../entities";
 
-export interface AppRequest<Params, Body> extends Request<Params, any, Body> { }
+export interface AppRequest<Params, Body> extends Request<Params, any, Body> {}
 
-export interface Empty { }
+export interface Empty {}
 
 export type HandlerFunc<Req> = (req: Req, res: Response) => Promise<Response>;
 
@@ -31,7 +31,7 @@ export interface WithUpdateCustomer {
   sub_district: string;
   address: string;
   contact: string;
-  postCode: number;
+  postCode: string;
 }
 
 export interface IHandlerUser {
@@ -54,7 +54,7 @@ export interface WithCustomer {
   address: string;
   contact: string;
   userId: string;
-  postCode: number;
+  postCode: string;
 }
 
 export interface WithBlog {
@@ -164,6 +164,7 @@ export interface WithPort {
   district: string;
   province: string;
   postCode: string;
+  contact: string;
   companyId: number;
 }
 
@@ -215,7 +216,7 @@ export interface WithUpdateComment {
 }
 export interface WithCommentId {
   commentId: number;
-  portId:number;
+  portId: number;
 }
 
 export interface IHandlerComment {
@@ -233,6 +234,10 @@ export interface IHandlerComment {
   ): Promise<Response>;
   getCommentPortfolios(_, res: Response): Promise<Response>;
   deleteCommentPortfolio(
+    req: JwtAuthRequest<WithCommentId, WithCommentPort>,
+    res: Response
+  ): Promise<Response>;
+  getCommentByPortId(
     req: JwtAuthRequest<WithCommentId, WithCommentPort>,
     res: Response
   ): Promise<Response>;

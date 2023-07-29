@@ -38,19 +38,14 @@ class HandlerCommentPort implements IHandlerComment {
     if (rating > 5 && rating < 0) {
       return res.status(500).json({ err: `rating can store 0-5` }).end();
     }
-    const user = req.payload;
-    // if (user.role !== "CUSTOMER") {
-    //   return res
-    //     .status(500)
-    //     .json({ err: `${user.role} Can't create comment` })
-    //     .end();
-    // }
+    const userId = req.payload.id;
+
     try {
       const isCreateComment = await this.repo.createComment({
-        message: message,
+        message,
         rating,
-        userId: user.id,
-        portId: portId,
+        userId,
+        portId,
       });
       return res.status(200).json(isCreateComment).end();
     } catch (err) {
@@ -170,6 +165,27 @@ class HandlerCommentPort implements IHandlerComment {
     } catch (err) {
       console.error(err);
       return res.status(500).json(`Fail to delete ${err}`).end();
+    }
+  }
+
+  async getCommentByPortId(
+    req: JwtAuthRequest<WithCommentId, WithCommentPort>,
+    res: Response
+  ): Promise<Response> {
+    const portId = Number(req.params.portId);
+    if (isNaN(portId)) {
+      return res
+        .status(500)
+        .json({ err: `${portId} is not a number` })
+        .end();
+    }
+    try {
+      const commentByPortId = await this.repo.getCommentPortByPortId(portId);
+
+      return res.status(200).json(commentByPortId).end();
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json(`Fail to get comment ${err}`).end();
     }
   }
 }

@@ -41,36 +41,6 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
     });
   }
 
-  // async getRatingByCompanyId(companyId: number): Promise<any> {
-  //   const ports = await this.db.portfolio.findMany({
-  //     where: { companyId },
-  //   });
-
-  //   const port = ports.map((port) => port.portId);
-
-  //   let portRatings: number[] = [];
-  //   for (let i = 0; i < port.length; i++) {
-  //     const ratingInPortId = await this.db.commentPortfolio.groupBy({
-  //       by: ["portId"],
-  //       where: { portId: port[i] },
-  //     });
-  //     const ratings: number[] = ratingInPortId
-  //       .map((ratings) => ratings.portId)
-  //       .map((rating) => rating);
-
-  //     let sumRating = ratings[0];
-  //     for (let j = 1; j < ratings.length; j++) {
-  //       sumRating = ratings[i] + sumRating;
-  //     }
-  //     portRatings.push(sumRating);
-  //   }
-
-  //   let rating: number = portRatings[0];
-  //   for (let k = 1; k < portRatings.length; k++) {
-  //     rating = rating + portRatings[k];
-  //   }
-  // }
-
   async getPorts(): Promise<IPort[]> {
     return await this.db.portfolio.findMany({
       include: { postedBy: { select: { companyName: true } } },
@@ -121,13 +91,11 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
       return Promise.reject(`no such port ${arg.portId} not found`);
     }
 
-    try {
-      await Promise.all(port.imageContentUrls.map(u => deleteFile(u)))
-
-    } catch(err) {
-
+    if (arg.imageContentUrls || arg.imageContents) {
+      for (let i = 0; i < port.imageContents.length; i++) {
+        await deleteFile(port.imageContents[i]);
+      }
     }
-
 
     return await this.db.portfolio.update({
       include: { postedBy: { select: { companyName: true } } },
@@ -162,17 +130,9 @@ class RepositoryPortfolio implements IRepositoryPortfolio {
       return Promise.reject(`no such port ${arg.portId} not found`);
     }
 
-    // console.log(port)
-
     for (let i = 0; i < port.imageContents.length; i++) {
-      // console.log(port.imageContentUrls)
       await deleteFile(port.imageContents[i]);
-      // await deleteFile(port.imageContentUrls[i]);
     }
- 
-    // console.log(port)
-    // console.log(port.imageContentUrls[0])
-    // console.log(port.imageContentUrls[1])
 
     return this.db.portfolio.delete({ where: { portId: arg.portId } });
   }

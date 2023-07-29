@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { IRepositoryCommentPort} from ".";
+import { IRepositoryCommentPort } from ".";
 import { ICommentPort, ICreateCommentPort, IUpdateComment } from "../entities";
 
 export function newRepositoryCommentPort(db: PrismaClient) {
@@ -16,6 +16,12 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
   async createComment(msg: ICreateCommentPort): Promise<ICommentPort> {
     return await this.db.commentPortfolio.create({
       include: {
+        commentBy: {
+          select: {
+            company: { select: { companyName: true } },
+            customer: { select: { firstname: true } },
+          },
+        },
         portfolio: {
           select: {
             portId: true,
@@ -26,6 +32,12 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
       data: {
         ...msg,
         portId: undefined,
+        userId: undefined,
+        commentBy: {
+          connect: {
+            userId: msg.userId,
+          },
+        },
         portfolio: {
           connect: {
             portId: msg.portId,
@@ -40,6 +52,12 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
   ): Promise<ICommentPort | null> {
     return await this.db.commentPortfolio.findUnique({
       include: {
+        commentBy: {
+          select: {
+            company: { select: { companyName: true } },
+            customer: { select: { firstname: true } },
+          },
+        },
         portfolio: {
           select: {
             title: true,
@@ -55,7 +73,25 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
     });
   }
 
-
+  async getCommentPortByPortId(portId: number): Promise<ICommentPort[]> {
+    return await this.db.commentPortfolio.findMany({
+      include: {
+        commentBy: {
+          select: {
+            company: { select: { companyName: true } },
+            customer: { select: { firstname: true } },
+          },
+        },
+        portfolio: {
+          select: {
+            portId: true,
+            commentBy: true,
+          },
+        },
+      },
+      where: { portId },
+    });
+  }
 
   async getCommentPortByUserId(userId: string): Promise<ICommentPort[]> {
     return await this.db.commentPortfolio.findMany({

@@ -141,8 +141,11 @@ class HandlerUser implements IHandlerUser {
     res: Response
   ): Promise<Response> {
     try {
-      await this.repoBlacklist.addToBlackList(req.token);
-      return res.status(200).json({ status: `logged out successfully` }).end();
+      const logouted = await this.repoBlacklist.addToBlackList(req.token);
+      return res
+        .status(200)
+        .json({ logouted, status: `logged out successfully` })
+        .end();
     } catch (err) {
       console.error(err);
       return res
