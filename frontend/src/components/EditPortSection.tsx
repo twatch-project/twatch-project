@@ -22,6 +22,8 @@ import axios from 'axios';
 import { useAuth } from '../providers/AuthProvider';
 import useAddressThai from '../hooks/useAddressThai';
 import { AmphureDto, TambonDto } from '../types/dto';
+import { Link } from 'react-router-dom';
+import useEditPortfolio from '../hooks/useEditPortfolio';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -62,6 +64,11 @@ const EditPortfolioSection = () => {
 
   const theme = useTheme();
   const { token } = useAuth();
+
+  const {
+    data,
+    status: { loading },
+  } = useEditPortfolio(portId || '');
 
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     const {
@@ -157,7 +164,7 @@ const EditPortfolioSection = () => {
 
       toast.success(`Successful Edit Portfolio.`);
       setSelectedFiles([]);
-      navigate(`/company`);
+      navigate(`/portfolio/${portId}`);
     } catch (err) {
       console.error(err);
       toast.error(`Unsuccessful Edit Portfolio`);
@@ -166,13 +173,20 @@ const EditPortfolioSection = () => {
     }
   };
 
+  if (!data || loading)
+    return (
+      <div>
+        <p>Loading</p>
+      </div>
+    );
+
   return (
     <section className="flex justify-center my-10">
       <form
         onSubmit={handlerSubmit}
         className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"
       >
-        <h1 className="font-bold ">CREATE PORTFOLIO</h1>
+        <h1 className="font-bold ">EDIT PORTFOLIO</h1>
         <div className="w-full">
           <TextField
             className="w-full"
@@ -218,7 +232,7 @@ const EditPortfolioSection = () => {
               value={province ? province.name_en : ''}
               onChange={handleChangeProvice}
               autoWidth
-              label="Provice"
+              label="PROVICE"
             >
               {provinces &&
                 provinces.map((province) => (
@@ -236,7 +250,7 @@ const EditPortfolioSection = () => {
               value={amphure ? amphure.name_en : ''}
               onChange={handleChangeAmphure}
               autoWidth
-              label="amphure"
+              label="DISTRICT"
             >
               {amphureId &&
                 amphureId.map((amphure) => (
@@ -254,7 +268,7 @@ const EditPortfolioSection = () => {
               value={tambon ? tambon.name_en : ''}
               onChange={handleChangeTambon}
               autoWidth
-              label="tambons"
+              label="SUB-DISTRICT"
             >
               {tambonId &&
                 tambonId.map((tambon) => (
@@ -331,6 +345,11 @@ const EditPortfolioSection = () => {
         <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
           Submit
         </button>
+        <Link to={`/portfolio/${portId}`}>
+          <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
+            Back
+          </button>
+        </Link>
       </form>
     </section>
   );

@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
@@ -57,7 +57,7 @@ const CreatePortfolioSection = () => {
   const [tambon, setTambon] = useState<{ id: number; name_en: string } | null>(null);
   const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
   const [tags, setTag] = useState<string[]>([]);
-
+  const { companyId } = useParams();
   const theme = useTheme();
   const { token } = useAuth();
 
@@ -153,7 +153,7 @@ const CreatePortfolioSection = () => {
 
       toast.success(`Successful Create Portfolio.`);
       setSelectedFiles([]);
-      navigate('/company/:companyId');
+      navigate(`/company/${companyId}`);
     } catch (err) {
       console.error(err);
       toast.error(`Unsuccessful Create Portfolio`);
@@ -214,7 +214,7 @@ const CreatePortfolioSection = () => {
               value={province ? province.name_en : ''}
               onChange={handleChangeProvice}
               autoWidth
-              label="Provice"
+              label="PROVINCE"
             >
               {provinces &&
                 provinces.map((province) => (
@@ -232,7 +232,7 @@ const CreatePortfolioSection = () => {
               value={amphure ? amphure.name_en : ''}
               onChange={handleChangeAmphure}
               autoWidth
-              label="amphure"
+              label="DISTRICT"
             >
               {amphureId &&
                 amphureId.map((amphure) => (
@@ -250,7 +250,7 @@ const CreatePortfolioSection = () => {
               value={tambon ? tambon.name_en : ''}
               onChange={handleChangeTambon}
               autoWidth
-              label="tambons"
+              label="SUB-DISTRICT"
             >
               {tambonId &&
                 tambonId.map((tambon) => (
