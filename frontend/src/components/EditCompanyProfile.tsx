@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef } from 'react';
+import React, { ChangeEvent, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -24,6 +24,7 @@ import { AmphureDto, TambonDto } from '../types/dto';
 import useAddressThai from '../hooks/useAddressThai';
 import { Link } from 'react-router-dom';
 import useEditCompany from '../hooks/useEditCompany';
+import usericon from '../img/user.png';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -64,35 +65,39 @@ export default function EditCompanyProfile() {
   const theme = useTheme();
   const [tags, setTags] = React.useState<string[]>([]);
 
-  const { companyId } = useParams();
+  const { id } = useParams();
 
   const {
     data,
     status: { loading },
-  } = useEditCompany(companyId);
+  } = useEditCompany(id);
 
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
-    const {
-      target: { value },
-    } = event;
-    setTags(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    useEffect(() => {
+      const {
+        target: { value },
+      } = event;
+      setTags(
+        // On autofill we get a stringified value.
+        typeof value === 'string' ? value.split(',') : value,
+      );
+    }, []);
   };
 
   const handleChangeProvice = (event: SelectChangeEvent) => {
     const selectedProvince = provinces.find((province) => province.name_en === event.target.value);
 
-    if (selectedProvince) {
-      setProvince(selectedProvince);
-      const filteredAmphure = amphures.filter((amphure) => amphure.province_id === selectedProvince.id);
-      setAmphureId(filteredAmphure);
-      setTambonId([]);
-    } else {
-      setProvince(null);
-      setAmphureId([]);
-    }
+    useEffect(() => {
+      if (selectedProvince) {
+        setProvince(selectedProvince);
+        const filteredAmphure = amphures.filter((amphure) => amphure.province_id === selectedProvince.id);
+        setAmphureId(filteredAmphure);
+        setTambonId([]);
+      } else {
+        setProvince(null);
+        setAmphureId([]);
+      }
+    }, []);
   };
 
   const handleChangeAmphure = (event: SelectChangeEvent) => {
@@ -171,14 +176,14 @@ export default function EditCompanyProfile() {
       for (let i = 0; i < tags.length; i++) {
         formData.append('tag', tags[i]);
       }
-      await axios.patch(`${host}/company/${companyId}`, formData, {
+      await axios.patch(`${host}/company/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
       toast.success(`Successful Edit CompanyProfile.`);
-      navigate(`/company/${companyId}`);
+      navigate(`/company/${id}`);
     } catch (err) {
       console.error(err);
       toast.error(`Unsuccessful Edit Company Profile`);
@@ -187,12 +192,12 @@ export default function EditCompanyProfile() {
     }
   };
 
-  if (!data || loading)
-    return (
-      <div>
-        <p>Loading</p>
-      </div>
-    );
+  // if (!data || loading)
+  //   return (
+  //     <div>
+  //       <p>Loading</p>
+  //     </div>
+  //   );
 
   return (
     <>
@@ -207,7 +212,7 @@ export default function EditCompanyProfile() {
           <h1 className="font-bold ">EDIT COMPANY PROFILE</h1>
           {imageProfile ? (
             <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-              <img className="w-full h-full rounded-full truncate" src={data.imageCompanyUrl} alt="imageprofile" />
+              <img className="w-full h-full rounded-full truncate" src={usericon} alt="imageprofile" />
             </div>
           ) : (
             <>
@@ -381,7 +386,7 @@ export default function EditCompanyProfile() {
           <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
             Submit
           </button>
-          <Link to={`/company/${companyId}`}>
+          <Link to={`/company/${id}`}>
             <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
               Back
             </button>
