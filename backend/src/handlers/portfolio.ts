@@ -51,7 +51,6 @@ class HandlerPortfolio implements IHandlerPorfolio {
       postCode,
       contact,
     } = req.body;
-
     if (
       !title ||
       !body ||

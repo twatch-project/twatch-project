@@ -25,9 +25,11 @@ export default function Nav() {
             <Link to="/Contact">Contact</Link>
             {isLoggedIn ? (
               <>
-                <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
-                  logout
-                </button>
+                <Link to="/">
+                  <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
+                    logout
+                  </button>
+                </Link>
               </>
             ) : (
               <>

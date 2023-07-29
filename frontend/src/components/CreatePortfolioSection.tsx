@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
@@ -57,7 +57,7 @@ const CreatePortfolioSection = () => {
   const [tambon, setTambon] = useState<{ id: number; name_en: string } | null>(null);
   const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
   const [tags, setTag] = useState<string[]>([]);
-  const { companyId } = useParams();
+  // const { companyId } = useParams();
   const theme = useTheme();
   const { token } = useAuth();
 
@@ -150,10 +150,10 @@ const CreatePortfolioSection = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      const getCompany = await localStorage.getItem('companyId');
       toast.success(`Successful Create Portfolio.`);
       setSelectedFiles([]);
-      navigate(`/company/${companyId}`);
+      navigate(`/company/${getCompany}`);
     } catch (err) {
       console.error(err);
       toast.error(`Unsuccessful Create Portfolio`);
