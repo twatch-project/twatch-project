@@ -7,15 +7,15 @@ import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
 import EditCompanyProfile from './pages/EditCompany';
-import { useAuth } from './providers/AuthProvider';
-import Companys from './pages/Companys';
 import CreateCompanyProfile from './components/CreateCompany';
 import EditPortfolio from './pages/EditPortfolio';
 
 function App() {
-  const { isLoggedIn } = useAuth();
+  // const { isLoggedIn } = useAuth();
   return (
     <>
+      {/* <ShowMore /> */}
+      {/* <PortfolioSection /> */}
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         {/* <Route path="/testimage" element={<ImageGallery />} /> */}
@@ -34,8 +34,12 @@ function App() {
           <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} />
           <Route path="/company" element={<Company />} />
         </Route>
-        {/* <Route path="*" element={<Error message="Page Not Found" />} /> */}
       </Routes>
+      {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
+      {/* <Route path="/company/create" element={<CreateCompanyProfile />} /> */}
+      {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
+      {/* <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} /> */}
+      {/* <Route path="*" element={<Error message="Page Not Found" />} /> */}
       {/* </Layout> */}
     </>
   );
@@ -43,5 +47,3 @@ function App() {
 
 export default App;
 
-// url: http://api.relay.cleverse.academy/test
-// body: {"status": "ok"}

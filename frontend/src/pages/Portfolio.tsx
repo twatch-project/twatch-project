@@ -2,10 +2,15 @@
 import Nav from '../components/Nav';
 import Company from '../components/Company';
 import Footer from '../components/Footer';
+import ReactStars from 'react-stars';
+
 // import { styled } from '@mui/material'
 // import Rating from '@mui/material/Rating'
-import { Link } from 'react-router-dom';
-import ReactStars from 'react-stars';
+import PortfolioSection from '../components/PortfolioSection';
+import ShowMore from '../components/ShowMore';
+import DisplayBlock from '../components/DisplayBlock';
+// import { useState } from 'react';
+// import TextField from '@mui/material/TextField';
 
 // const StyledRating = styled(Rating)({
 //   '& .MuiRating-iconFilled': {
@@ -16,6 +21,12 @@ import ReactStars from 'react-stars';
 //   },
 // })
 export default function Portfolio() {
+  // const [rating, setRating] = useState();
+  // const [showMore, setShowMore] = useState(false);
+
+  // const handleToggleShowMore = () => {
+  //   setShowMore(!showMore);
+  // };
   const img =
     'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   // const navigate = useNavigate()
@@ -25,7 +36,8 @@ export default function Portfolio() {
   return (
     <>
       <Nav />
-      <section className="flex justify-center items-center min-h-[100vh]">
+      <PortfolioSection />
+      {/* <section className="flex justify-center items-center min-h-[100vh]">
         <div className="HeroSection flex  w-[1200px] h-[520px] gap-x-[50px] ">
           <div className="left w-[570px]">
             <div className="head">
@@ -56,42 +68,37 @@ export default function Portfolio() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+      <section className="flex m-10 flex-col justify-center items-center">
+        <div className="head p-[15px] text-left font-bold">COMMENT</div>
 
-      <form action="">
-        \
-        <div className="comment flex justify-center items-center min-h-[100vh]">
-          <section className="flex flex-col items-center">
-            <div className="head p-[15px] text-left font-bold">COMMENT</div>
-            <div className="center flex flex-col gap-[25px]">
-              <div className="card-comment flex items-center justify-between w-[835px] h-[100px] border-[0.5px]">
-                <div className="left flex gap-x-[10px] m-[10px]">
-                  <div className="imgBx w-[50px] h-[50px] rounded-[100%] overflow-hidden">
-                    <img className="w-full h-full" src={img} alt="" />
-                  </div>
-                  <div className="name">
-                    <h1>TaiChi</h1>
-                    <input type="text" placeholder="Add comment" />
-                  </div>
-                </div>
-                <div className="right  gap-x-[10px] m-[10px]">
-                  <ReactStars
-                    count={5}
-                    // value={}
-                    // onChange={(rating) => setRating(rating)}
-                    size={24}
-                    color2={'#ffd700'}
-                    half={false}
-                  />
-                </div>
+        <div className="center flex flex-col gap-[25px]">
+          <div className="card-comment flex items-center justify-between w-[835px] h-[100px] border-[0.5px]">
+            <div className="left flex gap-x-[10px] m-[10px]">
+              <div className="imgBx w-[50px] h-[50px] rounded-[100%] bg-black overflow-hidden">
+                <img className="w-full h-full" alt="" />
+              </div>
+              <div className="name font-bold">
+                <h1>TaiChi</h1>
+                <DisplayBlock />
+                {/* <input type="text" className="outline-none" placeholder="Add comment" /> */}
+                {/* <TextField id="outlined-basic" label="TaiChi" variant="outlined" /> */}
               </div>
             </div>
-            <div className="footer p-[1rem]">
-              <button className="bg-blue p-[1rem] text-white rounded">Show more</button>
+            <div className="right  gap-x-[10px] m-[10px]">
+              <ReactStars
+                count={5}
+                // value={rating}
+                // onChange={(rating) => setRating(rating)}
+                size={24}
+                color2={'#ffd700'}
+                half={false}
+              />
             </div>
-          </section>
+          </div>
         </div>
-      </form>
+        <ShowMore />
+      </section>
       <Company />
       <Footer />
     </>
