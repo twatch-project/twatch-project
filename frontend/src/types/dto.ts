@@ -12,9 +12,7 @@ export interface CompanyDto {
   companyId: number;
   companyName: string;
   companyRegistration: string;
-  imageCompany: string;
   imageCompanyUrl: string;
-  imageContents: string[];
   imageContentUrls: string[];
   body: string;
   address: string;
@@ -24,8 +22,18 @@ export interface CompanyDto {
   postCode: string;
   contact: string;
   tag: string[];
-
   userId: string;
+}
+
+export interface CompanyCardDto {
+  companyId: number;
+  companyName: string;
+  imageCompanyUrl: string;
+  imageContentUrls: string[];
+  body: string;
+  province: string;
+  contact: string;
+  tag: string[];
 }
 
 export interface PortfolioDto {

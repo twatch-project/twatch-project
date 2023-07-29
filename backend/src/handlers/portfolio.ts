@@ -120,7 +120,6 @@ class HandlerPortfolio implements IHandlerPorfolio {
         contact,
         companyId: company.companyId,
       });
-      console.log(port);
       return res.status(201).json({ port, status: "ok" }).end();
     } catch (err) {
       console.error(err);

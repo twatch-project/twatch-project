@@ -1,9 +1,10 @@
 import { FormEvent, useState } from 'react';
-import { useAuth } from '../providers/AuthProvider';
+import { useAuth } from '../../providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { Role } from '../types/auth.context';
+import { Role } from '../../types/auth.context';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [usernameInput, setUsernameInput] = useState('');
@@ -14,11 +15,6 @@ const Register = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
-  console.log(usernameInput);
-  console.log(passwordInput);
-  console.log(passwordConfirm);
-  console.log(roleInput);
-  console.log(emailInput);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -135,6 +131,9 @@ const Register = () => {
               >
                 SignUp
               </button>
+              <Link to="/register" className="text-blue text-center">
+                Already have an account? Login
+              </Link>
             </div>
           </form>
         </div>

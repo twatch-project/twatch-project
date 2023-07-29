@@ -1,14 +1,15 @@
 // import img from '../img/3.jpg'
 import Nav from '../components/Nav';
-import Company from '../components/Company';
+import Company from '../components/companys/Company';
 import Footer from '../components/Footer';
 import ReactStars from 'react-stars';
 
 // import { styled } from '@mui/material'
 // import Rating from '@mui/material/Rating'
-import PortfolioSection from '../components/PortfolioSection';
+import PortfolioSection from '../components/portfolios/PortfolioSection';
 import ShowMore from '../components/ShowMore';
 import DisplayBlock from '../components/DisplayBlock';
+import PortfolioList from '../components/portfolios/PortfolioList';
 // import { useState } from 'react';
 // import TextField from '@mui/material/TextField';
 
@@ -37,6 +38,7 @@ export default function Portfolio() {
     <>
       <Nav />
       <PortfolioSection />
+      <PortfolioList />
       {/* <section className="flex justify-center items-center min-h-[100vh]">
         <div className="HeroSection flex  w-[1200px] h-[520px] gap-x-[50px] ">
           <div className="left w-[570px]">
