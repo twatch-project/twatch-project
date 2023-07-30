@@ -6,6 +6,7 @@ import DisplayNav from '../components/DisplayNav';
 export default function Nav() {
   const { isLoggedIn, logout } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   const handlerClick = () => {
     setShowMenu(!showMenu);
@@ -19,13 +20,30 @@ export default function Nav() {
         <div className="right flex items-center">
           <div className="menu flex items-center mx-[2rem] max-md:hidden">
             <Link to="/" className="font-bold">
-              Home
+              <button
+                onClick={() => setIsActive(!isActive)}
+                className={
+                  isActive ? 'bg-blue text-white px-2 py-1 rounded-md' : 'border border-blue  px-2 py-1 rounded-md'
+                }
+              >
+                Home
+              </button>
             </Link>
-            <Link to="/Company">Company</Link>
+            <Link to="/Company">
+              {' '}
+              <button
+                onClick={() => setIsActive(!isActive)}
+                className={
+                  isActive ? 'bg-blue text-white px-2 py-1 rounded-md' : 'border border-blue  px-2 py-1 rounded-md'
+                }
+              >
+                COMPANY
+              </button>
+            </Link>
             <Link to="/Contact">Contact</Link>
             {isLoggedIn ? (
               <>
-                <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
+                <button onClick={logout} className="bg-blue px-5 py-1 rounded text-white">
                   logout
                 </button>
               </>
@@ -34,7 +52,7 @@ export default function Nav() {
                 <Link to="/Register">SignUp</Link>
                 <Link
                   to="/Login"
-                  className="bg-blue py-[5px] px-[1rem] rounded text-white hover:bg-white hover:text-blue border hover:border-blue"
+                  className="bg-blue px-5 py-1 rounded text-white hover:bg-white hover:text-blue border hover:border-blue"
                 >
                   Login
                 </Link>
