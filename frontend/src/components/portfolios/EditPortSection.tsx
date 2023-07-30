@@ -76,6 +76,7 @@ const EditPortfolioSection = () => {
         const res = await fetch(`${host}/portfolio/${portId}`);
         const data = await res.json();
 
+        setTitle(data.port.title);
         setAddress(data.port.address);
         setPostCode(data.port.postCode);
         setBody(data.port.body);

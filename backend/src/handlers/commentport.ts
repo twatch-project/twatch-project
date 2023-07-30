@@ -39,6 +39,7 @@ class HandlerCommentPort implements IHandlerComment {
       return res.status(500).json({ err: `rating can store 0-5` }).end();
     }
     const userId = req.payload.id;
+    console.log(userId, portId, rating, message)
 
     try {
       const isCreateComment = await this.repo.createComment({

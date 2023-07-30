@@ -1,5 +1,5 @@
 import ReactStars from 'react-stars';
-import { CommentDto } from '../types/dto';
+import { CommentDto } from '../../types/dto';
 
 interface ICommentCardProps {
   comment: CommentDto;
