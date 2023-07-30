@@ -25,7 +25,7 @@ const PortfolioSection = () => {
   const pageCompanyId = data?.companyId;
   console.log(pageCompanyId);
 
-  if (loading) return <Loading />;
+  if (loading || ready || !data) return <Loading />;
 
   const {
     title,
@@ -40,7 +40,7 @@ const PortfolioSection = () => {
     createAt,
     updateAt,
     companyId,
-  } = data!;
+  } = data;
 
   return (
     <>
