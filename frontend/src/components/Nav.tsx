@@ -26,7 +26,7 @@ export default function Nav() {
             {isLoggedIn ? (
               <>
                 <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
-                  Log
+                  Logout
                 </button>
               </>
             ) : (

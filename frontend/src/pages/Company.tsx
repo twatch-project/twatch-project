@@ -15,7 +15,6 @@ import Loading from '../components/Loading';
 
 export default function Company() {
   const { companyId } = useParams();
-  console.log(companyId, companyId);
 
   const {
     data,
@@ -100,8 +99,9 @@ export default function Company() {
               </div>
             </Link>
           </div>
+          <PortListByCompany />
           <div className="center flex justify-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg">
-            <Link to="/Comment" className="head overflow-hidden">
+            <Link to="/comment" className="head overflow-hidden">
               <section className="Portfolio  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
                 <img className="hover:scale-105 ease-in duration-200" src={imgsfile} alt="" />
                 <div className="center text-center my-2">
