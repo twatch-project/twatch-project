@@ -91,3 +91,18 @@ export interface TambonDto {
   name_en: string;
   amphure_id: number;
 }
+
+export interface CommentDto {
+  commentId: string;
+  message: string;
+  rating: number;
+  userId: string;
+  commentBy: {
+    company: {
+      companyName: string;
+    }[];
+    customer: {
+      firstname: string;
+    }[];
+  };
+}
