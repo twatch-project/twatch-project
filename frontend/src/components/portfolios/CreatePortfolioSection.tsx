@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
@@ -57,9 +57,8 @@ const CreatePortfolioSection = () => {
   const [tambon, setTambon] = useState<{ id: number; name_en: string } | null>(null);
   const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
   const [tags, setTag] = useState<string[]>([]);
-  const { companyId } = useParams();
   const theme = useTheme();
-  const { token } = useAuth();
+  const { token, companyId } = useAuth();
 
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     const {
@@ -207,7 +206,7 @@ const CreatePortfolioSection = () => {
         </div>
         <div className="w-auto">
           <FormControl sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-autowidth-label">Provice</InputLabel>
+            <InputLabel id="demo-simple-select-autowidth-label">PROVINCE</InputLabel>
             <Select
               labelId="demo-simple-select-autowidth-label"
               id="demo-simple-select-autowidth"
@@ -225,7 +224,7 @@ const CreatePortfolioSection = () => {
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, minWidth: 150 }}>
-            <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
+            <InputLabel id="demo-simple-select-autowidth-label">DISTRICT</InputLabel>
             <Select
               labelId="demo-simple-select-autowidth-label"
               id="demo-simple-select-autowidth"
@@ -243,7 +242,7 @@ const CreatePortfolioSection = () => {
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
+            <InputLabel id="demo-simple-select-autowidth-label">SUB-DISTRICT</InputLabel>
             <Select
               labelId="demo-simple-select-autowidth-label"
               id="demo-simple-select-autowidth"

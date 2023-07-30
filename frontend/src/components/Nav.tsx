@@ -21,22 +21,22 @@ export default function Nav() {
             <Link to="/" className="font-bold">
               Home
             </Link>
-            <Link to="/Company">Company</Link>
-            <Link to="/Contact">Contact</Link>
+            <Link to="/company">Company</Link>
+            <Link to="/contact">Contact</Link>
             {isLoggedIn ? (
               <>
                 <button onClick={logout} className="bg-blue py-[5px] px-[1rem] rounded text-white">
-                  logout
+                  Log
                 </button>
               </>
             ) : (
               <>
-                <Link to="/Register">SignUp</Link>
+                <Link to="/signup">SignUp</Link>
                 <Link
-                  to="/Login"
+                  to="/signin"
                   className="bg-blue py-[5px] px-[1rem] rounded text-white hover:bg-white hover:text-blue border hover:border-blue"
                 >
-                  Login
+                  SignIn
                 </Link>
               </>
             )}

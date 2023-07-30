@@ -28,10 +28,14 @@ const LoginSection = () => {
       toast.success('Successful Login');
 
       const checkCompany = await localStorage.getItem('companyId');
+      console.log(checkCompany);
 
       if (checkCompany) {
+        console.log('hel');
         navigate('/');
+        return;
       }
+
       navigate('/company/create');
     } catch (err) {
       console.error(err);

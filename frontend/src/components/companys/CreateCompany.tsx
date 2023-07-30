@@ -294,7 +294,7 @@ export default function CreateCompanyProfile() {
           </div>
           <div className="w-auto">
             <FormControl sx={{ m: 1, minWidth: 200 }}>
-              <InputLabel id="demo-simple-select-autowidth-label">Provice</InputLabel>
+              <InputLabel id="demo-simple-select-autowidth-label">PROVINCE</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
@@ -312,7 +312,7 @@ export default function CreateCompanyProfile() {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 150 }}>
-              <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
+              <InputLabel id="demo-simple-select-autowidth-label">DISTRICT</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
@@ -330,7 +330,7 @@ export default function CreateCompanyProfile() {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 200 }}>
-              <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
+              <InputLabel id="demo-simple-select-autowidth-label">SUB-DISTRICT</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
