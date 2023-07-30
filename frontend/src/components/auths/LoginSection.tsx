@@ -31,6 +31,7 @@ const LoginSection = () => {
 
       if (checkCompany) {
         navigate('/');
+        return;
       }
       navigate('/company/create');
     } catch (err) {

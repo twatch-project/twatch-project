@@ -6,7 +6,6 @@ import Company from './pages/Company';
 import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
-import EditCompanyProfile from './pages/EditCompany';
 import CreateCompanyProfile from './components/companys/CreateCompany';
 import EditPortfolio from './pages/EditPortfolio';
 import Companys from './pages/Companys';
@@ -28,7 +27,7 @@ function App() {
           <Route path="/company/:id" element={<Company />} />
           {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
           <Route path="/company/create" element={<CreateCompanyProfile />} />
-          <Route path="/company/edit/:id" element={<EditCompanyProfile />} />
+          {/* <Route path="/company/edit/:id" element={<EditCompanyProfile />} /> */}
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />

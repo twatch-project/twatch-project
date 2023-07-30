@@ -1,16 +1,8 @@
-import { CompanyCardDto } from '../../types/dto';
 import { Link } from 'react-router-dom';
+import { CompanyCardDto } from '../../types/dto';
+import { Avatar } from '@mui/material';
 // import { styled } from '@mui/material';
 // import Rating from '@mui/material/Rating';
-
-// const StyledRating = styled(Rating)({
-//   '& .MuiRating-iconFilled': {
-//     color: '#ff6d75',
-//   },
-//   '& .MuiRating-iconHover': {
-//     color: '#ff3d47',
-//   },
-// });
 
 const CompanyCard = ({
   companyId,
@@ -25,24 +17,28 @@ const CompanyCard = ({
   return (
     <>
       <Link to={`/company/${companyId}`}>
-        <div>{imageCompanyUrl}</div>
-        <div>{imageContentUrls}</div>
-        <div>{companyName}</div>
-        <div>{body}</div>
-        <div>{province}</div>
-        <div>{contact}</div>
-        <div>{tag.map((tag) => tag)}</div>
-        {/* <div>
-          <StyledRating
-            name="Heart Rate"
-            defaultValue={5}
-            value={rating}
-            getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-            icon={<FavoriteIcon fontSize="inherit" />}
-            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-            readOnly
-          />
-        </div> */}
+        <div className="card w-[300px] border-[0.5px]   p-5 rounded-md">
+          <div className="head">
+            <div className="imgBx bg-[#eee] h-[150px]">
+              <img className="w-full h-full" src={imageCompanyUrl} alt="image" />
+            </div>
+          </div>
+
+          <div className="body text-start py-2">
+            <div className="font-bold text-[24px]">{companyName}</div>
+            <div className="py-2 ">{body}</div>
+            {/* <div className="py-2">{contact}</div> */}
+            <div className="py-2">{province}</div>
+          </div>
+
+          <div className="footer flex items-center justify-between overflow-hidden">
+            {/* <div><img src={imageContentUrls} alt="" /></div> */}
+            <div className="imgBx w-[38px] h-[38px] rounded-full overflow-hidden">
+              <Avatar alt="User" src="" />
+            </div>
+            <div>{tag.map((tag) => tag)}</div>
+          </div>
+        </div>
       </Link>
     </>
   );

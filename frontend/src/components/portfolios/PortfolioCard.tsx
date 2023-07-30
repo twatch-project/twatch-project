@@ -5,34 +5,22 @@ import { Link } from 'react-router-dom';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-// const StyledRating = styled(Rating)({
-//   '& .MuiRating-iconFilled': {
-//     color: '#ff6d75',
-//   },
-//   '& .MuiRating-iconHover': {
-//     color: '#ff3d47',
-//   },
-// });
-
 const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId }: PortfolioDto) => {
   return (
     <>
       <Link to={`/portfolio/${portId}`}>
-        <div>{imageContentUrls}</div>
-        <div>{title}</div>
-        <div>{body}</div>
-        <div>{companyId}</div>
-        {/* <div>
-          <StyledRating
-            name="Heart Rate"
-            defaultValue={5}
-            value={rating}
-            getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-            icon={<FavoriteIcon fontSize="inherit" />}
-            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-            readOnly
-          />
-        </div> */}
+        <div className="card w-[300px] border-[0.5px] p-5 rounded-md">
+          <div className="head">
+            <div>{/* <img src={imageContentUrls} alt="" /> */}</div>
+          </div>
+          <div className="body p-3 text-center">
+            <div>{title}</div>
+            <div>{body}</div>
+          </div>
+          <div className="footer">
+            <div>{companyId}</div>
+          </div>
+        </div>
       </Link>
     </>
   );

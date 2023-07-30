@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import PortfolioSection from '../components/portfolios/PortfolioSection';
 // import ShowMore from '../components/ShowMore';
 import DisplayBlock from '../components/DisplayBlock';
-import PortfolioList from '../components/portfolios/PortfolioList';
+import PortListByCompany from '../components/portfolios/PortListByCompany';
 // import { useState } from 'react';
 // import TextField from '@mui/material/TextField';
 
@@ -38,7 +38,7 @@ export default function Portfolio() {
       <Nav />
       <PortfolioSection />
       <DisplayBlock />
-      <PortfolioList />
+      <PortListByCompany />
       {/* <section className="flex justify-center items-center min-h-[100vh]">
         <div className="HeroSection flex  w-[1200px] h-[520px] gap-x-[50px] ">
           <div className="left w-[570px]">
