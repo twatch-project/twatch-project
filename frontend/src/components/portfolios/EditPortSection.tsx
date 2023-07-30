@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from 'react';
+import { ChangeEvent, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -23,7 +23,8 @@ import { useAuth } from '../../providers/AuthProvider';
 import useAddressThai from '../../hooks/useAddressThai';
 import { AmphureDto, TambonDto } from '../../types/dto';
 import { Link } from 'react-router-dom';
-import useEditPortfolio from '../../hooks/useEditPortfolio';
+import Loading from '../Loading';
+import usePortfolio from '../../hooks/usePortfolio';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -43,7 +44,6 @@ function getStyles(name: string, tag: readonly string[], theme: Theme) {
 }
 
 const EditPortfolioSection = () => {
-  // const { isLoggedIn, logout } = useAuth();
   const [title, setTitle] = useState<string>('');
   const filesInputRef = useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -59,7 +59,7 @@ const EditPortfolioSection = () => {
   const [amphureId, setAmphureId] = useState<AmphureDto[] | null>(null);
   const [tambon, setTambon] = useState<{ id: number; name_en: string } | null>(null);
   const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
-  const [tags, setTag] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const { portId } = useParams();
 
   const theme = useTheme();
@@ -68,16 +68,31 @@ const EditPortfolioSection = () => {
   const {
     data,
     status: { loading },
-  } = useEditPortfolio(portId || '');
+  } = usePortfolio(portId || '');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${host}/portfolio/${portId}`);
+        const data = await res.json();
+
+        setAddress(data.port.address);
+        setPostCode(data.port.postCode);
+        setBody(data.port.body);
+        setContact(data.port.contact);
+        setTags(data.port.tag);
+      } catch (err: any) {
+        console.error(err.message);
+      }
+    };
+    fetchData();
+  }, [data]);
 
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     const {
       target: { value },
     } = event;
-    setTag(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setTags(typeof value === 'string' ? value.split(',') : value);
   };
 
   const handleChangeProvice = (event: SelectChangeEvent) => {
@@ -173,12 +188,7 @@ const EditPortfolioSection = () => {
     }
   };
 
-  if (!data || loading)
-    return (
-      <div>
-        <p>Loading</p>
-      </div>
-    );
+  if (!data || loading) return <Loading />;
 
   return (
     <section className="flex justify-center my-10">
@@ -225,14 +235,14 @@ const EditPortfolioSection = () => {
         </div>
         <div className="w-auto">
           <FormControl sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-autowidth-label">Provice</InputLabel>
+            <InputLabel id="demo-simple-select-autowidth-label">PROVINCE</InputLabel>
             <Select
               labelId="demo-simple-select-autowidth-label"
               id="demo-simple-select-autowidth"
-              value={province ? province.name_en : ''}
+              defaultValue={province ? province.name_en : ''}
               onChange={handleChangeProvice}
               autoWidth
-              label="PROVICE"
+              label="PROVINCE"
             >
               {provinces &&
                 provinces.map((province) => (
@@ -243,7 +253,7 @@ const EditPortfolioSection = () => {
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, minWidth: 150 }}>
-            <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
+            <InputLabel id="demo-simple-select-autowidth-label">DISTRICT</InputLabel>
             <Select
               labelId="demo-simple-select-autowidth-label"
               id="demo-simple-select-autowidth"
@@ -261,7 +271,7 @@ const EditPortfolioSection = () => {
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
+            <InputLabel id="demo-simple-select-autowidth-label">SUB-DISTRICT</InputLabel>
             <Select
               labelId="demo-simple-select-autowidth-label"
               id="demo-simple-select-autowidth"

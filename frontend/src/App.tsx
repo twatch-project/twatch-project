@@ -20,14 +20,18 @@ function App() {
       <Routes>
         {/* <Route path="/testimage" element={<ImageGallery />} /> */}
         <Route>
-          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<Login />} />
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/signup" element={<Register />} />
           <Route path="/companys" element={<Companys />} />
-          <Route path="/company/:id" element={<Company />} />
+          <Route path="/company/:companyId" element={<Company />} />
           {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
           <Route path="/company/create" element={<CreateCompanyProfile />} />
+<<<<<<< HEAD
           {/* <Route path="/company/edit/:id" element={<EditCompanyProfile />} /> */}
+=======
+          <Route path="/company/:companyId/edit" element={<EditCompanyProfile />} />
+>>>>>>> main
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />

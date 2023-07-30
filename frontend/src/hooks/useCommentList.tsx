@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { CompanyHook } from '../types/company.hook';
-import { CompanyDto } from '../types/dto';
+import { CompanyListHook } from '../types/companyList.hook';
 import { host } from '../constant';
+import { CompanyDto } from '../types/dto';
 
-const useEditCompany = (companyId: string | undefined): CompanyHook => {
-  const [data, setData] = useState<CompanyDto | null>(null);
+export const useCommentList = (portId: string): CompanyListHook => {
+  const [data, setData] = useState<CompanyDto[] | null>(null);
   const [error, setError] = useState<null | unknown>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -12,9 +12,10 @@ const useEditCompany = (companyId: string | undefined): CompanyHook => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${host}/company/${companyId}`);
+        const res = await fetch(`${host}/comment/${portId}`);
         const data = await res.json();
-        setData(data.company);
+
+        setData(data);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -22,7 +23,7 @@ const useEditCompany = (companyId: string | undefined): CompanyHook => {
       }
     };
     fetchData();
-  }, [data]);
+  }, []);
 
   return {
     data,
@@ -33,5 +34,3 @@ const useEditCompany = (companyId: string | undefined): CompanyHook => {
     },
   };
 };
-
-export default useEditCompany;

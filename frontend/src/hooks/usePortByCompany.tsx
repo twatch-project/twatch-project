@@ -35,7 +35,3 @@ const usePortByCompany = (companyId: string | undefined): PortfolioListHook => {
   };
 };
 export default usePortByCompany;
-// portfolioRouter.get(
-//     "/company/:companyId",
-//     handlerPortfolio.getCompanyPorts.bind(handlerPortfolio)
-//   );
