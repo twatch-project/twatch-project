@@ -78,14 +78,8 @@ class RepositoryCommentPort implements IRepositoryCommentPort {
       include: {
         commentBy: {
           select: {
-            company: { select: { companyName: true } },
+            company: { select: { companyName: true, companyRegistration:true} },
             customer: { select: { firstname: true } },
-          },
-        },
-        portfolio: {
-          select: {
-            portId: true,
-            commentBy: true,
           },
         },
       },

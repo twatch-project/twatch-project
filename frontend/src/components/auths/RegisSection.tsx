@@ -34,7 +34,7 @@ const Register = () => {
 
       toast.success('Successful Registration.');
 
-      navigate('/login');
+      navigate('/signin');
     } catch (err) {
       console.error(err);
       toast.error('Unsuccessful Registration');

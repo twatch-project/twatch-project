@@ -15,7 +15,7 @@ const usePortByCompany = (companyId: string | undefined): PortfolioListHook => {
         const res = await fetch(`${host}/portfolio/company/${companyId}`);
         const data = await res.json();
 
-        setData(data);
+        setData(data.ports);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -35,7 +35,3 @@ const usePortByCompany = (companyId: string | undefined): PortfolioListHook => {
   };
 };
 export default usePortByCompany;
-// portfolioRouter.get(
-//     "/company/:companyId",
-//     handlerPortfolio.getCompanyPorts.bind(handlerPortfolio)
-//   );

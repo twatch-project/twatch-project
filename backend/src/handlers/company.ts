@@ -170,8 +170,10 @@ class HandlerCompany implements IHandlerCompany {
     if (companyRole !== "COMPANY") {
       return res.status(400).json({ error: "not company role" }).end();
     }
+    console.log("hello")
 
     const companyId = Number(req.params.companyId);
+    console.log(companyId)
     // isNaN checks if its arg is NaN
     if (isNaN(companyId)) {
       return res
