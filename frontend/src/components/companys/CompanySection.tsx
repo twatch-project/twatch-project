@@ -2,16 +2,15 @@
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Nav from '../../components/Nav';
-import ReactStars from 'react-stars';
 import AssistantPhotoIcon from '@mui/icons-material/AssistantPhotoOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
-import { Avatar } from '@mui/material';
 import ImageGallery from '../../components/Showsileimg';
 import useCompany from '../../hooks/useCompany';
 import Loading from '../Loading';
 import { useAuth } from '../../providers/AuthProvider';
+import PaginationPortList from './ShowListPort';
 
 export default function CompanySetion() {
   const { id } = useParams();
@@ -22,9 +21,6 @@ export default function CompanySetion() {
   } = useCompany(id);
 
   const { userEmail } = useAuth();
-
-  const imgsfile =
-    'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
 
   if (!data || loading) return <Loading />;
 
@@ -101,34 +97,8 @@ export default function CompanySetion() {
               </div>
             </Link>
           </div>
-          <div className="center flex justify-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg">
-            <Link to="/Comment" className="head overflow-hidden">
-              <section className="Portfolio  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
-                <img className="hover:scale-105 ease-in duration-200" src={imgsfile} alt="" />
-                <div className="center text-center my-2">
-                  <h1 className="font-bold  p-[10px]">CLEVERSE ACADEMY</h1>
-                  <p className="text-sm p-[10px]">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque beatae temporibus magnam unde
-                    maiores tempore accusamus qui at? Aliquid, quo!
-                  </p>
-                </div>
-                <div className="footer flex justify-between p-[15px] ">
-                  <div className="imgBx w-[38px] h-[38px] rounded-full overflow-hidden">
-                    <Avatar alt="User" src="" />
-                  </div>
-                  <div className="start flex items-center mx-[10px]">
-                    <ReactStars
-                      count={5}
-                      // value={}
-                      // onChange={(rating) => setRating(rating)}
-                      size={24}
-                      color2={'#ffd700'}
-                      half={false}
-                    />
-                  </div>
-                </div>
-              </section>
-            </Link>
+          <div className="flex justify-center contant-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg">
+            <PaginationPortList />
           </div>
         </div>
       </section>

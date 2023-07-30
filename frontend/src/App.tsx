@@ -30,7 +30,7 @@ function App() {
           <Route path="/company/create" element={<CreateCompanyProfile />} />
           <Route path="/company/edit/:id" element={<EditCompanyProfile />} />
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
-          <Route path="/portfolio/:portId" element={<Portfolio />} />
+          <Route path="/portfolio/:id" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
           <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} />
           <Route path="/company" element={<Company />} />

@@ -25,7 +25,7 @@ const PortfolioSection = () => {
   const pageCompanyId = data?.companyId;
   console.log(pageCompanyId);
 
-  if (loading || !ready) return <Loading />;
+  if (loading) return <Loading />;
 
   const {
     title,
