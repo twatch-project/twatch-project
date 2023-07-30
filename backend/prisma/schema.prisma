@@ -73,7 +73,7 @@ model Portfolio {
   createAt         DateTime
   updateAt         DateTime
 
-  postedBy  Company @relation(fields: [companyId], references: [companyId])
+  postedBy  Company            @relation(fields: [companyId], references: [companyId])
   companyId Int
   commentBy CommentPortfolio[]
 }
@@ -85,7 +85,7 @@ model CommentPortfolio {
   createAt  DateTime @default(now())
   updateAt  DateTime @default(now())
 
-  commentBy User @relation(fields: [userId],references: [userId])
+  commentBy User   @relation(fields: [userId], references: [userId])
   userId    String
 
   portfolio Portfolio @relation(fields: [portId], references: [portId])

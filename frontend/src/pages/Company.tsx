@@ -10,24 +10,22 @@ import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import { Avatar } from '@mui/material';
 import ImageGallery from '../components/Showsileimg';
 import useCompany from '../hooks/useCompany';
+import PortListByCompany from '../components/portfolios/PortListByCompany';
+import Loading from '../components/Loading';
 
 export default function Company() {
-  const { id } = useParams();
+  const { companyId } = useParams();
+  console.log(companyId, companyId);
 
   const {
     data,
     status: { loading },
-  } = useCompany(id);
+  } = useCompany(companyId);
 
   const imgsfile =
     'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
 
-  if (!data || loading)
-    return (
-      <div>
-        <p>Loading</p>
-      </div>
-    );
+  if (!data || loading) return <Loading />;
 
   return (
     <>
@@ -66,7 +64,7 @@ export default function Company() {
               </div>
             </div>
             <div className="edit-info flex justify-end p-[15px]">
-              <Link to={`/company/edit/${id}`}>
+              <Link to={`/company/${companyId}/edit`}>
                 <button
                   type="button"
                   className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -91,7 +89,7 @@ export default function Company() {
                 Filter
               </button>
             </div>
-            <Link to="/CreateProfile">
+            <Link to="/portfolio/create">
               <div className="box-right flex justify-end p-[15px]">
                 <button
                   type="button"
@@ -133,6 +131,7 @@ export default function Company() {
           </div>
         </div>
       </section>
+      <PortListByCompany />
       <Footer />
     </>
   );
