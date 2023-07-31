@@ -6,6 +6,7 @@ import Sell from '../components/Sell';
 import Blog from '../components/Blog';
 import Article from '../components/Article';
 import Footer from '../components/Footer';
+import CompanyList from '../components/companys/CompanyList';
 // import CompanyList from '../components/companys/CompanyList';
 const Home = () => {
   return (
@@ -13,7 +14,7 @@ const Home = () => {
       <HeroSection />
       <Sell />
       <Blog />
-      {/* <CompanyList /> */}
+      <CompanyList />
       <Article />
       <Footer />
     </>
