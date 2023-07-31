@@ -9,7 +9,21 @@ const CompanyList = () => {
   } = useCompanyList();
 
   if (loading || !ready) return <Loading />;
-  return <div>{data && data.map((company) => <CompanyCard key={company.companyId} {...company} />)}</div>;
+  return (
+    <>
+      <section className="flex justify-center m-[50px] items-center flex-col">
+        <div className="control">
+          <div className="head flex justify-between items-center m-[15px]">
+            <div className="title font-bold text-[24px]">Blog Company</div>
+            <div className="search">Search</div>
+          </div>
+          <div className="flex justify-center gap-[50px]">
+            {data && data.map((company) => <CompanyCard key={company.companyId} {...company} />)}
+          </div>
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default CompanyList;

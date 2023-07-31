@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef } from 'react';
+import { ChangeEvent, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -23,7 +23,9 @@ import { Tags, host } from '../../constant';
 import { AmphureDto, TambonDto } from '../../types/dto';
 import useAddressThai from '../../hooks/useAddressThai';
 import { Link } from 'react-router-dom';
-import useEditCompany from '../../hooks/useEditCompany';
+// import usericon from '../img/user.png';
+import Loading from '../Loading';
+import useCompany from '../../hooks/useCompany';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -54,22 +56,39 @@ export default function EditCompanyProfile() {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
   const { provinces, amphures, tambons } = useAddressThai();
-  const [province, setProvince] = React.useState<{ id: number; name_en: string } | null>(null);
-  const [amphure, setAmphure] = React.useState<{ id: number; name_en: string } | null>(null);
-  const [amphureId, setAmphureId] = React.useState<AmphureDto[] | null>(null);
-  const [tambon, setTambon] = React.useState<{ id: number; name_en: string } | null>(null);
-  const [tambonId, setTambonId] = React.useState<TambonDto[] | null>(null);
+  const [province, setProvince] = useState<{ id: number; name_en: string } | null>(null);
+  const [amphure, setAmphure] = useState<{ id: number; name_en: string } | null>(null);
+  const [amphureId, setAmphureId] = useState<AmphureDto[] | null>(null);
+  const [tambon, setTambon] = useState<{ id: number; name_en: string } | null>(null);
+  const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
   const { token } = useAuth();
   const [imageProfile, setImageProfile] = useState<boolean>(true);
   const theme = useTheme();
-  const [tags, setTags] = React.useState<string[]>([]);
-
-  const { id } = useParams();
+  const [tags, setTags] = useState<string[]>([]);
+  const { companyId } = useParams();
 
   const {
     data,
     status: { loading },
-  } = useEditCompany(id);
+  } = useCompany(companyId || '');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${host}/company/${companyId}`);
+        const data = await res.json();
+
+        setAddress(data.company.address);
+        setPostCode(data.company.postCode);
+        setBody(data.company.body);
+        setContact(data.company.contact);
+        setTags(data.company.tag);
+      } catch (err: any) {
+        console.error(err.message);
+      }
+    };
+    fetchData();
+  }, [data]);
 
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     useEffect(() => {
@@ -150,39 +169,38 @@ export default function EditCompanyProfile() {
     try {
       const formData = new FormData();
 
-      if (!selectedFile) {
-        toast.error('image not found');
-        return;
+      if (selectedFile) {
+        formData.append('company', selectedFile);
       }
-      formData.append('company', selectedFile);
-
       for (let i = 0; i < selectedFiles.length; i++) {
         formData.append('content', selectedFiles[i]);
       }
       setSelectedFiles([]);
 
-      if (!body || !address || !contact || !postCode || !tambon?.name_en || !amphure?.name_en || !province?.name_en) {
-        toast.error('Fill someting');
-        return;
-      }
       formData.append('contact', contact);
       formData.append('body', body);
       formData.append('postCode', postCode);
       formData.append('address', address);
-      formData.append('sub_district', tambon?.name_en);
-      formData.append('district', amphure?.name_en);
-      formData.append('province', province?.name_en);
+      if (tambon?.name_en) {
+        formData.append('sub_district', tambon?.name_en);
+      }
+      if (amphure?.name_en) {
+        formData.append('district', amphure?.name_en);
+      }
+      if (province?.name_en) {
+        formData.append('province', province?.name_en);
+      }
       for (let i = 0; i < tags.length; i++) {
         formData.append('tag', tags[i]);
       }
-      await axios.patch(`${host}/company/${id}`, formData, {
+      await axios.patch(`${host}/company/${companyId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
       toast.success(`Successful Edit CompanyProfile.`);
-      navigate(`/company/${id}`);
+      navigate(`/company/${companyId}`);
     } catch (err) {
       console.error(err);
       toast.error(`Unsuccessful Edit Company Profile`);
@@ -191,12 +209,7 @@ export default function EditCompanyProfile() {
     }
   };
 
-  // if (!data || loading)
-  //   return (
-  //     <div>
-  //       <p>Loading</p>
-  //     </div>
-  //   );
+  if (!data || loading) return <Loading />;
 
   return (
     <>
@@ -265,11 +278,11 @@ export default function EditCompanyProfile() {
           </div>
           <div className="w-auto">
             <FormControl sx={{ m: 1, minWidth: 200 }}>
-              <InputLabel id="demo-simple-select-autowidth-label">Provice</InputLabel>
+              <InputLabel id="demo-simple-select-autowidth-label">PROVINCE</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value={province ? province.name_en : ''}
+                defaultValue={province ? province.name_en : ''}
                 onChange={handleChangeProvice}
                 autoWidth
                 label="PROVINCE"
@@ -283,7 +296,7 @@ export default function EditCompanyProfile() {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 150 }}>
-              <InputLabel id="demo-simple-select-autowidth-label">Amphure</InputLabel>
+              <InputLabel id="demo-simple-select-autowidth-label">DISTRICT</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
@@ -301,7 +314,7 @@ export default function EditCompanyProfile() {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 200 }}>
-              <InputLabel id="demo-simple-select-autowidth-label">Tambon</InputLabel>
+              <InputLabel id="demo-simple-select-autowidth-label">SUB-DISTRICT</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
@@ -385,7 +398,7 @@ export default function EditCompanyProfile() {
           <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
             Submit
           </button>
-          <Link to={`/company/${id}`}>
+          <Link to={`/company/${companyId}`}>
             <button className="btn hover:bg-sky-500" disabled={isSubmitting}>
               Back
             </button>

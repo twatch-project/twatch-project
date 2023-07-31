@@ -1,6 +1,7 @@
 import Nav from '../components/Nav';
 // import img from '../img/3.jpg'
 import ReactStars from 'react-stars';
+import CompanyList from '../components/companys/CompanyList';
 // import { styled } from '@mui/material'
 // import Rating from '@mui/material/Rating'
 // import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -39,6 +40,7 @@ export default function Companys() {
           <button className="text-center text-blue bg-white border-blue border-[1px] p-[5px]">MIXANDMATCH</button>
         </div>
       </section>
+      <CompanyList />
       <section className="flex justify-center gap-[50px] flex-wrap ">
         <div className="card flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
           <div className="head">

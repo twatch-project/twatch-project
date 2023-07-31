@@ -1,10 +1,12 @@
 export default function Sell() {
   return (
-    <section className="flex justify-center  min-h-[50vh] ">
-      <div className="flex justify-center w-[80%] ">
-        <section className=" flex flex-col  items-center  ">
-          <div className="top font-bold text-2xl p-[10px] m-[10px]">
-            <h1>Twatch No. 1 of Job Search</h1>
+    <>
+      <section className="flex justify-center  items-center flex-col min-h-[50vh]">
+        <div className="control flex flex-col gap-y-[50px]">
+          <div className="font-bold text-center text-2xl p-[10px] m-[10px]">
+            <h1>
+              <span className="text-blue text-[33px]">CraftCon</span> No. 1 of Job Search
+            </h1>
           </div>
 
           <div className="flex items-center footer">
@@ -74,8 +76,8 @@ export default function Sell() {
               <p className="p-2">อธิบายเพื่อให้ Constructors สร้างใบเสนอราคา</p>
             </div>
           </div>
-        </section>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

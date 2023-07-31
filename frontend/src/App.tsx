@@ -6,10 +6,10 @@ import Company from './pages/Company';
 import CreatePortfolio from './pages/CreatePortfolio';
 import Portfolio from './pages/Portfolio';
 import Login from './pages/Login';
-import EditCompanyProfile from './pages/EditCompany';
 import CreateCompanyProfile from './components/companys/CreateCompany';
 import EditPortfolio from './pages/EditPortfolio';
 import Companys from './pages/Companys';
+import EditCompanyProfile from './components/companys/EditCompanyProfile';
 
 function App() {
   // const { isLoggedIn } = useAuth();
@@ -21,14 +21,14 @@ function App() {
       <Routes>
         {/* <Route path="/testimage" element={<ImageGallery />} /> */}
         <Route>
-          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<Login />} />
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/signup" element={<Register />} />
           <Route path="/companys" element={<Companys />} />
-          <Route path="/company/:id" element={<Company />} />
+          <Route path="/company/:companyId" element={<Company />} />
           {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
           <Route path="/company/create" element={<CreateCompanyProfile />} />
-          <Route path="/company/edit/:id" element={<EditCompanyProfile />} />
+          <Route path="/company/:companyId/edit" element={<EditCompanyProfile />} />
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:id" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />

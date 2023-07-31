@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../providers/AuthProvider';
 import { useState } from 'react';
-import DisplayNav from '../components/DisplayNav';
+// import DisplayNav from '../components/DisplayNav';
 import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
 
 export default function Nav() {
@@ -80,7 +80,7 @@ export default function Nav() {
               <div onClick={handlerClick} className="hidden max-md:block">
                 {showMenu && (
                   <div className="hidden" style={{ display: 'block' }}>
-                    <DisplayNav />
+                    {/* <DisplayNav /> */}
                   </div>
                 )}
                 <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1000 1000">
