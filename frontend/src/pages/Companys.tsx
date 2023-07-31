@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import Nav from '../components/Nav';
 import CompanyList from '../components/companys/CompanyList';
 
@@ -27,7 +28,8 @@ export default function Companys() {
         </div>
       </section>
       <CompanyList />
-      <section className="flex justify-center gap-[50px] flex-wrap ">
+      <Footer />
+      {/* <section className="flex justify-center gap-[50px] flex-wrap ">
         <div className="card flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
           <div className="head">
             <img src={img} alt="" />
@@ -46,7 +48,7 @@ export default function Companys() {
             <div className="start flex items-center mx-[10px]"></div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

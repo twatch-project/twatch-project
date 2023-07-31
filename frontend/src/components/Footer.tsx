@@ -1,12 +1,10 @@
 export default function Footer() {
   return (
-    <footer className=" h-[254px]">
-      <div className="footer  text-center">
-        <hr />
-        <h1 className="font-bold p-[50px]">LOGO</h1>
-        <p className="p-[25px]">© 2023 NAMEPROJECT Inc. All rights reserved.</p>
-        <p>Privacy policy | Term of service | Contract</p>
+    <div className="footer flex justify-center flex-col items-center gap-[10px] mt-[30px] border-[1px]">
+      <h1 className="font-bold  text-blue pt-[10px]">CraftCon</h1>
+      <div className="mb-[10px]">
+        <p className="">© 2023 CraftCon Inc. All rights reserved.</p>
       </div>
-    </footer>
+    </div>
   );
 }

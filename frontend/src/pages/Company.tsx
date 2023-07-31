@@ -5,7 +5,7 @@ import AssistantPhotoIcon from '@mui/icons-material/AssistantPhotoOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
-import { Avatar } from '@mui/material';
+// import { Avatar } from '@mui/material';
 import ImageGallery from '../components/Showsileimg';
 import useCompany from '../hooks/useCompany';
 import PortListByCompany from '../components/portfolios/PortListByCompany';
@@ -82,53 +82,29 @@ export default function Company() {
           </div>
         </div>
       </section>
-      <section className="flex justify-center items-center min-h-[60vh]">
-        <div className="profile flex flex-col items-center">
-          <div className="head flex justify-between w-[1280px]">
-            <div className="box-left flex gap-x-3 items-center">
-              <h1 className="font-bold text-[18px] py-[5px] m-5">PORTFOLIO</h1>
-              <button
-                type="button"
-                className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              >
-                Filter
-              </button>
-            </div>
-            <Link to="/portfolio/create">
-              <div className="box-right flex justify-end p-[15px]">
-                <button
-                  type="button"
-                  className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                >
-                  Create Portfolio
-                </button>
+
+      <section className="flex justify-center  min-h-[60vh]">
+        <div className="profile flex content-between min-w-[1000px] flex-col">
+          <div className="head flex flex-col  justify-between  ">
+            <div className="flex justify-between">
+              <div className="box-left flex gap-x-3 items-center">
+                <h1 className="font-bold text-[28px] py-[5px] m-5">PORTFOLIO</h1>
               </div>
-            </Link>
-          </div>
-          <PortListByCompany />
-          <div className="center flex justify-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg">
-            <Link to="/comment" className="head overflow-hidden">
-              <section className="Portfolio  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
-                <img className="hover:scale-105 ease-in duration-200" src={imgsfile} alt="" />
-                <div className="center text-center my-2">
-                  <h1 className="font-bold  p-[10px]">CLEVERSE ACADEMY</h1>
-                  <p className="text-sm p-[10px]">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque beatae temporibus magnam unde
-                    maiores tempore accusamus qui at? Aliquid, quo!
-                  </p>
+              <Link to="/portfolio/create">
+                <div className="box-right flex justify-end p-[15px]">
+                  <button
+                    type="button"
+                    className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  >
+                    Create Portfolio
+                  </button>
                 </div>
-                <div className="footer flex justify-between p-[15px] ">
-                  <div className="imgBx w-[38px] h-[38px] rounded-full overflow-hidden">
-                    <Avatar alt="User" src={data.imageCompanyUrl} />
-                  </div>
-                  <div className="start flex items-center mx-[10px]"></div>
-                </div>
-              </section>
-            </Link>
+              </Link>
+            </div>
+            <PortListByCompany />
           </div>
         </div>
       </section>
-      {/* <PortListByCompany /> */}
       <Footer />
     </>
   );
