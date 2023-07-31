@@ -1,20 +1,18 @@
-// import img from '../img/3.jpg'
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
-// import ReactStars from 'react-stars';
 import AssistantPhotoIcon from '@mui/icons-material/AssistantPhotoOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
-// import { Avatar } from '@mui/material';
+import { Avatar } from '@mui/material';
 import ImageGallery from '../components/Showsileimg';
 import useCompany from '../hooks/useCompany';
 import PortListByCompany from '../components/portfolios/PortListByCompany';
 import Loading from '../components/Loading';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
-import ReactStars from 'react-stars';
+
 export default function Company() {
   const { companyId } = useParams();
 
@@ -68,14 +66,8 @@ export default function Company() {
                 ))}
               </div>
             </div>
-
             <div className="footer flex justify-between w-[300px] my-[20px]">
-              {/* <div className="icon-left">Twatch0000@gmail.com</div> */}
-
-              <div className="icon-right">
-                {/* <div className="icon"></div>
-                <p></p> */}
-              </div>
+              <div className="icon-right"></div>
             </div>
             <div className="edit-info flex justify-end p-[15px]">
               <Link to={`/company/${companyId}/edit`}>
@@ -90,7 +82,6 @@ export default function Company() {
           </div>
         </div>
       </section>
-      {/* {'Section Two'} */}
       <section className="flex justify-center items-center min-h-[60vh]">
         <div className="profile flex flex-col items-center">
           <div className="head flex justify-between w-[1280px]">
@@ -128,22 +119,13 @@ export default function Company() {
                 </div>
                 <div className="footer flex justify-between p-[15px] ">
                   <div className="imgBx w-[38px] h-[38px] rounded-full overflow-hidden">
-                    <Avatar alt="User" src="" />
+                    <Avatar alt="User" src={data.imageCompanyUrl} />
                   </div>
-                  <div className="start flex items-center mx-[10px]">
-                    <ReactStars
-                      count={5}
-                      // value={}
-                      // onChange={(rating) => setRating(rating)}
-                      size={24}
-                      color2={'#ffd700'}
-                      half={false}
-                    />
-                  </div>
+                  <div className="start flex items-center mx-[10px]"></div>
                 </div>
               </section>
             </Link>
-          </div> */}
+          </div>
         </div>
       </section>
       {/* <PortListByCompany /> */}
