@@ -23,7 +23,6 @@ import { Tags, host } from '../../constant';
 import { AmphureDto, TambonDto } from '../../types/dto';
 import useAddressThai from '../../hooks/useAddressThai';
 import { Link } from 'react-router-dom';
-// import usericon from '../img/user.png';
 import Loading from '../Loading';
 import useCompany from '../../hooks/useCompany';
 
@@ -95,10 +94,7 @@ export default function EditCompanyProfile() {
       const {
         target: { value },
       } = event;
-      setTags(
-        // On autofill we get a stringified value.
-        typeof value === 'string' ? value.split(',') : value,
-      );
+      setTags(typeof value === 'string' ? value.split(',') : value);
     }, []);
   };
 

@@ -1,11 +1,7 @@
 import { PortfolioDto } from '../../types/dto';
 import { Link } from 'react-router-dom';
-// import { styled } from '@mui/material';
-// import Rating from '@mui/material/Rating';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId, tag }: PortfolioDto) => {
+const PortfolioCard = ({ portId, title, body, imageContentUrls, tag }: PortfolioDto) => {
   return (
     <>
       <Link to={`/portfolio/${portId}`}>
@@ -22,7 +18,6 @@ const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId, tag }
           <div className="footer">
             <div>
               <div className="flex flex-wrap items-center">
-                {/* {tag.length < 10 ? tag : tag.slice(0, 10) + '...'} */}
                 {tag.map((tag) => (
                   <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
                     {tag}

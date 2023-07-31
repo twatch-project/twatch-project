@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { CompanyListHook } from '../types/companyList.hook';
 import { host } from '../constant';
-import { CompanyDto } from '../types/dto';
+import { CommentListHook } from '../types/commemtList.hook';
+import { CommentDto } from '../types/dto';
 
-export const useCommentList = (portId: string): CompanyListHook => {
-  const [data, setData] = useState<CompanyDto[] | null>(null);
+export const useCommentList = (portId: string | undefined): CommentListHook => {
+  const [data, setData] = useState<CommentDto[] | null>(null);
   const [error, setError] = useState<null | unknown>(null);
   const [loading, setLoading] = useState<boolean>(false);
 

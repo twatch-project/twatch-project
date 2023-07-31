@@ -17,7 +17,6 @@ import {
   Theme,
   useTheme,
 } from '@mui/material';
-// import profileimg from '../img/user.png';
 import { useAuth } from '../../providers/AuthProvider';
 import axios from 'axios';
 import { Tags, host } from '../../constant';
@@ -77,10 +76,7 @@ export default function CreateCompanyProfile() {
     const {
       target: { value },
     } = event;
-    setTags(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setTags(typeof value === 'string' ? value.split(',') : value);
   };
 
   const handleChangeProvice = (event: SelectChangeEvent) => {
