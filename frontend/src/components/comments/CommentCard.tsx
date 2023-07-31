@@ -1,11 +1,13 @@
 import ReactStars from 'react-stars';
-import { CommentDto } from '../types/dto';
+import { CommentDto } from '../../types/dto';
+import { Button } from '@mui/material';
 
 interface ICommentCardProps {
   comment: CommentDto;
+  deletePostClicked: (commentId: string) => Promise<void>;
 }
 
-const CommentCard = ({ comment }: ICommentCardProps) => {
+const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
   return (
     <div className="card-comment flex items-center justify-between w-[835px] h-[100px] p-5 border">
       <div className="flex items-center gap-x-[10px]">
@@ -22,6 +24,9 @@ const CommentCard = ({ comment }: ICommentCardProps) => {
       <div className="gap-x-[10px]">
         <ReactStars count={5} size={24} edit={false} value={comment.rating} color2={'#ffd700'} half={false} />
       </div>
+      <Button variant="outlined" type="button" onClick={() => deletePostClicked(comment.commentId)}>
+        DELETE
+      </Button>
     </div>
   );
 };

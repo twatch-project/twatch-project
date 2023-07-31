@@ -64,14 +64,6 @@ export interface ErrorDto {
   erorr: string;
 }
 
-export interface CommentPortDTO {
-  userId: string;
-  massage: string;
-  rating: number;
-
-  portId: number;
-}
-
 export interface ProviceDto {
   id: number;
   name_th: string;

@@ -61,7 +61,6 @@ const EditPortfolioSection = () => {
   const [tambonId, setTambonId] = useState<TambonDto[] | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const { portId } = useParams();
-
   const theme = useTheme();
   const { token } = useAuth();
 
@@ -76,6 +75,7 @@ const EditPortfolioSection = () => {
         const res = await fetch(`${host}/portfolio/${portId}`);
         const data = await res.json();
 
+        setTitle(data.port.title);
         setAddress(data.port.address);
         setPostCode(data.port.postCode);
         setBody(data.port.body);
