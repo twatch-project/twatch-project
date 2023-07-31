@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import usePortfolio from '../../hooks/usePortfolio';
 import Loading from '../Loading';
-import { useAuth } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import ImageGallery from '../Showsileimg';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
@@ -16,31 +15,16 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 const PortfolioSection = () => {
   const { portId: portId } = useParams();
   const {
-    status: { loading, error, ready },
+    status: { loading, ready },
     data,
   } = usePortfolio(portId || '');
-
-  const auth = useAuth();
 
   const pageCompanyId = data?.companyId;
   console.log(pageCompanyId);
 
   if (loading || !ready) return <Loading />;
 
-  const {
-    title,
-    body,
-    imageContentUrls,
-    tag,
-    address,
-    sub_district,
-    district,
-    province,
-    postCode,
-    createAt,
-    updateAt,
-    companyId,
-  } = data!;
+  const { title, body, imageContentUrls, tag, address, sub_district, district, province, postCode } = data!;
 
   return (
     <>

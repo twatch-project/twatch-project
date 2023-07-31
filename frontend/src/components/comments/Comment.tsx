@@ -6,6 +6,7 @@ import { host } from '../../constant';
 import { useCommentList } from '../../hooks/useCommentList';
 import { useParams } from 'react-router-dom';
 import CommentCard from './CommentCard';
+import axios from 'axios';
 
 export default function Comment() {
   const [comments, setComments] = useState<CommentDto[] | null>(null);
@@ -16,7 +17,6 @@ export default function Comment() {
   const { portId } = useParams();
 
   const { data } = useCommentList(portId);
-  console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -28,9 +28,6 @@ export default function Comment() {
     if (userId)
       if (event.key === 'Enter') {
         try {
-          console.log('hello');
-          console.log(newComment, newRating);
-          console.log(token);
           await fetch(`${host}/comment/${portId}`, {
             method: 'POST',
             headers: {
@@ -39,7 +36,6 @@ export default function Comment() {
             },
             body: JSON.stringify({ message: newComment, rating: newRating }),
           });
-          console.log('aaaa');
         } catch (err: any) {
           console.log(err.message);
         }
@@ -47,6 +43,17 @@ export default function Comment() {
         setNewComment('');
         setNewRating(0);
       }
+  };
+
+  const deletePostClicked = async (commentId: string) => {
+    await axios.delete(`${host}/comment/${commentId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (comments) {
+      setComments(comments.filter((comments) => comments.commentId !== commentId));
+    }
   };
 
   return (
@@ -83,7 +90,9 @@ export default function Comment() {
           comments.length <= 3 &&
           [...comments]
             .reverse()
-            .map((comment: CommentDto) => <CommentCard key={comment.commentId} comment={comment} />)}
+            .map((comment: CommentDto) => (
+              <CommentCard key={comment.commentId} comment={comment} deletePostClicked={deletePostClicked} />
+            ))}
 
         {comments &&
           comments.length > 3 &&
@@ -91,14 +100,18 @@ export default function Comment() {
           [...comments]
             .reverse()
             .slice(0, 3)
-            .map((comment: CommentDto) => <CommentCard key={comment.commentId} comment={comment} />)}
+            .map((comment: CommentDto) => (
+              <CommentCard key={comment.commentId} comment={comment} deletePostClicked={deletePostClicked} />
+            ))}
 
         {comments &&
           comments.length > 3 &&
           isShowMore &&
           [...comments]
             .reverse()
-            .map((comment: CommentDto) => <CommentCard key={comment.commentId} comment={comment} />)}
+            .map((comment: CommentDto) => (
+              <CommentCard key={comment.commentId} comment={comment} deletePostClicked={deletePostClicked} />
+            ))}
 
         {comments && comments.length > 3 && (
           <button

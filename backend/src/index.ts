@@ -195,7 +195,7 @@ async function main() {
     handlerCommentPort.updateCommentPortfolio.bind(handlerCommentPort)
   );
   commentRouter.delete(
-    "/:commentId",
+    "/:commentId", console.log("hello"),
     handlerMiddleware.jwtMiddleware.bind(handlerMiddleware),
     handlerCommentPort.deleteCommentPortfolio.bind(handlerCommentPort)
   );

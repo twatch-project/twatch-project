@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChildProps, IAuthContext, UserRole } from '../types/auth.context';
 import { host } from '../constant';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 export type AuthProviderProps = ChildProps;
 type UserInfo = Pick<IAuthContext, 'userId' | 'token' | 'companyId'>;
@@ -50,12 +51,21 @@ const AuthProvider = (props: AuthProviderProps) => {
         body: JSON.stringify(loginInfo),
       });
       const data = await res.json();
-      if (data.statusCode === 404) {
-        throw new Error(data.massage);
+      const status = await res.status;
+
+      if (status === 400) {
+        toast.error('Missing username or password');
+        throw new Error(`Missing username or password`);
       }
 
-      if (data.statusCode === 401) {
-        throw new Error(data.message);
+      if (status === 404) {
+        toast.error(`Not such user ${username}`);
+        throw new Error(`Not such user ${username}`);
+      }
+
+      if (status === 401) {
+        toast.error('Invalid credentail');
+        throw new Error(`Invalid credentail`);
       }
 
       localStorage.setItem('token', data.accessToken);
@@ -79,13 +89,25 @@ const AuthProvider = (props: AuthProviderProps) => {
     }
   };
 
-  const logout: LogoutFunc = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('companyId');
-    setIsLoggedIn(false);
-    setUserInfo({ userId: null, token: null, companyId: null });
-    toast.success('Successful Logout');
+  const logout: LogoutFunc = async () => {
+    const token = localStorage.getItem('token') || 'foo';
+    console.log(token);
+    try {
+      await axios.get(`${host}/auth/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('companyId');
+      setIsLoggedIn(false);
+      setUserInfo({ userId: null, token: null, companyId: null });
+      toast.success('Successful Logout');
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   const register: RegisterFunc = async (username: string, password: string, role: UserRole, email: string) => {
@@ -102,7 +124,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       const status = await res.status;
 
       if (status === 401) {
-        toast.error('THIS USERNAME IS USED ALREADY`');
+        toast.error('THIS USERNAME IS USED ALREADY');
         throw new Error(`This username is used already`);
       }
     } catch (err: any) {
