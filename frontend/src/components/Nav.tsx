@@ -14,9 +14,10 @@ export default function Nav() {
   const handlerClick = () => {
     setShowMenu(!showMenu);
   };
+
   styled(BottomNavigationAction)({
     '& .MuiBottomNavigationAction-label': {
-      fontsize: 12,
+      fontsize: 24,
     },
   });
   return (

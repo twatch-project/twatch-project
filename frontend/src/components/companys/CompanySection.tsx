@@ -54,8 +54,14 @@ export default function CompanySetion() {
             <div className="footer flex justify-between w-[300px] my-[20px]">
               {userEmail && <div className="icon-left"></div>}
               <div className="icon-right">
-                {/* <div className="icon"></div>
-                <p></p> */}
+                {data.tag &&
+                  data.tag.map((tag) => {
+                    return (
+                      <>
+                        <div className="text-sm">{tag}</div>
+                      </>
+                    );
+                  })}
               </div>
             </div>
             <div className="edit-info flex justify-end p-[15px]">

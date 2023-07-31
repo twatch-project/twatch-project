@@ -29,14 +29,7 @@ export default function Company() {
                   <img className="w-full h-full rounded-full truncate" src={img} alt="" />
                 </div>
                 <div className="start flex items-center mx-[10px]">
-                  <ReactStars
-                    count={5}
-                    // value={}
-                    // onChange={(rating) => setRating(rating)}
-                    size={24}
-                    color2={'#ffd700'}
-                    half={false}
-                  />
+                  <ReactStars count={5} size={24} color2={'#ffd700'} half={false} />
                 </div>
               </div>
             </div>
