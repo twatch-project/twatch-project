@@ -1,11 +1,11 @@
 import Footer from '../components/Footer';
-import Nav from '../components/Nav';
+// import Nav from '../components/Nav';
 import CompanyList from '../components/companys/CompanyList';
 
 export default function Companys() {
-   return (
+  return (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <section className="flex justify-center my-[20px]">
         <div className="filter flex justify-center gap-1 ">
           <button className="text-center text-blue bg-white border-blue border-[1px] p-[5px]">All</button>

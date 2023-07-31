@@ -1,14 +1,13 @@
 import ReactStars from 'react-stars';
 import { CommentDto } from '../../types/dto';
 import { Button } from '@mui/material';
-import { useAuth } from '../../providers/AuthProvider';
 
 interface ICommentCardProps {
   comment: CommentDto;
   deletePostClicked: (commentId: string) => Promise<void>;
 }
 
-const { userId } = useAuth();
+// const { userId } = useAuth();
 
 const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
   return (
