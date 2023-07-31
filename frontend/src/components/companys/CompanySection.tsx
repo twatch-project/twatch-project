@@ -53,12 +53,14 @@ export default function CompanySetion() {
             </div>
             <div className="footer flex justify-between w-[300px] my-[20px]">
               {userEmail && <div className="icon-left"></div>}
-              <div className="icon-right">
+              <div className="flex flex-wrap gap-2">
                 {data.tag &&
                   data.tag.map((tag) => {
                     return (
                       <>
-                        <div className="text-sm">{tag}</div>
+                        <div className="text-sm border border-slate-600 bg-slate-200 text-slate-500 rounded-md p-1">
+                          {tag}
+                        </div>
                       </>
                     );
                   })}

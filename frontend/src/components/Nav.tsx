@@ -18,6 +18,7 @@ export default function Nav() {
   styled(BottomNavigationAction)({
     '& .MuiBottomNavigationAction-label': {
       fontsize: 24,
+      borderRedius: 2,
     },
   });
   return (
@@ -37,7 +38,7 @@ export default function Nav() {
                     setValue(newValue);
                   }}
                 >
-                  <BottomNavigationAction label="Home" component={Link} to="/" />
+                  <BottomNavigationAction label="Home" component={Link} to="/" sx={{ borderRadius: 3 }} />
                   <BottomNavigationAction label="Company" component={Link} to="/companys" sx={{ borderRadius: 3 }} />
                   <BottomNavigationAction label="Contact" component={Link} to="/" sx={{ borderRadius: 3 }} />
                 </BottomNavigation>
