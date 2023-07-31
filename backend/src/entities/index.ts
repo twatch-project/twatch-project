@@ -86,7 +86,7 @@ export interface ICreateCustomer {
   firstname: string;
   lastname: string;
   gender: GenderType;
-  dateOfBirth: Date;
+  // dateOfBirth: Date;
   citizenId: string;
   province: string;
   district: string;

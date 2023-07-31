@@ -28,7 +28,7 @@ class HandlerCustomer implements IHandlerCustomer {
       firstname,
       lastname,
       gender,
-      dateOfBirth,
+      // dateOfBirth,
       citizenId,
       province,
       district,
@@ -37,6 +37,10 @@ class HandlerCustomer implements IHandlerCustomer {
       contact,
       postCode,
     } = req.body;
+
+    console.log(req.body)
+
+    console.log(firstname,lastname,gender,citizenId,province,district,sub_district,address,contact,postCode)
 
     if (
       !firstname ||
@@ -48,17 +52,17 @@ class HandlerCustomer implements IHandlerCustomer {
     ) {
       res.status(500).json({ err: `Must have fill` }).end();
     }
-    const covertDateOfBirth: Date = new Date(
-      dateOfBirth[0],
-      dateOfBirth[1],
-      dateOfBirth[2]
-    ); // (year , mouth 0-11 , day 0-30)
+    // const covertDateOfBirth: Date = new Date(
+    //   dateOfBirth[0],
+    //   dateOfBirth[1],
+    //   dateOfBirth[2]
+    // ); // (year , mouth 0-11 , day 0-30)
     const userId = req.payload.id;
     const customerInfo = {
       firstname,
       lastname,
       gender,
-      dateOfBirth: covertDateOfBirth,
+      // dateOfBirth: covertDateOfBirth,
       citizenId,
       province,
       district,

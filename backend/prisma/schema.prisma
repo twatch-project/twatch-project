@@ -93,12 +93,12 @@ model CommentPortfolio {
 }
 
 model Customer {
-  customerId   Int      @id @default(autoincrement())
+  customerId   Int    @id @default(autoincrement())
   firstname    String
   lastname     String
   gender       Gender
-  dateOfBirth  DateTime @db.Date
-  citizenId    String   @unique
+  // dateOfBirth  DateTime @db.Date
+  citizenId    String @unique
   province     String
   district     String
   sub_district String

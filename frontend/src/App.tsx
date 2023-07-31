@@ -11,6 +11,7 @@ import EditPortfolio from './pages/EditPortfolio';
 import Companys from './pages/Companys';
 import EditCompanyProfile from './components/companys/EditCompanyProfile';
 import Nav from './components/Nav';
+import CreateCustomer from './pages/CreateCustomer';
 
 function App() {
   // const { isLoggedIn } = useAuth();
@@ -20,6 +21,7 @@ function App() {
       <Nav />
       <Routes>
         <Route>
+          <Route path="/customer/create" element={<CreateCustomer />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/" element={<Home />} />

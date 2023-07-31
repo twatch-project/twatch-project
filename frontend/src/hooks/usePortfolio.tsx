@@ -16,8 +16,9 @@ const usePortfolio = (portId: string | undefined): PortfolioHook => {
       try {
         const res = await fetch(`${host}/portfolio/${portId}`);
         const data = await res.json();
+        console.log(data);
 
-        setRating(data.portRating);
+        setRating(data.ratingPort);
         setData(data.port);
       } catch (err: any) {
         setError(err.message);
