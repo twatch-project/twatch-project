@@ -8,26 +8,12 @@ export interface PictureSlideProps {
 const PictureSlide = ({ images, slideInterval }: PictureSlideProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // const nextSlide = () => {
-  //   setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
-  // };
-
-  // useEffect(() => {
-  //   const slideTimer = setTimeout(nextSlide, slideInterval);
-
-  //   return () => {
-  //     clearTimeout(slideTimer);
-  //   };
-  // }, [currentSlide, slideInterval]);
-
   useEffect(() => {
-    const slideTimer = setInterval(() => {
-      // setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+    const slideTime = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide < images.length - 1 ? prevSlide + 1 : 0));
-      // setCurrentSlide((prevSlide) => (prevSlide < images.length - 1 ? prevSlide + 1 : 0));
     }, slideInterval);
 
-    return () => clearInterval(slideTimer);
+    return () => clearInterval(slideTime);
   }, [images.length, slideInterval]);
 
   return (
@@ -40,9 +26,7 @@ const PictureSlide = ({ images, slideInterval }: PictureSlideProps) => {
           <img
             key={index}
             src={imageUrl}
-            // alt={`Slide ${index + 1}`}
             alt={`Slide ${index}`}
-            // className="slide-image w-full h-auto m-[20px] object-cover"
             className={`image object-contain   ${index === currentSlide ? 'active' : ''}}  `}
           />
         ))}

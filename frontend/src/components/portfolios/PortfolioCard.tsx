@@ -5,34 +5,33 @@ import { Link } from 'react-router-dom';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-// const StyledRating = styled(Rating)({
-//   '& .MuiRating-iconFilled': {
-//     color: '#ff6d75',
-//   },
-//   '& .MuiRating-iconHover': {
-//     color: '#ff3d47',
-//   },
-// });
-
-const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId }: PortfolioDto) => {
+const PortfolioCard = ({ portId, title, body, imageContentUrls, companyId, tag }: PortfolioDto) => {
   return (
     <>
       <Link to={`/portfolio/${portId}`}>
-        <div>{imageContentUrls}</div>
-        <div>{title}</div>
-        <div>{body}</div>
-        <div>{companyId}</div>
-        {/* <div>
-          <StyledRating
-            name="Heart Rate"
-            defaultValue={5}
-            value={rating}
-            getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
-            icon={<FavoriteIcon fontSize="inherit" />}
-            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-            readOnly
-          />
-        </div> */}
+        <div className="card m-2 w-[300px] flex gap-y-1 flex-col justify-between min-h-[450px] min-w-[300px] max-h-[500px] overflow-y-auto border-[0.5px] p-5 rounded-md">
+          <div>
+            <div className="imgBx h-[150px]">
+              <img className="w-full h-full object-cover" src={imageContentUrls} alt="" />
+            </div>
+            <div className="body min-h-[180px] flex flex-col justify-start text-center">
+              <div className="font-bold text-[18px] py-2">{title}</div>
+              <div>{body.length < 100 ? body : body.slice(0, 200) + '...'}</div>
+            </div>
+          </div>
+          <div className="footer">
+            <div>
+              <div className="flex flex-wrap items-center">
+                {/* {tag.length < 10 ? tag : tag.slice(0, 10) + '...'} */}
+                {tag.map((tag) => (
+                  <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </Link>
     </>
   );

@@ -21,7 +21,12 @@ nav a {
     @apply flex justify-center items-center bg-blue w-24 h-9 rounded-md text-white
   }
 }
-
+@layer utilities{
+  .box-shadow{
+    box-shadow: 0 0 30px 30px #eee,
+    0 0 50px 30px #eee;
+  }
+}
 
 @layer utilities {
   .gradient-sky {
