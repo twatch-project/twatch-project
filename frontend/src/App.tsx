@@ -10,6 +10,7 @@ import CreateCompanyProfile from './components/companys/CreateCompany';
 import EditPortfolio from './pages/EditPortfolio';
 import Companys from './pages/Companys';
 import EditCompanyProfile from './components/companys/EditCompanyProfile';
+import Nav from './components/Nav';
 
 function App() {
   // const { isLoggedIn } = useAuth();
@@ -18,23 +19,25 @@ function App() {
       {/* <ShowMore /> */}
       {/* <PortfolioSection /> */}
       <Toaster position="top-center" reverseOrder={false} />
+      <Nav />
       <Routes>
-        {/* <Route path="/testimage" element={<ImageGallery />} /> */}
         <Route>
           <Route path="/signin" element={<Login />} />
-          <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Register />} />
+          <Route path="/" element={<Home />} />
           <Route path="/companys" element={<Companys />} />
           <Route path="/company/:companyId" element={<Company />} />
           {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
           <Route path="/company/create" element={<CreateCompanyProfile />} />
           <Route path="/company/:companyId/edit" element={<EditCompanyProfile />} />
           {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
-          <Route path="/portfolio/:id" element={<Portfolio />} />
+          <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
           <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} />
           <Route path="/company" element={<Company />} />
         </Route>
+
+        {/* <Route path="/testimage" element={<ImageGallery />} /> */}
       </Routes>
       {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
       {/* <Route path="/company/create" element={<CreateCompanyProfile />} /> */}

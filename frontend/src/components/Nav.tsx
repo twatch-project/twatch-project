@@ -1,19 +1,24 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../providers/AuthProvider';
 import { useState } from 'react';
+import { styled } from '@mui/material/styles';
 // import DisplayNav from '../components/DisplayNav';
-import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
+import { BottomNavigation, BottomNavigationAction, Box, Button, Stack } from '@mui/material';
 
 export default function Nav() {
   const { isLoggedIn, logout } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
-  const [isActive, setIsActive] = useState(false);
 
   const [value, setValue] = useState(0);
 
   const handlerClick = () => {
     setShowMenu(!showMenu);
   };
+  styled(BottomNavigationAction)({
+    '& .MuiBottomNavigationAction-label': {
+      fontsize: 12,
+    },
+  });
   return (
     <div className="mx-auto w-auto">
       <nav className="flex justify-between bg-white text-center p-[1rem] border-b drop-shadow-md w-full">
@@ -23,27 +28,7 @@ export default function Nav() {
         <Box>
           <div className="right flex items-center">
             <div className="menu flex items-center mx-[2rem] max-md:hidden">
-              <Link
-                to="/"
-                onClick={() => setIsActive(!isActive)}
-                // className={({ isActive }) =>
-                className={
-                  isActive ? 'bg-blue text-white px-2 py-1 rounded-md' : 'border border-blue  px-2 py-1 rounded-md'
-                }
-                // }
-              >
-                Home
-              </Link>
-              <Link
-                to="/Company"
-                onClick={() => setIsActive(!isActive)}
-                // className={({ isActive }) =>
-                className={
-                  isActive ? 'bg-blue text-white px-2 py-1 rounded-md' : 'border border-blue  px-2 py-1 rounded-md'
-                }
-              ></Link>
-              <Link to="/Contact">CONTACT</Link>
-              <Box sx={{ width: 500 }}>
+              <Box sx={{ width: 400 }}>
                 <BottomNavigation
                   showLabels
                   value={value}
@@ -51,28 +36,24 @@ export default function Nav() {
                     setValue(newValue);
                   }}
                 >
-                  <BottomNavigationAction label="Recents" href="/" />
-                  <BottomNavigationAction label="Favorites" href="/companys" />
-                  <BottomNavigationAction label="Nearby" href="/" />
+                  <BottomNavigationAction label="Home" component={Link} to="/" />
+                  <BottomNavigationAction label="Company" component={Link} to="/companys" sx={{ borderRadius: 3 }} />
+                  <BottomNavigationAction label="Contact" component={Link} to="/" sx={{ borderRadius: 3 }} />
                 </BottomNavigation>
               </Box>
-
               {isLoggedIn ? (
-                <>
-                  <button onClick={logout} className="bg-blue px-5 py-1 rounded text-white">
-                    logout
-                  </button>
-                </>
+                <Button variant="outlined" component={Link} onClick={logout} to="/">
+                  Sign Out
+                </Button>
               ) : (
-                <>
-                  <Link to="/Register">SIGNUP</Link>
-                  <Link
-                    to="/Login"
-                    className="bg-blue px-5 py-1 rounded text-white hover:bg-white hover:text-blue border hover:border-blue"
-                  >
-                    LOGIN
-                  </Link>
-                </>
+                <Stack direction="row" spacing={1}>
+                  <Button variant="outlined" component={Link} to="/signup">
+                    SIGN UP
+                  </Button>
+                  <Button variant="contained" component={Link} to="/signin">
+                    SIGN IN
+                  </Button>
+                </Stack>
               )}
             </div>
 

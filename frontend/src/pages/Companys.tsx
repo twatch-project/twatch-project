@@ -1,4 +1,3 @@
-import Nav from '../components/Nav';
 // import img from '../img/3.jpg'
 import ReactStars from 'react-stars';
 import CompanyList from '../components/companys/CompanyList';
@@ -20,7 +19,6 @@ export default function Companys() {
     'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
   return (
     <>
-      <Nav />
       <section className="flex justify-center my-[20px]">
         <div className="filter flex justify-center gap-1 ">
           <button className="text-center text-blue bg-white border-blue border-[1px] p-[5px]">All</button>

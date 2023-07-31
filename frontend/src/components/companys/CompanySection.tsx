@@ -1,7 +1,6 @@
 // import img from '../img/3.jpg'
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../../components/Footer';
-import Nav from '../../components/Nav';
 import AssistantPhotoIcon from '@mui/icons-material/AssistantPhotoOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
@@ -13,20 +12,19 @@ import { useAuth } from '../../providers/AuthProvider';
 import PaginationPortList from './ShowListPort';
 
 export default function CompanySetion() {
-  const { id } = useParams();
+  const { companyId } = useParams();
 
   const {
     data,
     status: { loading, ready },
-  } = useCompany(id);
+  } = useCompany(companyId);
 
   const { userEmail } = useAuth();
 
-  if (!data || loading) return <Loading />;
+  if (!data || loading || !ready) return <Loading />;
 
   return (
     <>
-      <Nav />
       <section className="flex items-center justify-center min-h-[80vh]  mx-auto mt-20">
         <div className="HeroSection h-full lg:flex w-11/12 md:4/5 lg:w-3/5 p-2 gap-5">
           <ImageGallery images={data.imageContentUrls} />
@@ -61,7 +59,7 @@ export default function CompanySetion() {
               </div>
             </div>
             <div className="edit-info flex justify-end p-[15px]">
-              <Link to={`/company/edit/${id}`}>
+              <Link to={`/company/edit/${companyId}`}>
                 <button
                   type="button"
                   className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

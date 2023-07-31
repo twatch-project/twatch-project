@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import usePortfolio from '../../hooks/usePortfolio';
 import Loading from '../Loading';
-import { useAuth } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import ImageGallery from '../Showsileimg';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
@@ -19,11 +18,6 @@ const PortfolioSection = () => {
     status: { loading, error, ready },
     data,
   } = usePortfolio(portId || '');
-
-  const auth = useAuth();
-
-  const pageCompanyId = data?.companyId;
-  console.log(pageCompanyId);
 
   if (loading || ready || !data) return <Loading />;
 
@@ -82,7 +76,7 @@ const PortfolioSection = () => {
 
                   <div>
                     <InfoOutlinedIcon />
-                    <span> {body}</span>
+                    <span>{body}</span>
                   </div>
                   <div>
                     <TurnedInNotOutlinedIcon />
