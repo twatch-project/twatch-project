@@ -14,9 +14,9 @@ import PortListByCompany from '../components/portfolios/PortListByCompany';
 import Loading from '../components/Loading';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import ReactStars from 'react-stars';
 export default function Company() {
   const { companyId } = useParams();
-  console.log(companyId, companyId);
 
   const {
     data,
@@ -115,8 +115,8 @@ export default function Company() {
             </Link>
           </div>
           <PortListByCompany />
-          {/* <div className="center flex justify-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg">
-            <Link to="/Comment" className="head overflow-hidden">
+          <div className="center flex justify-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg">
+            <Link to="/comment" className="head overflow-hidden">
               <section className="Portfolio  flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
                 <img className="hover:scale-105 ease-in duration-200" src={imgsfile} alt="" />
                 <div className="center text-center my-2">
