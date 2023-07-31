@@ -1,7 +1,11 @@
-// import img from '../img/3.jpg'
-import { useParams } from 'react-router-dom';
-// import ReactStars from 'react-stars';
-// import { Avatar } from '@mui/material';
+import { Link, useParams } from 'react-router-dom';
+import Footer from '../components/Footer';
+import Nav from '../components/Nav';
+import AssistantPhotoIcon from '@mui/icons-material/AssistantPhotoOutlined';
+import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
+import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
+import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
+import ImageGallery from '../components/Showsileimg';
 import useCompany from '../hooks/useCompany';
 import Loading from '../components/Loading';
 import CompanySetion from '../components/companys/CompanySection';

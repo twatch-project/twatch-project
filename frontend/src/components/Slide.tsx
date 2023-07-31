@@ -27,7 +27,7 @@ const PictureSlide = ({ images, slideInterval }: PictureSlideProps) => {
             key={index}
             src={imageUrl}
             alt={`Slide ${index}`}
-            className={`image object-contain   ${index === currentSlide ? 'active' : ''}}  `}
+            className={`image   ${index === currentSlide ? 'active' : ''}}  `}
           />
         ))}
       </div>
