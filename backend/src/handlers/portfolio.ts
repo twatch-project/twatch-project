@@ -202,7 +202,6 @@ class HandlerPortfolio implements IHandlerPorfolio {
     res: Response
   ): Promise<Response> {
     const companyId = Number(req.params.companyId);
-
     if (isNaN(companyId)) {
       return res
         .status(400)

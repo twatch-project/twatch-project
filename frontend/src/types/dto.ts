@@ -51,7 +51,7 @@ export interface PortfolioDto {
   createAt: Date;
   updateAt: Date;
 
-  companyId: number;
+  companyId: string;
 }
 
 export interface CreadentialDto {
