@@ -10,8 +10,6 @@ const PortListByCompany = () => {
     data,
   } = usePortByCompany(companyId);
 
-  console.log(data);
-
   if (loading || !ready) return <Loading />;
   return (
     <div className="flex flex-wrap justify-center gap-[50px]">

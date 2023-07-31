@@ -93,7 +93,7 @@ const PortfolioSection = () => {
             </div>
           </div>
         </section>
-        {Number(companyId) === pageCompanyId ? (
+        {Number(companyId) === Number(pageCompanyId) ? (
           <Link to={`/portfolio/${portId}/edit`}>
             <div className="footer flex justify-center">
               <button className="bg-blue p-[15px] text-white rounded hover:border-blue border-[0.5px] hover:bg-white hover:text-blue duration-500 ease-in-out">

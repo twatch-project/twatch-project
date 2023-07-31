@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { PortfolioHook } from '../types/portfolio.hook';
 import { PortfolioDto } from '../types/dto';
 
-const usePortfolio = (portId: string): PortfolioHook => {
+const usePortfolio = (portId: string | undefined): PortfolioHook => {
   const [data, setData] = useState<PortfolioDto | null>(null);
   const [error, setError] = useState<null | unknown>(null);
   const [loading, setLoading] = useState<boolean>(false);
