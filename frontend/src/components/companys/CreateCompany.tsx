@@ -199,10 +199,7 @@ export default function CreateCompanyProfile() {
 
   return (
     <>
-      <section
-        className="flex justify-center my-10
-"
-      >
+      <section className="flex justify-center my-10">
         <form
           onSubmit={handlerSubmit}
           className="flex w-1/2 border-[0.5px]  flex-col items-center justify-center  rounded-md p-8 gap-y-[20px] m-auto drop-shadow-lg hover:drop-shadow-xl"

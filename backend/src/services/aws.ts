@@ -52,7 +52,9 @@ export async function getObjectSignedUrl(key: string) {
 
   // https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/
   const command: any = new GetObjectCommand(params);
-  const url = await getSignedUrl(s3Client, command, { expiresIn: 172800 });
+
+  const url = await getSignedUrl(s3Client, command, { expiresIn: 86400 });
+
 
   return url;
 }

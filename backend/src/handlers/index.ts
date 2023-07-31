@@ -198,10 +198,6 @@ export interface IHandlerPorfolio {
     req: JwtAuthRequest<WithPortId, WithPort>,
     res: Response
   ): Promise<Response>;
-  getRatingByPortId(
-    req: JwtAuthRequest<WithPortId, Empty>,
-    res: Response
-  ): Promise<Response>;
 }
 
 export interface WithCommentPort {

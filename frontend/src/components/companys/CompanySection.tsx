@@ -16,8 +16,10 @@ export default function CompanySetion() {
     data,
     status: { loading, ready },
   } = useCompany(companyId);
+  const userData = data?.userId;
+  const { userEmail, userId } = useAuth();
 
-  const { userEmail } = useAuth();
+  console.log(userData, userId);
 
   if (!data || loading || !ready) return <Loading />;
 
@@ -65,19 +67,20 @@ export default function CompanySetion() {
               </div>
             </div>
             <div className="edit-info flex justify-end p-[15px]">
-              <Link to={`/company/edit/${companyId}`}>
-                <button
-                  type="button"
-                  className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                >
-                  Edit
-                </button>
-              </Link>
+              {userData === userId ? (
+                <Link to={`/company/edit/${companyId}`}>
+                  <button
+                    type="button"
+                    className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  >
+                    Edit
+                  </button>
+                </Link>
+              ) : undefined}
             </div>
           </div>
         </div>
       </section>
-      {/* {'Section Two'} */}
       <section className="flex justify-center min-h-[60vh]">
         <div className="profile flex-col justify-center w-4/5">
           <div className="head flex justify-between item-center w-full">
@@ -90,16 +93,18 @@ export default function CompanySetion() {
                 Filter
               </button>
             </div>
-            <Link to="/portfolio/create">
-              <div className="box-right flex justify-end p-[15px]">
-                <button
-                  type="button"
-                  className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                >
-                  Create Portfolio
-                </button>
-              </div>
-            </Link>
+            {userData === userId ? (
+              <Link to="/portfolio/create">
+                <div className="box-right flex justify-end p-[15px]">
+                  <button
+                    type="button"
+                    className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  >
+                    Create Portfolio
+                  </button>
+                </div>
+              </Link>
+            ) : undefined}
           </div>
           <div className="flex justify-center contant-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg"></div>
         </div>
