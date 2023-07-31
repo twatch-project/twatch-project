@@ -14,9 +14,9 @@ const CompanyCard = ({
   return (
     <>
       <Link to={`/company/${companyId}`}>
-        <div className="card hover:scale-[1.011]  duration-150 w-[300px] border-[0.5px] p-5 rounded-md">
+        <div className="card hover:scale-[1.011]  duration-150 w-60 h-full border border-md p-5 rounded-md">
           <div className="head">
-            <div className="imgBx bg-[#eee] min-h-[150px]">
+            <div className="imgBx bg-[#eee] h-60 w-full">
               <img className="w-full h-full" src={imageContentUrls[0]} alt="image" />
             </div>
           </div>
