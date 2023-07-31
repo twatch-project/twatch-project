@@ -1,6 +1,6 @@
+import Footer from '../components/Footer';
 import Nav from '../components/Nav';
 // import img from '../img/3.jpg'
-import ReactStars from 'react-stars';
 import CompanyList from '../components/companys/CompanyList';
 // import { styled } from '@mui/material'
 // import Rating from '@mui/material/Rating'
@@ -41,7 +41,9 @@ export default function Companys() {
         </div>
       </section>
       <CompanyList />
-      <section className="flex justify-center gap-[50px] flex-wrap ">
+      <Footer />
+
+      {/* <section className="flex justify-center gap-[50px] flex-wrap ">
         <div className="card flex flex-col flex-wrap w-[300px]  bg-white rounded overflow-hidden border-[0.5px]">
           <div className="head">
             <img src={img} alt="" />
@@ -69,7 +71,7 @@ export default function Companys() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
