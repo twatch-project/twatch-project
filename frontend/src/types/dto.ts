@@ -52,6 +52,7 @@ export interface PortfolioDto {
   updateAt: Date;
 
   companyId: string;
+  rating: number;
 }
 
 export interface CreadentialDto {

@@ -20,7 +20,6 @@ const CompanyCard = ({
               <img className="w-full h-full" src={imageContentUrls[0]} alt="image" />
             </div>
           </div>
-
           <div className="body text-start py-2">
             <div className="font-bold text-[24px]">{companyName}</div>
             <div className="py-2 ">{body}</div>

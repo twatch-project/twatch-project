@@ -1,11 +1,14 @@
 import ReactStars from 'react-stars';
 import { CommentDto } from '../../types/dto';
 import { Button } from '@mui/material';
+import { useAuth } from '../../providers/AuthProvider';
 
 interface ICommentCardProps {
   comment: CommentDto;
   deletePostClicked: (commentId: string) => Promise<void>;
 }
+
+const { userId } = useAuth();
 
 const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
   return (
@@ -24,9 +27,11 @@ const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
       <div className="gap-x-[10px]">
         <ReactStars count={5} size={24} edit={false} value={comment.rating} color2={'#ffd700'} half={false} />
       </div>
-      <Button variant="outlined" type="button" onClick={() => deletePostClicked(comment.commentId)}>
-        DELETE
-      </Button>
+      {comment.userId === userId ? (
+        <Button variant="outlined" type="button" onClick={() => deletePostClicked(comment.commentId)}>
+          DELETE
+        </Button>
+      ) : undefined}
     </div>
   );
 };
