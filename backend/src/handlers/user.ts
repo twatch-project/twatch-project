@@ -122,6 +122,7 @@ class HandlerUser implements IHandlerUser {
           id: user.userId,
           username: user.username,
           role: user.role,
+          email: user.email,
           companyId: company?.companyId,
           registeredAt: user.registeredAt,
           accessToken: token,

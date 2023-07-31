@@ -38,6 +38,7 @@ const AuthProvider = (props: AuthProviderProps) => {
     token: localStorage.getItem('token'),
     companyId: localStorage.getItem('companyId'),
   });
+  const [userEmail, setUserEmail] = useState<string | null>('');
 
   const login: LoginFunc = async (username: string, password: string) => {
     const loginInfo = { username, password };
@@ -75,6 +76,7 @@ const AuthProvider = (props: AuthProviderProps) => {
 
       localStorage.setItem('companyId', company);
       localStorage.setItem('userId', user.userId);
+      setUserEmail(user.email);
       setIsLoggedIn(true);
       setUserInfo(() => {
         const update = {
@@ -133,7 +135,9 @@ const AuthProvider = (props: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, ...userInfo, logout, register }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isLoggedIn, login, ...userInfo, logout, register, userEmail }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

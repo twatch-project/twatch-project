@@ -220,7 +220,7 @@ export default function EditCompanyProfile() {
           <h1 className="font-bold ">EDIT COMPANY PROFILE</h1>
           {imageProfile ? (
             <div className="imgBx bg-slate-400  w-[100px] h-[100px] rounded-full overflow-hidden">
-              {/* <img className="w-full h-full rounded-full truncate" src={usericon} alt="imageprofile" /> */}
+              <img className="w-full h-full rounded-full truncate" src={data?.imageCompanyUrl} alt="imageprofile" />
             </div>
           ) : (
             <>

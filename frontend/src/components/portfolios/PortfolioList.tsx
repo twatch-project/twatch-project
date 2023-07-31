@@ -8,7 +8,7 @@ const PortfolioList = () => {
     data,
   } = usePortfolioList();
 
-  if (loading || !ready) return <Loading />;
+  if (loading) return <Loading />;
   return <div>{data && data.map((portfolio) => <PortfolioCard key={portfolio.portId} {...portfolio} />)}</div>;
 };
 
