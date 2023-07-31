@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../providers/AuthProvider';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
-// import DisplayNav from '../components/DisplayNav';
 import { BottomNavigation, BottomNavigationAction, Box, Button, Stack } from '@mui/material';
 
 export default function Nav() {

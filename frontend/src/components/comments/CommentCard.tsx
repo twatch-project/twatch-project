@@ -15,9 +15,7 @@ const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
           <img className="w-full h-full" alt="" />
         </div>
         <div className="flex flex-col">
-          <p className="font-bold">
-            {comment.commentBy.company[0].companyName || comment.commentBy.customer[0].firstname}
-          </p>
+          <p className="font-bold">{comment.commentBy.company[0].companyName || comment.commentBy.username}</p>
           <p>{comment.message}</p>
         </div>
       </div>
