@@ -18,21 +18,19 @@ export default function Hero() {
               <span className="text-blue">CRAFTCON</span>
             </h1>
             <p>
-              Welcome to a transformation journey where your dream home becomes a reality. At [Construction Company
-              Name], we believe that building your dream home is more than just constructing a structure; about creating
-              a space that reflects your vision, aspirations, and lifestyle
+              Welcome to a transformation journey where your dream home becomes a reality. At
+              <span className="text-blue"> CraftCon </span>, we believe that building your dream home is more than just
+              constructing a structure about creating a space that reflects your vision, aspirations, and lifestyle
             </p>
             <div className="group-btn flex gap-x-5 my-3">
               <Link to="/companys">
                 <button className="company">Company</button>
               </Link>
-              <button className="customer">Customer Blog</button>
             </div>
           </div>
 
           <div className="box-right  w-[50%] h-[50%] overflow-hidden flex justify-center items-center">
             <div className="flex justify-center items-center ">
-              {/* <img className="w-full h-full" src={img3} alt="" /> */}
               <Slide images={images} slideInterval={3000} />
             </div>
           </div>

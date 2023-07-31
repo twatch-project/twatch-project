@@ -95,12 +95,12 @@ export default function Company() {
           <div className="head flex justify-between w-[1280px]">
             <div className="box-left flex gap-x-3 items-center">
               <h1 className="font-bold text-[18px] py-[5px] m-5">PORTFOLIO</h1>
-              <button
+              {/* <button
                 type="button"
                 className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               >
                 Filter
-              </button>
+              </button> */}
             </div>
             <Link to="/portfolio/create">
               <div className="box-right flex justify-end p-[15px]">

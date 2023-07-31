@@ -15,9 +15,8 @@ const CompanyList = () => {
         <div className="control">
           <div className="head flex justify-between items-center my-[15px]">
             <div className="title font-bold text-[24px]">Company</div>
-            <div className="search">Search</div>
           </div>
-          <div className="flex justify-center gap-[50px]">
+          <div className="flex justify-center gap-[50px] flex-wrap">
             {data && data.map((company) => <CompanyCard key={company.companyId} {...company} />)}
           </div>
         </div>

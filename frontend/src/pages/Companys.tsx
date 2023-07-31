@@ -22,7 +22,7 @@ export default function Companys() {
     <>
       <Nav />
       <section className="flex justify-center my-[20px]">
-        <div className="filter flex justify-center gap-1 ">
+        <div className="filter flex justify-center gap-1 flex-wrap text-center ">
           <button className="text-center text-blue bg-white border-blue border-[1px] p-[5px]">All</button>
           <button className="text-center text-blue bg-white border-blue border-[1px] p-[5px]">MINIMALMODERN</button>
           <button className="text-center text-blue bg-white border-blue border-[1px] p-[5px]">
