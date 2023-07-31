@@ -7,7 +7,6 @@ const PortfolioCard = ({ portId, title, body, imageContentUrls, tag }: Portfolio
       <Link to={`/portfolio/${portId}`}>
         <div className="card m-2 w-[300px] flex gap-y-1 flex-col justify-between h-auto min-w-[300px]     border-[0.5px] p-5 rounded-md">
           <div>
-
             <div className="imgBx">
               <img className="w-full h-[150px] object-cover" src={imageContentUrls[0]} alt="" />
             </div>
