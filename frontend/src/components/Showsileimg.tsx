@@ -12,7 +12,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   };
 
   return (
-    <div className="flex flex-col w-full items-center mt-4">
+    <div className="flex flex-col  w-full items-center mt-4">
       <img
         src={mainImage}
         alt="Main"

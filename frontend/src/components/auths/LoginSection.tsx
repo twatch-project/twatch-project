@@ -31,7 +31,6 @@ const LoginSection = () => {
       console.log(checkCompany);
 
       if (checkCompany) {
-        console.log('hel');
         navigate('/');
         return;
       }

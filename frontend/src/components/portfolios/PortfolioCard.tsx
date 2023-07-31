@@ -8,7 +8,7 @@ const PortfolioCard = ({ portId, title, body, imageContentUrls, tag }: Portfolio
         <div className="card m-2 w-[300px] flex gap-y-1 flex-col justify-between min-h-[450px] min-w-[300px] max-h-[500px] overflow-y-auto border-[0.5px] p-5 rounded-md">
           <div>
             <div className="imgBx h-[150px]">
-              <img className="w-full h-full object-cover" src={imageContentUrls[0]} alt="" />
+              <img className="w-full h-full object-cover" src={imageContentUrls[0]} alt="image" />
             </div>
             <div className="body min-h-[180px] flex flex-col justify-start text-center">
               <div className="font-bold text-[18px] py-2">{title}</div>

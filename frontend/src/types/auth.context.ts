@@ -12,6 +12,7 @@ export interface IAuthContext {
   token: string | null;
   isLoggedIn: boolean;
   companyId: string | null;
+  userEmail: string | null;
   login: (username: string, password: string) => Promise<IUser | void>;
   logout: () => void;
   register: (username: string, password: string, role: Role, email: string) => Promise<IUser | void>;

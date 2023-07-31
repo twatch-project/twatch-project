@@ -67,7 +67,7 @@ const PortfolioSection = () => {
 
                   <div>
                     <InfoOutlinedIcon />
-                    <span> {body}</span>
+                    <span>{body}</span>
                   </div>
                   <div>
                     <TurnedInNotOutlinedIcon />
