@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ReactStars from 'react-stars';
+// import ReactStars from 'react-stars';
 // import './DisplayBlock.css';
-import ShowMore from '../components/ShowMore';
+// import ShowMore from '../components/ShowMore';
 
 interface Block {
   id: number;
@@ -34,12 +34,12 @@ const DisplayBlock: React.FC = () => {
       <div className="comment flex justify-center">
         <div className="display-block-container flex justify-center items-center border-[0.5px] p-5">
           <div className="flex flex-col justify-center items-center m-2">
-            <div className="imgBx w-[50px] h-[50px] rounded-[100%] bg-black overflow-hidden">
+            {/* <div className="imgBx w-[50px] h-[50px] rounded-[100%] bg-black overflow-hidden">
               <img className="w-full h-full" alt="" />
             </div>
             <div className="name font-bold">
               <h1>TaiChi</h1>
-            </div>
+            </div> */}
           </div>
           <div>
             <input
@@ -68,7 +68,7 @@ const DisplayBlock: React.FC = () => {
           </div>
         ))}
       </div>
-      <section className="flex m-10 flex-col justify-center items-center">
+      {/* <section className="flex m-10 flex-col justify-center items-center">
         <div className="head p-[15px] text-left font-bold">COMMENT</div>
 
         <div className="center flex flex-col gap-[25px]">
@@ -96,7 +96,7 @@ const DisplayBlock: React.FC = () => {
           </div>
         </div>
         <ShowMore />
-      </section>
+      </section> */}
     </>
   );
 };

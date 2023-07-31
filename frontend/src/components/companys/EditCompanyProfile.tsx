@@ -24,12 +24,8 @@ import { AmphureDto, TambonDto } from '../../types/dto';
 import useAddressThai from '../../hooks/useAddressThai';
 import { Link } from 'react-router-dom';
 // import usericon from '../img/user.png';
-<<<<<<< HEAD
-import useEditCompany from '../../hooks/useEditCompany';
-=======
 import Loading from '../Loading';
 import useCompany from '../../hooks/useCompany';
->>>>>>> main
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
