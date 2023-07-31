@@ -1,7 +1,8 @@
 import ReactStars from 'react-stars';
 import { CommentDto } from '../../types/dto';
-import { Button } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import { useAuth } from '../../providers/AuthProvider';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 
 interface ICommentCardProps {
   comment: CommentDto;
@@ -11,11 +12,9 @@ interface ICommentCardProps {
 const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
   const { userId } = useAuth();
   return (
-    <div className="card-comment flex items-center justify-between w-[835px] h-[100px] p-5 border">
+    <div className="card-comment flex items-center justify-between w-[835px] h-[100px] p-5 border rounded-md">
       <div className="flex items-center gap-x-[10px]">
-        <div className="imgBx w-[50px] h-[50px] rounded-[100%] bg-black overflow-hidden">
-          <img className="w-full h-full" alt="" />
-        </div>
+        <Avatar>{comment.commentBy.company[0].companyName[0] || comment.commentBy.customer[0].firstname[0]}</Avatar>
         <div className="flex flex-col">
           <p className="font-bold">
             {comment.commentBy.company[0].companyName || comment.commentBy.customer[0].firstname}
@@ -23,14 +22,21 @@ const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
           <p>{comment.message}</p>
         </div>
       </div>
-      <div className="gap-x-[10px]">
-        <ReactStars count={5} size={24} edit={false} value={comment.rating} color2={'#ffd700'} half={false} />
+      <div className="flex flex-col gap-1">
+        <div className="gap-x-[10px] self-center">
+          <ReactStars count={5} size={24} edit={false} value={comment.rating} color2={'#ffd700'} half={false} />
+        </div>
+        {comment.userId === userId ? (
+          <Button
+            variant="outlined"
+            type="button"
+            startIcon={<DeleteForeverRoundedIcon />}
+            onClick={() => deletePostClicked(comment.commentId)}
+          >
+            DELETE
+          </Button>
+        ) : undefined}
       </div>
-      {comment.userId === userId ? (
-        <Button variant="outlined" type="button" onClick={() => deletePostClicked(comment.commentId)}>
-          DELETE
-        </Button>
-      ) : undefined}
     </div>
   );
 };
