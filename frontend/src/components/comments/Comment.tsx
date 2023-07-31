@@ -7,6 +7,7 @@ import { useCommentList } from '../../hooks/useCommentList';
 import { useParams } from 'react-router-dom';
 import CommentCard from './CommentCard';
 import axios from 'axios';
+import { Avatar } from '@mui/material';
 
 export default function Comment() {
   const [comments, setComments] = useState<CommentDto[] | null>(null);
@@ -60,11 +61,9 @@ export default function Comment() {
     <section className="flex m-10 flex-col justify-center items-center">
       <div className="head p-[15px] text-left font-bold">COMMENT</div>
       <div className="flex flex-col justify-center items-center gap-y-3">
-        <div className="flex items-center justify-between w-[835px] h-[100px] p-5 border">
-          <div className="flex items-center w-4/5 gap-x-[10px]">
-            <div className="imgBx w-[50px] h-[50px] rounded-[100%] bg-black overflow-hidden">
-              <img className="w-full h-full" alt="" />
-            </div>
+        <div className="flex items-center justify-between w-[835px] h-[100px] p-5 border rounded-md">
+          <div className="flex items-center w-4/5 gap-x-[10px] ">
+            <Avatar>{}</Avatar>
             <input
               onKeyDown={handleKeyDown}
               onChange={(e) => setNewComment(e.target.value)}
