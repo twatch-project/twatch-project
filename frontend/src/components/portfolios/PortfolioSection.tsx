@@ -44,65 +44,91 @@ const PortfolioSection = () => {
 
   return (
     <>
-      {' '}
-      <section className="flex justify-center items-center min-h-[100vh]">
-        <div className="HeroSection flex justify-between items-center border-[0.5px]  min-w-[1200px] min-h-[500px]  gap-x-[50px]">
-          <div className="left w-[570px]">
-            <div className="head m-10 ">
-              <h1 className="font-bold text-[24px] mx-[15px] py-5">{title}</h1>
-              <div className="detail flex mx-[15px] flex-col gap-y-[15px]">
-                <div>
-                  <MapsHomeWorkOutlinedIcon />
-                  <span> Address : {address}</span>
-                </div>
+      <section className="flex flex-col min-h-[100vh]">
+        <section className="flex justify-center items-center my-10">
+          <div className="HeroSection flex justify-between items-center border-[0.5px]  min-w-[1200px] min-h-[500px]  gap-x-[50px]">
+            <div className="left w-[570px]">
+              <div className="head m-10 ">
+                <h1 className="font-bold text-[24px] mx-[15px] py-5">{title}</h1>
+                <div className="detail flex mx-[15px] flex-col gap-y-[15px]">
+                  <div>
+                    <MapsHomeWorkOutlinedIcon />
+                    <span> Address : {address}</span>
+                  </div>
 
-                <div>
-                  <AddLocationAltOutlinedIcon />
-                  <span> Sub_district : {sub_district}</span>
-                </div>
+                  <div>
+                    <AddLocationAltOutlinedIcon />
+                    <span> Sub_district : {sub_district}</span>
+                  </div>
 
-                <div>
-                  <AssistantPhotoIcon />
-                  <span> District : {district}</span>
-                </div>
+                  <div>
+                    <AssistantPhotoIcon />
+                    <span> District : {district}</span>
+                  </div>
 
-                <div>
-                  <MapOutlinedIcon />
-                  <span> Province : {province}</span>
-                </div>
+                  <div>
+                    <MapOutlinedIcon />
+                    <span> Province : {province}</span>
+                  </div>
 
-                <div>
-                  <LocalShippingOutlinedIcon />
-                  <span> PostCode : {postCode}</span>
-                </div>
-                <div>
-                  <ContactPhoneOutlinedIcon />
-                  <span> Contact : anothai.0978452316@gmail.com </span>
-                </div>
+                  <div>
+                    <LocalShippingOutlinedIcon />
+                    <span> PostCode : {postCode}</span>
+                  </div>
+                  <div>
+                    <ContactPhoneOutlinedIcon />
+                    <span> Contact : anothai.0978452316@gmail.com </span>
+                  </div>
 
-                <div>
-                  <InfoOutlinedIcon />
-                  <span> {body}</span>
+                  <div>
+                    <InfoOutlinedIcon />
+                    <span> {body}</span>
+                  </div>
+                  <div>
+                    <TurnedInNotOutlinedIcon />
+                    <div className="flex flex-wrap items-center">
+                      Tag :
+                      {tag.map((tag) => (
+                        <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  {/* <span>{companyId}</span> */}
                 </div>
-                <div>
-                  <TurnedInNotOutlinedIcon />
-                  <span> Tag : {tag}</span>
+              </div>
+            </div>
+
+            <div className="right w-[570px] flex justify-center items-center overflow-hidden">
+              <div className="m-10">
+                <div className="imgBx flex justify-center w-[550px] ">
+                  <ImageGallery images={imageContentUrls} />
                 </div>
-                {/* <span>{createAt}</span>
-           <span>{updateAt}</span> */}
-                {/* <span>{companyId}</span> */}
               </div>
             </div>
           </div>
-
-          <div className="right flex  justify-center items-center overflow-hidden">
-            <div className="m-10">
-              <div className="imgBx flex justify-center w-[550px] ">
-                <ImageGallery images={imageContentUrls} />
-              </div>
-            </div>
+        </section>
+        <Link to={`/portfolio/${companyId}/edit`}>
+          <div className="footer flex justify-center">
+            <button className="bg-blue p-[15px] text-white rounded hover:border-blue border-[0.5px] hover:bg-white hover:text-blue duration-500 ease-in-out">
+              Edit Portfolio
+            </button>
           </div>
-          {/* <div className="pb-10 content-end">
+        </Link>
+      </section>
+    </>
+  );
+};
+
+export default PortfolioSection;
+
+{
+  /* <span>{createAt}</span>
+<span>{updateAt}</span> */
+}
+{
+  /* <div className="pb-10 content-end">
        {Number(auth.companyId) === pageCompanyId ? (
          <Link to={`/portfolio/${portId}/edit`}>
            <Button type="submit" variant="contained">
@@ -110,18 +136,5 @@ const PortfolioSection = () => {
            </Button>
          </Link>
        ) : undefined}
-     </div> */}
-        </div>
-      </section>
-      <Link to="/EditPortfolioSection">
-        <div className="footer">
-          <button className="bg-blue p-[15px] text-white rounded hover:border-blue border-[0.5px] hover:bg-white hover:text-blue duration-500 ease-in-out">
-            Edit Portfolio
-          </button>
-        </div>
-      </Link>
-    </>
-  );
-};
-
-export default PortfolioSection;
+     </div> */
+}

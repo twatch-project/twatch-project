@@ -2,17 +2,19 @@
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
-import ReactStars from 'react-stars';
+// import ReactStars from 'react-stars';
 import AssistantPhotoIcon from '@mui/icons-material/AssistantPhotoOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
-import { Avatar } from '@mui/material';
+// import { Avatar } from '@mui/material';
 import ImageGallery from '../components/Showsileimg';
 import useCompany from '../hooks/useCompany';
 import PortListByCompany from '../components/portfolios/PortListByCompany';
 import Loading from '../components/Loading';
-
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import ReactStars from 'react-stars';
 export default function Company() {
   const { companyId } = useParams();
 
@@ -52,11 +54,24 @@ export default function Company() {
                 <span>Contact : {data.contact}</span>
               </div>
             </div>
-            <div className="text py-[15px]">
-              <p>{data.body}</p>
+            <div className="flex gap-3 ">
+              <InfoOutlinedIcon />
+              <span>{data.body}</span>
             </div>
+            <div className="flex items-center">
+              <LocalOfferOutlinedIcon />
+              <div className="flex flex-wrap items-center">
+                {data.tag.map((tag, index) => (
+                  <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={index}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <div className="footer flex justify-between w-[300px] my-[20px]">
-              <div className="icon-left">Twatch0000@gmail.com</div>
+              {/* <div className="icon-left">Twatch0000@gmail.com</div> */}
+
               <div className="icon-right">
                 {/* <div className="icon"></div>
                 <p></p> */}
@@ -128,10 +143,10 @@ export default function Company() {
                 </div>
               </section>
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
-      <PortListByCompany />
+      {/* <PortListByCompany /> */}
       <Footer />
     </>
   );
