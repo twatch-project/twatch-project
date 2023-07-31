@@ -11,11 +11,9 @@ import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import ImageGallery from '../components/Showsileimg';
 import useCompany from '../hooks/useCompany';
 import PortListByCompany from '../components/portfolios/PortListByCompany';
-<<<<<<< HEAD
-=======
 import Loading from '../components/Loading';
->>>>>>> main
-
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 export default function Company() {
   const { companyId } = useParams();
   console.log(companyId, companyId);
@@ -56,11 +54,24 @@ export default function Company() {
                 <span>Contact : {data.contact}</span>
               </div>
             </div>
-            <div className="text py-[15px]">
-              <p>{data.body}</p>
+            <div className="flex gap-3 ">
+              <InfoOutlinedIcon />
+              <span>{data.body}</span>
             </div>
+            <div className="flex items-center">
+              <LocalOfferOutlinedIcon />
+              <div className="flex flex-wrap items-center">
+                {data.tag.map((tag, index) => (
+                  <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={index}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <div className="footer flex justify-between w-[300px] my-[20px]">
-              <div className="icon-left">Twatch0000@gmail.com</div>
+              {/* <div className="icon-left">Twatch0000@gmail.com</div> */}
+
               <div className="icon-right">
                 {/* <div className="icon"></div>
                 <p></p> */}
@@ -135,7 +146,7 @@ export default function Company() {
           </div> */}
         </div>
       </section>
-      <PortListByCompany />
+      {/* <PortListByCompany /> */}
       <Footer />
     </>
   );

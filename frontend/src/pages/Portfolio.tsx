@@ -37,10 +37,7 @@ export default function Portfolio() {
     <>
       <Nav />
       <PortfolioSection />
-<<<<<<< HEAD
       <DisplayBlock />
-=======
->>>>>>> main
       <PortListByCompany />
       {/* <section className="flex justify-center items-center min-h-[100vh]">
         <div className="HeroSection flex  w-[1200px] h-[520px] gap-x-[50px] ">
