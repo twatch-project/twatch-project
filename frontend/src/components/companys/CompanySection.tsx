@@ -19,6 +19,8 @@ export default function CompanySetion() {
   const userData = data?.userId;
   const { userEmail, userId } = useAuth();
 
+  console.log(userData, userId);
+
   if (!data || loading || !ready) return <Loading />;
 
   return (
@@ -65,7 +67,7 @@ export default function CompanySetion() {
               </div>
             </div>
             <div className="edit-info flex justify-end p-[15px]">
-              {Number(userData) === Number(userId) ? (
+              {userData === userId ? (
                 <Link to={`/company/edit/${companyId}`}>
                   <button
                     type="button"
@@ -91,7 +93,7 @@ export default function CompanySetion() {
                 Filter
               </button>
             </div>
-            {Number(userData) === Number(userId) ? (
+            {userData === userId ? (
               <Link to="/portfolio/create">
                 <div className="box-right flex justify-end p-[15px]">
                   <button
