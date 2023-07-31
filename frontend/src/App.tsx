@@ -15,11 +15,8 @@ function App() {
   // const { isLoggedIn } = useAuth();
   return (
     <>
-      {/* <ShowMore /> */}
-      {/* <PortfolioSection /> */}
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
-        {/* <Route path="/testimage" element={<ImageGallery />} /> */}
         <Route>
           <Route path="/signin" element={<Login />} />
           <Route path="/" element={<Home />} />
@@ -29,19 +26,13 @@ function App() {
           {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
           <Route path="/company/create" element={<CreateCompanyProfile />} />
           <Route path="/company/:companyId/edit" element={<EditCompanyProfile />} />
-          {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
           <Route path="/portfolio/:portId" element={<Portfolio />} />
           <Route path="/portfolio/create" element={<CreatePortfolio />} />
           <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} />
           <Route path="/company" element={<Company />} />
         </Route>
       </Routes>
-      {/* <Route element={<GuardedRoute isRouteAccessible={isLoggedIn} redirectRoute="/" />}> */}
-      {/* <Route path="/company/create" element={<CreateCompanyProfile />} /> */}
-      {/* <Route path="/createprofile" element={<CreateProfile />} /> */}
-      {/* <Route path="/portfolio/:portId/edit" element={<EditPortfolio />} /> */}
       {/* <Route path="*" element={<Error message="Page Not Found" />} /> */}
-      {/* </Layout> */}
     </>
   );
 }

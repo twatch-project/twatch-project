@@ -11,6 +11,7 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import TurnedInNotOutlinedIcon from '@mui/icons-material/TurnedInNotOutlined';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { useAuth } from '../../providers/AuthProvider';
 
 const PortfolioSection = () => {
   const { portId: portId } = useParams();
@@ -20,7 +21,7 @@ const PortfolioSection = () => {
   } = usePortfolio(portId || '');
 
   const pageCompanyId = data?.companyId;
-  console.log(pageCompanyId);
+  const { companyId } = useAuth();
 
   if (loading || !ready) return <Loading />;
 
@@ -79,7 +80,6 @@ const PortfolioSection = () => {
                       ))}
                     </div>
                   </div>
-                  {/* <span>{companyId}</span> */}
                 </div>
               </div>
             </div>
@@ -93,32 +93,18 @@ const PortfolioSection = () => {
             </div>
           </div>
         </section>
-        <Link to={`/portfolio/${companyId}/edit`}>
-          <div className="footer flex justify-center">
-            <button className="bg-blue p-[15px] text-white rounded hover:border-blue border-[0.5px] hover:bg-white hover:text-blue duration-500 ease-in-out">
-              Edit Portfolio
-            </button>
-          </div>
-        </Link>
+        {Number(companyId) === pageCompanyId ? (
+          <Link to={`/portfolio/${portId}/edit`}>
+            <div className="footer flex justify-center">
+              <button className="bg-blue p-[15px] text-white rounded hover:border-blue border-[0.5px] hover:bg-white hover:text-blue duration-500 ease-in-out">
+                EDIT PORTFOLIO
+              </button>
+            </div>
+          </Link>
+        ) : undefined}
       </section>
     </>
   );
 };
 
 export default PortfolioSection;
-
-{
-  /* <span>{createAt}</span>
-<span>{updateAt}</span> */
-}
-{
-  /* <div className="pb-10 content-end">
-       {Number(auth.companyId) === pageCompanyId ? (
-         <Link to={`/portfolio/${portId}/edit`}>
-           <Button type="submit" variant="contained">
-             EDIT PORFOLIO
-           </Button>
-         </Link>
-       ) : undefined}
-     </div> */
-}
