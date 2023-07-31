@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import useCompany from '../hooks/useCompany';
 import Loading from '../components/Loading';
 import CompanySetion from '../components/companys/CompanySection';
+import PortListByCompany from '../components/portfolios/PortListByCompany';
+import Footer from '../components/Footer';
 export default function Company() {
   const { companyId } = useParams();
 
@@ -18,6 +20,8 @@ export default function Company() {
   return (
     <>
       <CompanySetion />
+      <PortListByCompany />
+      <Footer />
     </>
   );
 }

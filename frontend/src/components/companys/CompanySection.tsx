@@ -1,6 +1,5 @@
 // import img from '../img/3.jpg'
 import { Link, useParams } from 'react-router-dom';
-import Footer from '../../components/Footer';
 import AssistantPhotoIcon from '@mui/icons-material/AssistantPhotoOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
@@ -9,7 +8,6 @@ import ImageGallery from '../../components/Showsileimg';
 import useCompany from '../../hooks/useCompany';
 import Loading from '../Loading';
 import { useAuth } from '../../providers/AuthProvider';
-import PaginationPortList from './ShowListPort';
 
 export default function CompanySetion() {
   const { companyId } = useParams();
@@ -103,12 +101,9 @@ export default function CompanySetion() {
               </div>
             </Link>
           </div>
-          <div className="flex justify-center contant-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg">
-            <PaginationPortList />
-          </div>
+          <div className="flex justify-center contant-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg"></div>
         </div>
       </section>
-      <Footer />
     </>
   );
 }
