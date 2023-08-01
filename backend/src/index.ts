@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 
 import { PrismaClient } from "@prisma/client";
 import { createClient } from "redis";
@@ -57,8 +58,15 @@ async function main() {
   const commentRouter = express.Router();
   const storage = multer.memoryStorage();
   const upload = multer({ storage: storage });
+  
+  dotenv.config();
+  const use_cors = process.env.CORS || "1"
 
-  server.use(cors());
+  if (use_cors === "1" || use_cors?.includes("y")) {
+    console.log(`Using CORS due to ENV CORS: ${use_cors}`);
+    server.use(cors());
+  }
+  
   server.use(express.json());
   server.use(express.urlencoded({ extended: false }));
   server.use(express.static("public"));
@@ -70,6 +78,7 @@ async function main() {
   server.use("/company", companyRouter);
   server.use("/portfolio", portfolioRouter);
   server.use("/comment", commentRouter);
+ 
 
   // Check server status
   server.get("/", (_, res) => {
