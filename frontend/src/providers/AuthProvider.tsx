@@ -107,6 +107,8 @@ const AuthProvider = (props: AuthProviderProps) => {
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
       localStorage.removeItem('companyId');
+      localStorage.removeItem('customerId');
+      localStorage.removeItem('role');
       setIsLoggedIn(false);
       setUserInfo({ userId: null, token: null, companyId: null });
       toast.success('Successful Logout');
