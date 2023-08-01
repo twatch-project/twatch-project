@@ -21,7 +21,7 @@ import multer from "multer";
 
 async function main() {
   const db = new PrismaClient();
-  const redis = createClient<any, any, any>();
+  const redis = createClient<any, any, any>({url: process.env.REDIS_URL});
 
   try {
     await redis.connect();
