@@ -18,7 +18,7 @@ const usePortfolio = (portId: string | undefined): PortfolioHook => {
         const data = await res.json();
         console.log(data);
 
-        setRating(data.ratingPort);
+        setRating(data.ratingPort[0]._avg.rating);
         setData(data.port);
       } catch (err: any) {
         setError(err.message);

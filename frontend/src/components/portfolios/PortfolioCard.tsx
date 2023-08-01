@@ -1,7 +1,10 @@
+import usePortfolio from '../../hooks/usePortfolio';
 import { PortfolioDto } from '../../types/dto';
 import { Link } from 'react-router-dom';
 
 const PortfolioCard = ({ portId, title, body, imageContentUrls, tag }: PortfolioDto) => {
+  const { rating } = usePortfolio(portId || '');
+  // Add rating
   return (
     <>
       <Link to={`/portfolio/${portId}`}>

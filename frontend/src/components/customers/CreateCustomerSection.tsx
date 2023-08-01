@@ -2,28 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormEvent } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Theme } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { host } from '../../constant';
 import { useAuth } from '../../providers/AuthProvider';
 import useAddressThai from '../../hooks/useAddressThai';
 import { AmphureDto, TambonDto } from '../../types/dto';
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-function getStyles(name: string, tag: readonly string[], theme: Theme) {
-  return {
-    fontWeight: tag.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
-  };
-}
 
 const CreateCustomerSection = () => {
   const [firstname, setFirstname] = useState<string>('');

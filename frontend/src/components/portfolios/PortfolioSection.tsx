@@ -27,7 +27,7 @@ const PortfolioSection = () => {
   if (loading || !ready || !data || !rating) return <Loading />;
 
   const { title, body, imageContentUrls, tag, address, sub_district, district, province, postCode } = data;
-  const ratingPort = rating[0]._avg.rating;
+  // Add rating
 
   return (
     <>

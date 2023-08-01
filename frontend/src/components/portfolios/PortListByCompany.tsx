@@ -8,9 +8,11 @@ const PortListByCompany = () => {
   const {
     status: { loading, ready },
     data,
+    rating,
   } = usePortByCompany(companyId);
 
-  if (loading || !ready) return <Loading />;
+  if (loading || !ready || !rating || !data) return <Loading />;
+
   return (
     <div className="flex flex-wrap justify-center gap-[50px]">
       {data && data.map((portfolio) => <PortfolioCard key={portfolio.portId} {...portfolio} />)}
