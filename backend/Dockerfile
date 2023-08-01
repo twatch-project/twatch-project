@@ -15,4 +15,4 @@ RUN pnpm i
 RUN npx prisma generate
 RUN npx tsc
 
-CMD ["node", "dist/index.js"]
+CMD ["npm", "run", "start:migrate:prod"]
