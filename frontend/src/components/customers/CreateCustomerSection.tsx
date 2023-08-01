@@ -62,7 +62,6 @@ const CreateCustomerSection = () => {
 
   const handleChangeGender = (event: SelectChangeEvent) => {
     setGender(event.target.value as string);
-    console.log(gender);
   };
 
   const handlerSubmit = async (event: FormEvent<HTMLUnknownElement>) => {

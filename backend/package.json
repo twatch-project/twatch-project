@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",     
+    "prisma": "npx prisma generate --schema ./prisma/schema.prisma",     
+    "migrate": "npx prisma migrate dev --schema ./prisma/schema.prisma",     
+    "start:prod": "node dist/index.js",     
+    "start:migrate:prod": "prisma migrate deploy && npm run start:prod"
   },
   "keywords": [],
   "author": "",

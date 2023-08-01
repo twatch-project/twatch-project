@@ -1,12 +1,15 @@
-FROM node:latest
-
-WORKDIR /home/app
+# Stage 0: build and compile the frontend
+# Out dist should be at /app/dist
+FROM node:latest as build-stage
+WORKDIR /app
 
 COPY . .
 
-RUN npm i -g pnpm
-RUN pnpm i
+RUN npm install -g pnpm
+RUN pnpm install
+RUN VITE_BE_URL="https://api.craftcon.cleverse.academy" pnpm build
 
-EXPOSE 8000
+# Step 1: copy built React app into base NGINX image
+FROM nginx:latest
 
-CMD [ "npm", "run dev" ]
+COPY --from=build-stage /app/dist /usr/share/nginx/html

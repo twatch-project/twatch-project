@@ -2,21 +2,25 @@ services:
   pg:
     image: postgres:latest
     ports: 
-      - 5432:5432
+      - "5432:5432"
     environment:
-      - POSTGRES_USER: pguser
-      - POSTGRES_PASSWORD: academy
+      POSTGRES_USER: "pguser"
+      POSTGRES_PASSWORD: "academy"
 
   rd:
     image: redis:latest
 
-  app:
+  app-backend:
     # Build image nodeserver from Dockerfile in GitHub repo
-    image: twatchcicd
-    build: https://github.com/twatch-project/twatch-project.git#develop
+    image: genochs/carftcon-backend
     environment:
-      POSTGRES_PASSWORD: academy
-      REDIS_URL: redis://rd:6379
-      DATABASE_URL: postgresql://pguser:academy@pg:5432
+      POSTGRES_PASSWORD: "academy"
+      REDIS_URL: "redis://rd:6379"
+      DATABASE_URL: "postgresql://pguser:academy@pg:5432"
     ports:
       - "8000:8000"
+
+  app-frontend:
+    image: genochs/carftcon-frondend
+    ports:
+      - "80:80"
