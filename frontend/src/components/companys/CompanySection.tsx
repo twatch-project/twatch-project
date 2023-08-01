@@ -13,14 +13,13 @@ import Loading from '../Loading';
 export default function CompanySetion() {
   const { companyId } = useParams();
 
-  const {
-    data,
-    status: { loading, ready },
-  } = useCompany(companyId);
-  const { userEmail, userId } = useAuth();
-  const userData = data?.userId;
+  const { data } = useCompany(companyId);
 
-  if (!data || loading || ready) return <Loading />;
+  const { userEmail, userId } = useAuth();
+
+  if (!data) return <Loading />;
+
+  const userData = data.userId;
 
   return (
     <>
