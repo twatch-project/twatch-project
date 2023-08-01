@@ -50,7 +50,7 @@ export interface PortfolioDto {
   postCode: number;
   createAt: Date;
   updateAt: Date;
-
+  contact: string;
   companyId: string;
   rating: number;
 }

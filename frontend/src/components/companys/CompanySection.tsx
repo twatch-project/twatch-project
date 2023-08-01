@@ -8,6 +8,7 @@ import ImageGallery from '../../components/Showsileimg';
 import useCompany from '../../hooks/useCompany';
 import Loading from '../Loading';
 import { useAuth } from '../../providers/AuthProvider';
+import { Button } from '@mui/material';
 
 export default function CompanySetion() {
   const { companyId } = useParams();
@@ -58,9 +59,7 @@ export default function CompanySetion() {
                   data.tag.map((tag) => {
                     return (
                       <>
-                        <div className="text-sm border border-slate-600 bg-slate-200 text-slate-500 rounded-md p-1">
-                          {tag}
-                        </div>
+                        <div className="m-1 bg-[#eee] rounded-md text-xs p-2">{tag}</div>
                       </>
                     );
                   })}
@@ -68,13 +67,10 @@ export default function CompanySetion() {
             </div>
             <div className="edit-info flex justify-end p-[15px]">
               {userData === userId ? (
-                <Link to={`/company/edit/${companyId}`}>
-                  <button
-                    type="button"
-                    className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  >
+                <Link to={`/company/${companyId}/edit`}>
+                  <Button variant="contained" type="button">
                     Edit
-                  </button>
+                  </Button>
                 </Link>
               ) : undefined}
             </div>
@@ -86,22 +82,13 @@ export default function CompanySetion() {
           <div className="head flex justify-between item-center w-full">
             <div className="box-left flex gap-x-3 items-center">
               <h1 className="font-bold text-[18px] p-1 m-5">PORTFOLIO</h1>
-              <button
-                type="button"
-                className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-3 py-2 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              >
-                Filter
-              </button>
             </div>
             {userData === userId ? (
               <Link to="/portfolio/create">
                 <div className="box-right flex justify-end p-[15px]">
-                  <button
-                    type="button"
-                    className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  >
+                  <Button variant="contained" type="button">
                     Create Portfolio
-                  </button>
+                  </Button>
                 </div>
               </Link>
             ) : undefined}
