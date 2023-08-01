@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import usePortfolio from '../../hooks/usePortfolio';
 import { PortfolioDto } from '../../types/dto';
 import { Link } from 'react-router-dom';
@@ -6,11 +7,10 @@ import { yellow } from '@mui/material/colors';
 
 const PortfolioCard = ({ portId, title, body, imageContentUrls, tag }: PortfolioDto) => {
   const { rating } = usePortfolio(portId || '');
-  // Add rating
   return (
     <>
       <Link to={`/portfolio/${portId}`}>
-        <div className="card  w-[300px] flex gap-y-1 flex-col justify-between h-auto min-w-[300px]     border-[0.5px] rounded-md overflow-hidden">
+        <div className="card  w-[300px] flex gap-y-1 flex-col justify-between h-auto min-w-[300px]  border-[0.5px] rounded-md overflow-hidden">
           <div>
             <div className="imgBx">
               <img
@@ -28,22 +28,22 @@ const PortfolioCard = ({ portId, title, body, imageContentUrls, tag }: Portfolio
             <div className="flex justify-start  gap-3">
               <StarIcon sx={{ color: yellow[500] }} />
               <div className="flex items-center">
-                <p className="text-xs">{rating} 5</p>
+                <p className="text-xs">{rating}</p>
               </div>
             </div>
             <div>
               <div className="flex items-center">
                 {tag.length <= 2
                   ? tag.map((tag) => (
-                      <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
-                        {tag}
-                      </span>
-                    ))
+                    <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
+                      {tag}
+                    </span>
+                  ))
                   : tag.slice(0, 2).map((tag) => (
-                      <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
-                        {tag}
-                      </span>
-                    ))}
+                    <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
+                      {tag}
+                    </span>
+                  ))}
               </div>
             </div>
           </div>

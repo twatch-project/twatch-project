@@ -10,15 +10,18 @@ import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import TurnedInNotOutlinedIcon from '@mui/icons-material/TurnedInNotOutlined';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
+import StarIcon from '@mui/icons-material/Star';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useAuth } from '../../providers/AuthProvider';
 import { Button } from '@mui/material';
+import { yellow } from '@mui/material/colors';
 
 const PortfolioSection = () => {
   const { portId: portId } = useParams();
   const {
     status: { loading, ready },
     data,
+    rating,
   } = usePortfolio(portId || '');
 
   const pageCompanyId = data?.companyId;
@@ -77,6 +80,12 @@ const PortfolioSection = () => {
                           {tag}
                         </span>
                       ))}
+                    </div>
+                  </div>
+                  <div className="flex justify-start  gap-3">
+                    <StarIcon sx={{ color: yellow[500] }} />
+                    <div className="flex items-center">
+                      <p className="text-xs">{rating}</p>
                     </div>
                   </div>
                 </div>

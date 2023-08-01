@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import { Role } from '../../types/auth.context';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
+import iconlogo from '../svg/icon.svg';
 
 const Register = () => {
   const [usernameInput, setUsernameInput] = useState('');
@@ -45,17 +46,16 @@ const Register = () => {
 
   return (
     <>
-      <section className="flex flex-col justify-center items-center my-10">
+      <section className="flex flex-col justify-center items-center w-1/2 my-10 mx-auto">
         <div className="flex justify-center item-center">
           <form
             onSubmit={handleSubmit}
-            className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md px-10 py-5 shadow-md hover:shadow-lg gap-8 border-[0.5px]"
+            className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md px-14 py-10 shadow-md hover:shadow-lg gap-8 border-[0.5px]"
           >
-            <div className="flex flex-col gap-2">
-              <h1 className="text-3xl font-bold py-5">
-                Welcome to <span className="text-blue">Craftcon.</span>
-              </h1>
-              <div className="text-center font-bold text-2xl">REGISTER</div>
+            <div className="flex flex-col self-center gap-2 w-36 ">
+              <img src={iconlogo} alt="logo" />
+              {/* <p className="text-3xl font-bold py-5 text-blue text-center">Craftcon</p> */}
+              <div className="text-center font-normal text-2xl">REGISTER</div>
             </div>
             <div>
               <TextField
@@ -106,10 +106,10 @@ const Register = () => {
               />
             </div>
             <div className="w-full self-center mx-auto">
-              <FormControl className=" items-center">
+              <FormControl className="self-center">
                 <InputLabel
                   id="demo-simple-select-autowidth-label"
-                  className="w-full justify-items-center text-l flex flex-col text-black font-bold"
+                  className="w-full text-l flex flex-col text-black font-bold"
                 >
                   Role
                 </InputLabel>
@@ -126,9 +126,9 @@ const Register = () => {
                 </Select>
               </FormControl>
             </div>
-            <div className="flex flex-col item-center justify-center py-5 gap-1">
+            <div className="flex flex-col item-center justify-center py-5 px-10 gap-1">
               <button
-                className="btn border self-center hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110"
+                className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110 self-center"
                 disabled={isSubmitting}
               >
                 Sign Up

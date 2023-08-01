@@ -1,7 +1,7 @@
 export default function Sell() {
   return (
     <>
-      <section className="flex justify-center  items-center flex-col  ">
+      <section className="flex justify-center  items-center flex-col  mt-10">
         <div className="flex flex-col item-center ">
           <h1 className="text-blue text-[33px] font-bold text-center mt-[60px] mb-[15px]">CraftCon</h1>
           <div className="flex footer justify-center   gap-[15px]">
