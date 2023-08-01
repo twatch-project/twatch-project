@@ -26,9 +26,9 @@ const CompanyList = () => {
 
   return (
     <>
-      <section className="flex justify-center m-[50px] items-center flex-col">
+      <section className="flex justify-center m-auto w-4/5 items-center flex-col">
         <div className="control flex flex-col">
-          <div className="head flex justify-between items-center my-[15px]">
+          <div className="head flex justify-between items-center my-20">
             <div className="title font-bold text-[24px]">Company</div>
           </div>
           <div className="flex flex-wrap justify-start item-center w-full gap-5">

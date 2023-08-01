@@ -11,7 +11,7 @@ const images = [
 export default function Hero() {
   return (
     <section>
-      <div className="flex justify-center item-center gradient-sky h-[400px] w-full">
+      <div className="flex justify-center item-center gradient-sky h-[80vh] w-full">
         <div className="flex justify-center mx-40 gap-5 mt-[60px] w-4/5">
           <div className="flex flex-col gap-8 box-left  w-[40%] h-[60%]">
             <h1 className="text-5xl font-bold py-5">
@@ -29,9 +29,8 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="box-right  w-[45%] h-[90%]  overflow-hidden flex justify-center items-center">
-            <div className="flex justify-center items-center ">
-              {/* <img className="w-full h-full" src={img3} alt="" /> */}
+          <div className="box-right  w-[45%] overflow-hidden flex justify-center">
+            <div className="flex">
               <Slide images={images} slideInterval={5000} />
             </div>
           </div>

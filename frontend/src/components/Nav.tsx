@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../providers/AuthProvider';
 import { useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Box, Button, Stack } from '@mui/material';
+import iconlogo from '../svg/icon.svg';
 
 export default function Nav() {
   const { isLoggedIn, logout } = useAuth();
@@ -11,8 +12,8 @@ export default function Nav() {
     <>
       <section className="border-b border-slate-200">
         <div className="flex items-center justify-between  mx-[10%]">
-          <Link to="/" className="logo text-[24px] font-bold  max-sm:hidden">
-            <img src="../svg/icon.svg" alt="logo" />
+          <Link to="/" className="logo text-[24px]  font-bold w-12">
+            <img src={iconlogo} alt="logo" />
           </Link>
           <div className="menu flex items-center justify-center">
             <Box sx={{ width: 400 }}>

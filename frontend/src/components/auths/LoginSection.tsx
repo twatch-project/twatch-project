@@ -7,6 +7,8 @@ import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Tex
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import React from 'react';
+import iconlogo from '../svg/icon.svg';
+
 const LoginSection = () => {
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -42,7 +44,6 @@ const LoginSection = () => {
         navigate('/');
         return;
       }
-
       const role = await localStorage.getItem('role');
 
       if (role === 'COMPANY') {
@@ -78,10 +79,8 @@ const LoginSection = () => {
             onSubmit={handleSubmit}
             className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md p-10 shadow-md hover:shadow-lg gap-y-[30px] border-[0.5px]"
           >
-            <div className="flex flex-col gap-1">
-              <h1 className="text-3xl font-bold py-5">
-                Welcome to <span className="text-blue">Craftcon.</span>
-              </h1>
+            <div className="flex flex-col gap-1 self-center w-36">
+              <img src={iconlogo} alt="logo" />
               <div className="text-center font-bold text-2xl">LOGIN</div>
             </div>
             <div className="w-full">
@@ -119,7 +118,7 @@ const LoginSection = () => {
                 />
               </FormControl>
             </div>
-            <div className="flex flex-col justify-center py-5 gap-2">
+            <div className="flex flex-col justify-center py-5 px-10 gap-2">
               <button
                 className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110 self-center"
                 disabled={isSubmitting}
