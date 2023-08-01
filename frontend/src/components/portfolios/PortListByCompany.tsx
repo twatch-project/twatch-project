@@ -8,10 +8,9 @@ const PortListByCompany = () => {
   const {
     status: { loading, ready },
     data,
-    rating,
   } = usePortByCompany(companyId);
 
-  if (loading || !ready || !rating || !data) return <Loading />;
+  if (loading || !ready || !data) return <Loading />;
 
   return (
     <div className="flex flex-wrap justify-center gap-[50px]">
