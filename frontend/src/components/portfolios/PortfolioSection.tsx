@@ -12,6 +12,7 @@ import TurnedInNotOutlinedIcon from '@mui/icons-material/TurnedInNotOutlined';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useAuth } from '../../providers/AuthProvider';
+import { Button } from '@mui/material';
 
 const PortfolioSection = () => {
   const { portId: portId } = useParams();
@@ -25,56 +26,55 @@ const PortfolioSection = () => {
   const { companyId } = useAuth();
 
   if (loading || !ready || !data) return <Loading />;
-  const { title, body, imageContentUrls, tag, address, sub_district, district, province, postCode } = data;
+
+  const { title, body, imageContentUrls, tag, address, sub_district, district, province, postCode, contact } = data!;
 
   return (
     <>
       <section className="flex flex-col min-h-[100vh]">
         <section className="flex justify-center items-center my-10">
-          <div className="HeroSection flex justify-between items-center border-[0.5px]  min-w-[1200px] min-h-[500px]  gap-x-[50px]">
-            <div className="left w-[570px]">
-              <div className="head m-10 ">
-                <h1 className="font-bold text-[24px] mx-[15px] py-5">{title}</h1>
+          <div className="flex justify-between border rounded-md mx-auto w-4/5 h-full p-5 gap-x-5">
+            <div className="left w-1/2">
+              <div className="head mx-10 ">
+                <h1 className="font-ligth text-[24px] mx-[15px] py-5">{title}</h1>
                 <div className="detail flex mx-[15px] flex-col gap-y-[15px]">
-                  <div>
+                  <div className="flex gap-2">
                     <MapsHomeWorkOutlinedIcon />
                     <span> Address : {address}</span>
                   </div>
 
-                  <div>
+                  <div className="flex gap-2">
                     <AddLocationAltOutlinedIcon />
                     <span> Sub_district : {sub_district}</span>
                   </div>
 
-                  <div>
+                  <div className="flex gap-2">
                     <AssistantPhotoIcon />
                     <span> District : {district}</span>
                   </div>
 
-                  <div>
+                  <div className="flex gap-2">
                     <MapOutlinedIcon />
                     <span> Province : {province}</span>
                   </div>
 
-                  <div>
+                  <div className="flex gap-2">
                     <LocalShippingOutlinedIcon />
                     <span> PostCode : {postCode}</span>
                   </div>
-                  <div>
+                  <div className="flex gap-2">
                     <ContactPhoneOutlinedIcon />
-                    <span> Contact : anothai.0978452316@gmail.com </span>
+                    <span> Contact : {contact} </span>
                   </div>
-
-                  <div>
+                  <div className="flex gap-2">
                     <InfoOutlinedIcon />
                     <span>{body}</span>
                   </div>
-                  <div>
+                  <div className="flex items-center">
                     <TurnedInNotOutlinedIcon />
                     <div className="flex flex-wrap items-center">
-                      Tag :
                       {tag.map((tag) => (
-                        <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
+                        <span className=" m-1 bg-[#eee] rounded-md text-xs p-2" key={portId}>
                           {tag}
                         </span>
                       ))}
@@ -83,12 +83,9 @@ const PortfolioSection = () => {
                 </div>
               </div>
             </div>
-
-            <div className="right w-[570px] flex justify-center items-center overflow-hidden">
-              <div className="m-10">
-                <div className="imgBx flex justify-center w-[550px] ">
-                  <ImageGallery images={imageContentUrls} />
-                </div>
+            <div className="right w-[570px] flex overflow-hidden">
+              <div className="imgBx flex w-full mx-2">
+                <ImageGallery images={imageContentUrls} />
               </div>
             </div>
           </div>
@@ -96,9 +93,7 @@ const PortfolioSection = () => {
         {Number(companyId) === Number(pageCompanyId) ? (
           <Link to={`/portfolio/${portId}/edit`}>
             <div className="footer flex justify-center">
-              <button className="bg-blue p-[15px] text-white rounded hover:border-blue border-[0.5px] hover:bg-white hover:text-blue duration-500 ease-in-out">
-                EDIT PORTFOLIO
-              </button>
+              <Button variant="contained">EDIT PORTFOLIO</Button>
             </div>
           </Link>
         ) : undefined}
