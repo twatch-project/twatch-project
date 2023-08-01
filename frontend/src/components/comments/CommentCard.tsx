@@ -15,10 +15,16 @@ const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
   return (
     <div className="card-comment flex items-center justify-between w-[835px] h-[100px] p-5 border rounded-md">
       <div className="flex items-center gap-x-[10px]">
-        <Avatar>{comment.commentBy.company[0].companyName[0] || comment.commentBy.customer[0].firstname[0]}</Avatar>
+        <Avatar>
+          {comment.commentBy.company.length > 0
+            ? comment.commentBy.company[0].companyName[0]
+            : comment.commentBy.customer[0].firstname[0]}
+        </Avatar>
         <div className="flex flex-col">
           <p className="font-bold">
-            {comment.commentBy.company[0].companyName || comment.commentBy.customer[0].firstname}
+            {comment.commentBy.company.length > 0
+              ? comment.commentBy.company[0].companyName
+              : comment.commentBy.customer[0].firstname}
           </p>
           <p>{comment.message}</p>
         </div>
