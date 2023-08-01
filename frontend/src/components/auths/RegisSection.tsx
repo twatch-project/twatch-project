@@ -45,16 +45,18 @@ const Register = () => {
 
   return (
     <>
-      <section className="flex justify-center items-center my-10">
+      <section className="flex flex-col justify-center items-center my-10">
         <div className="flex justify-center item-center">
           <form
             onSubmit={handleSubmit}
-            className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md px-10 py-5 shadow-md hover:shadow-lg gap-y-[40px] border-[0.5px]"
+            className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md px-10 py-5 shadow-md hover:shadow-lg gap-8 border-[0.5px]"
           >
-            <h1 className="text-3xl font-bold py-5">
-              Welcome to <span className="text-blue">Twatch.</span>
-            </h1>
-            <div className="text-center font-bold text-2xl">REGISTER</div>
+            <div className="flex flex-col gap-2">
+              <h1 className="text-3xl font-bold py-5">
+                Welcome to <span className="text-blue">Craftcon.</span>
+              </h1>
+              <div className="text-center font-bold text-2xl">REGISTER</div>
+            </div>
             <div>
               <TextField
                 id="outlined-basic"
@@ -103,8 +105,8 @@ const Register = () => {
                 required
               />
             </div>
-            <div className="w-full justify-items-center">
-              <FormControl>
+            <div className="w-full self-center mx-auto">
+              <FormControl className=" items-center">
                 <InputLabel
                   id="demo-simple-select-autowidth-label"
                   className="w-full justify-items-center text-l flex flex-col text-black font-bold"
@@ -124,14 +126,14 @@ const Register = () => {
                 </Select>
               </FormControl>
             </div>
-            <div className="flex justify-center py-5">
+            <div className="flex flex-col item-center justify-center py-5 gap-1">
               <button
-                className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110"
+                className="btn border self-center hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110"
                 disabled={isSubmitting}
               >
                 SignUp
               </button>
-              <Link to="/register" className="text-blue text-center">
+              <Link to="/signin" className="text-blue text-center">
                 Already have an account? Login
               </Link>
             </div>

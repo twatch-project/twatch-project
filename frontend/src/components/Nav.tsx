@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../providers/AuthProvider';
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
 import { BottomNavigation, BottomNavigationAction, Box, Button, Stack } from '@mui/material';
 
 export default function Nav() {
@@ -14,12 +13,6 @@ export default function Nav() {
     setShowMenu(!showMenu);
   };
 
-  styled(BottomNavigationAction)({
-    '& .MuiBottomNavigationAction-label': {
-      fontsize: 24,
-      borderRedius: 2,
-    },
-  });
   return (
     <>
       <div className="flex items-center justify-between mx-[10%]">

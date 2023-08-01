@@ -26,9 +26,21 @@ dependencies:
   '@mui/material':
     specifier: ^5.14.0
     version: 5.14.0(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.14)(react-dom@18.2.0)(react@18.2.0)
+  '@mui/private-theming':
+    specifier: ^5.13.7
+    version: 5.13.7(@types/react@18.2.14)(react@18.2.0)
+  '@mui/styled-engine':
+    specifier: ^5.13.2
+    version: 5.13.2(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(react@18.2.0)
   '@mui/styled-engine-sc':
     specifier: ^5.12.0
     version: 5.12.0(styled-components@6.0.4)
+  '@mui/types':
+    specifier: ^7.2.4
+    version: 7.2.4(@types/react@18.2.14)
+  '@mui/utils':
+    specifier: ^5.14.1
+    version: 5.14.1(react@18.2.0)
   '@types/react-router-dom':
     specifier: ^5.3.3
     version: 5.3.3
