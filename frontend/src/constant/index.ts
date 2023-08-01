@@ -15,3 +15,5 @@ export const Tags = [
   'ARTDECO',
   'MIXANDMATCH',
 ];
+
+export const Gender = ['MALE', 'FEMALE', 'UNSPECIFIED'];

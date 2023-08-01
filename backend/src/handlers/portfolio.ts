@@ -186,7 +186,11 @@ class HandlerPortfolio implements IHandlerPorfolio {
       if (!ports) {
         return res.status(401).json("No such a company port").end();
       }
-      return res.status(200).json({ ports, status: "ok" }).end();
+      const portIds = ports.map((port)=> port.portId);
+
+      const ratingPorts = await Promise.all(portIds.map((portId)=>this.repoPort.getRatingByPortId(portId)));
+
+      return res.status(200).json({ ports, ratingPorts, status: "ok" }).end();
     } catch (err) {
       console.error(err);
       return res

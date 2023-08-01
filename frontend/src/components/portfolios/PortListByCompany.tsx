@@ -10,7 +10,8 @@ const PortListByCompany = () => {
     data,
   } = usePortByCompany(companyId);
 
-  if (loading || !ready) return <Loading />;
+  if (loading || !ready || !data) return <Loading />;
+
   return (
     <div className="flex flex-wrap justify-center gap-[50px]">
       {data && data.map((portfolio) => <PortfolioCard key={portfolio.portId} {...portfolio} />)}

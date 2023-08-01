@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { ICompany, ICreateUser, IUser } from "../entities";
+import { ICompany, ICreateUser, ICustomer, IUser } from "../entities";
 import { IRepositoryUser } from ".";
 
 export function newRepositoryUser(db: PrismaClient) {
@@ -30,6 +30,10 @@ class RepositoryUser implements IRepositoryUser {
 
   async getCompanyIdByUser(userId: string): Promise<ICompany | null> {
     return await this.db.company.findUnique({ where: { userId } });
+  }
+
+  async getCustomerIdByUser(userId: string): Promise<ICustomer | null> {
+    return await this.db.customer.findUnique({ where: { userId } });
   }
 
   async getUsername(username: string): Promise<IUser | null> {

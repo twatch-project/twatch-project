@@ -19,12 +19,13 @@ const PortfolioSection = () => {
   const {
     status: { loading, ready },
     data,
+    rating,
   } = usePortfolio(portId || '');
 
   const pageCompanyId = data?.companyId;
   const { companyId } = useAuth();
 
-  if (loading || !ready) return <Loading />;
+  if (loading || !ready || !data || !rating) return <Loading />;
 
   const { title, body, imageContentUrls, tag, address, sub_district, district, province, postCode, contact } = data!;
 

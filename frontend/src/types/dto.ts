@@ -99,3 +99,17 @@ export interface CommentDto {
     }[];
   };
 }
+
+export interface CustomerDto {
+  firstname: string;
+  lastname: string;
+  gender: string;
+  // dateOfBirth: Date;
+  citizenId: string;
+  province: string;
+  district: string;
+  sub_district: string;
+  address: string;
+  contact: string;
+  postCode: string;
+}

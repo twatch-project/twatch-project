@@ -30,6 +30,7 @@ export interface IRepositoryUser {
   getId(id: string): Promise<IUser | null>;
   getCompanyIdByUser(userId: string): Promise<ICompany | null>;
   getUsername(username: string): Promise<IUser | null>;
+  getCustomerIdByUser(userId: string): Promise<ICustomer | null>
 }
 
 //implements RepositoryCustomer

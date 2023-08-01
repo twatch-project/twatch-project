@@ -4,7 +4,7 @@ import usePortfolioList from '../../hooks/usePortfolioList';
 
 const PortfolioList = () => {
   const {
-    status: { loading, ready },
+    status: { loading },
     data,
   } = usePortfolioList();
 
