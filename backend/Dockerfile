@@ -14,4 +14,4 @@ RUN npm i -g pnpm
 RUN pnpm i
 RUN npx tsc
 
-CMD ["npm", "run", "start:migrate:prod"]
+CMD ["node", "dist/index.js"]
