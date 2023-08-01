@@ -17,7 +17,7 @@ export default function PaginationPortList() {
   if (loading || !data || ready) return <Loading />;
   const [itemOffset, setItemOffset] = useState<number>(0);
   const [currentItems, setCurrentItems] = useState<PortfolioDto[] | null>([]);
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
   const pageCount: number = Math.ceil(data && data.length / itemsPerPage);
 
   useEffect(() => {

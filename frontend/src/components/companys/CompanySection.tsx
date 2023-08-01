@@ -6,9 +6,9 @@ import ContactPhoneOutlinedIcon from '@mui/icons-material/ContactPhoneOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import ImageGallery from '../../components/Showsileimg';
 import useCompany from '../../hooks/useCompany';
-import Loading from '../Loading';
 import { useAuth } from '../../providers/AuthProvider';
 import { Button } from '@mui/material';
+import Loading from '../Loading';
 
 export default function CompanySetion() {
   const { companyId } = useParams();
@@ -17,8 +17,8 @@ export default function CompanySetion() {
     data,
     status: { loading, ready },
   } = useCompany(companyId);
-  const userData = data?.userId;
   const { userEmail, userId } = useAuth();
+  const userData = data?.userId;
 
   if (!data || loading || ready) return <Loading />;
 
