@@ -62,7 +62,11 @@ class HandlerCompany implements IHandlerCompany {
 
     const fCompany = req.files["company"];
     const fContents = req.files["content"];
-
+    
+    if (!fCompany && !fContents) {
+      return res.status(400).json({error : "missing file"}).end()
+    }
+    
     const imageCompany = generateFileName();
     const imageContents: string[] = fContents.map(() => generateFileName());
 
@@ -170,10 +174,8 @@ class HandlerCompany implements IHandlerCompany {
     if (companyRole !== "COMPANY") {
       return res.status(400).json({ error: "not company role" }).end();
     }
-    console.log("hello")
 
     const companyId = Number(req.params.companyId);
-    console.log(companyId)
     // isNaN checks if its arg is NaN
     if (isNaN(companyId)) {
       return res

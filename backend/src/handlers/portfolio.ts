@@ -72,6 +72,10 @@ class HandlerPortfolio implements IHandlerPorfolio {
 
     const fContents = req.files["content"];
 
+    if (!fContents) {
+      return res.status(400).json({error : "missing file"}).end()
+    }
+
     const imageContents: string[] = fContents.map(() => generateFileName());
 
     const fileBufferContents: Buffer[] = await Promise.all(
