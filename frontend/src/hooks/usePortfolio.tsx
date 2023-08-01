@@ -8,7 +8,7 @@ const usePortfolio = (portId: string | undefined): PortfolioHook => {
   const [data, setData] = useState<PortfolioDto | null>(null);
   const [error, setError] = useState<null | unknown>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [rating, setRating] = useState<number | null>(null);
+  const [rating, setRating] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,9 +16,10 @@ const usePortfolio = (portId: string | undefined): PortfolioHook => {
       try {
         const res = await fetch(`${host}/portfolio/${portId}`);
         const data = await res.json();
-        console.log(data);
 
-        setRating(data.ratingPort[0]._avg.rating);
+        if (data.ratingPort.length > 0) {
+          setRating(data.ratingPort[0]._avg.rating);
+        }
         setData(data.port);
       } catch (err: any) {
         setError(err.message);
