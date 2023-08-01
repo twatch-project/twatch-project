@@ -1,8 +1,9 @@
 import ReactStars from 'react-stars';
 import { CommentDto } from '../../types/dto';
-import { Avatar, Button } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 import { useAuth } from '../../providers/AuthProvider';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import { red } from '@mui/material/colors';
 
 interface ICommentCardProps {
   comment: CommentDto;
@@ -27,14 +28,9 @@ const CommentCard = ({ comment, deletePostClicked }: ICommentCardProps) => {
           <ReactStars count={5} size={24} edit={false} value={comment.rating} color2={'#ffd700'} half={false} />
         </div>
         {comment.userId === userId ? (
-          <Button
-            variant="outlined"
-            type="button"
-            startIcon={<DeleteForeverRoundedIcon />}
-            onClick={() => deletePostClicked(comment.commentId)}
-          >
-            DELETE
-          </Button>
+          <IconButton onClick={() => deletePostClicked(comment.commentId)} type="button">
+            <DeleteForeverRoundedIcon sx={{ color: red[500] }} />
+          </IconButton>
         ) : undefined}
       </div>
     </div>
