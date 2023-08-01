@@ -24,7 +24,6 @@ export default function Comment() {
       setComments(data);
     }
   }, [data]);
-
   const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (userId)
       if (event.key === 'Enter') {
