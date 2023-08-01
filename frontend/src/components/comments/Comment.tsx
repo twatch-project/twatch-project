@@ -63,7 +63,7 @@ export default function Comment() {
       <div className="flex flex-col justify-center items-center gap-y-3">
         <div className="flex items-center justify-between w-[835px] h-[100px] p-5 border rounded-md">
           <div className="flex items-center w-4/5 gap-x-[10px] ">
-            <Avatar>{ }</Avatar>
+            <Avatar></Avatar>
             <input
               onKeyDown={handleKeyDown}
               onChange={(e) => setNewComment(e.target.value)}
