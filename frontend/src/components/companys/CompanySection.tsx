@@ -25,7 +25,7 @@ export default function CompanySetion() {
 
   return (
     <>
-      <section className="flex items-center justify-center min-h-[80vh]  mx-auto mt-20">
+      <section className="flex items-center justify-center min-h-[50vh]  mx-auto my-24">
         <div className="HeroSection h-full lg:flex w-11/12 md:4/5 lg:w-3/5 p-2 gap-5">
           <ImageGallery images={data.imageContentUrls} />
           <div className="companyName w-11/12 md:w-4/5 lg:w-1/2 h-full flex justify-between flex-col m-5 px-5 border rounded-xl">
@@ -81,14 +81,14 @@ export default function CompanySetion() {
           </div>
         </div>
       </section>
-      <section className="flex justify-center min-h-[60vh]">
+      <section className="flex justify-center h-full">
         <div className="profile flex-col justify-center w-4/5">
           <div className="head flex justify-between item-center w-full">
             <div className="box-left flex gap-x-3 items-center">
-              <h1 className="font-bold text-[18px] py-[5px] m-5">PORTFOLIO</h1>
+              <h1 className="font-bold text-[18px] p-1 m-5">PORTFOLIO</h1>
               <button
                 type="button"
-                className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-6 py-3 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="text-blue bg-transparent border border-solid border-blue hover:bg-blue hover:text-white active:bg-blue font-bold uppercase text-sm px-3 py-2 rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               >
                 Filter
               </button>
@@ -106,7 +106,6 @@ export default function CompanySetion() {
               </Link>
             ) : undefined}
           </div>
-          <div className="flex justify-center contant-center gap-5 mx-5 my-10 drop-shadow-md hover:drop-shadow-lg"></div>
         </div>
       </section>
     </>
