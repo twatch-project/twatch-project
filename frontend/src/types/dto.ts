@@ -37,7 +37,7 @@ export interface CompanyCardDto {
 }
 
 export interface PortfolioDto {
-  portId: number;
+  portId: string;
   title: string;
   body: string;
   imageContents: string[];
