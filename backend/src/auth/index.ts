@@ -12,4 +12,5 @@ export interface Payload {
   username: string;
   role: UserRole;
   companyId: number | undefined
+  customerId: number | undefined
 }

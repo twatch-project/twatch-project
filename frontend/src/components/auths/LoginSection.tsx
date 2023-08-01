@@ -34,7 +34,24 @@ const LoginSection = () => {
         return;
       }
 
-      navigate('/company/create');
+      const checkCustomer = await localStorage.getItem('customerId');
+
+      if (checkCustomer) {
+        navigate('/');
+        return;
+      }
+
+      const role = await localStorage.getItem('role');
+
+      if (role === 'COMPANY') {
+        navigate('/company/create');
+        return;
+      }
+
+      if (role === 'CUSTOMER') {
+        navigate('/customer/create');
+        return;
+      }
     } catch (err) {
       console.error(err);
       toast.error('Unsuccessful Login');

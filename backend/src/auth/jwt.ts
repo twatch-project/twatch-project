@@ -59,6 +59,7 @@ class HandlerMiddleware implements IHandlerMiddleware {
       const username = decoded["username"];
       const role = decoded["role"];
       const companyId = decoded["companyId"];
+      const customerId = decoded["customerId"];
 
       req.token = token;
       req.payload = {
@@ -66,6 +67,7 @@ class HandlerMiddleware implements IHandlerMiddleware {
         username: username,
         role: role,
         companyId: companyId,
+        customerId: customerId
       };
 
       return next();

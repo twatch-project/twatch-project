@@ -19,8 +19,6 @@ export default function CompanySetion() {
   const userData = data?.userId;
   const { userEmail, userId } = useAuth();
 
-  console.log(userData, userId);
-
   if (!data || loading || !ready) return <Loading />;
 
   return (
