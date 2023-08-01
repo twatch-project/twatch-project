@@ -24,13 +24,11 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./backend
-          file: ./backend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/twatchcicd:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/carftcon-backend:latest
       - name: Build and push Frontend
         uses: docker/build-push-action@v4
         with:
           context: ./frontend
-          file: ./frontend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/twatchcicd:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/carftcon-frondend:latest

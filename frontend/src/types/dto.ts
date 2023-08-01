@@ -48,9 +48,10 @@ export interface PortfolioDto {
   district: string;
   province: string;
   postCode: number;
+  contact: string;
   createAt: Date;
   updateAt: Date;
-  contact: string;
+
   companyId: string;
   rating: number;
 }
