@@ -5,5 +5,5 @@ export interface _DateState<T> {
     ready: boolean;
   };
   data: T | null;
-  rating?: number | null;
+  rating?: any;
 }

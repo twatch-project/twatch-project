@@ -5,13 +5,7 @@ import { BottomNavigation, BottomNavigationAction, Box, Button, Stack } from '@m
 
 export default function Nav() {
   const { isLoggedIn, logout } = useAuth();
-  const [showMenu, setShowMenu] = useState(false);
-
-  const [value, setValue] = useState(0);
-
-  const handlerClick = () => {
-    setShowMenu(!showMenu);
-  };
+  const [value, setValue] = useState<number>(0);
 
   return (
     <>
