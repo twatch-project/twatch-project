@@ -8,9 +8,8 @@
     "build": "npx tsc",     
     "prisma": "npx prisma generate --schema ./prisma/schema.prisma",     
     "migrate": "npx prisma migrate dev --schema ./prisma/schema.prisma",     
-    "seed": "ts-node prisma/seed.ts",     
     "start:prod": "node dist/index.js",     
-    "start:migrate:prod": "prisma migrate deploy && node ./dist/prisma/seed.js prisma/seed.ts && npm run start:prod"
+    "start:migrate:prod": "prisma migrate deploy && npm run start:prod"
   },
   "keywords": [],
   "author": "",

@@ -12,7 +12,6 @@ COPY . .
 
 RUN npm i -g pnpm
 RUN pnpm i
-RUN npx prisma generate
 RUN npx tsc
 
 CMD ["npm", "run", "start:migrate:prod"]
