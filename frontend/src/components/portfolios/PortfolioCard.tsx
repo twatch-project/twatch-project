@@ -35,15 +35,15 @@ const PortfolioCard = ({ portId, title, body, imageContentUrls, tag }: Portfolio
               <div className="flex items-center">
                 {tag.length <= 2
                   ? tag.map((tag) => (
-                    <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
-                      {tag}
-                    </span>
-                  ))
+                      <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
+                        {tag}
+                      </span>
+                    ))
                   : tag.slice(0, 2).map((tag) => (
-                    <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
-                      {tag}
-                    </span>
-                  ))}
+                      <span className=" m-1 bg-[#eee] rounded-md text-[10px] p-1" key={portId}>
+                        {tag}
+                      </span>
+                    ))}
               </div>
             </div>
           </div>
