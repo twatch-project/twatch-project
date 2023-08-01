@@ -30,17 +30,14 @@ const LoginSection = () => {
       toast.success('Successful Login');
 
       const checkCompany = await localStorage.getItem('companyId');
-      console.log(checkCompany);
 
       if (checkCompany !== 'undefined') {
-        console.log({ checkCompany });
         navigate('/');
         return;
       }
 
       const checkCustomer = await localStorage.getItem('customerId');
       if (checkCustomer !== 'undefined') {
-        console.log({ checkCustomer });
         navigate('/');
         return;
       }

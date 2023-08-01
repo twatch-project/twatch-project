@@ -20,7 +20,7 @@ export default function CompanySetion() {
   const userData = data?.userId;
   const { userEmail, userId } = useAuth();
 
-  if (!data || loading || !ready) return <Loading />;
+  if (!data || loading || ready) return <Loading />;
 
   return (
     <>
