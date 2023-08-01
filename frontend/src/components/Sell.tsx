@@ -33,8 +33,11 @@ export default function Sell() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <h3 className="font-bold">Reviews</h3>
-                <p className="p-2">reviews. Check the approved and reviewed tasks</p>
+                <h3 className="font-bold">Showcase of Expertise</h3>
+                <p className="p-2">
+                  we proudly display successful projects spanning various sectors. From commercial buildings to
+                  residential masterpieces
+                </p>
               </div>
             </div>
             <div className="flex flex-col  w-[380px]  text-center box1">
