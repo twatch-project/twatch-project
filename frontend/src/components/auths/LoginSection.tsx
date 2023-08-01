@@ -54,16 +54,18 @@ const LoginSection = () => {
 
   return (
     <>
-      <section className="flex items-center justify-center min-h-[100vh]">
+      <section className="flex items-center justify-center min-h-[90vh]">
         <div className="flex justify-center item-center ">
           <form
             onSubmit={handleSubmit}
             className="flex w-3/4 sm:w-auto bg-white justify-center item-center flex-col m-auto rounded-md p-10 shadow-md hover:shadow-lg gap-y-[30px] border-[0.5px]"
           >
-            <h1 className="text-3xl font-bold py-5">
-              Welcome to <span className="text-blue">Twatch.</span>
-            </h1>
-            <div className="text-center font-bold text-2xl">LOGIN</div>
+            <div className="flex flex-col gap-1">
+              <h1 className="text-3xl font-bold py-5">
+                Welcome to <span className="text-blue">Craftcon.</span>
+              </h1>
+              <div className="text-center font-bold text-2xl">LOGIN</div>
+            </div>
             <div className="w-full">
               <TextField
                 id="outlined-basic"
@@ -99,17 +101,17 @@ const LoginSection = () => {
                 />
               </FormControl>
             </div>
-            <div className="flex justify-center py-5">
+            <div className="flex flex-col justify-center py-5 gap-2">
               <button
-                className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110"
+                className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110 self-center"
                 disabled={isSubmitting}
               >
                 Login
               </button>
+              <Link to="/register" className="text-blue text-center">
+                Dont have an accout? Register
+              </Link>
             </div>
-            <Link to="/register" className="text-blue text-center">
-              Dont have an accout? Register
-            </Link>
           </form>
         </div>
       </section>
