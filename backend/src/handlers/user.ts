@@ -75,7 +75,7 @@ class HandlerUser implements IHandlerUser {
 
       return res
         .status(200)
-        .json({ user, company: req.payload.companyId, status: "ok" })
+        .json({ user, company: req.payload.companyId, customer: req.payload.customerId, status: "ok" })
         .end();
     } catch (err) {
       console.error(err);
@@ -107,12 +107,14 @@ class HandlerUser implements IHandlerUser {
       }
 
       const company = await this.repo.getCompanyIdByUser(user.userId);
+      const customer = await this.repo.getCustomerIdByUser(user.userId)
 
       const payload: Payload = {
         id: user.userId,
         username: user.username,
         role: user.role,
         companyId: company?.companyId,
+        customerId: customer?.customerId
       };
       const token = newJwt(payload);
       return res
@@ -124,6 +126,7 @@ class HandlerUser implements IHandlerUser {
           role: user.role,
           email: user.email,
           companyId: company?.companyId,
+          customerId: customer?.customerId,
           registeredAt: user.registeredAt,
           accessToken: token,
         })

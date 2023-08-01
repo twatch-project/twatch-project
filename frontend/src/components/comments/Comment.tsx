@@ -38,7 +38,7 @@ export default function Comment() {
             body: JSON.stringify({ message: newComment, rating: newRating }),
           });
         } catch (err: any) {
-          console.log(err.message);
+          console.error(err.message);
         }
 
         setNewComment('');

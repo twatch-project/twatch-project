@@ -72,10 +72,12 @@ const AuthProvider = (props: AuthProviderProps) => {
       localStorage.setItem('token', data.accessToken);
       const accessToken = localStorage.getItem('token') || 'foo';
 
-      const { user, company } = await retrieveUserData(accessToken);
+      const { user, company, customer } = await retrieveUserData(accessToken);
 
       localStorage.setItem('companyId', company);
       localStorage.setItem('userId', user.userId);
+      localStorage.setItem('customerId', customer);
+      localStorage.setItem('role', user.role);
       setUserEmail(user.email);
       setIsLoggedIn(true);
       setUserInfo(() => {
@@ -83,6 +85,8 @@ const AuthProvider = (props: AuthProviderProps) => {
           userId: user.userId,
           token: accessToken,
           companyId: company,
+          customerId: customer,
+          role: user.role,
         };
         return update;
       });
@@ -93,7 +97,6 @@ const AuthProvider = (props: AuthProviderProps) => {
 
   const logout: LogoutFunc = async () => {
     const token = localStorage.getItem('token') || 'foo';
-    console.log(token);
     try {
       await axios.get(`${host}/auth/logout`, {
         headers: {
