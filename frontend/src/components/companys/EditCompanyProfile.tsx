@@ -101,17 +101,15 @@ export default function EditCompanyProfile() {
   const handleChangeProvice = (event: SelectChangeEvent) => {
     const selectedProvince = provinces.find((province) => province.name_en === event.target.value);
 
-    useEffect(() => {
-      if (selectedProvince) {
-        setProvince(selectedProvince);
-        const filteredAmphure = amphures.filter((amphure) => amphure.province_id === selectedProvince.id);
-        setAmphureId(filteredAmphure);
-        setTambonId([]);
-      } else {
-        setProvince(null);
-        setAmphureId([]);
-      }
-    }, []);
+    if (selectedProvince) {
+      setProvince(selectedProvince);
+      const filteredAmphure = amphures.filter((amphure) => amphure.province_id === selectedProvince.id);
+      setAmphureId(filteredAmphure);
+      setTambonId([]);
+    } else {
+      setProvince(null);
+      setAmphureId([]);
+    }
   };
 
   const handleChangeAmphure = (event: SelectChangeEvent) => {
@@ -278,7 +276,7 @@ export default function EditCompanyProfile() {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                defaultValue={province ? province.name_en : ''}
+                value={province ? province.name_en : ''}
                 onChange={handleChangeProvice}
                 autoWidth
                 label="PROVINCE"

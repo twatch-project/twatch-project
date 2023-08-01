@@ -239,7 +239,7 @@ const EditPortfolioSection = () => {
             <Select
               labelId="demo-simple-select-autowidth-label"
               id="demo-simple-select-autowidth"
-              defaultValue={province ? province.name_en : ''}
+              value={province ? province.name_en : ''}
               onChange={handleChangeProvice}
               autoWidth
               label="PROVINCE"
