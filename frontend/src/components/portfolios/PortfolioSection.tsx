@@ -25,14 +25,9 @@ const PortfolioSection = () => {
   const pageCompanyId = data?.companyId;
   const { companyId } = useAuth();
 
-<<<<<<< HEAD
-  if (loading || !ready || !data || !rating) return <Loading />;
+  if (loading || !ready || !data) return <Loading />;
 
   const { title, body, imageContentUrls, tag, address, sub_district, district, province, postCode, contact } = data!;
-=======
-  if (loading || !ready || !data) return <Loading />;
-  const { title, body, imageContentUrls, tag, address, sub_district, district, province, postCode } = data;
->>>>>>> main
 
   return (
     <>
