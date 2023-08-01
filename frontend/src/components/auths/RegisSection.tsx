@@ -131,7 +131,7 @@ const Register = () => {
                 className="btn border self-center hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110"
                 disabled={isSubmitting}
               >
-                SignUp
+                Sign Up
               </button>
               <Link to="/signin" className="text-blue text-center">
                 Already have an account? Login

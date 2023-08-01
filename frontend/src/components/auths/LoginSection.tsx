@@ -106,7 +106,7 @@ const LoginSection = () => {
                 className="btn border hover:text-blue hover:bg-white hover:border-blue transition ease-in-out delay-100 hover:scale-110 self-center"
                 disabled={isSubmitting}
               >
-                Login
+                Sign In
               </button>
               <Link to="/register" className="text-blue text-center">
                 Dont have an accout? Register
