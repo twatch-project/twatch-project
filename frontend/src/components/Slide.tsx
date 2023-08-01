@@ -17,7 +17,7 @@ const PictureSlide = ({ images, slideInterval }: PictureSlideProps) => {
   }, [images.length, slideInterval]);
 
   return (
-    <div className="picture-slide-container  overflow-hidden w-full max-w-[500px] my-0 mx-auto h-[380px]">
+    <div className="picture-slide-container  overflow-hidden w-full max-w-[500px] my-0 mx-auto h-[580px]">
       <div
         className="picture-slide flex transition-transform duration-[1s] delay-700 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
