@@ -19,7 +19,6 @@ const PortfolioSection = () => {
   const {
     status: { loading, ready },
     data,
-    rating,
   } = usePortfolio(portId || '');
 
   const pageCompanyId = data?.companyId;
