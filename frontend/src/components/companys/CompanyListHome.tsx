@@ -4,7 +4,7 @@ import Loading from '../Loading';
 import CompanyCard from './CompanyCard';
 import ReactPaginate from 'react-paginate';
 
-const CompanyList = () => {
+const CompanyListHome = () => {
   const {
     status: { loading, ready },
     data,
@@ -47,4 +47,4 @@ const CompanyList = () => {
   );
 };
 
-export default CompanyList;
+export default CompanyListHome;

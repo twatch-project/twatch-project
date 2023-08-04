@@ -3,7 +3,7 @@ import Sell from '../components/Sell';
 // import Blog from '../components/Blog';
 import Article from '../components/Article';
 import Footer from '../components/Footer';
-import CompanyList from '../components/companys/CompanyList';
+import CompanyListHome from '../components/companys/CompanyListHome';
 
 const Home = () => {
   return (
@@ -11,7 +11,7 @@ const Home = () => {
       <HeroSection />
       <Sell />
       {/* <Blog /> */}
-      <CompanyList />
+      <CompanyListHome />
       <Article />
       <Footer />
     </>
